@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\templates"
   ],
-  "SelectedNode": "\\templates",
+  "SelectedNode": "\\templates\\template_footer.html",
   "PreviewInSolutionExplorer": false
 }
