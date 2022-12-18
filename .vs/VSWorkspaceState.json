@@ -1,8 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\templates"
+    "\\src",
+    "\\src\\images",
+    "\\src\\images\\presentations"
   ],
-  "SelectedNode": "\\templates\\template_footer.html",
+  "SelectedNode": "\\src\\images\\presentations\\going-schemaless.jpg",
   "PreviewInSolutionExplorer": false
 }
