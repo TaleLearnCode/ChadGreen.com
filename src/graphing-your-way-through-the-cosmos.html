@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Chad Green - Graphing Your Way Through the Cosmos</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <meta content="Data is naturally connected, but modeling focuses on entities causing complicated joins; graph databases model common data problems better." name="description" />
+  <meta content="Azure, Cosmos DB, Cloud, Data, Database, Graph Data, Microsoft, TinkerPop" name="keywords" />
+  <meta content="Chad Green" name="author" />
+  <!--[if lt IE 9]>
+        <script src="js/html5shiv.js"></script>
+    <![endif]-->
+<!-- CSS Files
+================================================== -->
+<link id="bootstrap" href="./css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link id="bootstrap-grid" href="./css/bootstrap-grid.min.css" rel="stylesheet" type="text/css" />
+<link id="bootstrap-reboot" href="./css/bootstrap-reboot.min.css" rel="stylesheet" type="text/css" />
+<link href="./css/animate.css" rel="stylesheet" type="text/css" />
+<link href="./css/owl.carousel.css" rel="stylesheet" type="text/css" />
+<link href="./css/owl.theme.css" rel="stylesheet" type="text/css" />
+<link href="./css/owl.transitions.css" rel="stylesheet" type="text/css" />
+<link href="./css/magnific-popup.css" rel="stylesheet" type="text/css" />
+<link href="./css/jquery.countdown.css" rel="stylesheet" type="text/css" />
+<link href="./css/style.css" rel="stylesheet" type="text/css" />
+<!-- color scheme -->
+<link id="colors" href="./css/colors/scheme-01.css" rel="stylesheet" type="text/css" />
+<link href="./css/coloring.css" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+  <div id="wrapper">
+    <div id="topbar" class="topbar-noborder topbar-dark">
+  <div class="container">
+    <div class="topbar-left sm-hide">
+      <span class="topbar-widget tb-social">
+        <a href="https://www.facebook.com/chadwickgreen"><i class="fa fa-facebook"></i></a>
+        <a href="https://twitter.com/chadgreen"><i class="fa fa-twitter"></i></a>
+        <a href="https://www.instagram.com/brickswithchad"><i class="fa fa-instagram"></i></a>
+      </span>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</div>
+
+    <header class="transparent scroll-light">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="de-flex sm-pt10">
+          <div class="de-flex-col">
+            <!-- logo begin -->
+            <div id="logo">
+              <a href="index.html">
+                <img alt="" class="logo" src="images/logo-light.png" />
+                <img alt="" class="logo-2" src="images/logo.png" />
+              </a>
+            </div>
+            <!-- logo close -->
+          </div>
+          <div class="de-flex-col header-col-mid">
+            <!-- mainmenu begin -->
+            <ul id="mainmenu">
+              <li><a href="/">Home</a></li>
+              <li><a href="speaking-engagements">Speaking Engagements</a></li>
+              <li><a href="presentations">Presentations</a></li>
+              <li><a href="meetups">Meetups</a></li>
+              <li><a href="blog">Blog</a></li>
+              <li><a href="about">About</a></li>
+              <li><a href="contact">Contact</a></li>
+            </ul>
+            <!-- mainmenu close -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+    <!-- content begin -->
+    <div class="no-bottom no-top" id="content">
+      <div id="top"></div>
+      <section id="section-home" aria-label="section" class="text-light" data-bgimage="url(images/presentations/building-event-driven-microservices-bg.jpg)" data-stellar-background-ratio=".2" data>
+        <div class="container">
+          <div class="row align-items-center">
+            <div class="col-lg-12 text-center">
+              <h1 class="mt30 wow fadeInUp" data-wow-delay=".6s">Graphing Your Way Through the Cosmos</h1>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section aria-label="section">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-9">
+              <div class="row p-single">
+                <div class="col-md-6">
+                  <img src="images/presentations/graphing-your-way-through-the-cosmos.jpg" class="img-fluid" alt="">
+                  <div class="mb-sm-30"></div>
+                </div>
+                <div class="col-md-6">
+                  <div class="p-desc">
+                    <h3>Graphing Your Way Through the Cosmos</h3>
+                    <div class="price">45-75 minute session<br><a href="https://github.com/TaleLearnCode/GraphingYourWayThroughTheCosmos" target="_blank"><i class="id-color fa fa-github fa-lg"></i> Repo</a></div>
+                    Data is naturally connected, but data modeling focuses on entities which cause complicated joins; this is where graph databases come in as they store data more naturally. See how to use Azure Cosmos DB Gremlin API to traverse such data structures and see practical examples to common data problems.
+                  </div>
+                </div>
+
+                <div class="spacer-double"></div>
+
+                <div class="col-md-12">
+                  <div class="tab-default">
+                    <nav>
+                      <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Abstract</a>
+                        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Learning Objectives</a>
+                        <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Events</a>
+                      </div>
+                    </nav>
+                    <div class="sm-spacer-double"></div>
+                    <div class="tab-content" id="nav-tabContent">
+                      <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <p>Data as it appears in the real world is naturally connected, but traditional data modeling focuses on entities which can cause for complicated joins of these naturally connected data. That is where graph databases come in as they store data more like what happens naturally in the real world. Sure, there a lot of talk about using graph databases for social networks, recommendation engines, and Internet of Things; but using graph databases can also make a lot of sense when working with common business data problems. In this presentation, you will get a better understanding of what graph databases are, how to use the Gremlin API within Azure Cosmos DB to traverse such data structures and see practical examples to common data problems.</p>
+                      </div>
+                      <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                                <ul class="ul-style-2">
+                        <li>Understand the basics of graph databases</li>
+                        <li>See real world examples of graph databases with common business data problems</li>
+                        <li>Understand best practices in building graphing data solutions</li>
+                        </ul>
+
+                      </div>
+                      <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                        <ul class="products row">                          <li class="col-xl-4 col-lg-4 col-md-6 product">
+                            <div class="p-inner">
+                              <div class="p-images">
+                                <a href="granite-state-code-camp-2020.html">
+                                  <img src="images/conferences/granite-state-code-camp-2020.png" class="pi-1 img-responsive" alt="Granite State Code Camp">
+                                </a>
+                              </div>
+                              <a href="granite-state-code-camp-2020.html">
+                                <h4 class="text-center">Granite State Code Camp</h4>
+                              </a>
+                              <div><i class="id-color fa fa-map-marker fa-lg"></i> Manchester, NH (Online)</div>
+                              <div><i class="id-color fa fa-calendar fa-lg"></i> November 14</div>
+                              <div><i class="id-color fa fa-file-pdf-o fa-lg"></i> Availalbe Afterwards</div>
+                            </div>
+                          </li>
+                          <li class="col-xl-4 col-lg-4 col-md-6 product">
+                            <div class="p-inner">
+                              <div class="p-images">
+                                <a href="ndc-sydney-2020.html">
+                                  <img src="images/conferences/ndc-sydney-2020.png" class="pi-1 img-responsive" alt="NDC Sydney">
+                                </a>
+                              </div>
+                              <a href="ndc-sydney-2020.html">
+                                <h4 class="text-center">NDC Sydney</h4>
+                              </a>
+                              <div><i class="id-color fa fa-map-marker fa-lg"></i> Sydney, Australia (Online)</div>
+                              <div><i class="id-color fa fa-calendar fa-lg"></i> October 12 - 16</div>
+                              <div><i class="id-color fa fa-file-pdf-o fa-lg"></i> Availalbe Afterwards</div>
+                            </div>
+                          </li>
+                          <li class="col-xl-4 col-lg-4 col-md-6 product">
+                            <div class="p-inner">
+                              <div class="p-images">
+                                <a href="codestock-2020.html">
+                                  <img src="images/conferences/codestock-2020.png" class="pi-1 img-responsive" alt="CodeStock">
+                                </a>
+                              </div>
+                              <a href="codestock-2020.html">
+                                <h4 class="text-center">CodeStock</h4>
+                              </a>
+                              <div><i class="id-color fa fa-map-marker fa-lg"></i> Knoxville, TN</div>
+                              <div><i class="id-color fa fa-calendar fa-lg"></i> April 17 - 18</div>
+                            </div>
+                          </li>
+                          <li class="col-xl-4 col-lg-4 col-md-6 product">
+                            <div class="p-inner">
+                              <div class="p-images">
+                                <a href="ignite-the-tour-chicaco-2020.html">
+                                  <img src="images/conferences/ignite-the-tour-chicaco-2020.png" class="pi-1 img-responsive" alt="Microsoft Ignite the Tour Chicago">
+                                </a>
+                              </div>
+                              <a href="ignite-the-tour-chicaco-2020.html">
+                                <h4 class="text-center">Microsoft Ignite the Tour Chicago</h4>
+                              </a>
+                              <div><i class="id-color fa fa-map-marker fa-lg"></i> Chicago, IL</div>
+                              <div><i class="id-color fa fa-calendar fa-lg"></i> April 15 - 16</div>
+                            </div>
+                          </li>
+                          <li class="col-xl-4 col-lg-4 col-md-6 product">
+                            <div class="p-inner">
+                              <div class="p-images">
+                                <a href="orlando-code-camp-2020.html">
+                                  <img src="images/conferences/orlando-code-camp-2020.png" class="pi-1 img-responsive" alt="Orlando Code Camp & Technical Conference">
+                                </a>
+                              </div>
+                              <a href="orlando-code-camp-2020.html">
+                                <h4 class="text-center">Orlando Code Camp & Technical Conference</h4>
+                              </a>
+                              <div><i class="id-color fa fa-map-marker fa-lg"></i> Orlando, FL</div>
+                              <div><i class="id-color fa fa-calendar fa-lg"></i> March 28</div>
+                            </div>
+                          </li>
+                          <li class="col-xl-4 col-lg-4 col-md-6 product">
+                            <div class="p-inner">
+                              <div class="p-images">
+                                <a href="south-florida-developers-conference-2020.html">
+                                  <img src="images/conferences/south-florida-developers-conference-2020.png" class="pi-1 img-responsive" alt="South Florida Developers Conference">
+                                </a>
+                              </div>
+                              <a href="south-florida-developers-conference-2020.html">
+                                <h4 class="text-center">South Florida Developers Conference</h4>
+                              </a>
+                              <div><i class="id-color fa fa-map-marker fa-lg"></i> Davie, FL</div>
+                              <div><i class="id-color fa fa-calendar fa-lg"></i> February 29</div>
+                              <div><i class="id-color fa fa-file-pdf-o fa-lg"></i> <a href="https://chadgreen.blob.core.windows.net/slides/Graphing%20Your%20Way%20Through%20the%20Cosmos%20-%20SFSDC.pdf" target="_top">Slides</a></div>
+                            </div>
+                          </li>
+                          <li class="col-xl-4 col-lg-4 col-md-6 product">
+                            <div class="p-inner">
+                              <div class="p-images">
+                                <a href="ignitet-the-tour-government-2020.html">
+                                  <img src="images/conferences/ignitet-the-tour-government-2020.png" class="pi-1 img-responsive" alt="Microsoft Ignite the Tour Government">
+                                </a>
+                              </div>
+                              <a href="ignitet-the-tour-government-2020.html">
+                                <h4 class="text-center">Microsoft Ignite the Tour Government</h4>
+                              </a>
+                              <div><i class="id-color fa fa-map-marker fa-lg"></i> Washington, DC</div>
+                              <div><i class="id-color fa fa-calendar fa-lg"></i> February 6 - 7</div>
+                              <div><i class="id-color fa fa-file-pdf-o fa-lg"></i> <a href="https://chadgreen.blob.core.windows.net/slides/The%20Hitchhicker%27s%20Guide%20to%20the%20Cosmos%20-%20Ignite%20Government.pptx" target="_top">Slides</a></div>
+                            </div>
+                          </li>
+                          <li class="col-xl-4 col-lg-4 col-md-6 product">
+                            <div class="p-inner">
+                              <div class="p-images">
+                                <a href="codemash-2020.html">
+                                  <img src="images/conferences/codemash-2020.png" class="pi-1 img-responsive" alt="CodeMash v2.0.2.0.">
+                                </a>
+                              </div>
+                              <a href="codemash-2020.html">
+                                <h4 class="text-center">CodeMash v2.0.2.0.</h4>
+                              </a>
+                              <div><i class="id-color fa fa-map-marker fa-lg"></i> Sandusky, OH</div>
+                              <div><i class="id-color fa fa-calendar fa-lg"></i> January 8 - 11</div>
+                              <div><i class="id-color fa fa-file-pdf-o fa-lg"></i> <a href="https://chadgreen.blob.core.windows.net/slides/Graphing%20Your%20Way%20Through%20the%20Cosmos%20-%20CodeMash%202020.pdf" target="_top">Slides</a></div>
+                            </div>
+                          </li>
+                          <li class="col-xl-4 col-lg-4 col-md-6 product">
+                            <div class="p-inner">
+                              <div class="p-images">
+                                <a href="tashbash-2019.html">
+                                  <img src="images/conferences/tashbash-2019.png" class="pi-1 img-responsive" alt="TechBash">
+                                </a>
+                              </div>
+                              <a href="tashbash-2019.html">
+                                <h4 class="text-center">TechBash</h4>
+                              </a>
+                              <div><i class="id-color fa fa-map-marker fa-lg"></i> Pocono Manor, PA</div>
+                              <div><i class="id-color fa fa-calendar fa-lg"></i> November 12 - 15</div>
+                              <div><i class="id-color fa fa-file-pdf-o fa-lg"></i> <a href="https://chadgreen.blob.core.windows.net/slides/Graphing%20Your%20Way%20Through%20the%20Cosmos%20-%20TechBash.pdf" target="_top">Slides</a></div>
+                            </div>
+                          </li>
+                          <li class="col-xl-4 col-lg-4 col-md-6 product">
+                            <div class="p-inner">
+                              <div class="p-images">
+                                <a href="dogfoodcon-2019.html">
+                                  <img src="images/conferences/dogfoodcon-2019.png" class="pi-1 img-responsive" alt="DogFoodCon">
+                                </a>
+                              </div>
+                              <a href="dogfoodcon-2019.html">
+                                <h4 class="text-center">DogFoodCon</h4>
+                              </a>
+                              <div><i class="id-color fa fa-map-marker fa-lg"></i> Columbus, OH</div>
+                              <div><i class="id-color fa fa-calendar fa-lg"></i> October 3 - 4</div>
+                              <div><i class="id-color fa fa-file-pdf-o fa-lg"></i> <a href="https://chadgreen.blob.core.windows.net/slides/Graphing%20Your%20Way%20Through%20the%20Cosmos%20-%20DogFoodCon.pdf" target="_top">Slides</a></div>
+                            </div>
+                          </li>
+                        </ul>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="sidebar" class="col-md-3">
+              <div class="widget widget_search">
+                <input type='text' name='search' id='search' class="form-control" placeholder="search presentations">
+                <button id="btn-search" type='submit'></button>
+                <div class="clearfix"></div>
+              </div>
+              <div class="widget widget_top_rated_product">
+                <h4>Related Presentations</h4>
+                No related presentations
+              </div>
+              <h4>Tags</h4>
+              <ul>              </ul>
+                <li><a href="#">Azure</a></li>
+                <li><a href="#">Cosmos DB</a></li>
+                <li><a href="#">Cloud</a></li>
+                <li><a href="#">Data</a></li>
+                <li><a href="#">Database</a></li>
+                <li><a href="#">Graph Data</a></li>
+                <li><a href="#">Microsoft</a></li>
+                <li><a href="#">TinkerPop</a></li>
+
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="section-events" aria-label="section" class="no-padding bg-color">
+        <div class="container-fluid">
+          <div class="row no-gutters align-items-center">
+            <div class="col-lg-3 text-center text-light">
+              <h3 class="padding40 no-margin">Upcoming Events</h3>
+            </div>
+            <div class="col-lg-9">
+              <div id="training-carousel" class="owl-carousel owl-theme">
+                <div class="item">
+                  <div class="mask s2">
+                    <div class="m-date">19-24 <span>Mar</span></div>
+                    <div class="cover">
+                      <div class="c-inner">
+                        <h3><i class="fa fa-circle-thin"></i><span>VSLive! Las Vegas</span></h3>
+                        <p>Expert solutions for enterprise developers.</p>
+                        <div class="spacer20"></div>
+                        <a href="vslive-las-vegas-2023.html" class="btn-custom capsule">Event Details</a>
+                      </div>
+                    </div>
+                    <img src="images/conferences/vslive-las-vegas-2023.png" alt="" class="img-responsive" />
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="mask s2">
+                    <div class="m-date">19-21 <span>Apr</span></div>
+                    <div class="cover">
+                      <div class="c-inner">
+                        <h3><i class="fa fa-circle-thin"></i><span>InflectraCON</span></h3>
+                        <p>Multi-track, multi-day conference that fosters enthusiasm for our software.</p>
+                        <div class="spacer20"></div>
+                        <a href="inflectracon-2023.html" class="btn-custom capsule">Event Details</a>
+                      </div>
+                    </div>
+                    <img src="images/conferences/inflectracon-2023.png" alt="" class="img-responsive" />
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="mask s2">
+                    <div class="m-date">24-27 <span>Apr</span></div>
+                    <div class="cover">
+                      <div class="c-inner">
+                        <h3><i class="fa fa-circle-thin"></i><span>Serverless Architecture Conference</span></h3>
+                        <p>Mastering Cloud Native Architectures, the Kubernetes Ecosystem and Functions</p>
+                        <div class="spacer20"></div>
+                        <a href="serverless-architecture-conference-london-2023.html" class="btn-custom capsule">Event Details</a>
+                      </div>
+                    </div>
+                    <img src="images/conferences/serverless-architecture-conference-london-2023.png" alt="" class="img-responsive" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+    <!-- content close -->
+    <a href="#" id="back-to-top"></a>
+    <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="widget">
+          <a href="index.html"><img alt="" class="img-fluid mb20" src="images/logo-light.png"></a>
+          <address class="s1">
+            <span><i class="id-color fa fa-map-marker fa-lg"></i>Louisville, KY</span>
+            <span><i class="id-color fa fa-envelope-o fa-lg"></i><a href="mailto:chadgreen@chadgreen.com">chadgreen@chadgreen.com</a></span>
+            <span><i class="id-color fa fa-file-pdf-o fa-lg"></i><a href="#">Download Brochure</a></span>
+          </address>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <h5 class="id-color mb20">Upcoming Speaking Engagements</h5>
+                    <ul class="ul-style-2">
+              <li><a href="vslive-las-vegas-2023.html">VSLive! Las Vegas</a></li>
+              <li><a href="inflectracon-2023.html">InflectraCON</a></li>
+              <li><a href="serverless-architecture-conference-london-2023.html">Serverless Architecture Conference</a></li>
+            </ul>
+
+      </div>
+      <div class="col-lg-4">
+        <h5 class="id-color mb20">Upcoming Meetups</h5>
+        <p>No upcoming meetups</p>
+
+      </div>
+    </div>
+  </div>
+  <div class="subfooter">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="de-flex">
+            <div class="de-flex-col">
+              &copy; Copyright <template_currentyear></template_currentyear> - Green Events & Technology
+            </div>
+            <div class="de-flex-col">
+              <div class="social-icons">
+                <a href="https://www.facebook.com/chadwickgreen"><i class="fa fa-facebook fa-lg"></i></a>
+                <a href="https://twitter.com/chadgreen"><i class="fa fa-twitter fa-lg"></i></a>
+                <a href="https://www.instagram.com/brickswithchad"><i class="fa fa-instagram fa-lg"></i></a>
+                <a href="https://twitch.com/TaleLearnCode"><i class="fa fa-twitch fa-lg"></i></a>
+                <a href="https://youtube.com/TaleLearnCode"><i class="fa fa-youtube fa-lg"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+    <div id="preloader">
+  <div class="spinner">
+    <div class="bounce1"></div>
+    <div class="bounce2"></div>
+    <div class="bounce3"></div>
+  </div>
+</div>
+
+  </div>
+  <script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/wow.min.js"></script>
+<script src="js/jquery.isotope.min.js"></script>
+<script src="js/easing.js"></script>
+<script src="js/owl.carousel.js"></script>
+<script src="js/validation.js"></script>
+<script src="js/jquery.magnific-popup.min.js"></script>
+<script src="js/enquire.min.js"></script>
+<script src="js/jquery.stellar.min.js"></script>
+<script src="js/jquery.plugin.js"></script>
+<script src="js/typed.js"></script>
+<script src="js/jquery.countTo.js"></script>
+<script src="js/jquery.countdown.js"></script>
+<script src="js/typed.js"></script>
+<script src="js/designesia.js"></script>
+
+</body>
+
+</html>
