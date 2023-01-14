@@ -3,8 +3,8 @@
     "",
     "\\src",
     "\\src\\images",
-    "\\src\\images\\presentations"
+    "\\src\\images\\presentations",
+    "\\templates"
   ],
-  "SelectedNode": "\\src\\images\\presentations\\going-schemaless.jpg",
   "PreviewInSolutionExplorer": false
 }
