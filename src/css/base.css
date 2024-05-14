@@ -1,0 +1,100 @@
+@import url(./fonts.css);
+html {
+  --primary: #9ED35A;
+  --primary-light: #BCE194;
+  --primary-dark: #6BA539;
+  --accent: #DE8C59;
+  --color: #2F322E;
+  --border: #d8dfdf;
+  --background: #f8fbfb;
+  --nav-background: #2F322E;
+  --nav-text: #f8fbfb;
+}
+
+.dark {
+  --background: #2F322E;
+  --color: #f8fbfb;
+  --border: #313737;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body, html {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background: var(--background);
+  color: var(--color);
+  font-family: "open-sans", sans-serif;
+}
+
+body > header .content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+body > header {
+  background: var(--primary);
+  text-align: center;
+}
+
+img {
+  max-width: 100%;
+}
+
+.main-nav ul {
+  list-style-type: none;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5ex 2ch;
+  background: var(--nav-background);
+  color: var(--nav-text);
+}
+.main-nav ul a:link, .main-nav ul a:visited {
+  color: var(--nav-text);
+  text-decoration: none;
+  padding: 1ex 1ch;
+  border-bottom: solid 3px var(--nav-background);
+  display: block;
+}
+.main-nav ul a:hover, .main-nav ul a:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+/** home page **/
+header.home .title {
+  padding: 1rem;
+}
+header.home .title p {
+  font-size: 1.25rem;
+  white-space: balance;
+  line-height: 1.5;
+}
+header.home .title h1 {
+  margin-bottom: 0.5rem;
+}
+
+@media (min-width: 650px) {
+  header.home img {
+    height: 100%;
+    object-fit: cover;
+  }
+  header.home .content {
+    display: grid;
+    grid-template-columns: minmax(0, 50%) minmax(0, 250px);
+    align-items: center;
+    justify-content: center;
+    grid-template-rows: min-content minmax(0, min-content);
+  }
+  header.home h1 {
+    grid-column: 1/3;
+  }
+}
