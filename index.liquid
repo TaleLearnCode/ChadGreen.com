@@ -9,9 +9,27 @@ layout: 'layouts/base.liquid'
       <h1>Chad Green</h1>
       <p>Sr. Software Architect at Jasper Engines | Cloud Tech Leader | Microsoft MVP | Speaker & Innovator | USMC Vet | Lego Builder</p>
     </div>
-    <img src="img/chad-speaking.jpeg">
+    <img src="img/chad-speaking.jpeg" alt="Chad presenting at a conference">
   </div>
 </header>
+
+<main>
+  <section class="upcoming-engagements">
+    <h2>Upcoming Engagements</h2>
+  
+    <ul>
+      {% for engagement in engagements.upcoming %}
+        {%- if forloop.index0 < 3 -%}
+          <li>{% include "components/upcoming-engagement" %}</li>
+        {%- endif -%}
+      {% endfor %}
+    </ul>
+  
+    <div class="more">
+      <a class="button outline" href="./engagements">More Engagements</a>
+    </div>
+  </section>
+</main>
 
 <img src="img/under-construction.gif" alt="Under construction">
 

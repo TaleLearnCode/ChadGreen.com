@@ -1,0 +1,53 @@
+---
+layout: 'layouts/base.liquid'
+permalink: 'engagements.html'
+---
+
+<header>
+  {% include 'components/main-nav.liquid' %}
+  <div class="content">
+    <h1>Engagements</h1>
+  </div>
+</header>
+
+<main>
+  <section class="upcoming-engagements">
+    <h2>Upcoming Engagements</h2>
+    <ul>
+      {% for engagement in engagements.upcoming %}
+        <li>{% include "components/upcoming-engagement" %}</li>
+      {% endfor %}
+    </ul>
+  </section>
+  
+  <section class="past-engagements">
+    <h2>Past Engagements</h2>
+    <section>
+      {% for past in engagements.past %}
+        <h3>{{ past.year }}</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Event</th>
+              <th>Location</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for engagement in past.engagements %}
+              <tr>
+                <td data-header="Date">
+                  <time>{{ engagement.date }}</time>
+                </td>
+                <td data-header="Event">
+                  <a href="./engagements/{{ engagement.slug }}">{{ engagement.title }}</a>
+                </td>
+                <td data-header="Location"><address>{{ engagement.location }}</address></td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% endfor %}
+    </section>
+  </section>
+</main>

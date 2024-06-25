@@ -1,0 +1,11 @@
+{%- if engagement.image.length > 0 -%}
+  <img src="{{ engagement.image }}" alt="{{ engagement.imageAltText }}" loading="lazy">
+{%- else -%}
+  <img src="/img/engagement-default.svg" alt="" loading="lazy">
+{%- endif -%}
+
+<a class="button mobile" href="./engagements/{{ engagement.slug }}" aria-describedby="engagement-{{ engagement.slug }}">Details</a>
+<h3 id="engagement-{{ engagement.slug }}">{{ engagement.title }}</h3>
+<time>{{ engagement.date }}</time>
+<address>{{ engagement.location }}</address>
+<a class="button desktop" href="./engagements/{{ engagement.slug }}" aria-describedby="engagement-{{ engagement.slug }}">Details</a>
