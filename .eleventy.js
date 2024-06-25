@@ -2,6 +2,8 @@ const markdownIt = require("markdown-it");
 const sass = require("sass");
 let mila = require("markdown-it-link-attributes")
 
+const helper = require('./helper')
+
 module.exports = function (eleventyConfig) {
 
   let milaOptions = {
@@ -74,8 +76,11 @@ module.exports = function (eleventyConfig) {
     }
   });
 
-    // Copy over
-    eleventyConfig.addPassthroughCopy("img");
-    eleventyConfig.addPassthroughCopy("scripts");
+  //  Collections
+  eleventyConfig.addCollection('allEngagementsList', () => helper.getEngagementsList())
+
+  // Copy over
+  eleventyConfig.addPassthroughCopy("img");
+  eleventyConfig.addPassthroughCopy("scripts");
 
 };

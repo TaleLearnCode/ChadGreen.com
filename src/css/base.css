@@ -25,6 +25,9 @@ html {
   --links: #82d5ec;
   --links-contrast: #1b1c1a;
 }
+.dark a.button.accent {
+  color: var(--background);
+}
 
 * {
   box-sizing: border-box;
@@ -83,6 +86,10 @@ a:link, a:visited {
   color: var(--links);
 }
 
+a.button, button {
+  font-weight: bold;
+}
+
 a.button {
   background: var(--links);
   color: var(--links-contrast);
@@ -91,6 +98,12 @@ a.button {
   border-radius: 4px;
   display: inline-block;
   text-decoration: none;
+}
+
+a.button.accent {
+  background: var(--primary-light);
+  color: var(--color);
+  border: solid 1px var(--primary-light);
 }
 
 a.button.outline {
@@ -162,59 +175,59 @@ section {
   text-align: right;
 }
 
-.upcoming-engagements ul {
+.engagements ul {
   list-style-type: none;
   padding: 0;
   display: grid;
   gap: 1rem;
 }
-.upcoming-engagements li {
+.engagements li {
   display: flow-root;
   border: solid 2px var(--primary);
   border-radius: 4px;
   padding-bottom: 0.5rem;
 }
-.upcoming-engagements img {
+.engagements img {
   aspect-ratio: 16/3;
   object-fit: cover;
   width: 100%;
   border-radius: 3px 3px 0 0;
   margin-bottom: 0.5rem;
 }
-.upcoming-engagements li a {
+.engagements li a {
   float: right;
 }
-.upcoming-engagements .desktop {
+.engagements .desktop {
   display: none;
 }
-.upcoming-engagements li > *:not(:where(img)) {
+.engagements li > *:not(:where(img)) {
   margin: 0 1rem;
 }
 
 @media (min-width: 650px) {
-  .upcoming-engagements ul {
+  .engagements ul {
     display: flex;
     gap: 0.5rem;
     flex-wrap: wrap;
     justify-content: center;
   }
-  .upcoming-engagements li {
+  .engagements li {
     flex-basis: 12.5rem;
     display: grid;
     gap: 0.5rem;
     grid-template-rows: min-content auto repeat(3, max-content);
     text-align: center;
   }
-  .upcoming-engagements h3 {
+  .engagements h3 {
     align-self: center;
   }
-  .upcoming-engagements img {
+  .engagements img {
     aspect-ratio: 16/9;
   }
-  .upcoming-engagements a.button.desktop {
+  .engagements a.button.desktop {
     display: inline-block;
   }
-  .upcoming-engagements a.button.mobile {
+  .engagements a.button.mobile {
     display: none;
   }
 }

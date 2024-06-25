@@ -14,9 +14,9 @@ layout: 'layouts/base.liquid'
 </header>
 
 <main>
-  <section class="upcoming-engagements">
+  <section class="engagements">
     <h2>Upcoming Engagements</h2>
-  
+
     <ul>
       {% for engagement in engagements.upcoming %}
         {%- if forloop.index0 < 3 -%}
@@ -24,7 +24,7 @@ layout: 'layouts/base.liquid'
         {%- endif -%}
       {% endfor %}
     </ul>
-  
+
     <div class="more">
       <a class="button outline" href="./engagements">More Engagements</a>
     </div>
@@ -32,4 +32,3 @@ layout: 'layouts/base.liquid'
 </main>
 
 <img src="img/under-construction.gif" alt="Under construction">
-

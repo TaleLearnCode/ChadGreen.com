@@ -1,0 +1,66 @@
+---
+pagination:
+  data: collections.allEngagementsList
+  size: 1
+  alias: p
+permalink: '/engagements/{{ p.slug }}.html'
+layout: 'layouts/base.liquid'
+---
+
+<link rel="stylesheet" href="/css/engagement-details.css">
+
+<header>
+  {% include 'components/main-nav.liquid' %}
+  <h1>{{ p.title }}</h1>
+</header>
+
+<main class="engagement-details">
+  <section class="overview">
+    <h2>Event Overview</h2>
+    {%- if p.image.length > 0 -%}
+      <img src="{{ p.image }}" alt="{{ p.imageAltText }}" loading="lazy">
+    {%- else -%}
+      <img src="/img/engagement-default.svg" alt="" loading="lazy">
+    {%- endif -%}
+    <div class="details">
+      <div class="title">{{ p.title }}</div>
+      <time>{{ p.date }}</time>
+      <address>{{ p.location }}</address>
+    </div>
+    <div class="actions">
+      {%- if p.websiteUrl.length > 0 -%}
+        <a class="button accent" href="{{ p.websiteUrl }}">Visit Event Website</a>
+      {%- endif -%}
+      {%- if p.registrationUrl.length > 0 -%}
+        <a class="button accent" href="{{ p.registrationUrl }}">Register for the Website</a>
+      {%- endif -%}
+    </div>
+  </section>
+
+  <section class="details">
+    <h2>Event Details</h2>
+    {{ p.description | markdown }}
+  </section>
+
+  <section class="presentations">
+    <h2>Presentations</h2>
+    <ul>
+      {% for pres in p.presentations %}
+        <li>
+          <img src="{{ pres.image }}" alt="{{ pres.imageAltText }}" loading="lazy">
+          <h3 id="pres-{{pres.slug}}">{{ pres.title }}</h3>
+          <div class="content">
+            {{ pres.description | markdown }}
+          </div>
+          <div class="actions">
+            <a class="button primary" href="/presentations/{{ pres.slug }}" aria-describedby="pres-{{pres.slug}}">
+              More Details
+            </a>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  </section>
+
+
+</main>

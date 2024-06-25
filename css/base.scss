@@ -28,6 +28,8 @@ html {
   --border: #313737;
   --links: #82d5ec;
   --links-contrast: #1b1c1a;
+
+  a.button.accent { color: var(--background); }
 }
 
 * { box-sizing: border-box; }
@@ -69,6 +71,7 @@ h2 { margin-bottom: .5rem;}
 a:link, a:visited {
   color: var(--links);
 }
+a.button, button { font-weight: bold; }
 a.button {
   background: var(--links);
   color: var(--links-contrast);
@@ -77,6 +80,11 @@ a.button {
   border-radius: 4px;
   display: inline-block;
   text-decoration: none;
+}
+a.button.accent {
+  background: var(--primary-light);
+  color: var(--color);
+  border: solid 1px var(--primary-light);
 }
 a.button.outline {
   background: none;
@@ -136,7 +144,7 @@ header.home {
 section { padding: 0 1rem; }
 .more { text-align: right; }
 
-.upcoming-engagements {
+.engagements {
   ul {
     list-style-type: none;
     padding: 0;
@@ -161,7 +169,7 @@ section { padding: 0 1rem; }
   li > *:not(:where(img)) { margin: 0 1rem; }
 }
 @media (min-width: 650px) {
-  .upcoming-engagements {
+  .engagements {
     ul {
       display: flex;
       gap: .5rem;
