@@ -1,138 +1,324 @@
 {
   "upcoming": [
     {
-      "title": "Serverless Architecture conference london 2024",
-      "date": "Oct 28 - Nov 3, 2024",
-      "location": "Chattanooga asdfasdfasdfasdf, TN, somethingLandOther",
-      "venue": "Cornhusker sdfgsdfgsdf dfgdf dfg Hotel",
-      "image": "",
-      "imageAltText": "My alt goes here",
-      "description": " Event description something something something",
-      "websiteUrl": "https://example.com",
-      "registrationUrl": "https://example.com/register",
-      "presentations": [],
-      "slug": "myEventUniqueName"
+      "title": "API Conference Berlin 2024",
+      "date": "October 21 - 23, 2024",
+      "location": "Berlin, Germany",
+      "venue": "Maritim proArte Hotel Berlin",
+      "imageAltText": "API Conference Berlin 2024",
+      "description": "The Conference for Web APIs, API Design \u0026 Management ",
+      "websiteUrl": "https://apiconference.net/berlin/",
+      "presentations": [
+        {
+          "title": "Code, Connect, Conquer: Mastering Serverless and API-Centric Designs",
+          "description": "This session comprehensively explores two transformative paradigms in cloud computing: serverless computing and API-driven architectures. Delve into the essence and evolution of serverless computing, uncovering its benefits and key components. Transition seamlessly to API-driven architectures, illuminating their pivotal role in modern software development. Navigate challenges and future trends, empowering you to harness the full potential of these technologies in your endeavors.",
+          "slug": "code-connect-conquer",
+          "image": "https://via.placeholder.com/150",
+          "imageAltText": "Code, Connect, Conquer: Mastering Serverless and API-Centric Designs"
+        }
+      ],
+      "slug": "api-conference-berlin-2024"
     },
-
     {
-      "title": "Scenic City Summit",
-      "date": "October 28 - November 3, 2024",
-      "location": "Chattanooga, TN",
-      "venue": "Cornhusker Hotel",
-      "image": "https://images.unsplash.com/photo-1587620962725-abab7fe55159?q=80&w=3862&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      "imageAltText": "My alt goes here",
-      "description": " Event description something something something",
-      "websiteUrl": "https://example.com",
-      "registrationUrl": "https://example.com/register",
+      "title": "Serverless Architecture Conference Berlin 2024",
+      "date": "October 21 - 23, 2024",
+      "location": "Berlin, Germany",
+      "venue": "Maritim proArte Hotel Berlin",
+      "imageAltText": "Serverless Architecture Conference Berlin 2024",
+      "description": "We bring together the world\u2019s leading software architects and cloud experts to share their ideas and knowledge.",
+      "websiteUrl": "https://serverless-architecture.io/berlin",
+      "presentations": [
+        {
+          "title": "Advanced Serverless Workshop",
+          "description": "Join our Advanced Serverless Workshop for a full-day exploration of sophisticated serverless architectures on Google Cloud Platform (GCP), Amazon Web Services (AWS), and Microsoft Azure. Guided by industry experts, this immersive session will cover essential serverless concepts, showcase practical implementations for tackling real-world business challenges, and delve into the unique serverless solutions offered by each cloud provider. Participants will gain in-depth knowledge of cloud-specific best practices through detailed demonstrations and live examples. The workshop concludes with an interactive discussion panel, allowing attendees to engage with experts and refine their serverless strategies. Expand your serverless expertise and stay at the forefront of innovation by joining us for this comprehensive learning experience.",
+          "slug": "advanced-serverless-workshop-berlin-2024",
+          "image": "https://via.placeholder.com/150",
+          "imageAltText": "Advanced Serverless Workshop"
+        },
+        {
+          "title": "Architect Like a Boss: Mastering Serverless Design Patterns",
+          "description": "Discover the secrets to unleashing the full potential of serverless architecture in this captivating session. Delving into the core principles and challenges of serverless computing, the session will guide participants through proven architectural patterns that elevate the scalability and resilience of their applications. From event-driven design to microservices orchestration, attendees will gain practical insights into optimizing performance, enhancing security, and implementing effective monitoring strategies within a serverless environment. Join us for an enlightening journey into the future of cloud-native development, equipping you with the tools and knowledge to transform your projects into unstoppable, scalable wonders.",
+          "slug": "architect-like-a-boss",
+          "image": "https://via.placeholder.com/150",
+          "imageAltText": "Architect Like a Boss: Mastering Serverless Design Patterns"
+        },
+        {
+          "title": "Going Schema-less: How to migrate a relational database to a NoSQL database",
+          "description": "This session dives into the transition from relational to NoSQL databases, highlighting NoSQL\u0027s advantages, such as scalability and flexibility. Attendees will learn practical strategies for migrating data, including the secret of leveraging multiple data stores. Join us for actionable insights and real-world examples to guide your database evolution.",
+          "slug": "going-schema-less",
+          "image": "https://via.placeholder.com/150",
+          "imageAltText": "Going Schema-less: How to migrate a relational database to a NoSQL database"
+        }
+      ],
+      "slug": "serverless-architecture-berlin-2024"
+    },
+    {
+      "title": "dev up 2024",
+      "date": "August 14 - 16, 2024",
+      "location": "St. Charles, MO ",
+      "venue": "St. Charles Convention Center",
+      "imageAltText": "dev up 2024",
+      "description": "- dev up is a technology conference based in St. Louis, Missouri where developers and other technologists come together to learn, network, and be inspired. Our goal is to provide a platform for software development teams to gain new insights, knowledge and make connections that will help them improve their craft and their technical capabilities.\r\n\r\n  Our conference covers a wide variety of technologies including:\r\n\r\n  - Cloud platforms such as Microsoft Azure or Amazon Web Services (AWS)\r\n  - Development Technologies such as Microsoft .NET, Java, Rust, and many more platforms and languages\r\n  - DevOps best practices including tools such as Azure DevOps, GitHub, and Jira\r\n  - Agile Project Management best practices\r\n  - Low Code/No Code platforms such as the Microsoft Power Platform\r\n  - Many other cutting-edge tools, technologies, and best practices which development teams will find valuable",
+      "websiteUrl": "https://www.devupconf.org/",
+      "presentations": [
+        {
+          "title": "Reevaluating Software Design Patterns: Uncovering Patterns That Can Be More Burden Than Benefit",
+          "description": "Explore the dual nature of design patterns in software development, acknowledging their potency in solving recurring problems and their essential role in creating maintainable, scalable, and robust systems while also addressing the nuanced reality that not all patterns are equal; some revered patterns may inadvertently introduce increased complexity, decreased maintainability, and hinder productivity, delving into real-world scenarios where such patterns may lead to unintended consequences such as convoluted code, performance bottlenecks, and intricate debugging sessions.",
+          "slug": "reevaluating-software-design-patterns",
+          "image": "https://via.placeholder.com/150",
+          "imageAltText": "Reevaluating Software Design Patterns: Uncovering Patterns That Can Be More Burden Than Benefit"
+        },
+        {
+          "title": "Building Serverless Solutions with Azure and .NET",
+          "description": "Join this full-day workshop to master serverless computing with Azure and .NET. Dive into hands-on activities, live demos, and collaborative sessions to build scalable, efficient, cost-effective solutions. Gain practical experience designing, developing, and deploying serverless applications on Azure using .NET. Come and elevate your expertise in building resilient solutions.",
+          "slug": "building-serverless-solutions",
+          "image": "https://via.placeholder.com/150",
+          "imageAltText": "Building Serverless Solutions with Azure and .NET"
+        }
+      ],
+      "slug": "dev-up-2024"
+    },
+    {
+      "title": "Beer City Code 2024",
+      "date": "August 02 - 03, 2024",
+      "location": "Grand Rapids, MI ",
+      "venue": "Calvin University - Fine Arts Center",
+      "imageAltText": "Beer City Code 2024",
+      "description": "Beer City Code is an annual conference for software developers held in Grand Rapids, MI, also known as [Beer City, USA](https://www.experiencegr.com/things-to-do/beer-city/). Software creators of all types are welcome, even those who don\u0027t care for beer.\r\n\r\nThe main conference is held Saturday, August 3, with optional day-long workshops the day before, Friday, August 2. You can attend just the Saturday conference, add on an all-day workshop on Friday, or even upgrade to a ticket that includes a VIP party with our speakers, sponsors, and organizers. How cool is that?!\r\n\r\nThe Beer City Code conference grew our of the success of its predecessor, Grand Rapids DevDay, but was renamed in 2017 to embrace its much more broad appeal outside the Grand Rapids area.",
+      "websiteUrl": "https://www.beercitycode.com/",
+      "presentations": [
+        {
+          "title": "Building Serverless Solutions with Azure and .NET",
+          "description": "Join this full-day workshop to master serverless computing with Azure and .NET. Dive into hands-on activities, live demos, and collaborative sessions to build scalable, efficient, cost-effective solutions. Gain practical experience designing, developing, and deploying serverless applications on Azure using .NET. Come and elevate your expertise in building resilient solutions.",
+          "slug": "building-serverless-solutions",
+          "image": "https://via.placeholder.com/150",
+          "imageAltText": "Building Serverless Solutions with Azure and .NET"
+        },
+        {
+          "title": "Reevaluating Software Design Patterns: Uncovering Patterns That Can Be More Burden Than Benefit",
+          "description": "Explore the dual nature of design patterns in software development, acknowledging their potency in solving recurring problems and their essential role in creating maintainable, scalable, and robust systems while also addressing the nuanced reality that not all patterns are equal; some revered patterns may inadvertently introduce increased complexity, decreased maintainability, and hinder productivity, delving into real-world scenarios where such patterns may lead to unintended consequences such as convoluted code, performance bottlenecks, and intricate debugging sessions.",
+          "slug": "reevaluating-software-design-patterns",
+          "image": "https://via.placeholder.com/150",
+          "imageAltText": "Reevaluating Software Design Patterns: Uncovering Patterns That Can Be More Burden Than Benefit"
+        }
+      ],
+      "slug": "beer-city-code-2024"
+    },
+    {
+      "title": "Cincy Deliver 2024",
+      "date": "July 26, 2024",
+      "location": "Mason, OH ",
+      "venue": "Manor House",
+      "imageAltText": "Cincy Deliver 2024",
+      "description": "**Agile Conferences, Inc.**, and the **Cincinnati .NET User Group** ([www.cinnug.org](http://www.cinnug.org/)), both Ohio non-profit organizations, are pleased to announce our ***fourteenth\\*** conference!\r\n\r\nThe **CincyDeliver** conference (formerly the *Cincinnati Day of Agile*) is Cincinnati\u0027s largest and longest-running non-profit (and community-run) conference dedicated to software development teams. Since founding our conference in 2010, we have seen incredible speakers, attendees, and sponsors.\r\n\r\nWhile planning the 2019 event, it struck us that the conference was about delivering value through software.\r\nThat is the origin of our current name, ***CincyDeliver\\***!",
+      "websiteUrl": "https://www.cincydeliver.org",
+      "presentations": [],
+      "slug": "cincy-deliver-2024"
+    },
+    {
+      "title": "Nebraska.Code() 2024",
+      "date": "July 17 - 19, 2024",
+      "location": "Lincoln, NE ",
+      "venue": "Cornhusker Marriott",
+      "imageAltText": "Nebraska.Code() 2024",
+      "description": "Nebraska.Code stands as the premier software development conference in the Heartland, offering extensive coverage of all aspects of software planning, development, and deployment. Our comprehensive range encompasses frontend development, open source technology, emerging trends, practical agile methodologies, DevOps practices, security measures, career development, software craftsmanship, and a myriad of other related areas.",
+      "websiteUrl": "https://nebraskacode.amegala.com/",
       "presentations": [
         {
           "title": "Design and Develop a Serverless Event-Driven Microservice-Based Solution",
-          "subtitle": null,
-          "description": "Hands-on full-day workshop where you will design, develop, and publish a serverless event-driven microservice-based solution.",
-          "slug": "my-very-awesome-presentation",
-          "image": "https://images.unsplash.com/photo-1587620962725-abab7fe55159?q=80&w=3862&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-          "imageAltText": "My alt goes here"
+          "description": "A hands-on full-day workshop where you will design, develop, and publish a serverless event-driven microservice-based solution.",
+          "slug": "design-develop-serverless-event-driven-microservice-solution",
+          "image": "https://via.placeholder.com/150",
+          "imageAltText": "Design and Develop a Serverless Event-Driven Microservice-Based Solution"
         },
         {
-          "title": "This is my presentation with a subtitle",
-          "subtitle": "I am the subtitle",
-          "description": "Hands-on full-day workshop where you will design, develop, and publish a serverless event-driven microservice-based solution.",
-          "slug": "my-very-awesome-presentation-1",
-          "image": "https://images.unsplash.com/photo-1587620962725-abab7fe55159?q=80&w=3862&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-          "imageAltText": "My alt goes here"
+          "title": "Architect Like a Boss: Mastering Serverless Design Patterns",
+          "description": "Discover the secrets to unleashing the full potential of serverless architecture in this captivating session. Delving into the core principles and challenges of serverless computing, the session will guide participants through proven architectural patterns that elevate the scalability and resilience of their applications. From event-driven design to microservices orchestration, attendees will gain practical insights into optimizing performance, enhancing security, and implementing effective monitoring strategies within a serverless environment. Join us for an enlightening journey into the future of cloud-native development, equipping you with the tools and knowledge to transform your projects into unstoppable, scalable wonders.",
+          "slug": "architect-like-a-boss",
+          "image": "https://via.placeholder.com/150",
+          "imageAltText": "Architect Like a Boss: Mastering Serverless Design Patterns"
+        },
+        {
+          "title": "Essential Software Design Patterns for Optimal Development",
+          "description": "Explore the pivotal role of effective design patterns in achieving maintainable, scalable, and robust systems within the dynamic landscape of software development. The presentation begins with an overview of design patterns, emphasizing their significance in modern software engineering. It then delves into a carefully selected set of essential design patterns, providing real-world examples and use cases to illustrate their practical applications. The session highlights each pattern\u0027s benefits and potential drawbacks, addressing concerns related to code maintainability, extensibility, and collaboration within development teams. We give special attention to pattern selection criteria, empowering participants to make informed decisions about applying specific patterns. By the session\u0027s end, attendees will possess a solid foundation in crucial software design patterns, enabling them to make informed design choices, write cleaner and more modular code, and confidently tackle complex software engineering challenges, benefiting both novice and experienced professionals in enhancing their development practices and elevating the quality of their software projects.",
+          "slug": "essential-software-design-patterns",
+          "image": "https://via.placeholder.com/150",
+          "imageAltText": "Essential Software Design Patterns for Optimal Development"
         }
       ],
-      "slug": "myEventUniqueName-1"
-    },
-
-    {
-      "title": "Scenic City Summit",
-      "date": "June 28, 2024",
-      "location": "Chattanooga, TN",
-      "venue": "Cornhusker Hotel",
-      "image": "https://images.unsplash.com/photo-1587620962725-abab7fe55159?q=80&w=3862&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      "imageAltText": "My alt goes here",
-      "description": " Event description something something something",
-      "websiteUrl": "https://example.com",
-      "registrationUrl": "https://example.com/register",
-      "presentations": [],
-      "slug": "myEventUniqueName-2"
-    },
-
-
-    {
-      "title": "Scenic City Summit",
-      "date": "June 28, 2024",
-      "location": "Chattanooga, TN",
-      "venue": "Cornhusker Hotel",
-      "image": "https://images.unsplash.com/photo-1587620962725-abab7fe55159?q=80&w=3862&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      "imageAltText": "My alt goes here",
-      "description": " Event description something something something",
-      "websiteUrl": "https://example.com",
-      "registrationUrl": "https://example.com/register",
-      "presentations": [],
-      "slug": "myEventUniqueName-3"
+      "slug": "nebraska-code-2024"
     }
-    
   ],
   "past": [
     {
       "year": 2024,
-       "engagements": [{
-          "title": "Scenic City Summit",
+      "engagements": [
+        {
+          "title": "Scenic City Summit 2024",
           "date": "June 28, 2024",
-          "location": "Chattanooga, TN",
-          "venue": "Cornhusker Hotel",
-          "image": "https://images.unsplash.com/photo-1587620962725-abab7fe55159?q=80&w=3862&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-          "imageAltText": "My alt goes here",
-          "description": " Event description something something something",
-          "websiteUrl": "https://example.com",
-          "registrationUrl": "https://example.com/register",
-          "presentations": [],
-          "slug": "myEventUniqueName-4"
+          "location": "Chattanooga, TN ",
+          "venue": "Chattanooga Marriott Downtown",
+          "imageAltText": "Scenic City Summit 2024",
+          "description": "Elevate your software development journey at the must-attend conference in the Southeast! Immerse yourself in a dynamic environment where industry leaders, innovators, and enthusiasts converge to share knowledge, spark creativity, and shape the future of software development. Don\u0027t miss out on this unparalleled opportunity to expand your skills, forge valuable connections, and stay ahead in the rapidly evolving tech ecosystem.",
+          "websiteUrl": "https://sceniccitysummit.com/",
+          "presentations": [
+            {
+              "title": "Essential Software Design Patterns for Optimal Development",
+              "description": "Explore the pivotal role of effective design patterns in achieving maintainable, scalable, and robust systems within the dynamic landscape of software development. The presentation begins with an overview of design patterns, emphasizing their significance in modern software engineering. It then delves into a carefully selected set of essential design patterns, providing real-world examples and use cases to illustrate their practical applications. The session highlights each pattern\u0027s benefits and potential drawbacks, addressing concerns related to code maintainability, extensibility, and collaboration within development teams. We give special attention to pattern selection criteria, empowering participants to make informed decisions about applying specific patterns. By the session\u0027s end, attendees will possess a solid foundation in crucial software design patterns, enabling them to make informed design choices, write cleaner and more modular code, and confidently tackle complex software engineering challenges, benefiting both novice and experienced professionals in enhancing their development practices and elevating the quality of their software projects.",
+              "slug": "essential-software-design-patterns",
+              "image": "https://via.placeholder.com/150",
+              "imageAltText": "Essential Software Design Patterns for Optimal Development"
+            }
+          ],
+          "slug": "scenic-city-summit-2024"
         },
         {
-          "title": "Scenic City Summit",
-          "date": "June 28, 2024",
-          "location": "Chattanooga, TN",
-          "venue": "Cornhusker Hotel",
-          "image": "https://images.unsplash.com/photo-1587620962725-abab7fe55159?q=80&w=3862&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-          "imageAltText": "My alt goes here",
-          "description": " Event description something something something",
-          "websiteUrl": "https://example.com",
-          "registrationUrl": "https://example.com/register",
-          "presentations": [],
-          "slug": "myEventUniqueName-5"
+          "title": "Tulsa .NET User Group - June 2024",
+          "date": "June 25, 2024",
+          "location": "Tulsa, OK ",
+          "venue": "Online",
+          "imageAltText": "Tulsa .NET User Group - June 2024",
+          "description": "The Tulsa Developers Association aka Tulsa .NET User Group is a special interest of like minded professionals that gather to learn and share from one another. \r\n\r\nWe used to meet once a month. But, with the pandemic a lot has changed. For us, it means we meet virtually and now twice a month. Going to virtual meetings has opened the doors for many more opportunities. We now have speakers from around the world. And, more members also from around the world. \r\n\r\nWe have topics such as C#, .NET, .NET Core, Web, ASP.NET, MVC, Design Patterns, Software Development techniques, SOLID principles, Entity Framework, Visual Studio, VS Code, Debugging, TDD, testing frameworks like SpecFlow, Jasmine, and many more.\r\n\r\nAt the beginning of each meeting, the virtual meeting is started and anyone coming earlier can mingle. At 6:30 PM CST, there is a few minutes of introduction. This is when information is shared with the group about upcoming events, etc. At about 6:40 we start with the main presentation. After the presentation we have a drawing for prizes.\r\n\r\nAfter each meeting everyone is welcome to stay online and chat with others. We have a great time and usually have special guests appear during this time too.\r\n\r\nOur meetings are free! By meeting twice a month you have more access to amazing content, speakers, and opportunities than before. And, we do NOT have meetings of sales pitches! That\u0027s right. Every meeting is about sharing information to help you be a better professional. We never try to sell anything. \r\n\r\nEveryone is welcome. We are all on different paths, different journeys, with different interests. You are welcome to come and learn with us. \r\n\r\nBy joining this group you will receive announcements when new meetings are scheduled. You can also join our newsletter that has more information and any last minute changes. To join our newsletter, sign up at http://eepurl.com/csisb.",
+          "websiteUrl": "https://www.meetup.com/TulsaDevelopers-net/",
+          "presentations": [
+            {
+              "title": "Essential Software Design Patterns for Optimal Development",
+              "description": "Explore the pivotal role of effective design patterns in achieving maintainable, scalable, and robust systems within the dynamic landscape of software development. The presentation begins with an overview of design patterns, emphasizing their significance in modern software engineering. It then delves into a carefully selected set of essential design patterns, providing real-world examples and use cases to illustrate their practical applications. The session highlights each pattern\u0027s benefits and potential drawbacks, addressing concerns related to code maintainability, extensibility, and collaboration within development teams. We give special attention to pattern selection criteria, empowering participants to make informed decisions about applying specific patterns. By the session\u0027s end, attendees will possess a solid foundation in crucial software design patterns, enabling them to make informed design choices, write cleaner and more modular code, and confidently tackle complex software engineering challenges, benefiting both novice and experienced professionals in enhancing their development practices and elevating the quality of their software projects.",
+              "slug": "essential-software-design-patterns",
+              "image": "https://via.placeholder.com/150",
+              "imageAltText": "Essential Software Design Patterns for Optimal Development"
+            }
+          ],
+          "slug": "tulsa-dotnet-june-2024"
         },
         {
-          "title": "Scenic City Summit",
-          "date": "June 28, 2024",
-          "location": "Chattanooga, TN",
-          "venue": "Cornhusker Hotel",
-          "image": "https://images.unsplash.com/photo-1587620962725-abab7fe55159?q=80&w=3862&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-          "imageAltText": "My alt goes here",
-          "description": " Event description something something something",
-          "websiteUrl": "https://example.com",
-          "registrationUrl": "https://example.com/register",
-          "presentations": [],
-          "slug": "myEventUniqueName-6"
-        }]
-    },
-    {
-      "year": 2023,
-       "engagements": [{
-          "title": "Scenic City Summit",
-          "date": "June 28, 2024",
-          "location": "Chattanooga, TN",
-          "venue": "Cornhusker Hotel",
-          "image": "https://images.unsplash.com/photo-1587620962725-abab7fe55159?q=80&w=3862&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-          "imageAltText": "My alt goes here",
-          "description": " Event description something something something",
-          "websiteUrl": "https://example.com",
-          "registrationUrl": "https://example.com/register",
-          "presentations": [],
-          "slug": "myEventUniqueName-7"
-        }]
+          "title": "Azure Day Roma 2024",
+          "date": "June 21, 2024",
+          "location": "Roma, Italy",
+          "venue": "Via Avignone 10",
+          "imageAltText": "Azure Day Roma 2024",
+          "description": "Azure Day \u00E8 l\u0027evento dedicato al cloud di casa Microsoft, la conferenza si terr\u00E0 sia in presenza che online il 21 Giugno 2024 a Roma presso la sede Microsoft.\r\n\r\nLa conferenza \u00E8 gratuita, tutte le spese sono sostenute dai nostri Sponsor",
+          "websiteUrl": "https://www.azureday.it/",
+          "presentations": [
+            {
+              "title": "Unleashing Extreme Scalability with Azure Functions",
+              "description": "Join us for an illuminating presentation on the cutting edge of cloud computing, where we get into the intricacies of building event-driven applications at an extreme scale using Azure Functions. Get invaluable insights and best practices for designing applications that effortlessly scale to meet colossal workloads. We will explore upcoming features in Azure Functions that promise to redefine scalability, pushing the boundaries of what is achievable in serverless computing. Explore the future of event-driven architectures and stay ahead in the rapidly evolving world of cloud computing. Discover how Azure Functions is leading the way in enabling applications to scale at unprecedented levels.",
+              "slug": "unleashing-extreme-scalability-with-azure-functions",
+              "image": "https://via.placeholder.com/150",
+              "imageAltText": "Unleashing Extreme Scalability with Azure Functions"
+            }
+          ],
+          "slug": "azure-day-roma-2024"
+        },
+        {
+          "title": "Louisville Azure Meetup - June 2024",
+          "date": "June 13, 2024",
+          "location": "Louisville, KY ",
+          "venue": "Humana",
+          "imageAltText": "Louisville Azure Meetup - June 2024",
+          "description": "The Louisville Azure Meetup group is dedicated to helping those in the Louisville area learn about working with Azure services.",
+          "websiteUrl": "https://www.meetup.com/louisville-azure-meetup/events/300314705/",
+          "presentations": [
+            {
+              "title": "Essential Software Design Patterns for Optimal Development",
+              "description": "Explore the pivotal role of effective design patterns in achieving maintainable, scalable, and robust systems within the dynamic landscape of software development. The presentation begins with an overview of design patterns, emphasizing their significance in modern software engineering. It then delves into a carefully selected set of essential design patterns, providing real-world examples and use cases to illustrate their practical applications. The session highlights each pattern\u0027s benefits and potential drawbacks, addressing concerns related to code maintainability, extensibility, and collaboration within development teams. We give special attention to pattern selection criteria, empowering participants to make informed decisions about applying specific patterns. By the session\u0027s end, attendees will possess a solid foundation in crucial software design patterns, enabling them to make informed design choices, write cleaner and more modular code, and confidently tackle complex software engineering challenges, benefiting both novice and experienced professionals in enhancing their development practices and elevating the quality of their software projects.",
+              "slug": "essential-software-design-patterns",
+              "image": "https://via.placeholder.com/150",
+              "imageAltText": "Essential Software Design Patterns for Optimal Development"
+            }
+          ],
+          "slug": "lou-azure-june-2024"
+        },
+        {
+          "title": "Louisville .NET Meetup - August 2024",
+          "date": "May 23, 2024",
+          "location": "Louisville, KY ",
+          "venue": "Slingshot",
+          "imageAltText": "Louisville .NET Meetup - August 2024",
+          "description": "The Louisville .NET Meetup group stands out as a unique platform dedicated to empowering developers in Louisville to excel in their craft, with a strong focus on the Microsoft .NET technology stack. Our meetings, held on the third Thursday of each month, provide a valuable opportunity for developers to enhance their skills and network with like-minded professionals.",
+          "websiteUrl": "https://www.meetup.com/louisville-dotnet/events/300491256/",
+          "presentations": [
+            {
+              "title": "Generative AI for .NET Developers",
+              "description": "Discover how to use .NET, C#, and Azure to create amazing applications with OpenAI and other generative AI technologies. You will learn the fundamental concepts of this latest wave of AI, the benefits and challenges of using .NET with it, and the best practices and tips for developing intelligent apps. You will also see a live demo of how AI can build AI apps using .NET and OpenAI.",
+              "slug": "generative-ai-for-dotnet-developers",
+              "image": "https://via.placeholder.com/150",
+              "imageAltText": "Generative AI for .NET Developers"
+            }
+          ],
+          "slug": "loudotnet-august-2024"
+        },
+        {
+          "title": "Louisville .NET Meetup - May 2024",
+          "date": "May 23, 2024",
+          "location": "Louisville, KY ",
+          "venue": "Slingshot",
+          "imageAltText": "Louisville .NET Meetup - May 2024",
+          "description": "The Louisville .NET Meetup group stands out as a unique platform dedicated to empowering developers in Louisville to excel in their craft, with a strong focus on the Microsoft .NET technology stack. Our meetings, held on the third Thursday of each month, provide a valuable opportunity for developers to enhance their skills and network with like-minded professionals.",
+          "websiteUrl": "https://www.meetup.com/louisville-dotnet/events/300463326/",
+          "presentations": [
+            {
+              "title": "Essential Software Design Patterns for Optimal Development",
+              "description": "Explore the pivotal role of effective design patterns in achieving maintainable, scalable, and robust systems within the dynamic landscape of software development. The presentation begins with an overview of design patterns, emphasizing their significance in modern software engineering. It then delves into a carefully selected set of essential design patterns, providing real-world examples and use cases to illustrate their practical applications. The session highlights each pattern\u0027s benefits and potential drawbacks, addressing concerns related to code maintainability, extensibility, and collaboration within development teams. We give special attention to pattern selection criteria, empowering participants to make informed decisions about applying specific patterns. By the session\u0027s end, attendees will possess a solid foundation in crucial software design patterns, enabling them to make informed design choices, write cleaner and more modular code, and confidently tackle complex software engineering challenges, benefiting both novice and experienced professionals in enhancing their development practices and elevating the quality of their software projects.",
+              "slug": "essential-software-design-patterns",
+              "image": "https://via.placeholder.com/150",
+              "imageAltText": "Essential Software Design Patterns for Optimal Development"
+            }
+          ],
+          "slug": "loudotnet-may-2024"
+        },
+        {
+          "title": "Serverless Architecture Conference London2024",
+          "date": "April 08 - 11, 2024",
+          "location": "London, United Kingdom of Great Britain and Northern Ireland",
+          "venue": "Park Plaza Victoria London",
+          "imageAltText": "Serverless Architecture Conference London2024",
+          "description": "We bring together the world\u2019s leading software architects and cloud experts to share their ideas and knowledge.",
+          "websiteUrl": "https://serverless-architecture.io/london",
+          "presentations": [
+            {
+              "title": "Advanced Serverless Workshop",
+              "slug": "advanced-serverless-workshop-london-2024",
+              "image": "https://via.placeholder.com/150",
+              "imageAltText": "Advanced Serverless Workshop"
+            },
+            {
+              "title": "Architect Like a Boss: Mastering Serverless Design Patterns",
+              "description": "Discover the secrets to unleashing the full potential of serverless architecture in this captivating session. Delving into the core principles and challenges of serverless computing, the session will guide participants through proven architectural patterns that elevate the scalability and resilience of their applications. From event-driven design to microservices orchestration, attendees will gain practical insights into optimizing performance, enhancing security, and implementing effective monitoring strategies within a serverless environment. Join us for an enlightening journey into the future of cloud-native development, equipping you with the tools and knowledge to transform your projects into unstoppable, scalable wonders.",
+              "slug": "architect-like-a-boss",
+              "image": "https://via.placeholder.com/150",
+              "imageAltText": "Architect Like a Boss: Mastering Serverless Design Patterns"
+            }
+          ],
+          "slug": "serverless-architecture-london-2024"
+        },
+        {
+          "title": "Michigan Technology Conference 2024",
+          "date": "March 21 - 22, 2024",
+          "location": "Pontiac, MI ",
+          "venue": "UWM Sports Complex",
+          "imageAltText": "Michigan Technology Conference 2024",
+          "description": "The Michigan Technology Conference (MITechCon) is a two-day technology conference taking place on March 21 to March 22, 2024. Join us at the spacious UWM Sports Complex for two days of content covering the forefront of technology. This event is a unique opportunity in Southeast Michigan to collaborate with IT professionals across the variety of industries in our state.",
+          "websiteUrl": "https://www.mitechcon.org/",
+          "presentations": [
+            {
+              "title": "Reevaluating Software Design Patterns: Uncovering Patterns That Can Be More Burden Than Benefit",
+              "description": "Explore the dual nature of design patterns in software development, acknowledging their potency in solving recurring problems and their essential role in creating maintainable, scalable, and robust systems while also addressing the nuanced reality that not all patterns are equal; some revered patterns may inadvertently introduce increased complexity, decreased maintainability, and hinder productivity, delving into real-world scenarios where such patterns may lead to unintended consequences such as convoluted code, performance bottlenecks, and intricate debugging sessions.",
+              "slug": "reevaluating-software-design-patterns",
+              "image": "https://via.placeholder.com/150",
+              "imageAltText": "Reevaluating Software Design Patterns: Uncovering Patterns That Can Be More Burden Than Benefit"
+            },
+            {
+              "title": "Technical Debt Is Not Free",
+              "description": "Teams often rack up tech debt without realizing it. Even mature teams might recognize and maybe even document tech debt, but what good is it if you don\u0027t take action? We\u0027ll explore tech debt, how to document and track it, and how to address it so that it does not cause significant issues later on.",
+              "slug": "technical-debt-is-not-free",
+              "image": "https://via.placeholder.com/150",
+              "imageAltText": "Technical Debt Is Not Free"
+            }
+          ],
+          "slug": "michigan-tech-con-2024"
+        }
+      ]
     }
   ]
 }
