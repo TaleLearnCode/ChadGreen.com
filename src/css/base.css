@@ -9,6 +9,7 @@ html {
   --color-light: #575d56;
   --border: #d8dfdf;
   --background: #f8fbfb;
+  --tab-nav-primary: #4E8023;
   --original-blue: #5fabbf;
   --links: #327B8F;
   --links-contrast: #ffffff;
@@ -24,6 +25,8 @@ html {
   --border: #313737;
   --links: #82d5ec;
   --links-contrast: #1b1c1a;
+  --border: #4f5050;
+  --tab-nav-primary: #cff1b1;
 }
 .dark a.button.accent {
   color: var(--background);
@@ -84,6 +87,10 @@ h2 {
 
 a:link, a:visited {
   color: var(--links);
+}
+
+button {
+  color: var(--color);
 }
 
 a.button, button {
