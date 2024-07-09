@@ -1,43 +1,1419 @@
-  [
-    {
-    "title": "Design and Develop a Serverless Event-Driven Microservice-Based Solution",
-    "subtitle": null,
-    "description": "Hands-on full-day workshop where you will design, develop, and publish a serverless event-driven microservice-based solution.",
-    "abstract": "In today's rapidly evolving landscape of cloud computing and software architecture, the paradigms of serverless computing and API-driven architectures stand out as transformative forces driving efficiency, scalability, and innovation. This session explores these two intertwined concepts' core principles, benefits, and practical applications. Beginning with exploring serverless computing, we define its essence and trace its evolution from traditional server-based models. We unravel the manifold benefits it offers, from seamless scalability and cost-effectiveness to reduced operational overhead and accelerated time-to-market. Delving deeper, we dissect the critical components of serverless architecture, including Functions as a Service (FaaS), Backend as a Service (BaaS), and event-driven paradigms. Transitioning to API-driven architectures, we illuminate their pivotal role in modern software development, emphasizing their modularity, reusability, and interoperability. We discuss API design principles, the significance of API gateways, and real-world examples showcasing their transformative potential in diverse domains. Throughout the session, we navigate the intricate challenges and considerations, from cold start latency and vendor lock-in to security implications and monitoring complexities. Drawing from practical insights and future trends, we anticipate these paradigms' continued evolution and intersection with emerging technologies.",
+[
+  {
+    "title": "Advanced Serverless Workshop",
+    "description": "Join our Advanced Serverless Workshop for a full-day exploration of sophisticated serverless architectures on Google Cloud Platform (GCP), Amazon Web Services (AWS), and Microsoft Azure. Guided by industry experts, this immersive session will cover essential serverless concepts, showcase practical implementations for tackling real-world business challenges, and delve into the unique serverless solutions offered by each cloud provider. Participants will gain in-depth knowledge of cloud-specific best practices through detailed demonstrations and live examples. The workshop concludes with an interactive discussion panel, allowing attendees to engage with experts and refine their serverless strategies. Expand your serverless expertise and stay at the forefront of innovation by joining us for this comprehensive learning experience.",
+    "abstract": "Join us for a full-day immersive workshop exploring advanced serverless architectures across Google Cloud Platform (GCP), Amazon Web Services (AWS), and Microsoft Azure. Led by expert practitioners, this comprehensive session will explore practical implementations, best practices, and platform-specific solutions for real-world business problems.\r\n\r\n**Agenda:**\r\n\r\n1. **Fundamentals of Serverless Architectures:** Explore various architecture styles, cloud design patterns, and software design patterns to gain insights into the fundamental concepts of serverless architectures.\r\n2. **Real-World Business Problem:** Understand a complex business problem that can be effectively tackled using serverless computing, setting the stage for practical implementation.\r\n3. **GCP Serverless Solution:** Dive into GCP\u0027s serverless offerings as our GCP exert demonstrates a detailed solution to the presented business problem. Witness a working example and gain insight into GCP serverless solutions.\r\n4. **AWS Serverless Solution:** Explore AWS\u0027s serverless capabilities through a detailed demonstration of solving the same business problem. Witness a live implementation showcasing AWS serverless solutions and best practices.\r\n5. **Azure Serverless Solution:** Discover Azure\u0027s serverless ecosystem with a comprehensive demonstration of solving business problems using Azure services. Witness a live implementation and explore Azure\u0027s serverless solutions in depth.\r\n6. **Interactive Discussion Panel:** Engage with expert presenters in a vibrant discussion. Bring forth your questions, whether they pertain to specific implementations across platforms, best practices, or any aspect of your serverless journey. Our panelists are here to address your queries and foster collaborative learning.\r\n\r\n**Key Takeaways:**\r\n\r\n- Gain a thorough understanding of serverless architectures across GCP, AWS, and Azure.\r\n- Explore practical implementations of serverless solutions to address real-world business problems.\r\n- Deepen your knowledge of platform-specific serverless offerings and best practices.\r\n- Engage in a vibrant discussion with industry experts, leveraging their insights and experiences to enrich your serverless journey.\r\n\r\n**Don\u0027t Miss Out:**\r\n\r\nExpand your expertise and stay ahead in serverless innovation by joining us for a day of learning, exploration, and collaboration in advanced serverless computing.",
     "learningObjectives": [
-      "**Mastering Serverless Computing:** Understand the core principles and benefits of serverless computing, including scalability, cost-effectiveness, and reduced overhead.",
-      "**Objective 2:** Something or another"
+      "Gain a thorough understanding of serverless architectures across GCP, AWS, and Azure.",
+      "Explore practical implementations of serverless solutions to address real-world business problems.",
+      "Deepen your knowledge of platform-specific serverless offerings and best practices.",
+      "Engage in a vibrant discussion with industry experts, leveraging their insights and experiences to enrich your serverless journey."
     ],
-    "slug": "my-very-awesome-presentation",
-    "image": "https://images.unsplash.com/photo-1587620962725-abab7fe55159?q=80&w=3862&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    "imageAltText": "My alt goes here",
-    "relatedPresentations": [
-      { "title": "My related presentation title", "slug": "my-very-awesome-presentation-1" }
+    "slug": "advanced-serverless-workshop-berlin-2024",
+    "image": "https://github.com/TaleLearnCode/AdvancedServerlessWorkshop/blob/main/Berlin-2024/thumbnail.jpg",
+    "imageAltText": "Advanced Serverless Workshop",
+    "relatedPresentation": [],
+    "tags": [
+      "Amazon",
+      "AWS",
+      "Azure",
+      "Best Practices",
+      "Cloud Design Patterns",
+      "GCP",
+      "Google",
+      "Implementation",
+      "Microsoft",
+      "Serverless"
     ],
-    "tags": ["API", "Architecture", "Cloud Computing" ],
-    "duration": "45-75 minute session",
-    "repoUrl": "https://github.com/TaleLearnCode/ChadGreen.com",
+    "duration": "45 - 60 minutes",
+    "repoUrl": "https://github.com/TaleLearnCode/AdvancedServerlessWorkshop/tree/main/Berlin-2024",
     "engagements": [
       {
-        "title": "Scenic City Summit",
-        "date": "October 28 - November 3, 2024",
-        "location": "Chattanooga, TN",
-        "venue": "Cornhusker Hotel",
-        "image": "https://images.unsplash.com/photo-1587620962725-abab7fe55159?q=80&w=3862&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        "imageAltText": "My alt goes here",
-        "description": " Event description something something something",
-        "websiteUrl": "https://example.com",
-        "registrationUrl": "https://example.com/register"
+        "title": "Serverless Architecture Conference Berlin 2024",
+        "date": "October 21 - 23, 2024",
+        "location": "Berlin, Germany",
+        "venue": "Maritim proArte Hotel Berlin",
+        "image": "https://via.placeholder.com/150",
+        "imageAltText": "Serverless Architecture Conference Berlin 2024",
+        "description": "We bring together the world\u2019s leading software architects and cloud experts to share their ideas and knowledge.",
+        "websiteUrl": "https://serverless-architecture.io/berlin",
+        "presentations": [],
+        "slug": "serverless-architecture-berlin-2024"
       }
-    ],
-    "resources": "I am a **dumb** markdown field"
+    ]
   },
   {
-    "title": "This is my presentation with a subtitle",
-    "subtitle": "I am the subtitle",
-    "description": "Hands-on full-day workshop where you will design, develop, and publish a serverless event-driven microservice-based solution.",
-    "slug": "my-very-awesome-presentation-1",
-    "image": "https://images.unsplash.com/photo-1587620962725-abab7fe55159?q=80&w=3862&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    "imageAltText": "My alt goes here"
+    "title": "Advanced Serverless Workshop",
+    "abstract": "Have you been doing serverless for a while but don\u2019t feel like you\u2019re getting the most out of it? This interactive workshop will allow you to interact with experienced serverless professionals and get three different perspectives on how to level up your serverless architecture.\r\n\r\n- Learn new approaches and design patterns.\r\n- Hear stories from the trenches about what worked (and what didn\u2019t)\r\n- Gain perspective on cost, performance, scalability, and resilience.\r\n- Includes examples covering AWS Lambda, Azure Function, and Google Functions\r\n\r\nThis four-part workshop is designed for experienced serverless developers and architects who want to deepen their knowledge, learn exciting new aspects of serverless technology, and network with other serverless experts. Some perspectives on the major platforms will be provided, but this workshop is intended for all practitioners, regardless of their current technology stack.",
+    "learningObjectives": [],
+    "slug": "advanced-serverless-workshop-london-2024",
+    "image": "https://github.com/TaleLearnCode/AdvancedServerlessWorkshop/blob/main/London-2024/thumbnail.jpg",
+    "imageAltText": "Advanced Serverless Workshop",
+    "relatedPresentation": [],
+    "tags": [],
+    "duration": "45 - 60 minutes",
+    "repoUrl": "https://github.com/TaleLearnCode/AdvancedServerlessWorkshop/tree/main/London-2024",
+    "engagements": [
+      {
+        "title": "Serverless Architecture Conference London2024",
+        "date": "April 08 - 11, 2024",
+        "location": "London, United Kingdom of Great Britain and Northern Ireland",
+        "venue": "Park Plaza Victoria London",
+        "image": "https://via.placeholder.com/150",
+        "imageAltText": "Serverless Architecture Conference London2024",
+        "description": "We bring together the world\u2019s leading software architects and cloud experts to share their ideas and knowledge.",
+        "websiteUrl": "https://serverless-architecture.io/london",
+        "presentations": [],
+        "slug": "serverless-architecture-london-2024"
+      }
+    ]
+  },
+  {
+    "title": "Architect Like a Boss: Mastering Serverless Design Patterns",
+    "description": "Discover the secrets to unleashing the full potential of serverless architecture in this captivating session. Delving into the core principles and challenges of serverless computing, the session will guide participants through proven architectural patterns that elevate the scalability and resilience of their applications. From event-driven design to microservices orchestration, attendees will gain practical insights into optimizing performance, enhancing security, and implementing effective monitoring strategies within a serverless environment. Join us for an enlightening journey into the future of cloud-native development, equipping you with the tools and knowledge to transform your projects into unstoppable, scalable wonders.",
+    "abstract": "Are you ready to advance your serverless architecture skills? Join this dynamic session where you will master serverless design patterns and learn to architect like a boss!\r\n\r\nIn this power-packed session, we will dive deep into serverless architecture, unveiling the secrets behind building scalable, resilient, cost-effective applications. From event-driven architectures to microservices and beyond, we will explore the essential design patterns that empower you to craft serverless solutions like a seasoned pro.\r\n\r\nForget the guesswork and uncertainty \u2013 with expert guidance, you will gain invaluable insights and actionable strategies for tackling common challenges such as asynchronous workloads, workflow management, and error handling in the serverless realm. Whether you are a seasoned cloud architect or a curious newcomer, this session promises to equip you with the knowledge and tools to architect serverless applications with confidence and finesse.\r\n\r\nTake advantage of this opportunity to elevate your skills and architect like a boss in serverless computing. Join us and unlock the keys to mastering serverless design patterns for unparalleled success!",
+    "learningObjectives": [
+      "**Understand Key Serverless Design Patterns**: Attendees will gain a comprehensive understanding of essential serverless design patterns, including event-driven architectures, microservices, and composite applications. They will learn to apply these patterns to build scalable, resilient, cost-effective serverless solutions.",
+      "**Learn Best Practices for Serverless Architecture**: Attendees will learn best practices for architecting serverless applications, including techniques for asynchronous workloads, workflow management, and error handling. They will gain actionable insights into overcoming common challenges and optimizing performance in serverless environments.",
+      "**Develop Confidence in Serverless Architecture**: By the end of the session, participants will feel confident in their ability to architect serverless applications like a boss. They will have the knowledge and tools to tackle complex architectural challenges, make informed design decisions, and drive success in serverless computing."
+    ],
+    "slug": "architect-like-a-boss",
+    "image": "https://github.com/TaleLearnCode/ArchitectLikeABoss/blob/main/Thumbnail.jpg",
+    "imageAltText": "Architect Like a Boss: Mastering Serverless Design Patterns",
+    "relatedPresentation": [],
+    "tags": [
+      "Application Design",
+      "Application Development",
+      "Architectural Patterns",
+      "Best Practices",
+      "Cloud Architecture",
+      "Cloud Computing",
+      "Cloud-Native Development",
+      "Cloud Services",
+      "Cost Optimization",
+      "Design Patterns",
+      "Error Handling",
+      "Event-Driven Architecture",
+      "Event-Driven Design",
+      "Microservices",
+      "Orchestration",
+      "Performance Optimization",
+      "Reliability",
+      "Resilience",
+      "Scalability",
+      "Serverless",
+      "Serverless Architecture",
+      "Serverless Computing",
+      "Serverless Concepts"
+    ],
+    "duration": "45 - 60 minutes",
+    "repoUrl": "https://github.com/TaleLearnCode/ArchitectLikeABoss",
+    "engagements": [
+      {
+        "title": "Serverless Architecture Conference Berlin 2024",
+        "date": "October 21 - 23, 2024",
+        "location": "Berlin, Germany",
+        "venue": "Maritim proArte Hotel Berlin",
+        "image": "https://via.placeholder.com/150",
+        "imageAltText": "Serverless Architecture Conference Berlin 2024",
+        "description": "We bring together the world\u2019s leading software architects and cloud experts to share their ideas and knowledge.",
+        "websiteUrl": "https://serverless-architecture.io/berlin",
+        "presentations": [],
+        "slug": "serverless-architecture-berlin-2024"
+      },
+      {
+        "title": "Nebraska.Code() 2024",
+        "date": "July 17 - 19, 2024",
+        "location": "Lincoln, NE ",
+        "venue": "Cornhusker Marriott",
+        "image": "https://via.placeholder.com/150",
+        "imageAltText": "Nebraska.Code() 2024",
+        "description": "Nebraska.Code stands as the premier software development conference in the Heartland, offering extensive coverage of all aspects of software planning, development, and deployment. Our comprehensive range encompasses frontend development, open source technology, emerging trends, practical agile methodologies, DevOps practices, security measures, career development, software craftsmanship, and a myriad of other related areas.",
+        "websiteUrl": "https://nebraskacode.amegala.com/",
+        "presentations": [],
+        "slug": "nebraska-code-2024"
+      },
+      {
+        "title": "Serverless Architecture Conference London2024",
+        "date": "April 08 - 11, 2024",
+        "location": "London, United Kingdom of Great Britain and Northern Ireland",
+        "venue": "Park Plaza Victoria London",
+        "image": "https://via.placeholder.com/150",
+        "imageAltText": "Serverless Architecture Conference London2024",
+        "description": "We bring together the world\u2019s leading software architects and cloud experts to share their ideas and knowledge.",
+        "websiteUrl": "https://serverless-architecture.io/london",
+        "presentations": [],
+        "slug": "serverless-architecture-london-2024"
+      }
+    ]
+  },
+  {
+    "title": "Automation Using Azure Event Grid",
+    "description": "Come learn how to quickly build an automated image thumbnail generator with little code using the Azure Functions Event Grid trigger.",
+    "abstract": "The Azure Functions Event Grid trigger allows for the automation of tasks when certain events occur within the Azure ecosystem, such as when uploading images to a blob storage account. When a subscribed topic occurs, Event Grid detects the event and triggers the associated Azure Function. The Azure Function can then perform a specified task, such as creating a thumbnail of an uploaded image. This enables the automatic and efficient processing of pictures as soon as they are uploaded without requiring manual intervention. By using the Event Grid trigger in combination with Azure Functions, organizations can easily automate tasks related to image processing and streamline their workflows.\r\n\r\nCome learn how to quickly build an automated image thumbnail generator with little code using the Azure Functions Event Grid trigger.",
+    "learningObjectives": [
+      "Understand Azure Functions, Azure Event Grid, Azure Storage, and how they can work together",
+      "Learn from first-hand experiences of building an automated thumbnail generation utility using serverless offerings",
+      "Understand the different between the Azure Functions Blob trigger and the Azure Functions Event Grid trigger"
+    ],
+    "slug": "automation-using-azure-event-grid",
+    "image": "https://github.com/TaleLearnCode/AutomationUsingAzureEventGrid/blob/main/Thumbnail.jpg",
+    "imageAltText": "Automation Using Azure Event Grid",
+    "relatedPresentation": [],
+    "tags": [
+      "Automation",
+      "Azure",
+      "Azure Functions",
+      "C#",
+      "Event Grid",
+      "Microsoft"
+    ],
+    "duration": "45 - 60 minutes",
+    "repoUrl": "https://github.com/TaleLearnCode/AutomationUsingAzureEventGrid",
+    "engagements": []
+  },
+  {
+    "title": "Azure Durable Functions for Serverless .NET Orchestration",
+    "description": "Durable Functions is an open-source extension to Azure Functions that enables long-running orchestrations and stateful processes to execute as serverless functions. Learn about the common use patterns for durable functions, how to implement them, and the best practices for writing simple or complex stateful orchestrations.",
+    "abstract": "Durable Functions is an open-source extension to Azure Functions that enables long-running orchestrations and stateful processes to execute as serverless functions. Learn about the common use patterns for durable functions, how to implement them, and the best practices for writing simple or complex stateful orchestrations.",
+    "learningObjectives": [
+      "Learn about the common use patterns for Azure Durable Functions",
+      "Learn how to implement Azure Durable Functions",
+      "Learn about the best practices for writing simple or complex stateful orchestrations"
+    ],
+    "slug": "azure-durable-functions-for-serverless-dotnet-orchestration",
+    "imageAltText": "Azure Durable Functions for Serverless .NET Orchestration",
+    "relatedPresentation": [],
+    "tags": [
+      "Architecture",
+      "Azure",
+      "Azure Functions",
+      "Best Practices",
+      "Durable Functions",
+      "Microsoft",
+      "Serverless"
+    ],
+    "duration": "45 - 60 minutes",
+    "engagements": []
+  },
+  {
+    "title": "Building a .NET Application Using Azure Cosmos DB",
+    "description": "Are you looking to build an application that needs a data store with guaranteed single-digit millisecond response times and multi-master global distribution? Then Azure Cosmos DB is for you. In this presentation, you will learn what Cosmos DB is, what it can be used for, how to access data stored in Cosmos using .NET, and some pitfalls you will want to avoid.",
+    "abstract": "Are you looking to build an application that needs a data store with guaranteed single-digit millisecond response times and multi-master global distribution? Then Azure Cosmos DB is for you. In this presentation, you will learn what Cosmos DB is, what it can be used for, how to access data stored in Cosmos using .NET, and some pitfalls you will want to avoid.",
+    "learningObjectives": [
+      "Understand how to use Azure Cosmos DB within a .NET Core application",
+      "Learn about the pitfalls to watch out for when using Azure Cosmos DB"
+    ],
+    "slug": "building-dotnet-application-using-cosmos-db",
+    "image": "https://github.com/TaleLearnCode/BuildingDotNetAppUsingCosmosDB/blob/main/Resources/Building%20a%20.NET%20Appliccation%20Using%20Azure%20Cosmos%20DB.png",
+    "imageAltText": "Building a .NET Application Using Azure Cosmos DB",
+    "relatedPresentation": [],
+    "tags": [
+      "Azure",
+      "Azure Storage",
+      "CosmosDB",
+      "Cosmos",
+      ".NET",
+      ".NET Core",
+      "Data",
+      "Database",
+      "NoSQL"
+    ],
+    "duration": "45 - 60 minutes",
+    "repoUrl": "https://github.com/TaleLearnCode/BuildingDotNetAppUsingCosmosDB",
+    "engagements": []
+  },
+  {
+    "title": "Building Event-Driven Microservices",
+    "description": "Microservices help build modern applications to be more resilient and reduce dependencies. But, these involve complex web frameworks and containerization to get those benefits. With Azure Functions, we can develop more concise services quicker and get the benefits of serverless technology.",
+    "abstract": "The microservice pattern serves as excellent practice in building modern applications to be more resilient and reduce dependencies across multiple parts of a product. But generally, these involve complex web frameworks and containerization to get those benefits. But by using Azure Functions, we can develop more concise services even quicker and get many of the benefits of serverless technology without lots of operational management. In this session, we\u2019ll explore Azure Functions and see how they can be used to build out a microservice-based solution.",
+    "learningObjectives": [
+      "Learn what event-driven architecture is and how your applications can benefit from its use",
+      "Learn how to transform your complex systems to become event-driven",
+      "See firsthand how to build a event-driven microservice architecture to build highly scalable solutions"
+    ],
+    "slug": "building-event-driven-microservices",
+    "image": "https://github.com/TaleLearnCode/BuildingEventDrivenMicroservices/blob/main/Thumbnail.jpg",
+    "imageAltText": "Building Event-Driven Microservices",
+    "relatedPresentation": [],
+    "tags": [
+      ".NET",
+      "APIs",
+      "Architecture",
+      "Azure",
+      "Azure Functions",
+      "Best Practices",
+      "C#",
+      "Cloud",
+      "Cloud-Native",
+      "Software Design",
+      "Microservices",
+      "Microsoft",
+      "REST",
+      "Serverless"
+    ],
+    "duration": "45 - 60 minutes",
+    "repoUrl": "https://github.com/TaleLearnCode/BuildingEventDrivenMicroservices",
+    "engagements": []
+  },
+  {
+    "title": "Building Great Libraries",
+    "description": "\u201CBad libraries build collections; good libraries build services; great libraries build communities.\u201D Whether you are building a class library containing common functionality to use within your company\u2019s products, a class library for your customers to be able to use your services, or the next great open-source project; you should take great care when building a class library so that it is easy to use and widely adopted. During this session, we will talk about coding standards you should apply, documentation, dependencies, publishing, versioning, and handling breaking changes so that you can build class libraries that developers will enjoy using instead of those they curse at.",
+    "abstract": "\u201CBad libraries build collections; good libraries build services; great libraries build communities.\u201D Whether you are building a class library containing common functionality to use within your company\u2019s products, a class library for your customers to be able to use your services, or the next great open-source project; you should take great care when building a class library so that it is easy to use and widely adopted. During this session, we will talk about coding standards you should apply, documentation, dependencies, publishing, versioning, and handling breaking changes so that you can build class libraries that developers will enjoy using instead of those they curse at.",
+    "learningObjectives": [
+      "Learn how to apply coding standards and best practices to build class libraries usable by many",
+      "Learn how to version your class libraries in order to make changes while not breaking functionality for others",
+      "Learn how to publish your class libraries so potential users can find them"
+    ],
+    "slug": "building-great-libraries",
+    "image": "https://github.com/TaleLearnCode/BuildingGreatLibraries/blob/main/Thumbnail.jpg",
+    "imageAltText": "Building Great Libraries",
+    "relatedPresentation": [],
+    "tags": [
+      ".NET",
+      "APIs",
+      "Architecture",
+      "Best Practices",
+      "C#",
+      "Software Design"
+    ],
+    "duration": "45 - 60 minutes",
+    "repoUrl": "https://github.com/TaleLearnCode/BuildingGreatLibraries",
+    "engagements": []
+  },
+  {
+    "title": "Building Serverless Solutions with Azure and .NET",
+    "description": "Join this full-day workshop to master serverless computing with Azure and .NET. Dive into hands-on activities, live demos, and collaborative sessions to build scalable, efficient, cost-effective solutions. Gain practical experience designing, developing, and deploying serverless applications on Azure using .NET. Come and elevate your expertise in building resilient solutions.",
+    "abstract": "Join for an immersive full-day workshop where you\u2019ll dive deep into the world of serverless computing using Azure and .NET. This workshop is designed for developers and architects eager to harness the power of serverless technologies to build scalable, efficient, and cost-effective solutions.\r\n\r\nThroughout the day, participants will engage in hands-on activities to explore the key concepts, tools, and best practices for building serverless applications on the Azure platform with the .NET framework.\r\n\r\nBy the end of the workshop, participants will have gained practical experience in designing, developing, and deploying serverless solutions on Azure using .NET, equipping them with the skills needed to leverage serverless technologies effectively in their projects.\r\n\r\nDon\u2019t miss this opportunity to elevate your serverless development expertise and take your applications to the next level. Register now and embark on a journey towards building scalable, resilient, and cost-efficient solutions with Azure and .NET.",
+    "learningObjectives": [
+      "Understand the fundamentals of serverless computing and its benefits in building scalable, efficient, and cost-effective solutions.",
+      "Explore essential Azure serverless services and tools for developing serverless applications, including Azure Functions, Azure Logic Apps, and Azure Cosmos DB.",
+      "Gain practical experience in designing, developing, and deploying serverless solutions using the .NET framework on the Azure platform, through hands-on activities and live demonstrations."
+    ],
+    "slug": "building-serverless-solutions",
+    "image": "https://github.com/TaleLearnCode/BuildingServerlessSolutions/blob/main/thumbnail.jpg",
+    "imageAltText": "Building Serverless Solutions with Azure and .NET",
+    "relatedPresentation": [],
+    "tags": [
+      ".NET",
+      "Architecture",
+      "Azure",
+      "Best Practices",
+      "Cloud Computing",
+      "Cost Efficiency",
+      "Developer Workshop",
+      "Hands-On Learning",
+      "Scalability",
+      "Serverless Solutions"
+    ],
+    "duration": "45 - 60 minutes",
+    "repoUrl": "https://github.com/TaleLearnCode/BuildingServerlessSolutions",
+    "engagements": [
+      {
+        "title": "dev up 2024",
+        "date": "August 14 - 16, 2024",
+        "location": "St. Charles, MO ",
+        "venue": "St. Charles Convention Center",
+        "image": "https://via.placeholder.com/150",
+        "imageAltText": "dev up 2024",
+        "description": "- dev up is a technology conference based in St. Louis, Missouri where developers and other technologists come together to learn, network, and be inspired. Our goal is to provide a platform for software development teams to gain new insights, knowledge and make connections that will help them improve their craft and their technical capabilities.\r\n\r\n  Our conference covers a wide variety of technologies including:\r\n\r\n  - Cloud platforms such as Microsoft Azure or Amazon Web Services (AWS)\r\n  - Development Technologies such as Microsoft .NET, Java, Rust, and many more platforms and languages\r\n  - DevOps best practices including tools such as Azure DevOps, GitHub, and Jira\r\n  - Agile Project Management best practices\r\n  - Low Code/No Code platforms such as the Microsoft Power Platform\r\n  - Many other cutting-edge tools, technologies, and best practices which development teams will find valuable",
+        "websiteUrl": "https://www.devupconf.org/",
+        "presentations": [],
+        "slug": "dev-up-2024"
+      },
+      {
+        "title": "Beer City Code 2024",
+        "date": "August 02 - 03, 2024",
+        "location": "Grand Rapids, MI ",
+        "venue": "Calvin University - Fine Arts Center",
+        "image": "https://via.placeholder.com/150",
+        "imageAltText": "Beer City Code 2024",
+        "description": "Beer City Code is an annual conference for software developers held in Grand Rapids, MI, also known as [Beer City, USA](https://www.experiencegr.com/things-to-do/beer-city/). Software creators of all types are welcome, even those who don\u0027t care for beer.\r\n\r\nThe main conference is held Saturday, August 3, with optional day-long workshops the day before, Friday, August 2. You can attend just the Saturday conference, add on an all-day workshop on Friday, or even upgrade to a ticket that includes a VIP party with our speakers, sponsors, and organizers. How cool is that?!\r\n\r\nThe Beer City Code conference grew our of the success of its predecessor, Grand Rapids DevDay, but was renamed in 2017 to embrace its much more broad appeal outside the Grand Rapids area.",
+        "websiteUrl": "https://www.beercitycode.com/",
+        "presentations": [],
+        "slug": "beer-city-code-2024"
+      }
+    ]
+  },
+  {
+    "title": "Ch-ch-ch-changes: Tracing Changes in Azure Cosmos DB",
+    "description": "The Azure Cosmos DB change feed listens to an Azure Cosmos container for any changes and outputs the sorted lists of changed documents. In this session, you learn the change feed, how it works, and how to use it to build more robust applications.",
+    "abstract": "David Bowie might be unable to trace how time changes him, but the Azure Cosmos DB change feed allows us to trace the changes to your data within your Cosmos database. The Azure Cosmos DB change feed listens to an Azure Cosmos container for any changes and outputs the sorted lists of changed documents. In this session, you learn the change feed, how it works, and how to use it to build more robust applications.",
+    "learningObjectives": [
+      "Learn how the Azure Cosmos DB change feed works",
+      "Learn how to build robust applications that can react to changes within the database",
+      "See real-world examples of how to implement the most common use cases for the change feed"
+    ],
+    "slug": "ch-ch-ch-changes",
+    "image": "https://github.com/TaleLearnCode/Ch-ch-ch-changes/blob/main/thumbnail.jpg",
+    "imageAltText": "Ch-ch-ch-changes: Tracing Changes in Azure Cosmos DB",
+    "relatedPresentation": [],
+    "tags": [
+      "Architecture",
+      "Azure",
+      "Azure Cosmos DB",
+      "Cosmos DB",
+      "Data",
+      "Event-Driven Architecture",
+      "Microservices"
+    ],
+    "duration": "45 - 60 minutes",
+    "repoUrl": "https://github.com/TaleLearnCode/Ch-ch-ch-changes",
+    "engagements": []
+  },
+  {
+    "title": "Choosing Your Code Companion: GitHub vs Azure DevOps",
+    "description": "Microsoft\u0027s acquisition of GitHub stirred debate and uncertainty in the software development community, prompting questions about the future of version control and project management platforms. In this session, learn from a comparative analysis of GitHub and Azure DevOps to clarify this evolving landscape.\r\n\r\nGitHub, known for its collaborative coding environment, and Azure DevOps, with its integration within the Microsoft ecosystem, offer distinct advantages. We explore version control workflows, project management capabilities, and CI/CD pipelines, demonstrating how each platform meets the needs of modern development teams.\r\n\r\nAddressing post-acquisition confusion, we discuss Microsoft\u0027s stewardship and its impact on Azure DevOps\u0027 viability. Through insights into strategic positioning and feature offerings, attendees gain a nuanced understanding of both platforms, empowering informed decision-making in the ever-evolving software development landscape.",
+    "abstract": "The acquisition of GitHub by Microsoft sent ripples through the software development community, sparking debates and uncertainties about the future of version control and project management platforms. Amidst this backdrop, our presentation seeks to demystify the landscape by conducting a thorough comparative analysis of GitHub and Azure DevOps.\r\n\r\nGitHub, a household name in collaborative coding, has flourished with its intuitive interface and vibrant community. Azure DevOps, meanwhile, has emerged as a formidable contender within the Microsoft ecosystem, offering a comprehensive suite of tools tailored for seamless integration and scalability.\r\n\r\nLet us dive into the intricacies of version control workflows, project management capabilities, and CI/CD pipelines, examining how each platform addresses the evolving needs of modern development teams. Drawing on real-world examples and use cases, we explore the nuances of GitHub and Azure DevOps, elucidating their strengths and limitations in diverse scenarios.\r\n\r\nMoreover, we confront the elephant in the room: the post-acquisition confusion. Microsoft\u0027s stewardship of GitHub has prompted questions about whether Azure DevOps remains a viable solution. Will Microsoft kill off Azure DevOps in favor of the more accepted GitHub? We will navigate this uncertainty, offering insights into how the acquisition has influenced the strategic positioning and feature offerings of GitHub and Azure DevOps.\r\n\r\nBy the end of our presentation, attendees will be equipped with a nuanced understanding of both platforms, enabling them to navigate the crossroads with confidence and clarity. The goal is to empower development teams to make informed decisions, leveraging the strengths of GitHub and Azure DevOps to propel their projects forward in the ever-evolving software development landscape.",
+    "learningObjectives": [
+      "Differentiate between GitHub and Azure DevOps regarding version control workflows, project management capabilities, and CI/CD pipelines.",
+      "Analyze the impact of Microsoft\u0027s acquisition of GitHub on both platforms\u0027 strategic positioning and feature offerings.",
+      "Empower attendees to make informed decisions in software development by leveraging insights gained from the comparative analysis."
+    ],
+    "slug": "choosing-your-code-companion",
+    "image": "https://github.com/TaleLearnCode/ChoosingYourCodeCompanion/blob/main/thumbnail.jpg",
+    "imageAltText": "Choosing Your Code Companion: GitHub vs Azure DevOps",
+    "relatedPresentation": [],
+    "tags": [
+      "Azure DevOps",
+      "Collaboration",
+      "GitHub",
+      "Project Management",
+      "Software Development"
+    ],
+    "duration": "45 - 60 minutes",
+    "repoUrl": "https://github.com/TaleLearnCode/ChoosingYourCodeCompanion",
+    "engagements": []
+  },
+  {
+    "title": "Cloud Nirvana Awaits: Azure\u0027s Serverless Symphony Unveiled!",
+    "description": "Join us on a transformative journey as we explore serverless architecture possibilities with Microsoft Azure. Discover the foundational principles and diverse benefits of serverless computing, and delve into crucial serverless Azure services such as Azure Functions, Logic Apps, Event Grid, App Service, Durable Functions, Static Web Apps, API Management, Kubernetes Service, Synapse Link, Azure Arc. Through practical insights, best practices, and real-world case studies, gain a comprehensive understanding of how these services cater to specific business needs. Whether aiming to streamline workflows, build scalable applications, or optimize data processing, this presentation equips you with the knowledge to make informed decisions, fostering efficiency and innovation in your organization\u0027s cloud journey.",
+    "abstract": "As organizations seek to enhance agility, reduce operational overhead, and foster rapid innovation, serverless architecture has emerged as a transformative solution. This presentation delves into the diverse array of serverless offerings within the Azure ecosystem.\r\n\r\nBeginning with an exploration of the foundational principles and benefits of serverless computing, the presentation introduces crucial serverless Azure services designed to empower developers and businesses alike. Participants will gain insights into Azure Functions, Azure Logic Apps, Azure Event Grid, Azure Static Web Apps, Azure API Management, and Azure Container Apps.\r\n\r\nThe session overviews each service and highlights their use cases, illustrating how they address distinct business needs. Practical considerations, best practices, and real-world case studies will be shared to guide the audience in making informed decisions when adopting serverless solutions on Microsoft Azure.\r\n\r\nWhether you want to streamline workflows, build scalable applications, or optimize data processing, this presentation equips you with the knowledge to navigate the rich landscape of serverless offerings on Azure. Join us on a journey to unlock innovation, enhance efficiency, and propel your organization into the future of cloud computing.",
+    "learningObjectives": [
+      "**Diverse Serverless Solutions:** Gain a comprehensive understanding of the various serverless architecture possibilities within Microsoft Azure, ranging from Azure Functions and Logic Apps for event-driven compute and workflows to Azure Container Apps for building modern apps and microservices using serverless containers. Explore how each service caters to specific use cases, empowering you to choose the right tool for your business needs.",
+      "**Practical Implementation Insights:** Acquire valuable insights and best practices for implementing serverless solutions on Azure. Learn how to design for scalability, ensure reliability, and optimize performance. Dive into real-world case studies showcasing successful implementations, illustrating the tangible benefits of leveraging Azure\u0027s serverless offerings.",
+      "**Informed Decision-Making:** Equip yourself with the knowledge and tools to make informed decisions in your organization\u0027s cloud journey. Understand the key considerations, design principles, and security aspects essential for successfully adopting serverless architecture. This presentation provides valuable insights to unlock innovation and drive efficiency in your Azure-powered projects."
+    ],
+    "slug": "cloud-nirvana-awaits",
+    "image": "https://github.com/TaleLearnCode/CloudNirvana/blob/main/thumbnail.jpg",
+    "imageAltText": "Cloud Nirvana Awaits: Azure\u0027s Serverless Symphony Unveiled!",
+    "relatedPresentation": [],
+    "tags": [
+      "Agility",
+      "Azure",
+      "Azure API Management",
+      "Azure Container Apps",
+      "Azure Event Grid",
+      "Azure Function",
+      "Azure Logic Apps",
+      "Azure Static Web Apps",
+      "Best Practices",
+      "Case Studies",
+      "Cloud",
+      "Cloud Adoption",
+      "Cloud Computing",
+      "Microsoft Azure",
+      "Scalable Applications",
+      "Serverless",
+      "Serverless Computing",
+      "Workflows"
+    ],
+    "duration": "45 - 60 minutes",
+    "repoUrl": "https://github.com/TaleLearnCode/CloudNirvana",
+    "engagements": []
+  },
+  {
+    "title": "Code, Connect, Conquer: Mastering Serverless and API-Centric Designs",
+    "description": "This session comprehensively explores two transformative paradigms in cloud computing: serverless computing and API-driven architectures. Delve into the essence and evolution of serverless computing, uncovering its benefits and key components. Transition seamlessly to API-driven architectures, illuminating their pivotal role in modern software development. Navigate challenges and future trends, empowering you to harness the full potential of these technologies in your endeavors.",
+    "abstract": "In today\u0027s rapidly evolving landscape of cloud computing and software architecture, the paradigms of serverless computing and API-driven architectures stand out as transformative forces driving efficiency, scalability, and innovation. This session explores these two intertwined concepts\u0027 core principles, benefits, and practical applications.\r\n\r\nBeginning with exploring serverless computing, we define its essence and trace its evolution from traditional server-based models. We unravel the manifold benefits it offers, from seamless scalability and cost-effectiveness to reduced operational overhead and accelerated time-to-market. Delving deeper, we dissect the critical components of serverless architecture, including Functions as a Service (FaaS), Backend as a Service (BaaS), and event-driven paradigms.\r\n\r\nTransitioning to API-driven architectures, we illuminate their pivotal role in modern software development, emphasizing their modularity, reusability, and interoperability. We discuss API design principles, the significance of API gateways, and real-world examples showcasing their transformative potential in diverse domains.\r\n\r\nThroughout the session, we navigate the intricate challenges and considerations, from cold start latency and vendor lock-in to security implications and monitoring complexities. Drawing from practical insights and future trends, we anticipate these paradigms\u0027 continued evolution and intersection with emerging technologies.\r\n\r\nJoin us on this enlightening journey as we unravel the intricate tapestry of serverless computing and API-driven architectures, empowering you to harness their full potential in your software endeavors.",
+    "learningObjectives": [
+      "**Mastering Serverless Computing**: Understand the core principles and benefits of serverless computing, including scalability, cost-effectiveness, and reduced operational overhead.",
+      "**Unlocking the Power of API-Driven Architectures**: Gain insights into API-driven architectures, including design principles, modularity, and interoperability, and their role in modern software development.",
+      "**Real-World Applications and Case Studies**: Explore real-world applications and case studies showcasing the transformative potential of serverless computing and API-driven architectures in diverse domains."
+    ],
+    "slug": "code-connect-conquer",
+    "image": "https://github.com/TaleLearnCode/CodeConnectConquer/blob/main/thumbnail.jpg",
+    "imageAltText": "Code, Connect, Conquer: Mastering Serverless and API-Centric Designs",
+    "relatedPresentation": [],
+    "tags": [
+      "API",
+      "Architecture",
+      "Cloud Computing",
+      "Event-Driven Architecture",
+      "Innovation",
+      "Microservices",
+      "Scalability",
+      "Serverless Computing",
+      "Software Development",
+      "Technology Trends"
+    ],
+    "duration": "45 - 60 minutes",
+    "repoUrl": "https://github.com/TaleLearnCode/CodeConnectConquer",
+    "engagements": [
+      {
+        "title": "API Conference Berlin 2024",
+        "date": "October 21 - 23, 2024",
+        "location": "Berlin, Germany",
+        "venue": "Maritim proArte Hotel Berlin",
+        "image": "https://via.placeholder.com/150",
+        "imageAltText": "API Conference Berlin 2024",
+        "description": "The Conference for Web APIs, API Design \u0026 Management ",
+        "websiteUrl": "https://apiconference.net/berlin/",
+        "presentations": [],
+        "slug": "api-conference-berlin-2024"
+      }
+    ]
+  },
+  {
+    "title": "Decisions, Decisions: Documenting Architecture with ADRs!",
+    "abstract": "Ever wonder why a past architectural decision was made? In this thrilling 10-minute talk, discover the magic of architecture decision records (ADRs)! See how ADRs can transform your project\u0027s documentation and communication, making your decision-making process transparent and traceable. Learn to create effective ADRs quickly and see real-world examples of their impact. Come to unlock the power of ADRs and bring clarity and excitement to your architectural decisions!",
+    "learningObjectives": [
+      "**Understand the Purpose and Benefits of ADRs:** Learn what Architecture Decision Records (ADRs) are and why they are essential for documenting and communicating architectural decisions in software projects.",
+      "**Learn How to Create Effective ADRs:** Gain practical knowledge on creating ADRs, including the key components (context, decision, consequences) and best practices for writing clear and concise records.",
+      "**Recognize the Impact of ADRs on Team Communication and Project Success:** See real-world examples of how ADRs improve team alignment, onboarding, and decision-making processes, leading to more successful and manageable projects."
+    ],
+    "slug": "decisions",
+    "image": "https://github.com/TaleLearnCode/Decisions/blob/main/thumbnail.jpg",
+    "imageAltText": "Decisions, Decisions: Documenting Architecture with ADRs!",
+    "relatedPresentation": [],
+    "tags": [
+      "Architecture",
+      "Decision Making",
+      "Documentation",
+      "Software Development",
+      "Software Engineering",
+      "Team Communication"
+    ],
+    "duration": "45 - 60 minutes",
+    "repoUrl": "https://github.com/TaleLearnCode/Decisions",
+    "engagements": []
+  },
+  {
+    "title": "Design and Develop a Serverless Event-Driven Microservice-Based Solution",
+    "description": "A hands-on full-day workshop where you will design, develop, and publish a serverless event-driven microservice-based solution.",
+    "abstract": "You have heard buzzwords such as microservices, event-driven architecture, serverless, etc., and probably attended sessions that discuss these terms. But how do you combine all that information?\r\n\r\nDuring this full-day workshop, you will start by designing a solution using serverless and event-driven cloud services using microservice patterns. Then, you will build that solution using .NET, Azure services, and other best-practice tools. Finally, you will deploy that solution to the cloud so your customers can reap the rewards of a well-architected, reliable, and scalable solution that meets their needs today and provides for growth in the future.",
+    "learningObjectives": [
+      "Understand the different serverless, event-driven cloud services and how to put them together to build a cohesive microservice-based architecture",
+      "Build a working serverless event-driven microservice-based solution using best practices based upon real-world experience of what has worked and what has not",
+      "Get hands-on experience deploying the solution you have built using continuous integration/continuous development tools that make it easy to keep your solution updated with the latest changes"
+    ],
+    "slug": "design-develop-serverless-event-driven-microservice-solution",
+    "image": "https://github.com/TaleLearnCode/DesignDevelopServerlessEventDrivenMicroserviceSolution/blob/main/Thumbnail.png",
+    "imageAltText": "Design and Develop a Serverless Event-Driven Microservice-Based Solution",
+    "relatedPresentation": [],
+    "tags": [
+      ".NET",
+      "APIs",
+      "Application Development",
+      "Architecture",
+      "Azure",
+      "Azure Event Hubs",
+      "Azure Functions",
+      "Azure Service Bus",
+      "C#",
+      "Cloud",
+      "Cloud Architecture",
+      "Cloud Computing",
+      "Cloud Development",
+      "Cloud Integration",
+      "Cloud Resources",
+      "Cloud Services",
+      "Cloud Solutions",
+      "Cloud-Native",
+      "Cloud-Native Services",
+      "Event Processing",
+      "Event-driven",
+      "Event-Driven Architecture",
+      "Event-Driven Solutions",
+      "Hands-on Training",
+      "Hands-on Workshop",
+      "Microservices",
+      "Microsoft",
+      "Microsoft Azure",
+      "Performance Optimization",
+      "Real-Time Event Processing",
+      "Reliability",
+      "REST",
+      "Scalability",
+      "Scalable Architectures",
+      "Security",
+      "Serverless",
+      "Serverless Computing",
+      "Software Design",
+      "Software Development",
+      "Technology",
+      "Training",
+      "Workshop"
+    ],
+    "duration": "45 - 60 minutes",
+    "repoUrl": "https://github.com/TaleLearnCode/DesignDevelopServerlessEventDrivenMicroserviceSolution",
+    "engagements": [
+      {
+        "title": "Nebraska.Code() 2024",
+        "date": "July 17 - 19, 2024",
+        "location": "Lincoln, NE ",
+        "venue": "Cornhusker Marriott",
+        "image": "https://via.placeholder.com/150",
+        "imageAltText": "Nebraska.Code() 2024",
+        "description": "Nebraska.Code stands as the premier software development conference in the Heartland, offering extensive coverage of all aspects of software planning, development, and deployment. Our comprehensive range encompasses frontend development, open source technology, emerging trends, practical agile methodologies, DevOps practices, security measures, career development, software craftsmanship, and a myriad of other related areas.",
+        "websiteUrl": "https://nebraskacode.amegala.com/",
+        "presentations": [],
+        "slug": "nebraska-code-2024"
+      }
+    ]
+  },
+  {
+    "title": "File New: Build an Event-Driven Architected Microservice from Scratch",
+    "description": "During this session, starting with an empty Visual Studio solution, we will build an event-driven architected microservice solution to solve a real-world problem.",
+    "abstract": "Event-driven microservice architectures provide a versatile approach to designing and integrating complex software systems with independent, encapsulated components. During this session, we will focus on the how by starting with an empty Visual Studio solution and building a complete event-driven architected microservice to solve a real-world problem. You will learn how to design, develop, and deploy a decoupled, encapsulated, responsive, scalable, and independent solution. We\u2019ll talk about potential pitfalls, and you will see how to get around them.",
+    "learningObjectives": [
+      "Learn the basics of event-driven architectures.",
+      "Learn how to transform your complex systems to become event-driven.",
+      "See firsthand how to build an event-driven microservice architecture to build highly scalable solutions."
+    ],
+    "slug": "eda-microservice-from-scratch",
+    "image": "https://github.com/TaleLearnCode/FileNew-EventDrivenArchitectedMicroservice/blob/main/Thumbnail.png",
+    "imageAltText": "File New: Build an Event-Driven Architected Microservice from Scratch",
+    "relatedPresentation": [],
+    "tags": [
+      "NET",
+      "APIs",
+      "Architecture",
+      "Azure",
+      "Azure Functions",
+      "Best Practices",
+      "C#",
+      "Cosmos DB",
+      "Cloud",
+      "Cloud-Native",
+      "Software Design",
+      "Microservices",
+      "Microsoft",
+      "REST",
+      "Serverless"
+    ],
+    "duration": "45 - 60 minutes",
+    "repoUrl": "https://github.com/TaleLearnCode/FileNew-EventDrivenArchitectedMicroservice",
+    "engagements": []
+  },
+  {
+    "title": "Essential Software Design Patterns for Optimal Development",
+    "description": "Explore the pivotal role of effective design patterns in achieving maintainable, scalable, and robust systems within the dynamic landscape of software development. The presentation begins with an overview of design patterns, emphasizing their significance in modern software engineering. It then delves into a carefully selected set of essential design patterns, providing real-world examples and use cases to illustrate their practical applications. The session highlights each pattern\u0027s benefits and potential drawbacks, addressing concerns related to code maintainability, extensibility, and collaboration within development teams. We give special attention to pattern selection criteria, empowering participants to make informed decisions about applying specific patterns. By the session\u0027s end, attendees will possess a solid foundation in crucial software design patterns, enabling them to make informed design choices, write cleaner and more modular code, and confidently tackle complex software engineering challenges, benefiting both novice and experienced professionals in enhancing their development practices and elevating the quality of their software projects.",
+    "abstract": "Utilizing effective design patterns is paramount to achieving maintainable, scalable, and robust systems in software development\u0027s dynamic and ever-evolving landscape. This presentation aims to delve into the world of software design patterns, providing an in-depth exploration of the most valuable and versatile ways that have stood the test of time.\r\n\r\nThe presentation will begin by laying a solid foundation with an overview of design patterns and why they are crucial in modern software engineering. It will then examine a carefully curated selection of essential design patterns, each accompanied by real-world examples and use cases highlighting their practical applications.\r\n\r\nThe presentation will emphasize each pattern\u0027s benefits and potential drawbacks, addressing concerns related to code maintainability, extensibility, and collaboration within development teams. Special attention will be given to pattern selection criteria, guiding participants in making informed decisions about when and where to apply specific patterns.\r\n\r\nBy the end of this presentation, attendees will be equipped with a solid foundation in a range of essential software design patterns, enabling them to make informed design choices, write cleaner and more modular code, and confidently tackle complex software engineering challenges. Whether novice or experienced, every software professional will find valuable insights to enhance their development practices and elevate the quality of their software projects.",
+    "learningObjectives": [
+      "Understand the significance of design patterns in modern software engineering.",
+      "Explore essential software design patterns with real-world examples and use cases.",
+      "Empower participants to make informed decisions about applying specific patterns based on criteria such as code maintainability and collaboration within development teams."
+    ],
+    "slug": "essential-software-design-patterns",
+    "image": "https://github.com/TaleLearnCode/EssentialSoftwareDesignPatterns/blob/main/thumbnail.jpg",
+    "imageAltText": "Essential Software Design Patterns for Optimal Development",
+    "relatedPresentation": [],
+    "tags": [
+      "Architecture",
+      "Code Quality",
+      "Design Patterns",
+      "Informed Decisions",
+      "Pattern Selection",
+      "Practical Applications",
+      "Software Development",
+      "Software Engineering"
+    ],
+    "duration": "45 - 60 minutes",
+    "repoUrl": "https://github.com/TaleLearnCode/EssentialSoftwareDesignPatterns",
+    "engagements": [
+      {
+        "title": "Nebraska.Code() 2024",
+        "date": "July 17 - 19, 2024",
+        "location": "Lincoln, NE ",
+        "venue": "Cornhusker Marriott",
+        "image": "https://via.placeholder.com/150",
+        "imageAltText": "Nebraska.Code() 2024",
+        "description": "Nebraska.Code stands as the premier software development conference in the Heartland, offering extensive coverage of all aspects of software planning, development, and deployment. Our comprehensive range encompasses frontend development, open source technology, emerging trends, practical agile methodologies, DevOps practices, security measures, career development, software craftsmanship, and a myriad of other related areas.",
+        "websiteUrl": "https://nebraskacode.amegala.com/",
+        "presentations": [],
+        "slug": "nebraska-code-2024"
+      },
+      {
+        "title": "Scenic City Summit 2024",
+        "date": "June 28, 2024",
+        "location": "Chattanooga, TN ",
+        "venue": "Chattanooga Marriott Downtown",
+        "image": "https://via.placeholder.com/150",
+        "imageAltText": "Scenic City Summit 2024",
+        "description": "Elevate your software development journey at the must-attend conference in the Southeast! Immerse yourself in a dynamic environment where industry leaders, innovators, and enthusiasts converge to share knowledge, spark creativity, and shape the future of software development. Don\u0027t miss out on this unparalleled opportunity to expand your skills, forge valuable connections, and stay ahead in the rapidly evolving tech ecosystem.",
+        "websiteUrl": "https://sceniccitysummit.com/",
+        "presentations": [],
+        "slug": "scenic-city-summit-2024"
+      },
+      {
+        "title": "Tulsa .NET User Group - June 2024",
+        "date": "June 25, 2024",
+        "location": "Tulsa, OK ",
+        "venue": "Online",
+        "image": "https://via.placeholder.com/150",
+        "imageAltText": "Tulsa .NET User Group - June 2024",
+        "description": "The Tulsa Developers Association aka Tulsa .NET User Group is a special interest of like minded professionals that gather to learn and share from one another. \r\n\r\nWe used to meet once a month. But, with the pandemic a lot has changed. For us, it means we meet virtually and now twice a month. Going to virtual meetings has opened the doors for many more opportunities. We now have speakers from around the world. And, more members also from around the world. \r\n\r\nWe have topics such as C#, .NET, .NET Core, Web, ASP.NET, MVC, Design Patterns, Software Development techniques, SOLID principles, Entity Framework, Visual Studio, VS Code, Debugging, TDD, testing frameworks like SpecFlow, Jasmine, and many more.\r\n\r\nAt the beginning of each meeting, the virtual meeting is started and anyone coming earlier can mingle. At 6:30 PM CST, there is a few minutes of introduction. This is when information is shared with the group about upcoming events, etc. At about 6:40 we start with the main presentation. After the presentation we have a drawing for prizes.\r\n\r\nAfter each meeting everyone is welcome to stay online and chat with others. We have a great time and usually have special guests appear during this time too.\r\n\r\nOur meetings are free! By meeting twice a month you have more access to amazing content, speakers, and opportunities than before. And, we do NOT have meetings of sales pitches! That\u0027s right. Every meeting is about sharing information to help you be a better professional. We never try to sell anything. \r\n\r\nEveryone is welcome. We are all on different paths, different journeys, with different interests. You are welcome to come and learn with us. \r\n\r\nBy joining this group you will receive announcements when new meetings are scheduled. You can also join our newsletter that has more information and any last minute changes. To join our newsletter, sign up at http://eepurl.com/csisb.",
+        "websiteUrl": "https://www.meetup.com/TulsaDevelopers-net/",
+        "presentations": [],
+        "slug": "tulsa-dotnet-june-2024"
+      },
+      {
+        "title": "Louisville Azure Meetup - June 2024",
+        "date": "June 13, 2024",
+        "location": "Louisville, KY ",
+        "venue": "Humana",
+        "image": "https://via.placeholder.com/150",
+        "imageAltText": "Louisville Azure Meetup - June 2024",
+        "description": "The Louisville Azure Meetup group is dedicated to helping those in the Louisville area learn about working with Azure services.",
+        "websiteUrl": "https://www.meetup.com/louisville-azure-meetup/events/300314705/",
+        "presentations": [],
+        "slug": "lou-azure-june-2024"
+      },
+      {
+        "title": "Louisville .NET Meetup - May 2024",
+        "date": "May 23, 2024",
+        "location": "Louisville, KY ",
+        "venue": "Slingshot",
+        "image": "https://via.placeholder.com/150",
+        "imageAltText": "Louisville .NET Meetup - May 2024",
+        "description": "The Louisville .NET Meetup group stands out as a unique platform dedicated to empowering developers in Louisville to excel in their craft, with a strong focus on the Microsoft .NET technology stack. Our meetings, held on the third Thursday of each month, provide a valuable opportunity for developers to enhance their skills and network with like-minded professionals.",
+        "websiteUrl": "https://www.meetup.com/louisville-dotnet/events/300463326/",
+        "presentations": [],
+        "slug": "loudotnet-may-2024"
+      }
+    ]
+  },
+  {
+    "title": "Event-Driven Architecture in the Cloud",
+    "description": "Event-driven architectures are versatile in designing and integrating complex software systems with loosely coupled components. In this session, you will learn how to create a loosely coupled architecture for your business with the domain at the core.",
+    "abstract": "Event-driven architecture is versatile in designing and integrating complex software systems with loosely coupled components. While not a new concept, event-driven architecture is seeing a new life as applications move to the cloud as it provides much more robust possibilities to solve today\u0027s and future business problems. In this session, you will learn how to create a loosely coupled architecture for your business with the domain at the core. You will learn the basics of event-driven architecture, how to transform your complex systems to become event-driven, and what benefits this architecture brings to your businesses. The overall architecture applies to any cloud stack, but this session will have examples using Azure offerings.",
+    "learningObjectives": [
+      "Learn the basics of event-driven architecture.",
+      "Learn how to transform your complex systems to become event-driven.",
+      "Learn about the benefits event-driven architecture brings to your business."
+    ],
+    "slug": "event-driven-architecture-in-the-cloud",
+    "image": "https://github.com/TaleLearnCode/EventDrivenArchitectureInTheCloud/blob/main/Resources/Images/Event%20Driven%20Architecture%20in%20the%20Cloud.jpg",
+    "imageAltText": "Event-Driven Architecture in the Cloud",
+    "relatedPresentation": [],
+    "tags": [
+      "Architecture",
+      "Event-Driven Architecture",
+      "Azure",
+      "Azure Functions",
+      "Cloud",
+      "Cosmos DB",
+      "Event Hubs"
+    ],
+    "duration": "45 - 60 minutes",
+    "repoUrl": "https://github.com/TaleLearnCode/EventDrivenArchitectureInTheCloud",
+    "engagements": []
+  },
+  {
+    "title": "File New: Build a Fully-Managed and Documented API",
+    "description": "Starting with nothing, during this session, we will create an Azure API Management instance, configure API endpoints to be served by the instance, set up rate-limiting, transform data coming in and out of the endpoints, provide a portal for developers to interact with the API, and add security and performance.",
+    "abstract": "Azure API Management is a way to create consistent modern API gateways for existing backend services. It provides an interface for your backend services and APIs while ensuring they are secured, monitored, maintained, well-documented, and published to the cloud. In this session, we will focus on the how by creating a new Azure API Management instance, configuring API endpoints to be served by the API Management instance, setting up rate-limiting, transforming data coming in and out of the endpoints, providing a portal for developers to intact with the API, and add security and performance. You will see firsthand how to get the most out of Azure API Management to make your APIs accessible to your internal and external customers.",
+    "learningObjectives": [
+      "Understand what an API gateway is and how it can help improve the usability of your APIs.",
+      "Learn how to set up Azure API Management to publish your APIs to the world.",
+      "Learn about the tips and tricks to get the most out of Azure API Management."
+    ],
+    "slug": "file-new-api-management",
+    "image": "https://github.com/TaleLearnCode/FileNew-APIManagement/blob/main/Thumbnail.png",
+    "imageAltText": "File New: Build a Fully-Managed and Documented API",
+    "relatedPresentation": [],
+    "tags": [
+      ".NET",
+      ".NET Core",
+      "APIs",
+      "Architecture",
+      "Azure",
+      "C#",
+      "Cloud",
+      "Cloud-Native",
+      "Software Design",
+      "Microservices",
+      "Microsoft",
+      "Serverless"
+    ],
+    "duration": "45 - 60 minutes",
+    "repoUrl": "https://github.com/TaleLearnCode/FileNew-APIManagement",
+    "engagements": []
+  },
+  {
+    "title": "Essential Software Design Patterns for Optimal Development",
+    "description": "During this session, we will start with an empty Visual Studio solution and build a serverless microservice to solve a real-world problem.",
+    "abstract": "The microservice pattern serves as excellent practice in building modern applications to be more resilient and reduce dependencies across multiple system components. Often, these solutions are based on complex web frameworks and containerization. Using Azure Functions, we can develop more concise services even quicker and get many additional benefits from serverless technology without all the operational management. In this session, we will focus on how to start with an empty Visual Studio solution and build a complete serverless microservice solution using Azure Functions that solve a real-world problem. You will see firsthand how to design, develop, and deploy the Azure Function App, which is usable to perform valuable services.",
+    "learningObjectives": [
+      "Understand the significance of design patterns in modern software engineering.",
+      "Explore essential software design patterns with real-world examples and use cases.",
+      "Empower participants to make informed decisions about applying specific patterns based on criteria such as code maintainability and collaboration within development teams."
+    ],
+    "slug": "file-new-serverless-microservices",
+    "image": "https://github.com/TaleLearnCode/EssentialSoftwareDesignPatterns/blob/main/thumbnail.jpg",
+    "imageAltText": "Essential Software Design Patterns for Optimal Development",
+    "relatedPresentation": [],
+    "tags": [
+      "Architecture",
+      "Code Quality",
+      "Design Patterns",
+      "Informed Decisions",
+      "Pattern Selection",
+      "Practical Applications",
+      "Software Development",
+      "Software Engineering"
+    ],
+    "duration": "45 - 60 minutes",
+    "repoUrl": "https://github.com/TaleLearnCode/EssentialSoftwareDesignPatterns",
+    "engagements": []
+  },
+  {
+    "title": "Generative AI for .NET Developers",
+    "description": "Discover how to use .NET, C#, and Azure to create amazing applications with OpenAI and other generative AI technologies. You will learn the fundamental concepts of this latest wave of AI, the benefits and challenges of using .NET with it, and the best practices and tips for developing intelligent apps. You will also see a live demo of how AI can build AI apps using .NET and OpenAI.",
+    "abstract": "Have you ever wondered how to create intelligent apps with .NET and Azure OpenAI? Do you want to learn how to leverage the power of large language models like ChatGPT to generate natural and engaging conversations? Do you want to see how AI can build AI apps? If you answered yes to these questions, this talk is for you!\r\n\r\nIn this talk, you will discover how to use .NET, C#, and Azure to create amazing applications with OpenAI and other generative AI technologies. You will learn the fundamental concepts of this latest wave of AI, the benefits and challenges of using .NET with it, and the best practices and tips for developing intelligent apps. You will also see a live demo of how AI can build AI apps using .NET and OpenAI.",
+    "learningObjectives": [
+      "Understand the fundamental concepts of generative AI and its applications.",
+      "Learn how to integrate .NET with Azure OpenAI to create intelligent applications.",
+      "Explore the benefits and challenges of using .NET with large language models like ChatGPT."
+    ],
+    "slug": "generative-ai-for-dotnet-developers",
+    "image": "https://github.com/TaleLearnCode/GenerativeAIForDotNetDevelopers/blob/main/thumbnail.jpg",
+    "imageAltText": "Generative AI for .NET Developers",
+    "relatedPresentation": [],
+    "tags": [
+      ".NET",
+      "AI",
+      "Applications",
+      "Azure",
+      "ChatGPT",
+      "C#",
+      "Demo",
+      "Generative AI",
+      "Intelligent Apps",
+      "OpenAI",
+      "Tips and Best Practices"
+    ],
+    "duration": "45 - 60 minutes",
+    "repoUrl": "https://github.com/TaleLearnCode/GenerativeAIForDotNetDevelopers",
+    "engagements": [
+      {
+        "title": "Louisville .NET Meetup - August 2024",
+        "date": "May 23, 2024",
+        "location": "Louisville, KY ",
+        "venue": "Slingshot",
+        "image": "https://via.placeholder.com/150",
+        "imageAltText": "Louisville .NET Meetup - August 2024",
+        "description": "The Louisville .NET Meetup group stands out as a unique platform dedicated to empowering developers in Louisville to excel in their craft, with a strong focus on the Microsoft .NET technology stack. Our meetings, held on the third Thursday of each month, provide a valuable opportunity for developers to enhance their skills and network with like-minded professionals.",
+        "websiteUrl": "https://www.meetup.com/louisville-dotnet/events/300491256/",
+        "presentations": [],
+        "slug": "loudotnet-august-2024"
+      }
+    ]
+  },
+  {
+    "title": "Beyond Hello World: Getting Deeper into Azure Functions",
+    "description": "You surely have seen the HTTP trigger within Azure Functions. Every presentation uses that trigger to show how awesome Azure Functions can be. But there is a bunch more you can do with Azure Functions using the other triggers and bindings, which makes Azure Functions a fantastic tool in your toolchest for solving all sorts of needs. So come and hear about these triggers and bindings and see real-world examples of how they have been employed in different solutions to solve real customer needs.",
+    "abstract": "You surely have seen the HTTP trigger within Azure Functions. Every presentation uses that trigger to show how awesome Azure Functions can be. But there is a bunch more you can do with Azure Functions using the other triggers and bindings, which makes Azure Functions a fantastic tool in your toolchest for solving all sorts of needs. So come and hear about these triggers and bindings and see real-world examples of how they have been employed in different solutions to solve real customer needs.",
+    "learningObjectives": [
+      "Learn about the different Azure Function bindings and triggers outside of the HTTP trigger.",
+      "See real-world examples of how Azure Functions have been used to solve real needs.",
+      "Learn how to use the Durable Functions extension to build orchestration processes that extend Azure Functions beyond your imagination."
+    ],
+    "slug": "getting-deeper-into-azure-functions",
+    "image": "https://github.com/TaleLearnCode/GettingDeeperIntoAzureFunctions-private/blob/main/thumbnail.jpg",
+    "imageAltText": "Beyond Hello World: Getting Deeper into Azure Functions",
+    "relatedPresentation": [],
+    "tags": [
+      ".NET",
+      "Architecture",
+      "Azure",
+      "Azure Functions",
+      "C#",
+      "Cloud",
+      "Cloud-Native",
+      "Cloud-Native Architectures",
+      "Integrations",
+      "Serverless"
+    ],
+    "duration": "45 - 60 minutes",
+    "repoUrl": "https://github.com/TaleLearnCode/GettingDeeperIntoAzureFunctions",
+    "engagements": []
+  },
+  {
+    "title": "Going Schema-less: How to migrate a relational database to a NoSQL database",
+    "description": "This session dives into the transition from relational to NoSQL databases, highlighting NoSQL\u0027s advantages, such as scalability and flexibility. Attendees will learn practical strategies for migrating data, including the secret of leveraging multiple data stores. Join us for actionable insights and real-world examples to guide your database evolution.",
+    "abstract": "In the ever-evolving landscape of database management, the debate between relational and NoSQL databases remains ongoing. While relational databases have long been the stalwarts of structured data management, NoSQL databases offer a compelling alternative with their schema-less design and horizontal scalability. This presentation dives into migrating from a relational database to a NoSQL counterpart, exploring the benefits and challenges of such a transition.\r\n\r\nWe will unravel the intricacies of NoSQL databases, highlighting their flexibility and agility in handling diverse data structures. Through real-world examples and case studies, we will illustrate the tangible advantages that NoSQL databases offer over their relational counterparts, including improved scalability, performance, and schema flexibility.\r\n\r\nMoreover, we will uncover the secret to successful migration: the strategic data allocation across multiple data sources. By embracing a polyglot persistence approach, organizations can leverage the strength of different database technologies to optimize data storage and retrieval.\r\n\r\nAttendees will gain actionable insights into the migration process, from initial assessment and planning to execution and optimization. Whether contemplating a migration or seeking to optimize your existing database architecture, this session equips you with the knowledge and strategies to navigate the transition to a schema-less paradigm. Join us as we journey towards a more agile and scalable data ecosystem.",
+    "learningObjectives": [
+      "Learn about the pros and cons of developing a NoSQL data model over a relational one.",
+      "Learn how to migrate data from a relational database to a NoSQL data model.",
+      "Learn how to develop a .NET application to use a Cosmos DB NoSQL data model"
+    ],
+    "slug": "going-schema-less",
+    "image": "https://github.com/TaleLearnCode/GoingSchemaless/blob/main/thumbnail.jpg",
+    "imageAltText": "Going Schema-less: How to migrate a relational database to a NoSQL database",
+    "relatedPresentation": [],
+    "tags": [
+      ".NET",
+      ".NET Core",
+      "Architecture",
+      "Azure",
+      "C#",
+      "Cloud",
+      "Cosmos DB",
+      "Data",
+      "Data Modeling",
+      "Database",
+      "Database Development",
+      "NoSQL",
+      "SQL Server"
+    ],
+    "duration": "45 - 60 minutes",
+    "repoUrl": "https://github.com/TaleLearnCode/GoingSchemaless",
+    "engagements": [
+      {
+        "title": "Serverless Architecture Conference Berlin 2024",
+        "date": "October 21 - 23, 2024",
+        "location": "Berlin, Germany",
+        "venue": "Maritim proArte Hotel Berlin",
+        "image": "https://via.placeholder.com/150",
+        "imageAltText": "Serverless Architecture Conference Berlin 2024",
+        "description": "We bring together the world\u2019s leading software architects and cloud experts to share their ideas and knowledge.",
+        "websiteUrl": "https://serverless-architecture.io/berlin",
+        "presentations": [],
+        "slug": "serverless-architecture-berlin-2024"
+      }
+    ]
+  },
+  {
+    "title": "Graphing Your Way Through the Cosmos",
+    "description": "Data is naturally connected, but data modeling focuses on entities that cause complicated joins. Graph databases, on the other hand, store data more naturally. See how to use Azure Cosmos DB Gremlin API to traverse such data structures and practical examples of common data problems.",
+    "abstract": "As it appears in the real world, data is naturally connected, but traditional data modeling focuses on entities that can cause complicated joins of these naturally connected data. That is where graph databases come in, as they store data more like what happens naturally in the real world. Sure, there is a lot of talk about using graph databases for social networks, recommendation engines, and the Internet of Things, but using graph databases can also make a lot of sense when working with common business data problems. In this presentation, you will better understand what graph databases are and how to use the Gremlin API within Azure Cosmos DB to traverse such data structures and see practical examples of common data problems.",
+    "learningObjectives": [
+      "Understand the basics of graph databases.",
+      "See real-world examples of graph databases with common business data problems.",
+      "Understand best practices in building graphing data solutions."
+    ],
+    "slug": "graphing-your-way-through-the-cosmos",
+    "image": "https://github.com/TaleLearnCode/GraphingYourWayThroughTheCosmos/blob/master/Resources/Images/GraphingYourWayThroughTheCosmos%20-%20Thumbnail.jpg",
+    "imageAltText": "Graphing Your Way Through the Cosmos",
+    "relatedPresentation": [],
+    "tags": [
+      "Azure",
+      "Azure Cosmos DB",
+      "Cloud",
+      "Data",
+      "Database",
+      "Graph Data",
+      "Gremlin",
+      "Microsoft",
+      "TinkerPop"
+    ],
+    "duration": "45 - 60 minutes",
+    "repoUrl": "https://github.com/TaleLearnCode/GraphingYourWayThroughTheCosmos",
+    "engagements": []
+  },
+  {
+    "title": "The Hitchhiker\u0027s Guide to the Cosmos",
+    "description": "In this session, you will learn what you can do with Cosmos DB, the benefits of each of these data models, and how to use everything Cosmos DB has to offer to make your applications rock solid. Come find out when and how to implement Cosmos DB and which options you should use based upon your needs.",
+    "abstract": "Today\u2019s applications are required to be highly responsible and always online. Cosmos DB was built from the ground up to provide a globally distributed, multi-model database service that enables you to elastically and independently scale throughput and storage across any number of Azure regions worldwide. Because of its ARS (atoms, records, and sequences) design, Azure Cosmos DB accessing data via SQL, MongoDB, Table, Gremlin, Cassandra, and ETCD APIs. All of this with transparent multi-master replication, high availability at 99.999%, and guarantees of less than 10-ms latencies both reads and (indexed) writes.\r\n\r\nIn this session, you will learn what you can do with Cosmos DB, the benefits of each of these data models, and how to use everything Cosmos DB has to offer to make your applications rock solid. Come find out when and how to implement Cosmos DB and which options you should use based upon your needs.",
+    "learningObjectives": [
+      "Learn about the different Azure Cosmos DB data models",
+      "Learn how to use the benefits of Azure Cosmos DB to build the best data solution",
+      "Learn about some of the common Cosmos DB use cases"
+    ],
+    "slug": "hitchhikers-guide-to-the-cosmos",
+    "image": "https://github.com/TaleLearnCode/HitchhikersGuideToCosmos/blob/master/Resources/Original%20Images/The%20Hitchhikers%20Guide%20to%20the%20Cosmos.jpg",
+    "imageAltText": "The Hitchhiker\u0027s Guide to the Cosmos",
+    "relatedPresentation": [],
+    "tags": [
+      "Azure",
+      "Cloud",
+      "Cosmos DB",
+      "Data",
+      "Database",
+      "No SQL"
+    ],
+    "duration": "45 - 60 minutes",
+    "repoUrl": "https://github.com/TaleLearnCode/HitchhikersGuideToCosmos",
+    "engagements": []
+  },
+  {
+    "title": "Intro to Azure Communication Services",
+    "description": "Microsoft recently announced Azure Communication Services, which \u201Cbrings rich communication APIs to all your applications across any device, on any platform, using the same reliable and secure infrastructure that powers Microsoft Teams.\u201D During this session, you will learn what this new service has to offer, and we\u2019ll step through a couple of use cases, such as sending/receiving SMS messages and two-way video conversations.",
+    "abstract": "Microsoft recently announced Azure Communication Services, which \u201Cbrings rich communication APIs to all your applications across any device, on any platform, using the same reliable and secure infrastructure that powers Microsoft Teams.\u201D During this session, you will learn what this new service has to offer, and we\u2019ll step through a couple of use cases, such as sending/receiving SMS messages and two-way video conversations.",
+    "learningObjectives": [
+      "Learn about the new Azure Communication Services.",
+      "Learn how to use Azure Communication Services to send and receive SMS messages"
+    ],
+    "slug": "intro-to-azure-communication-services",
+    "imageAltText": "Intro to Azure Communication Services",
+    "relatedPresentation": [],
+    "tags": [
+      "Azure",
+      "Chat",
+      "Cloud",
+      "SMS",
+      "Telephony",
+      "Video Calling",
+      "Voice"
+    ],
+    "duration": "45 - 60 minutes",
+    "repoUrl": "https://github.com/TaleLearnCode/IntroToAzureCommunicationServices",
+    "engagements": []
+  },
+  {
+    "title": "Navigating the Maze: Communicating Architecture Decisions with Architecture Decision Records",
+    "description": "In this session, learn how to communicate architecture decisions effectively using Architecture Decision Records (ADRs). Explore the importance of ADRs in software architecture and how they capture decisions\u0027 rationale, context, and consequences. We\u0027ll delve into real-world examples, best practices, and practical applications, empowering you to navigate the architectural maze with clarity and confidence, regardless of your level of expertise.",
+    "abstract": "The most commonly asked question in software architecture is why a team used a particular architectural style, set of patterns, technology, etc. Effective communication of architectural decisions is paramount in the ever-evolving landscape of software architecture. Architecture Decision Records (ADRs) are invaluable for documenting, sharing, and understanding these decisions. Explore the significance of ADRs in facilitating clear and transparent communication within architectural teams.\r\n\r\nWe will discuss the fundamental principles of ADRs and examine how they capture the rationale, context, and consequences of architectural choices. Through real-world examples and case studies, we will see the practical application of ADRs in various scenarios, from small-scale projects to large, complex systems.\r\n\r\nFurthermore, we will discuss best practices for creating, managing, and evolving ADRs throughout a project\u0027s lifecycle. From initiation to implementation, learn how to harness the power of ADRs to foster collaboration, mitigate risks, and maintain architectural integrity.\r\n\r\nWhether you are a seasoned architect or a budding developer, this session promises to equip you with the knowledge and skills to communicate architecture decisions effectively using ADRs, empowering you to navigate the architectural maze confidently and clearly and be able to answer the question of why today, tomorrow, and in the future.",
+    "learningObjectives": [
+      "Recognize the significance of Architecture Decision Records (ADRs) in enhancing communication within architectural teams.",
+      "Understand how ADRs document architectural decisions with real-world examples.",
+      "Learn best practices for creating, managing, and evolving ADRs to support collaboration and maintain architectural integrity."
+    ],
+    "slug": "navigating-the-maze",
+    "image": "https://github.com/TaleLearnCode/NavigatingTheMaze/blob/main/thumbnail.jpg",
+    "imageAltText": "Navigating the Maze: Communicating Architecture Decisions with Architecture Decision Records",
+    "relatedPresentation": [],
+    "tags": [
+      "Architecture",
+      "Architecture Decision Records",
+      "Best Practices",
+      "Communication",
+      "Project Management",
+      "Software Development"
+    ],
+    "duration": "45 - 60 minutes",
+    "repoUrl": "https://github.com/TaleLearnCode/NavigatingTheMaze",
+    "engagements": []
+  },
+  {
+    "title": "New Horizons for C# Developers",
+    "description": "Embark on a transformative journey through the latest advancements in the C# ecosystem in this presentation. Discover the expressive power of C# 12, unlocking new language features and improved syntax for heightened developer productivity. Navigate the performance and scalability innovations in .NET 8, empowering you to build efficient cross-platform applications. Delve into the evolution of web development with the latest features in ASP.NET Core and redefine data access with enhancements in Entity Framework Core. By the end, you\u0027ll be equipped to elevate your C# development skills, creating modern, responsive, and scalable solutions that embody the cutting edge of software development.",
+    "abstract": "Join us on an exciting journey through the latest advancements in the C# ecosystem as we delve into the cutting-edge features introduced in C# 12, .NET 8, and the transformative updates to ASP.NET Core and Entity Framework Core. In this comprehensive presentation, we will navigate the landscape of modern development, equipping C# developers with the knowledge and skills to stay at the forefront of their craft.\r\n\r\n**C# 12: Pushing the Boundaries** Discover the power of C# 12, where language innovation meets developer productivity. Uncover new syntactic sugar, enhanced pattern matching, and improved support for asynchronous programming. Dive into the latest language features that empower developers to write more expressive and concise code, fostering a seamless and enjoyable development experience.\r\n\r\n**.NET 8: Unleashing Performance and Scalability** Explore the advancements in .NET 8 that push the envelope of performance and scalability. Witness the evolution of the runtime and libraries, empowering developers to build high-performance, cross-platform applications. From enhanced multi-platform support to improved performance optimizations, .NET 8 opens new doors for developers seeking to create robust and efficient solutions.\r\n\r\n**ASP.NET Core: Crafting Modern Web Experiences** Embark on a journey through the evolution of ASP.NET Core, where web development meets innovation. Uncover the latest features that streamline the creation of modern, responsive, and secure web applications. From enhanced API capabilities to improved authentication mechanisms, ASP.NET Core is at the forefront of web development, enabling developers to deliver exceptional user experiences.\r\n\r\n**Entity Framework Core: Redefining Data Access** Delve into the latest enhancements in Entity Framework Core, revolutionizing data access in C# applications. Explore new features that simplify database interactions, boost performance, and improve developer productivity. From advanced query capabilities to improved model-first development, Entity Framework Core empowers developers to build robust and scalable data-driven applications.\r\n\r\nIn this dynamic presentation, we aim to equip C# developers with the knowledge and tools to embrace the latest innovations in the ecosystem, fostering a community of forward-thinking and empowered developers. Join us as we explore the new horizons of C# development, inspiring you to elevate your craft and build the next generation of exceptional software solutions.",
+    "learningObjectives": [
+      "**Mastering C# 12 Language Features:** Recognize and understand the new features introduced in C# 12.",
+      "**Navigating .NET 8 for Performance and Scalability:** Grasph the advancements in .NET 8 that contribute to improved performance and scalability.",
+      "**Building Modern Web Experiences with ASP.NET Core and Entity Framework Core:** Understand and apply enhancements in ASP.NET Core and Entity Framework Core to build better applications."
+    ],
+    "slug": "new-horizons-for-csharp-developers",
+    "image": "https://github.com/TaleLearnCode/new-horizons-for-csharp-developers/blob/main/Thumbnail.jpg",
+    "imageAltText": "New Horizons for C# Developers",
+    "relatedPresentation": [],
+    "tags": [
+      ".NET",
+      "ASP.NET Core",
+      "Best Practices",
+      "C#",
+      "Data Access",
+      "Developer Productivity",
+      "Entity Framework Core",
+      "Software Development",
+      "Software Engineering",
+      "Web Development"
+    ],
+    "duration": "45 - 60 minutes",
+    "repoUrl": "https://github.com/TaleLearnCode/new-horizons-for-csharp-developers",
+    "engagements": []
+  },
+  {
+    "title": "Other Duties as Assigned",
+    "description": "\u0022Other duties as assigned\u0022 is a phrase included in just about everyone\u0027s job description and generally means the tasks that the hiring manager or human resources could not think of when writing the job description. As a result, employees often do not even get assigned such tasks or hardly notice when performing them. But what if we sought out such things, embraced them, became better at our jobs, and, in turn, benefited our careers by not only taking on these other duties but also seeking them out?",
+    "abstract": "\u0022Other duties as assigned\u0022 is a phrase included in just about everyone\u0027s job description and generally means the tasks that the hiring manager or human resources could not think of when writing the job description. As a result, employees often do not even get assigned such tasks or hardly notice when performing them. But what if we sought out such things, embraced them, became better at our jobs, and, in turn, benefited our careers by not only taking on these other duties but also seeking them out?\r\n\r\nChad Green\u0027s professional software development career was kickstarted by \u0022other duties as assigned.\u0022 Over three decades later, Chad has performed many duties outside his job descriptions. Learn how he embraced these assignments and improved his core skills through them and how they have made him the leader he is today.",
+    "learningObjectives": [
+      "Learn how to seek out other duties to improve your skill set",
+      "Learn how to benefit from other duties and make strides in your professional career",
+      "Learn how not to be abused by other duties that take you away too much from your normal tasks"
+    ],
+    "slug": "other-duties-as-assigned",
+    "image": "https://github.com/TaleLearnCode/OtherDutiesAsAssigned/blob/main/Thumbnail.jpg",
+    "imageAltText": "Other Duties as Assigned",
+    "relatedPresentation": [],
+    "tags": [
+      "Professional Development",
+      "Soft Skills"
+    ],
+    "duration": "45 - 60 minutes",
+    "repoUrl": "https://github.com/TaleLearnCode/OtherDutiesAsAssigned",
+    "engagements": []
+  },
+  {
+    "title": "Reevaluating Software Design Patterns: Uncovering Patterns That Can Be More Burden Than Benefit",
+    "description": "Explore the dual nature of design patterns in software development, acknowledging their potency in solving recurring problems and their essential role in creating maintainable, scalable, and robust systems while also addressing the nuanced reality that not all patterns are equal; some revered patterns may inadvertently introduce increased complexity, decreased maintainability, and hinder productivity, delving into real-world scenarios where such patterns may lead to unintended consequences such as convoluted code, performance bottlenecks, and intricate debugging sessions.",
+    "abstract": "Design patterns are potent tools in software development that solve recurring problems. These patterns have become essential in creating maintainable, scalable, and robust software systems. However, not all design patterns are created equal, and some well-respected patterns may inadvertently lead to increased complexity, decreased maintainability, and even hinder productivity. In this presentation, we\u0027ll delve into software design patterns that can cause more work than they are worth.\r\n\r\nJoin us as we explore design patterns that have earned their place in software engineering history but may only sometimes live up to their reputation. We\u0027ll discuss real-world scenarios where these patterns can lead to unintended consequences, including convoluted code, performance bottlenecks, and intricate debugging sessions.",
+    "learningObjectives": [
+      "Learn to evaluate project contexts and requirements to determine where a particular design pattern is suitable or might lead to unnecessary complexities.",
+      "Gain insights into the potential pitfalls, complexities, and maintenance difficulties associated with misapplied or overused patterns.",
+      "Explore strategies for adapting, adjusting, or even transitioning away from problematic patterns while maintaining code quality and functionality."
+    ],
+    "slug": "reevaluating-software-design-patterns",
+    "image": "https://github.com/TaleLearnCode/ReevaluatingSoftwareDesignPatterns/blob/main/Thumbnail.jpg",
+    "imageAltText": "Reevaluating Software Design Patterns: Uncovering Patterns That Can Be More Burden Than Benefit",
+    "relatedPresentation": [],
+    "tags": [
+      "Best Practices",
+      "Code Quality",
+      "Complexity",
+      "Design Patterns",
+      "Maintainability",
+      "Performance Bottlenecks",
+      "Productivity",
+      "Robust Software Systems",
+      "Scalability",
+      "Software Development",
+      "Software Engineering",
+      "Unintended Consequences"
+    ],
+    "duration": "45 - 60 minutes",
+    "repoUrl": "https://github.com/TaleLearnCode/ReevaluatingSoftwareDesignPatterns",
+    "engagements": [
+      {
+        "title": "dev up 2024",
+        "date": "August 14 - 16, 2024",
+        "location": "St. Charles, MO ",
+        "venue": "St. Charles Convention Center",
+        "image": "https://via.placeholder.com/150",
+        "imageAltText": "dev up 2024",
+        "description": "- dev up is a technology conference based in St. Louis, Missouri where developers and other technologists come together to learn, network, and be inspired. Our goal is to provide a platform for software development teams to gain new insights, knowledge and make connections that will help them improve their craft and their technical capabilities.\r\n\r\n  Our conference covers a wide variety of technologies including:\r\n\r\n  - Cloud platforms such as Microsoft Azure or Amazon Web Services (AWS)\r\n  - Development Technologies such as Microsoft .NET, Java, Rust, and many more platforms and languages\r\n  - DevOps best practices including tools such as Azure DevOps, GitHub, and Jira\r\n  - Agile Project Management best practices\r\n  - Low Code/No Code platforms such as the Microsoft Power Platform\r\n  - Many other cutting-edge tools, technologies, and best practices which development teams will find valuable",
+        "websiteUrl": "https://www.devupconf.org/",
+        "presentations": [],
+        "slug": "dev-up-2024"
+      },
+      {
+        "title": "Beer City Code 2024",
+        "date": "August 02 - 03, 2024",
+        "location": "Grand Rapids, MI ",
+        "venue": "Calvin University - Fine Arts Center",
+        "image": "https://via.placeholder.com/150",
+        "imageAltText": "Beer City Code 2024",
+        "description": "Beer City Code is an annual conference for software developers held in Grand Rapids, MI, also known as [Beer City, USA](https://www.experiencegr.com/things-to-do/beer-city/). Software creators of all types are welcome, even those who don\u0027t care for beer.\r\n\r\nThe main conference is held Saturday, August 3, with optional day-long workshops the day before, Friday, August 2. You can attend just the Saturday conference, add on an all-day workshop on Friday, or even upgrade to a ticket that includes a VIP party with our speakers, sponsors, and organizers. How cool is that?!\r\n\r\nThe Beer City Code conference grew our of the success of its predecessor, Grand Rapids DevDay, but was renamed in 2017 to embrace its much more broad appeal outside the Grand Rapids area.",
+        "websiteUrl": "https://www.beercitycode.com/",
+        "presentations": [],
+        "slug": "beer-city-code-2024"
+      },
+      {
+        "title": "Michigan Technology Conference 2024",
+        "date": "March 21 - 22, 2024",
+        "location": "Pontiac, MI ",
+        "venue": "UWM Sports Complex",
+        "image": "https://via.placeholder.com/150",
+        "imageAltText": "Michigan Technology Conference 2024",
+        "description": "The Michigan Technology Conference (MITechCon) is a two-day technology conference taking place on March 21 to March 22, 2024. Join us at the spacious UWM Sports Complex for two days of content covering the forefront of technology. This event is a unique opportunity in Southeast Michigan to collaborate with IT professionals across the variety of industries in our state.",
+        "websiteUrl": "https://www.mitechcon.org/",
+        "presentations": [],
+        "slug": "michigan-tech-con-2024"
+      }
+    ]
+  },
+  {
+    "title": "Secrets of Conflict Resolution",
+    "description": "One of the most challenging aspects of being a leader is dealing with conflict amongst your team. Yet, even in adversity, productivity is vital to running the team like a well-oiled machine. Improve your relationships with coworkers, clients, and managers and find your way through conflict back to cooperation. This session will provide you with the secrets of effective conflict resolution and how to prevent conflicts from ever starting.",
+    "abstract": "One of the most challenging aspects of being a leader is dealing with conflict amongst your team. Yet, even in adversity, productivity is vital to running the team like a well-oiled machine. Improve your relationships with coworkers, clients, and managers and find your way through conflict back to cooperation. This session will provide you with the secrets of effective conflict resolution and how to prevent conflicts from ever starting.",
+    "learningObjectives": [
+      "Understand the five conflict resolution methods and why you would use one over another.",
+      "Learn about the Karpman Dram Triangle and how it can help us understand the motivations of those involved in a conflict.",
+      "Learn the 10 useful tips for handling conflict that you can employ right away."
+    ],
+    "slug": "secrets-of-conflict-resolution",
+    "image": "https://github.com/TaleLearnCode/SecretsOfConflictResolution/blob/main/Thumbnail.jpg",
+    "imageAltText": "Secrets of Conflict Resolution",
+    "relatedPresentation": [],
+    "tags": [
+      "Soft Skills",
+      "Project Management"
+    ],
+    "duration": "45 - 60 minutes",
+    "repoUrl": "https://github.com/TaleLearnCode/SecretsOfConflictResolution",
+    "engagements": []
+  },
+  {
+    "title": "Serverless in Action",
+    "description": "Have you ever needed the ability to develop something simple for a business request but did not want to go through the trouble of creating a full application? Serverless computing will help you do that quickly and without the mess and fuss of dealing with infrastructure.",
+    "abstract": "Have you ever needed the ability to develop something simple for a business request but did not want to go through the trouble of creating a full application? Well, that is where Azure Functions comes into play. Azure Functions provides a serverless computer service that enables you to run code on-demand without having to explicitly provision or manage infrastructure. Literally, within a couple of minutes, you can develop a function that can perform critical business need using the development languages you already use.\r\n\r\nDuring this session, we will walk through some real-world examples using C# and JavaScript that will allow you to back and start using this great service right away.",
+    "learningObjectives": [
+      "Learn the what is serverless computing",
+      "Learn what is Azure Functions and how to use it to develop business-critical functionality",
+      "Learn about the different Azure Function triggers and bindings that allow you to tie in many other Azure resources"
+    ],
+    "slug": "serverless-in-action",
+    "imageAltText": "Serverless in Action",
+    "relatedPresentation": [],
+    "tags": [
+      "Architecture",
+      "Azure",
+      "Azure Functions",
+      "Cloud",
+      "Serverless"
+    ],
+    "duration": "45 - 60 minutes",
+    "repoUrl": "https://github.com/TaleLearnCode/ServerlessInAction",
+    "engagements": []
+  },
+  {
+    "title": "Software Craftsmanship for New Developers",
+    "description": "As a new developer, knowing language syntax is essential; but just as important is understanding the concepts of software craftsmanship. This session will teach you about terms like code smells, DRY, and SOLID. Even if for experienced developers, this will be a good refresher on the essentials.",
+    "abstract": "Knowing language syntax is essential for a new developer, but just as important is understanding what software craftsmanship is. In this session, Chad will discuss the software craftsmanship movement and its importance. Chad will also explain essential craftsmanship terms like code smells, DRY, and SOLID. Even if you have been developing for a while, this session will be helpful to brush up on how not to be a developer but how to be a professional developer.",
+    "learningObjectives": [
+      "Learn what exactly is software craftsmanship is and how it can improve your development teams",
+      "Learn technical debt, how it can be helpful when used wisely, and how to minimize debt and not go bankrupt.",
+      "Get a high-level understanding of what SOLID principles and other fundamental principles.",
+      "Understand critical principles such as SOLID, DRY, KISS, and YANGI and practices such as TDD, pair programming, and coding dojos are and how they can help your team build high-quality software.",
+      "Understand what code smells are, how to detect them, and how to help your team steer clear of them."
+    ],
+    "slug": "software-craftsmanship-for-new-developers",
+    "image": "https://github.com/TaleLearnCode/SoftwareCraftsmanshipForNewDevelopers/blob/main/Resources/Images/SoftwareCraftsmanshipForNewDevelopers.jpg",
+    "imageAltText": "Software Craftsmanship for New Developers",
+    "relatedPresentation": [],
+    "tags": [
+      "Craftsmanship",
+      "Soft Skills"
+    ],
+    "duration": "45 - 60 minutes",
+    "repoUrl": "https://github.com/TaleLearnCode/SoftwareCraftsmanshipForNewDevelopers",
+    "engagements": []
+  },
+  {
+    "title": "Technical Debt Is Not Free",
+    "description": "Teams often rack up tech debt without realizing it. Even mature teams might recognize and maybe even document tech debt, but what good is it if you don\u0027t take action? We\u0027ll explore tech debt, how to document and track it, and how to address it so that it does not cause significant issues later on.",
+    "abstract": "So many software development teams rack up technical debt and do not even realize it. But even if you are a more mature team and recognize and maybe even document technical debt, what good is it if you do not take action? Just like in other parts of our lives, just because we can accumulate bunches of debt if we do not take steps to handle it, we will be destined for bad times when that comes due. In this session, we\u2019ll explore technical debt, how to properly document and track it, and \u2013 more importantly \u2013 how to address it so that it does not cause significant issues down the road.",
+    "learningObjectives": [
+      "Understand what technical debt is and how to measure it",
+      "Understand how to track technical debt in a way meaningful for developers and the business",
+      "Learn ways to combat technical debt"
+    ],
+    "slug": "technical-debt-is-not-free",
+    "image": "https://github.com/TaleLearnCode/TechnicalDebtIsNotFree/blob/main/Thumbnail.jpg",
+    "imageAltText": "Technical Debt Is Not Free",
+    "relatedPresentation": [],
+    "tags": [
+      "Agile",
+      "Best Practices",
+      "Business",
+      "Code Quality",
+      "Project Management",
+      "Software Craftsmanship",
+      "Tips and Tricks",
+      "Technical Debt"
+    ],
+    "duration": "45 - 60 minutes",
+    "repoUrl": "https://github.com/TaleLearnCode/TechnicalDebtIsNotFree",
+    "engagements": [
+      {
+        "title": "Michigan Technology Conference 2024",
+        "date": "March 21 - 22, 2024",
+        "location": "Pontiac, MI ",
+        "venue": "UWM Sports Complex",
+        "image": "https://via.placeholder.com/150",
+        "imageAltText": "Michigan Technology Conference 2024",
+        "description": "The Michigan Technology Conference (MITechCon) is a two-day technology conference taking place on March 21 to March 22, 2024. Join us at the spacious UWM Sports Complex for two days of content covering the forefront of technology. This event is a unique opportunity in Southeast Michigan to collaborate with IT professionals across the variety of industries in our state.",
+        "websiteUrl": "https://www.mitechcon.org/",
+        "presentations": [],
+        "slug": "michigan-tech-con-2024"
+      }
+    ]
+  },
+  {
+    "title": "Terraform: The Developer\u0027s Swiss Army Knife for Infrastructure",
+    "description": "Exploring the landscape of infrastructure automation, this presentation illuminates Terraform as an indispensable tool for developers navigating the complexities of modern technology ecosystems. Participants embark on a journey through the fundamentals of Infrastructure as Code (IaC), unraveling Terraform\u0027s declarative configuration language and its transformative impact on development workflows. Through hands-on demonstrations, attendees discover Terraform is a conduit for seamless integration with cloud services and APIs, empowering developers to sculpt scalable and maintainable infrastructure deployments. Emphasizing collaboration, the session highlights Terraform\u0027s role in bridging the gap between development and operations teams, fostering a shared responsibility and innovation culture. Armed with newfound knowledge, developers emerge prepared to harness Terraform\u0027s capabilities as they embark on their quest to conquer the ever-evolving landscape of modern infrastructure automation.",
+    "abstract": "Dive into the intricate realm of infrastructure automation and learn how developers can use Terraform as a versatile tool for building and updating application infrastructure. During this presentation, we will journey through the core tenets of Infrastructure as Code (IaC), unraveling the fabric of Terraform\u0027s declarative configuration language and its profound impact on development workflows.\r\n\r\nThroughout the session, attendees will be immersed in hands-on demonstrations showcasing Terraform\u0027s prowess as a conduit for seamless integration with cloud services and APIs. Witness firsthand how developers wield Terraform to sculpt scalable and maintainable infrastructure deployments with unparalleled agility and efficiency.\r\n\r\nBut Terraform is more than just a tool; it\u0027s a catalyst for collaboration, bridging the chasm between development and operations teams. Explore how Terraform fosters a shared responsibility and innovation culture, empowering teams to merge their expertise and drive continuous improvement in infrastructure management practices.\r\n\r\nDrawing from real-world use cases and best practices, this presentation equips developers with the knowledge and tools needed to harness Terraform\u0027s capabilities effectively. Armed with this newfound understanding, participants will emerge ready to conquer the ever-evolving landscape of modern infrastructure automation, poised to elevate their development workflows to new heights of efficiency and innovation.",
+    "learningObjectives": [
+      "**Understanding Terraform\u0027s Role in Infrastructure as Code (IaC):** Gain insight into the principles and benefits of Infrastructure as Code (IaC) and explore how Terraform is a powerful tool in implementing IaC practices. Understand the significance of declarative configuration language in Terraform and its role in managing infrastructure as code.",
+      "**Exploring Seamless Integration with Cloud Services and APIs:** Explore how Terraform facilitates seamless integration with various cloud services and APIs, enabling developers to efficiently provision, manage, and scale infrastructure resources across different cloud platforms. Witness firsthand demonstrations showcasing Terraform\u0027s ability to orchestrate complex infrastructure deployments with agility and precision.",
+      "**Fostering Collaboration Between Development and Operations Teams:** Discover how Terraform bridges the gap between development and operations teams, fostering a culture of collaboration, shared responsibility, and innovation. Learn how Terraform empowers teams to work together effectively, streamline workflows, and drive continuous improvement in infrastructure management practices."
+    ],
+    "slug": "terraform-swiss-army-knife",
+    "image": "https://github.com/TaleLearnCode/TerraformSwissArmyKnife/blob/main/thumbnail.jpg",
+    "imageAltText": "Terraform: The Developer\u0027s Swiss Army Knife for Infrastructure",
+    "relatedPresentation": [],
+    "tags": [
+      "Collaboration",
+      "Cloud Services",
+      "Continuous Improvement",
+      "Declarative Configuration Language",
+      "Development Workflows",
+      "Infrastructure as Code (IaC)",
+      "Integration",
+      "Modern Technology Ecosystems",
+      "Operations Teams",
+      "Scalable Infrastructure",
+      "Seamless Deployment",
+      "Shared Responsibility",
+      "Terraform"
+    ],
+    "duration": "45 - 60 minutes",
+    "repoUrl": "https://github.com/TaleLearnCode/TerraformSwissArmyKnife",
+    "engagements": []
+  },
+  {
+    "title": "The Few, The Prod, The Leaders: Marine Corps Principles for Software Teams",
+    "description": "Authentic leadership transcends mere authority and involves the inspiration and empowerment of team members, which is crucial in today\u2019s tech world. This session explores the 14 Marine Corps Leadership Traits\u2014such as integrity, decisiveness, and dependability\u2014and their direct relevance and application to the software development industry. Attendees will learn to distinguish true leaders from managers, gaining practical tools to foster collaboration, innovation, and accountability. Discover how Marine Corps principles can elevate your software teams and enhance your leadership journey, empowering you to lead confidently and purposefully.",
+    "abstract": "What truly defines leadership? Authentic leadership transcends mere authority; it involves inspiring, guiding, and empowering team members to reach their highest potential. In today\u2019s fast-paced tech world, effective leadership is not just necessary but a competitive advantage. Yet, it remains in short supply.\r\n\r\nThis session explores the striking parallels between Marine Corps leadership and software development leadership. By examining the 14 Marine Corps Leadership Traits\u2014such as integrity, decisiveness, and dependability\u2014we will uncover their profound relevance to the tech industry.\r\n\r\nAttendees will learn what distinguishes a true leader from a mere manager or boss. Through real-world examples and interactive exercises, participants will gain practical tools to foster collaboration, innovation, and accountability. This session will bridge the gap between military leadership and software team dynamics, equipping you to lead confidently and purposefully.\r\n\r\nWhether you are a seasoned leader or just beginning your leadership journey, join us to discover how the time-tested principles of the Marine Corps can elevate your software development teams to new heights of success. Be inspired and empowered, ready to lead with the strength and integrity of the few, the proud, the leaders.",
+    "learningObjectives": [
+      "**Understanding True Leadership**: Learn the fundamental distinctions between a true leader and a mere manager or boss.",
+      "**Marine Corps Leadership Traits**: Gain insights into the 14 Marine Corps Leadership Traits and their relevance to software development.",
+      "**Practical Tools for Leadership**: Acquire actionable tools and strategies to foster a culture of collaboration, innovation, and accountability.",
+      "**Real-World Applications**: Explore real-world examples and interactive exercises to apply Marine Corps principles in a tech environment.",
+      "**Inspiration and Empowerment**: Be inspired and empowered to confidently and purposefully lead your software development teams.",
+      "**Personal Growth**: Enhance your leadership journey, whether you are a seasoned leader or just starting."
+    ],
+    "slug": "the-few-the-proud-the-leaders",
+    "image": "https://github.com/TaleLearnCode/LeadingWithStrength/blob/main/Thumbnail.jpg",
+    "imageAltText": "The Few, The Prod, The Leaders: Marine Corps Principles for Software Teams",
+    "relatedPresentation": [],
+    "tags": [
+      "Leadership",
+      "Management Skills",
+      "Professional Growth",
+      "Soft Skills",
+      "Team Building"
+    ],
+    "duration": "45 - 60 minutes",
+    "repoUrl": "https://github.com/TaleLearnCode/LeadingWithStrength",
+    "engagements": []
+  },
+  {
+    "title": "The Taming of the API",
+    "description": "We will examine API gateways and how to use them to make your APIs usable. We\u2019ll then discuss examples using Azure\u2019s API Management service, which allows you to streamline work in Azure and multi-cloud environments to provide your customers with a single place to work with your APIs.",
+    "abstract": "Tranio tells Lucentio, \u201CNo profit grows where is no pleasure ta\u2019en: In brief, sir, study what you most affect.\u201D While Tranio\u2019s point was to get Lucentio to loosen up for him to \u201Clive a little,\u201D this is still a valuable lesson to developers. Your team has worked hard to build the functionality that provides all of your customers\u2019 needs, but how easily have you made it for them to access that? Sometimes, creating the API is the easy part; making it usable is the hard part. However, by adding an API gateway, we can make it easier for customers to access functionality and data provided by your application.\r\n\r\nIn this presentation, we will examine API gateways in general and how to use them to make your APIs usable. We\u2019ll then discuss examples using Azure\u2019s API Management service, which allows you to streamline work in Azure and across hybrid and multi-cloud environments to provide your customers with a single place to work with your APIs.",
+    "learningObjectives": [
+      "Understand what an API gateway is and how it can help improve the usability of your APIs.",
+      "Learn how to set up Azure API Management to publish your APIs to the world.",
+      "Learn about the tips and tricks to get the most out of Azure API Management."
+    ],
+    "slug": "the-taming-of-the-API",
+    "image": "https://github.com/TaleLearnCode/TechnicalDebtIsNotFree/blob/main/Thumbnail.jpg",
+    "imageAltText": "The Taming of the API",
+    "relatedPresentation": [],
+    "tags": [
+      ".NET",
+      ".NET Core",
+      "APIs",
+      "Architecture",
+      "Azure",
+      "C#",
+      "Cloud",
+      "Cloud-Native",
+      "Software Design",
+      "Microservices",
+      "Microsoft",
+      "Serverless"
+    ],
+    "duration": "45 - 60 minutes",
+    "repoUrl": "https://github.com/TaleLearnCode/TechnicalDebtIsNotFree",
+    "engagements": []
+  },
+  {
+    "title": "Time Traveling Data: SQL Server Temporal Tables",
+    "description": "During this session, Chad will explain the key scenarios around the use of Temporal Tables, how system-time works, how to get started, and finish up with a demo to show you Temporal Tables in action, including the easy-to-use T-SQL syntax to implement all of the Temporal goodness. We will also look at how Entity Framework Core 6 now lets us do all this directly in Entity Framework.",
+    "abstract": "Have you built complicated triggers and procedures to track the history of data in your databases? What if SQL Server or Azure SQL could take care of all that for you and you just had to change a couple of settings? Starting with SQL Server 2016, there is support for system-versioned temporal tables as a database feature that brings built-in support for providing information about data stored in a table at any point in time rather than only the data that is correct as the current moment time. During this session, Chad will explain the key scenarios around the use of Temporal Tables, how system-time works, how to get started, and finish up with a demo to show you Temporal Tables in action, including the easy-to-use T-SQL syntax to implement all of the Temporal goodness. We will also look at how Entity Framework Core 6 now lets us do all this directly in Entity Framework.",
+    "learningObjectives": [
+      "Understand the key scenarios around the use of SQL Server temporal tables.",
+      "Understand how to get started using temporal tables.",
+      "Understand best practices and limitations of temporal tables."
+    ],
+    "slug": "time-travelling-data",
+    "image": "https://github.com/TaleLearnCode/TimeTravellingData/blob/main/Thumbnail.jpg",
+    "imageAltText": "Time Traveling Data: SQL Server Temporal Tables",
+    "relatedPresentation": [],
+    "tags": [
+      ".NET",
+      "Architecture",
+      "C#",
+      "Data",
+      "Database",
+      "Entity Framework",
+      "SQL",
+      "SQL Server"
+    ],
+    "duration": "45 - 60 minutes",
+    "repoUrl": "https://github.com/TaleLearnCode/TimeTravellingData",
+    "engagements": []
+  },
+  {
+    "title": "Unleashing Extreme Scalability with Azure Functions",
+    "description": "Join us for an illuminating presentation on the cutting edge of cloud computing, where we get into the intricacies of building event-driven applications at an extreme scale using Azure Functions. Get invaluable insights and best practices for designing applications that effortlessly scale to meet colossal workloads. We will explore upcoming features in Azure Functions that promise to redefine scalability, pushing the boundaries of what is achievable in serverless computing. Explore the future of event-driven architectures and stay ahead in the rapidly evolving world of cloud computing. Discover how Azure Functions is leading the way in enabling applications to scale at unprecedented levels.",
+    "abstract": "Join us for an exciting dive into the forefront of cloud computing as we explore the art of building event-driven applications at an unprecedented scale using Azure Functions. Learn about the intricacies of designing and deploying applications that can easily handle extreme workloads.\r\n\r\nThe discussion will center around leveraging the power of Azure Functions, a serverless computing service, to create event-driven architectures that automatically scale to meet the demands of even the most colossal workloads. Get insights into best practices for designing applications that seamlessly respond to events, ensuring optimal performance and responsiveness.\r\n\r\nThe highlight of this session will be an exclusive preview of upcoming features in Azure Functions that take scalability to new heights. These cutting-edge enhancements promise to redefine the boundaries of what\u0027s achievable, enabling applications to scale at levels previously thought unimaginable. Attendees will gain a sneak peek into the innovations that will soon be available, empowering them to stay ahead in the ever-evolving landscape of cloud computing.\r\n\r\nJoin this journey into extreme scalability and discover how Azure Functions is paving the way for the next generation of event-driven applications.",
+    "learningObjectives": [
+      "**Principles of Extreme-Scale Event-Driven Architecture**: Understand key principles and best practices for building scalable event-driven applications.",
+      "**Advanced Scalability Features in Azure Functions**: Explore advanced features and upcoming enhancements in Azure Functions that enable unprecedented scalability.",
+      "**Practical Application and Case Studies**: Apply theoretical knowledge to real-world scenarios, learning from case studies and gaining insights into optimizing performance."
+    ],
+    "slug": "unleashing-extreme-scalability-with-azure-functions",
+    "imageAltText": "Unleashing Extreme Scalability with Azure Functions",
+    "relatedPresentation": [],
+    "tags": [
+      "Azure Functions",
+      "Best Practices",
+      "Cloud Computing",
+      "Event-Driven Applications",
+      "Extreme Scalability",
+      "Innovation",
+      "Scalability",
+      "Serverless Computing"
+    ],
+    "duration": "45 - 60 minutes",
+    "repoUrl": "https://github.com/TaleLearnCode/UnleashingExtremeScalabilityWithAzureFunctions",
+    "engagements": [
+      {
+        "title": "Azure Day Roma 2024",
+        "date": "June 21, 2024",
+        "location": "Roma, Italy",
+        "venue": "Via Avignone 10",
+        "image": "https://via.placeholder.com/150",
+        "imageAltText": "Azure Day Roma 2024",
+        "description": "Azure Day \u00E8 l\u0027evento dedicato al cloud di casa Microsoft, la conferenza si terr\u00E0 sia in presenza che online il 21 Giugno 2024 a Roma presso la sede Microsoft.\r\n\r\nLa conferenza \u00E8 gratuita, tutte le spese sono sostenute dai nostri Sponsor",
+        "websiteUrl": "https://www.azureday.it/",
+        "presentations": [],
+        "slug": "azure-day-roma-2024"
+      }
+    ]
+  },
+  {
+    "title": "Azure: Unleashing the Power of Cloud Computing",
+    "description": "Unlock the Power of Microsoft Azure: Explore its Virtues and Diverse Services for Digital Transformation. Learn essentials \u0026 drive innovation!",
+    "abstract": "In today\u0027s rapidly evolving digital landscape, organizations leverage the latest technologies to enhance efficiency, scalability, and agility. Microsoft Azure, a leading cloud computing platform, has emerged as a game-changer, offering a comprehensive suite of services that empower businesses to accelerate their digital transformation journeys.\r\n\r\nThis session aims to provide a comprehensive overview of Azure, highlighting its virtues and diverse services. The session will delve into Azure\u0027s essential features, benefits, and capabilities, equipping attendees with the knowledge necessary to harness its full potential.\r\n\r\nThe session will commence with an introduction to cloud computing and the fundamental concepts underlying Azure. Attendees will gain insights into the cloud\u0027s foundational elements, including infrastructure-as-a-service (IaaS), platform-as-a-service (PaaS), and software-as-a-service (SaaS).\r\n\r\nNext, the session will dive into the virtues of Azure, emphasizing its robustness, scalability, and high availability. Attendees will discover how Azure provides a secure and compliant foundation for building and managing applications, enabling organizations to focus on innovation rather than infrastructure management.\r\n\r\nBy the end of this session, attendees will clearly understand Azure\u0027s core virtues, its vast array of services, and how it can drive innovation, scalability, and agility within their organizations. With this knowledge, participants will be well-equipped to embark on their cloud adoption journeys with Azure as a powerful enabler.",
+    "learningObjectives": [
+      "Understand the different serverless, event-driven cloud services and how to put them together to build a cohesive microservice-based architecture.",
+      "Build a working serverless event-driven microservice-based solution using best practices based upon real-world experience of what has worked and what has not.",
+      "Get hands-on experience deploying the solution you have built using continuous integration/continuous development tools that make it easy to keep your solution updated with the latest changes."
+    ],
+    "slug": "unleashing-the-power-of-cloud-computing",
+    "imageAltText": "Azure: Unleashing the Power of Cloud Computing",
+    "relatedPresentation": [],
+    "tags": [
+      "Azure",
+      "Cloud",
+      "Cloud Adoption",
+      "Cloud Computing",
+      "Cloud Services",
+      "Compliance",
+      "Digital Transformation",
+      "IaaS (Infrastructure-as-a-Service)",
+      "Microsoft Azure",
+      "PaaS (Platform-as-a-Service)",
+      "SaaS (Software-as-a-Service)",
+      "Scalability",
+      "Security"
+    ],
+    "duration": "45 - 60 minutes",
+    "repoUrl": "https://github.com/TaleLearnCode/UnleashingExtremeScalabilityWithAzureFunctions",
+    "engagements": []
+  },
+  {
+    "title": "What\u2019s New for C# Developers",
+    "description": "Microsoft has gone from multi-year releases of C# and .NET to annual releases, meaning there are always new things for C# to make their development efforts better and easier. During this session, we\u0027ll talk about the new features in C# 10 and talk about some exciting additions in .NET 6, Entity Framework Core, and ASP.NET Core.",
+    "abstract": "Microsoft has gone from multi-year releases of C# and .NET to annual releases, meaning there are always new things for C# to make their development efforts better and easier. During this session, we\u0027ll talk about the new features in C# 10 and talk about some exciting additions in .NET 6, Entity Framework Core, and ASP.NET Core.",
+    "learningObjectives": [],
+    "slug": "whats-new-for-csharp-developers",
+    "image": "https://github.com/TaleLearnCode/WhatsNewForCSharpDevelopers/blob/main/Resources/WhatsNewForCSharpDevelopers.jpg",
+    "imageAltText": "What\u2019s New for C# Developers",
+    "relatedPresentation": [],
+    "tags": [
+      "C#",
+      ".NET"
+    ],
+    "duration": "45 - 60 minutes",
+    "repoUrl": "https://github.com/TaleLearnCode/WhatsNewForCSharpDevelopers",
+    "engagements": []
   }
 ]
