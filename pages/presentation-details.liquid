@@ -49,6 +49,66 @@ layout: 'layouts/base.liquid'
     </ul>
   </section>
 
+  <section class="accordion">
+    <section class="panel">
+      <h2>
+        <button type="button" onclick="togglePanel(event)">
+          <span>Abstract asdf some really long text to see</span>
+          <span class="caret">{% include 'icons/caret.liquid' %}</span>
+        </button>
+      </h2>
+      <div class="panel-body">
+        {{ p.abstract | markdown }}
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>
+        <button type="button" onclick="togglePanel(event)">
+          <span>Learning Objectives</span>
+          <span class="caret">{% include 'icons/caret.liquid' %}</span>
+        </button>
+      </h2>
+      <div class="panel-body">
+        <ul>
+          {% for lo in p.learningObjectives %}
+            <li>{{ lo | markdown }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>
+        <button type="button" onclick="togglePanel(event)">
+          <span>Engagements</span>
+          <span class="caret">{% include 'icons/caret.liquid' %}</span>
+        </button>
+      </h2>
+      <div class="panel-body engagements">
+        <ul>
+          {% for engagement in p.engagements %}
+            <li>
+              {% include "components/upcoming-engagement" %}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>
+        <button type="button" onclick="togglePanel(event)">
+          <span>Resources</span>
+          <span class="caret">{% include 'icons/caret.liquid' %}</span>
+        </button>
+      </h2>
+      <div class="panel-body">
+        {{ p.resources | markdown }}
+      </div>
+    </section>
+  </section>
+
   <section class="tabs">
     <nav title="tab navigation" id="tabsNav">
       <ul>
@@ -77,6 +137,7 @@ layout: 'layouts/base.liquid'
         </li>
       </ul>
     </nav>
+
     <section id="abstract" class="tab selected">
       <h2>Abstract</h2>
       <div class="tab-body">
