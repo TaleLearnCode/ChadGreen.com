@@ -72,6 +72,16 @@ section.accordion h2 button {
   overflow: hidden;
   border-radius: 4px;
 }
+section.accordion .panel:focus-within {
+  border-color: var(--primary-dark);
+  outline: solid 1px var(--primary-dark);
+}
+section.accordion h2 button:hover {
+  cursor: pointer;
+}
+section.accordion h2 button:focus {
+  outline: none;
+}
 section.accordion h2 span {
   white-space: nowrap;
   width: 100%;
