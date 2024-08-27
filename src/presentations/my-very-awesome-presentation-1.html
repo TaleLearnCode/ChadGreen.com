@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <title>Chad Green</title>
+
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -45,7 +47,7 @@
   </section>
 
   <section class="related-presentations">
-    <h3>Related Presentations</h3>
+    <h2>Related Presentations</h2>
     
       <p>No related Presentations</p>
     
@@ -58,8 +60,11 @@
 
   <section class="accordion">
     <section class="panel">
-      <h2>
-        <button type="button" onclick="togglePanel(event)">
+      <h2 id="accAbstractPanelHeader">
+        <button
+          type="button"
+          onclick="togglePanel(event)"
+          aria-controls="accAbstractPanel">
           <span>Abstract asdf some really long text to see</span>
           <span class="caret"><svg
   xmlns="http://www.w3.org/2000/svg"
@@ -71,14 +76,21 @@
 </svg></span>
         </button>
       </h2>
-      <div class="panel-body">
+      <div
+        class="panel-body"
+        id="accAbstractPanel"
+        role="region"
+        arial-labelledby="accAbstractPanelHeader">
         
       </div>
     </section>
 
     <section class="panel">
-      <h2>
-        <button type="button" onclick="togglePanel(event)">
+      <h2 id="accLearningObjectivesPanelHeader">
+        <button
+          type="button"
+          onclick="togglePanel(event)"
+          aria-controls="accLearningObjectivesPanel">
           <span>Learning Objectives</span>
           <span class="caret"><svg
   xmlns="http://www.w3.org/2000/svg"
@@ -90,7 +102,11 @@
 </svg></span>
         </button>
       </h2>
-      <div class="panel-body">
+      <div
+        class="panel-body"
+        id="accLearningObjectivesPanel"
+        role="region"
+        aria-labelledby="accLearningObjectivesPanelHeader">
         <ul>
           
         </ul>
@@ -98,8 +114,11 @@
     </section>
 
     <section class="panel">
-      <h2>
-        <button type="button" onclick="togglePanel(event)">
+      <h2 id="accEngagementsPanelHeader">
+        <button
+          type="button"
+          onclick="togglePanel(event)"
+          aria-controls="accEngagementsPanel">
           <span>Engagements</span>
           <span class="caret"><svg
   xmlns="http://www.w3.org/2000/svg"
@@ -111,7 +130,11 @@
 </svg></span>
         </button>
       </h2>
-      <div class="panel-body engagements">
+      <div
+        class="panel-body engagements"
+        id="accEngagementsPanel"
+        role="region"
+        aria-labelledby="accEngagementsPanelHeader">
         <ul>
           
         </ul>
@@ -119,8 +142,11 @@
     </section>
 
     <section class="panel">
-      <h2>
-        <button type="button" onclick="togglePanel(event)">
+      <h2 id="accResourcesPanelHeader">
+        <button
+          type="button"
+          onclick="togglePanel(event)"
+          aria-controls="accResourcesPanel">
           <span>Resources</span>
           <span class="caret"><svg
   xmlns="http://www.w3.org/2000/svg"
@@ -132,73 +158,116 @@
 </svg></span>
         </button>
       </h2>
-      <div class="panel-body">
+      <div
+        class="panel-body"
+        id="accResourcesPanel"
+        role="region"
+        aria-labelledby="accResourcesPanelHeader">
         
       </div>
     </section>
   </section>
 
   <section class="tabs">
-    <nav title="tab navigation" id="tabsNav">
-      <ul>
-        <li class="selected" data-order="1">
-          <button
-            type="button"
-            onclick="selectTab('abstract', event)"
-            class="selected">
-            Abstract
-          </button>
-        </li>
-        <li data-order="2">
-          <button type="button" onclick="selectTab('learningObjectives', event)">
-            Objectives
-          </button>
-        </li>
-        <li data-order="3">
-          <button type="button" onclick="selectTab('engagements', event)">
-            Engagements
-          </button>
-        </li>
-        <li data-order="4">
-          <button type="button" onclick="selectTab('resources', event)">
-            Resources
-          </button>
-        </li>
-      </ul>
-    </nav>
+    <div
+      class="nav"
+      id="tabsNav"
+      role="tablist">
+      <button
+        type="button"
+        onclick="selectTab('abstract', event)"
+        id="abstractPanelButton"
+        class="selected"
+        role="tab"
+        aria-selected="true"
+        aria-controls="abstract">
+        Abstract
+      </button>
 
-    <section id="abstract" class="tab selected">
-      <h2>Abstract</h2>
-      <div class="tab-body">
-        
-      </div>
-    </section>
+      <button
+        type="button"
+        onclick="selectTab('learningObjectives', event)"
+        id="learningObjectivePanelButton"
+        role="tab"
+        aria-selected="false"
+        aria-controls="learningObjectives"
+        tabindex="-1">
+        Objectives
+      </button>
 
-    <section id="learningObjectives" class="tab">
-      <h2>Learning Objectives</h2>
-      <div class="tab-body">
-        <ul>
+      <button
+        type="button"
+        onclick="selectTab('engagements', event)"
+        id="engagementsPanelButton"
+        role="tab"
+        aria-selected="false"
+        aria-controls="engagements"
+        tabindex="-1">
+        Engagements
+      </button>
+
+      <button
+        type="button"
+        onclick="selectTab('resources', event)"
+        id="resourcesPanelButton"
+        role="tab"
+        aria-selected="false"
+        aria-controls="resources"
+        tabindex="-1">
+        Resources
+      </button>
+
+    </div>
+
+    <div class="panel-container">
+      <section
+        id="abstract"
+        class="tab selected"
+        aria-labelledby="abstractPanelButton"
+        role="tabpanel">
+        <h2>Abstract</h2>
+        <div class="tab-body">
           
-        </ul>
-      </div>
-    </section>
+        </div>
+      </section>
 
-    <section id="engagements" class="tab">
-      <h2>Engagements</h2>
-      <div class="tab-body engagements">
-        <ul>
+      <section
+        id="learningObjectives"
+        class="tab"
+        aria-labelledby="learningObjectivePanelButton"
+        role="tabpanel">
+        <h2>Learning Objectives</h2>
+        <div class="tab-body">
+          <ul>
+            
+          </ul>
+        </div>
+      </section>
+
+      <section
+        id="engagements"
+        class="tab"
+        aria-labelledby="engagementsPanelButton"
+        role="tabpanel">
+        <h2>Engagements</h2>
+        <div class="tab-body engagements">
+          <ul>
+            
+          </ul>
+        </div>
+      </section>
+
+      <section
+        id="resources"
+        class="tab"
+        aria-labelledby="resourcesPanelButton"
+        role="tabpanel">
+        <h2>Resources</h2>
+        <div class="tab-body">
           
-        </ul>
-      </div>
-    </section>
-
-    <section id="resources" class="tab">
-      <h2>Resources</h2>
-      <div class="tab-body">
-        
-      </div>
-    </section>
-
+        </div>
+      </section>
+    </div>
   </section>
 </main>
 

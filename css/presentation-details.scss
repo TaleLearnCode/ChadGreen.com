@@ -1,33 +1,35 @@
 section.tabs { display: none }
-.tab {
-  display: none; 
+
+.panel-container {
+  position: relative;
   border: solid 1px var(--border);
   border-top: solid 1px var(--border);
   border-radius: 0 4px 4px 4px;
+}
+
+section.tab {
   padding-top: 1rem;
-  border-radius: 0 0 4px 4px;
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
 }
 
-.tab.selected { display: block; }
+.tab.selected { visibility: visible; }
 .tab > h2:first-of-type { margin-top: 0; }
-.tab-body { min-height: 45ex; }
 
-.tabs nav {
+.tabs .nav {
   margin-top: 1rem;
-  padding-top: 2px; 
-}
-
-.tabs nav ul {
+  padding-top: 2px;
   display: flex;
   gap: 5px;
-  list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.tabs nav button {
+.tabs .nav button {
   display: block;
-  width: 100%;
   background: none;
   font-weight: normal;
   padding: 1ex 2ch;
@@ -42,7 +44,7 @@ section.tabs { display: none }
   inset 0 -6px 2px 0 rgba(0,0,0,.02),
 }
 
-.tabs nav .selected button {
+.tabs .nav .selected {
   box-shadow: none;
   color: var(--tab-nav-primary);
   font-weight: bold;
@@ -95,21 +97,23 @@ section.accordion .caret {
 }
 section.accordion .expanded .caret { transform: rotate(0); }
 
-.panel-body { 
+section.accordion .panel-body { 
   padding: 1rem;
   transition: all ease-in 1s allow-discrete;
   transform-origin: top center;
 }
 
-.panel-body :first-child { margin-top: 0; }
-.panel-body :last-child { margin-bottom: 0; }
-.panel-body p {
+section.accordion .panel-body :first-child { margin-top: 0; }
+section.accordion .panel-body :last-child { margin-bottom: 0; }
+
+
+.tab-body p, .panel-body p {
   columns: 1;
   hyphens: auto;
   text-align: justify;
   line-height: 1.25;
 }
-.panel-body li * { text-align: left }
+.tab-body li *, .panel-body li * { text-align: left }
 
 @media (min-width: 455px) {
   section.accordion { display: none; }

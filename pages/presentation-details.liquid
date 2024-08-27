@@ -138,72 +138,111 @@ layout: 'layouts/base.liquid'
   </section>
 
   <section class="tabs">
-    <nav title="tab navigation" id="tabsNav">
-      <ul>
-        <li class="selected" data-order="1">
-          <button
-            type="button"
-            onclick="selectTab('abstract', event)"
-            class="selected">
-            Abstract
-          </button>
-        </li>
-        <li data-order="2">
-          <button type="button" onclick="selectTab('learningObjectives', event)">
-            Objectives
-          </button>
-        </li>
-        <li data-order="3">
-          <button type="button" onclick="selectTab('engagements', event)">
-            Engagements
-          </button>
-        </li>
-        <li data-order="4">
-          <button type="button" onclick="selectTab('resources', event)">
-            Resources
-          </button>
-        </li>
-      </ul>
-    </nav>
+    <div
+      class="nav"
+      id="tabsNav"
+      role="tablist">
+      <button
+        type="button"
+        onclick="selectTab('abstract', event)"
+        id="abstractPanelButton"
+        class="selected"
+        role="tab"
+        aria-selected="true"
+        aria-controls="abstract">
+        Abstract
+      </button>
 
-    <section id="abstract" class="tab selected">
-      <h2>Abstract</h2>
-      <div class="tab-body">
-        {{ p.abstract | markdown }}
-      </div>
-    </section>
+      <button
+        type="button"
+        onclick="selectTab('learningObjectives', event)"
+        id="learningObjectivePanelButton"
+        role="tab"
+        aria-selected="false"
+        aria-controls="learningObjectives"
+        tabindex="-1">
+        Objectives
+      </button>
 
-    <section id="learningObjectives" class="tab">
-      <h2>Learning Objectives</h2>
-      <div class="tab-body">
-        <ul>
-          {% for lo in p.learningObjectives %}
-            <li>{{ lo | markdown }}</li>
-          {% endfor %}
-        </ul>
-      </div>
-    </section>
+      <button
+        type="button"
+        onclick="selectTab('engagements', event)"
+        id="engagementsPanelButton"
+        role="tab"
+        aria-selected="false"
+        aria-controls="engagements"
+        tabindex="-1">
+        Engagements
+      </button>
 
-    <section id="engagements" class="tab">
-      <h2>Engagements</h2>
-      <div class="tab-body engagements">
-        <ul>
-          {% for engagement in p.engagements %}
-            <li>
-              {% include "components/upcoming-engagement" %}
-            </li>
-          {% endfor %}
-        </ul>
-      </div>
-    </section>
+      <button
+        type="button"
+        onclick="selectTab('resources', event)"
+        id="resourcesPanelButton"
+        role="tab"
+        aria-selected="false"
+        aria-controls="resources"
+        tabindex="-1">
+        Resources
+      </button>
 
-    <section id="resources" class="tab">
-      <h2>Resources</h2>
-      <div class="tab-body">
-        {{ p.resources | markdown }}
-      </div>
-    </section>
+    </div>
 
+    <div class="panel-container">
+      <section
+        id="abstract"
+        class="tab selected"
+        aria-labelledby="abstractPanelButton"
+        role="tabpanel">
+        <h2>Abstract</h2>
+        <div class="tab-body">
+          {{ p.abstract | markdown }}
+        </div>
+      </section>
+
+      <section
+        id="learningObjectives"
+        class="tab"
+        aria-labelledby="learningObjectivePanelButton"
+        role="tabpanel">
+        <h2>Learning Objectives</h2>
+        <div class="tab-body">
+          <ul>
+            {% for lo in p.learningObjectives %}
+              <li>{{ lo | markdown }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </section>
+
+      <section
+        id="engagements"
+        class="tab"
+        aria-labelledby="engagementsPanelButton"
+        role="tabpanel">
+        <h2>Engagements</h2>
+        <div class="tab-body engagements">
+          <ul>
+            {% for engagement in p.engagements %}
+              <li>
+                {% include "components/upcoming-engagement" %}
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </section>
+
+      <section
+        id="resources"
+        class="tab"
+        aria-labelledby="resourcesPanelButton"
+        role="tabpanel">
+        <h2>Resources</h2>
+        <div class="tab-body">
+          {{ p.resources | markdown }}
+        </div>
+      </section>
+    </div>
   </section>
 </main>
 
