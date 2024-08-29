@@ -15,41 +15,59 @@ layout: 'layouts/base.liquid'
 </header>
 
 <main>
-  <img src="{{ p.image }}" alt="{{ p.imageAltText }}">
-  <section class="overview">
-    <div class="duration">{{ p.duration }}</div>
-    <a
-      href="{{ p.repoUrl }}"
-      target="_blank"
-      rel="noopener">Repo</a>
-    <div class="description">{{ p.description | markdown }}</div>
-  </section>
+  <div class="info">
+    <img
+      class="hero"
+      src="{{ p.image }}"
+      alt="{{ p.imageAltText }}">
 
-  <section class="related-presentations">
-    <h2>Related Presentations</h2>
-    {% if p.relatedPresentations.length > 0 %}
-      <ul>
-        {%- for pres in p.relatedPresentations -%}
-          <li>
-            <a href="/presentations/{{ pres.slug }}">{{ pres.title }}</a>
-          </li>
-        {%- endfor -%}
-      </ul>
-    {% else %}
-      <p>No related Presentations</p>
-    {% endif %}
-  </section>
+    <section class="overview">
+      <div class="duration">
+        {% include 'icons/schedule.liquid' %}
+        {{ p.duration }}
+      </div>
+      <a
+        href="{{ p.repoUrl }}"
+        target="_blank"
+        rel="noopener"
+        class="repo">
+        {% include 'icons/github.liquid' %}
+        Repo
+      </a>
+      <div class="description">{{ p.description | markdown }}</div>
+    </section>
 
-  <section class="tags">
-    <h2>Tags</h2>
-    <ul>
-      {%- for tag in p.tags -%}
-        <li>{{ tag }}</li>
-      {%- endfor -%}
-    </ul>
-  </section>
+    <div>
+
+      <section class="related-presentations">
+        <h2>Related Presentations</h2>
+        {% if p.relatedPresentations.length > 0 %}
+          <ul>
+            {%- for pres in p.relatedPresentations -%}
+              <li>
+                <a href="/presentations/{{ pres.slug }}">{{ pres.title }}</a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        {% else %}
+          <p>No related Presentations</p>
+        {% endif %}
+      </section>
+
+      <section class="tags">
+        <h2>Tags</h2>
+        <ul>
+          {%- for tag in p.tags -%}
+            <li>{{ tag }}</li>
+          {%- endfor -%}
+        </ul>
+      </section>
+    </div>
+  </div>
+
 
   <section class="accordion">
+    <h2>Presentation Details</h2>
     <section class="panel">
       <h2 id="accAbstractPanelHeader">
         <button

@@ -5,7 +5,9 @@ html {
   --primary-background: #ebf6df;
   --primary-dark: #6BA539;
   --accent: #DE8C59;
+  --accent-background: #f9c19f;
   --color: #2F322E;
+  --accent-contrast: var(--color);
   --color-light: #575d56;
   --border: #d8dfdf;
   --background: #f8fbfb;
@@ -25,6 +27,7 @@ html {
   --border: #313737;
   --links: #82d5ec;
   --links-contrast: #1b1c1a;
+  --accent-contrast: #2F322E;
   --border: #4f5050;
   --tab-nav-primary: #cff1b1;
 }
@@ -290,4 +293,21 @@ table address {
   thead tr:last-of-type {
     border-bottom-color: var(--primary);
   }
+}
+.tags ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.5rem;
+}
+.tags li {
+  background-color: var(--accent-background);
+  color: var(--accent-contrast);
+  border-radius: 12px;
+  padding: 0.25ex 2ch;
+  white-space: nowrap;
+  font-size: 0.75rem;
 }

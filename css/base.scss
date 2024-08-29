@@ -6,13 +6,14 @@ html {
   --primary-background: #ebf6df;
   --primary-dark: #6BA539;
   --accent: #DE8C59;
+  --accent-background: #f9c19f;
   --color: #2F322E;
+  --accent-contrast: var(--color);
   --color-light: #575d56;
   --border: #d8dfdf;
   --background: #f8fbfb;
 
   --tab-nav-primary: #4E8023;
-
 
   --original-blue: #5fabbf;
   --links: #327B8F;
@@ -31,6 +32,7 @@ html {
   --border: #313737;
   --links: #82d5ec;
   --links-contrast: #1b1c1a;
+  --accent-contrast: #2F322E;
 
   --border: #4f5050;
   --tab-nav-primary: #cff1b1;
@@ -231,5 +233,25 @@ table address { font-style: normal; }
   th { text-align: left; }
   thead tr:last-of-type {
     border-bottom-color: var(--primary);
+  }
+}
+
+.tags {
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: .25rem .5rem ;
+  }
+  li {
+    background-color: var(--accent-background);
+    color: var(--accent-contrast);
+    border-radius: 12px;
+    padding: .25ex 2ch;
+    white-space: nowrap;
+    font-size: .75rem;
   }
 }
