@@ -1,0 +1,57 @@
+ul.meetups {
+  display: flex;
+  gap: 1rem;
+  list-style-type: none;
+  padding: 0;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+ul.meetups li {
+  flex-basis: 250px;
+  flex-grow: 1;
+  max-width: 500px;
+}
+ul.meetups img {
+  background: purple;
+  width: 100%;
+  aspect-ratio: 16/9;
+  border-radius: 4px 4px 0 0;
+}
+ul.meetups a {
+  border: solid 1px var(--border);
+  border-radius: 4px;
+  height: 100%;
+  display: grid;
+  grid-template-rows: min-content 1fr;
+}
+ul.meetups a:where(:hover, :focus) {
+  border-color: var(--primary);
+  outline: solid 1px var(--primary);
+}
+ul.meetups .content {
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+ul.meetups .content > * {
+  margin: 0;
+}
+ul.meetups .description :first-child {
+  margin-top: 0;
+}
+ul.meetups .description :last-child {
+  margin-bottom: 0;
+}
+ul.meetups .actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+ul.meetups a:where(:link, :visited, :focus, :hover) {
+  text-decoration: none;
+  color: var(--color);
+}

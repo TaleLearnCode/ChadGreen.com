@@ -79,9 +79,9 @@ h2 { margin-bottom: .5rem;}
 a:link, a:visited {
   color: var(--links);
 }
-button { color: var(--color) }
-a.button, button { font-weight: bold; }
-a.button {
+button, .button { color: var(--color) }
+a.button, button, .button { font-weight: bold; }
+a.button, .button {
   background: var(--links);
   color: var(--links-contrast);
   border: solid 1px var(--links);
@@ -90,12 +90,12 @@ a.button {
   display: inline-block;
   text-decoration: none;
 }
-a.button.accent {
+a.button.accent, .button.accent {
   background: var(--primary-light);
   color: var(--color);
   border: solid 1px var(--primary-light);
 }
-a.button.outline {
+a.button.outline, .button.outline {
   background: none;
   color: var(--links);
   border-color: var(--links);
@@ -253,5 +253,57 @@ table address { font-style: normal; }
     padding: .25ex 2ch;
     white-space: nowrap;
     font-size: .75rem;
+  }
+}
+
+ul.presentations {
+  list-style-type: none;
+  padding: 0;
+  h3 { 
+    text-wrap: balance;
+    text-align: center;
+  }
+  li { 
+    margin-bottom: 1rem;
+    border: solid 1px var(--primary-light);
+    border-radius: 4px;
+    padding-bottom: 1rem;
+    & > *:not(img) {
+      margin-left: 1rem;
+      margin-right: 1rem;
+    }
+    .content {
+      columns: 1;
+      hyphens: auto;
+      text-align: justify;
+    }
+  }
+  img {
+    display: block;
+    max-height: 150px;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 4px 4px 0 0;
+  }
+}
+
+@media (min-width: 650px) {
+  ul.presentations {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    li { 
+      flex-basis: 250px;
+      flex-grow: 1;
+      display: grid;
+      grid-template-rows: min-content min-content auto min-content;
+      gap: .5rem;
+      max-width: 500px;
+    }
+    li > * { margin-top: 0; margin-bottom: 0;  }
+    li .content { align-self: center; }
+    li .content :first-child { margin-top: 0; }
+    li .content :last-child { margin-bottom: 0; }
   }
 }

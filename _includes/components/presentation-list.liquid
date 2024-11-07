@@ -1,0 +1,16 @@
+<ul class="presentations">
+  {% for pres in presentations %}
+    <li>
+      <img src="{{ pres.image }}" alt="{{ pres.imageAltText }}" loading="lazy">
+      <h3 id="pres-{{pres.slug}}">{{ pres.title }}</h3>
+      <div class="content">
+        {{ pres.description | markdown }}
+      </div>
+      <div class="actions">
+        <a class="button primary" href="/presentations/{{ pres.slug }}" aria-describedby="pres-{{pres.slug}}">
+          More Details
+        </a>
+      </div>
+    </li>
+  {% endfor %}
+</ul>

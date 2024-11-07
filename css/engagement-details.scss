@@ -61,21 +61,4 @@ main {
   }
   .overview { grid-row: 1 / 3;}
   .details { grid-column: 2; }
-  .presentations { grid-column: 2; }
-  .presentations ul {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    li { 
-      flex-basis: 250px;
-      flex-grow: 1;
-      display: grid;
-      grid-template-rows: min-content min-content auto min-content;
-      gap: .5rem;
-    }
-    li > * { margin-top: 0; margin-bottom: 0;  }
-    li .content { align-self: center; }
-    li .content :first-child { margin-top: 0; }
-    li .content :last-child { margin-bottom: 0; }
-  }
 }

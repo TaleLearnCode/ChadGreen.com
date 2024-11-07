@@ -42,24 +42,10 @@ layout: 'layouts/base.liquid'
     {{ p.description | markdown }}
   </section>
 
-  <section class="presentations">
+  <section>
     <h2>Presentations</h2>
-    <ul>
-      {% for pres in p.presentations %}
-        <li>
-          <img src="{{ pres.image }}" alt="{{ pres.imageAltText }}" loading="lazy">
-          <h3 id="pres-{{pres.slug}}">{{ pres.title }}</h3>
-          <div class="content">
-            {{ pres.description | markdown }}
-          </div>
-          <div class="actions">
-            <a class="button primary" href="/presentations/{{ pres.slug }}" aria-describedby="pres-{{pres.slug}}">
-              More Details
-            </a>
-          </div>
-        </li>
-      {% endfor %}
-    </ul>
+    {% assign presentations = p.presentations %}
+    {% include 'components/presentation-list.liquid' %}
   </section>
 
 

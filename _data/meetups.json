@@ -1,0 +1,37 @@
+[
+  {
+    "title": "Louisville .NET Meetup Group",
+    "image": "",
+    "imageAltText": "",
+    "description": "The Louisville .NET Meetup is dedicated to helping developers around Louisville to become better developers with an emphasis on the Microsoft .NET technology stack.",
+    "slug": "louisville-dotnet-meetup-group",
+    "time": "Meets third Thursday each month",
+    "venue": "Slingshot",
+    "location": "700 N Hurstbourne Blvd",
+    "websiteUrl": "https://www.meetup.com/louisville-dotnet/",
+    "events": [
+      {
+        "title": "Louisville .NET Meetup Group",
+        "image": "",
+        "imageAltText": "",
+        "description": "The Louisville .NET Meetup is dedicated to helping developers around Louisville to become better developers with an emphasis on the Microsoft .NET technology stack.",
+        "eventUrl": "https://www.meetup.com/louisville-dotnet/events/304277527/?eventOrigin=group_upcoming_events"
+      }
+    ]
+
+  },
+  {
+    "title": "Louisville Azure Meetup",
+    "image": "",
+    "imageAltText": "",
+    "description": "The Louisville Azure Meetup group is dedicated to helping those in the Louisville area learn about working with Azure services.",
+    "slug": "louisville-azure-meetup"
+  },
+  {
+    "title": "Louisville IT Happy Hour",
+    "image": "",
+    "imageAltText": "",
+    "description": "The IT Happy Hour is a monthly event where IT people in the area can get together to discuss ideas and projects, fails and wins.",
+    "slug": "louisville-it-happy-hour "
+  }
+]

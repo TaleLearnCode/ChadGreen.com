@@ -63,32 +63,4 @@ main {
   .details {
     grid-column: 2;
   }
-  .presentations {
-    grid-column: 2;
-  }
-  .presentations ul {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-  .presentations ul li {
-    flex-basis: 250px;
-    flex-grow: 1;
-    display: grid;
-    grid-template-rows: min-content min-content auto min-content;
-    gap: 0.5rem;
-  }
-  .presentations ul li > * {
-    margin-top: 0;
-    margin-bottom: 0;
-  }
-  .presentations ul li .content {
-    align-self: center;
-  }
-  .presentations ul li .content :first-child {
-    margin-top: 0;
-  }
-  .presentations ul li .content :last-child {
-    margin-bottom: 0;
-  }
 }
