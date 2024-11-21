@@ -21,7 +21,6 @@ html {
 
   --nav-background: #2F322E;
   --nav-text: #f8fbfb;
-
 }
 
 .dark {
@@ -306,4 +305,15 @@ ul.presentations {
     li .content :first-child { margin-top: 0; }
     li .content :last-child { margin-bottom: 0; }
   }
+}
+
+hr { 
+  border: none;
+  height: 1px;
+  background-color: var(--primary-light);
+}
+
+dt {
+  color: var(--color-light);
+  font-size: .85rem;
 }

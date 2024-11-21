@@ -1,0 +1,72 @@
+---
+pagination:
+  data: meetups
+  size: 1
+  alias: p
+permalink: '/meetups/{{ p.slug }}.html'
+layout: 'layouts/base.liquid'
+---
+
+<link rel="stylesheet" href="/css/meetup-details.css">
+
+<header>
+  {% include 'components/main-nav.liquid' %}
+  <h1>{{ p.title }}</h1>
+</header>
+
+<main class="content meetup-details">
+  <div class="info">
+    {% if meetup.image.length > 0 %}
+    <img src="{{ meetup.image }}" alt="{{ meetup.imageAltText }}">
+    {% else %}
+    <img src="../img/meetup-default.svg" alt="">
+    {% endif %}
+
+    <section class="overview">
+      <dl>
+        <dt>Time</dt>
+        <dd><time>{{ p.time }}</time></dd>
+        <dt>Location</dt>
+        <dd>
+          <address>
+            <strong>{{ p.venue }}</strong>
+            <br>{{ p.location }}
+          </address>
+        </dd>
+        <dt>Description</dt>
+        <dd class="description">{{ p.description | markdown }}</dd>
+      </dl>
+
+      <div class="actions">
+        <a class="button" href="{{ p.websiteUrl }}" target="_blank" rel="noopener">Visit Meetup Website</a>
+      </div>
+    </section>
+  </div>
+
+  <section class="events">
+    <h2>Events</h2>
+    {% if p.events.length > 0 %}
+    <ul>
+      {%- for event in p.events -%}
+      <li>
+        <a href="{{ event.eventUrl }}">
+          {%- if event.image.length > 0 -%}
+            <img src="{{ event.image }}" alt="{{ event.imageAltText }}" loading="lazy">
+          {%- else -%}
+            <img src="/img/event-default.svg" alt="" loading="lazy">
+          {%- endif -%}
+          <h3>{{ event.title }}</h3>
+          <div class="description">{{ event.description | markdown }}</div>
+          <div class="actions">
+            <div class="button">Details</div>
+          </div>
+        </a>
+      </li>
+      {%- endfor -%}
+    </ul>
+    {% else %}
+    <p>No related Events</p>
+    {% endif %}
+  </section>
+  
+</main>

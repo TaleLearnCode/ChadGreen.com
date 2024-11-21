@@ -12,7 +12,6 @@ ul.meetups li {
   max-width: 500px;
 }
 ul.meetups img {
-  background: purple;
   width: 100%;
   aspect-ratio: 16/9;
   border-radius: 4px 4px 0 0;

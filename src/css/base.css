@@ -372,3 +372,13 @@ ul.presentations img {
     margin-bottom: 0;
   }
 }
+hr {
+  border: none;
+  height: 1px;
+  background-color: var(--primary-light);
+}
+
+dt {
+  color: var(--color-light);
+  font-size: 0.85rem;
+}

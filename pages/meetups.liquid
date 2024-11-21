@@ -16,7 +16,11 @@ permalink: 'meetups.html'
       {% for  meetup in meetups %}
         <li>
           <a href="/meetups/{{ meetup.slug }}">
-            <img src="{{ meetup.image }}" alt="{{ meetup.imageAltText }}">
+          {% if meetup.image.length > 0 %}
+              <img src="{{ meetup.image }}" alt="{{ meetup.imageAltText }}">
+          {% else  %}
+              <img src="../img/meetup-default.svg" alt="">
+          {% endif %}
             <div class="content">
               <h2>{{ meetup.title }}</h2>
               <div class="description">{{ meetup.description | markdown }}</div>

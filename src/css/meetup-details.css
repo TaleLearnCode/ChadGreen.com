@@ -1,0 +1,76 @@
+dt, dd {
+  margin: 0;
+  padding: 0;
+}
+dt > :first-child, dd > :first-child {
+  margin-top: 0;
+}
+dt > :last-child, dd > :last-child {
+  margin-bottom: 0;
+}
+
+dl {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5ex 2ch;
+  align-items: baseline;
+}
+
+.actions {
+  text-align: center;
+}
+
+.events ul {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  gap: 1rem 2rem;
+  flex-wrap: wrap;
+}
+.events ul img {
+  border-bottom: solid 1px var(--border);
+}
+.events ul a, .events ul a:link, .events ul a:visited {
+  display: block;
+  text-decoration: none;
+  border: solid 1px var(--border);
+  border-radius: 4px;
+}
+.events ul a > *:not(img:first-child), .events ul a:link > *:not(img:first-child), .events ul a:visited > *:not(img:first-child) {
+  margin: 1rem;
+}
+.events ul a:hover, .events ul a:focus, .events ul a:link:hover, .events ul a:link:focus, .events ul a:visited:hover, .events ul a:visited:focus {
+  border-color: var(--primary);
+  outline: solid 1px var(--primary);
+}
+.events ul h3 {
+  color: var(--primary-dark);
+}
+.events ul .description {
+  color: var(--color);
+}
+
+@media (min-width: 650px) {
+  main {
+    margin-top: 1rem;
+  }
+  dl {
+    grid-template-columns: max-content minmax(0, 1fr);
+  }
+  dd.description {
+    grid-column: 1/3;
+  }
+  .events ul li {
+    flex-basis: 20rem;
+    flex-grow: 1;
+  }
+  .meetup-details {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+  }
+  .events a > img {
+    max-height: 250px;
+    width: 100%;
+    object-fit: cover;
+  }
+}
