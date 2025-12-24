@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - version-2024
   pull_request:
     types: [opened, synchronize, reopened, closed]
     branches:
@@ -43,3 +44,4 @@ jobs:
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_POLITE_DUNE_01D25BA0F }}
           action: "close"
+
