@@ -22,3 +22,4 @@ export default defineConfig({
     rehypePlugins: [rehypeMermaid],
   },
 });
+// Force rebuild for deployment
