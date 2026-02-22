@@ -167,32 +167,66 @@ This creates multiple discoverability paths for visitors: by topic/presentation,
 Here is the current high-level sitemap and route relationship model:
 
 ```mermaid
-graph LR
-  A[Home]
-  A --> B["Presentations"]
-  A --> C["Speaking"]
-  A --> D["Meetups"]
-  A --> E["Blog"]
-  A --> F["About"]
-  A --> G["Contact"]
-  
-  B --> B1["Presentation Details<br/>/presentations/:slug"]
-  B1 --> B2["Events for Presentation"]
-  B --> B3["Tags<br/>/presentations/tags/:tag"]
-  
-  C --> C1["Event Details<br/>/speaking/:slug"]
-  C1 --> C2["Presentations at Event<br/>/speaking/:event/presentations/:session"]
-  
-  E --> E1["Blog Posts<br/>/blog/:slug"]
-  E --> E2["Tags<br/>/blog/tags/:tag"]
-  
-  D --> D1["Meetup Groups<br/>/meetups/:group"]
-  D1 --> D2["Events<br/>/meetups/:group/events/:event"]
+flowchart TB
+  Home[Home /]
+
+  %% Top-level pages in main navigation
+  Presentations[Presentations /presentations]
+  Speaking[Speaking Engagements /speaking]
+  Meetups[Meetups /meetups]
+  Blog[Blog /blog]
+  About[About /about]
+  Contact[Contact /contact]
+
+  Home --> Presentations
+  Home --> Speaking
+  Home --> Meetups
+  Home --> Blog
+  Home --> About
+  Home --> Contact
+
+  %% Presentations section
+  PresentationDetail[Presentation Detail /presentations/:slug]
+  PresentationTag[Presentation Tag /presentations/tags/:tag]
+  PresentationEventsAlias[Presentation Events List /presentations/:slug/events]
+  PresentationEventPage[Engagement Presentation /presentations/:slug/events/:eventSlug]
+  Presentations --> PresentationDetail
+  Presentations --> PresentationTag
+  PresentationDetail --> PresentationEventsAlias
+  PresentationDetail --> PresentationEventPage
+  PresentationEventsAlias -. redirects to .-> PresentationDetailTab[Presentation Detail Tab /presentations/:slug?tab=events]
+
+  %% Speaking section
+  SpeakingDetail[Event Detail /speaking/:slug]
+  SpeakingPresentationsAlias[Event Presentations List /speaking/:eventSlug/presentations]
+  SpeakingSessionPage[Engagement Presentation /speaking/:eventSlug/presentations/:sessionSlug]
+  Speaking --> SpeakingDetail
+  SpeakingDetail --> SpeakingPresentationsAlias
+  SpeakingDetail --> SpeakingSessionPage
+  SpeakingPresentationsAlias -. redirects to .-> SpeakingDetailTab[Event Detail Tab /speaking/:eventSlug?tab=presentations]
+
+  %% Equivalent route variants for the same source content
+  PresentationEventPage -. same source .- SpeakingSessionPage
+
+  %% Meetups section
+  MeetupGroup[Meetup Group /meetups/:groupSlug]
+  MeetupEvent[Meetup Event /meetups/:groupSlug/events/:eventSlug]
+  Meetups --> MeetupGroup
+  MeetupGroup --> MeetupEvent
+
+  %% Blog section
+  BlogPost[Blog Post /blog/:slug]
+  BlogTag[Blog Tag /blog/tags/:tag]
+  Blog --> BlogPost
+  Blog --> BlogTag
+
+  %% Utility page
+  NotFound[404 Page /404]
 ```
 
 ***
 
-What Happens Next
+## What Happens Next
 
 Now that the site is finally live, my focus is straightforward:
 
