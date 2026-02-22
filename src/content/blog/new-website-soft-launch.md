@@ -22,7 +22,7 @@ The biggest highlights:
 
 There is still missing content, and not every workflow is fully tested yet (the contact form is high on my list). But this launch is real progress and a much better way to share what I'm working on than a "coming soon" page.
 
----
+***
 
 ## The Long Road Here (2022 to 2026)
 
@@ -79,7 +79,7 @@ Later, I worked with a close friend who is an exceptional front-end designer, ar
 
 That work still mattered. It clarified the design language and the structure I wanted, even if we did not get to launch that exact implementation.
 
----
+***
 
 ## What Changed One Friday Evening
 
@@ -103,7 +103,7 @@ For this project, Copilot reduced the friction in exactly the areas where I was 
 
 In other words, it helped me move from "I know what I want" to " I can ship this now."
 
----
+***
 
 ## Current State of the Site
 
@@ -119,7 +119,7 @@ Known gaps still being worked:
 
 So yes, this is a soft launch, but it is absolutely usable, and it gives me a foundation I can now improve in public.
 
----
+***
 
 ## Technology Stack
 
@@ -133,7 +133,7 @@ The site is built on a modern, scalable foundation designed for both developer e
 
 This tech stack keeps things simple, performant, and maintainable. Static generation means the site loads quickly, hosting is inexpensive, and content can live alongside code in GitHub. When I need server-side logic (like email from the contract form), Azure Functions provides that with minimal overhead.
 
----
+***
 
 ## Site Design and Information Architecture
 
@@ -160,7 +160,7 @@ The site is designed so that presentation content and event content are connecte
 
 This creates multiple discoverability paths for visitors: by topic/presentation, by event, by community activity, or by written content.
 
----
+***
 
 ## Site Map
 
@@ -224,7 +224,7 @@ flowchart TB
   NotFound[404 Page /404]
 ```
 
----
+***
 
 What Happens Next
 
