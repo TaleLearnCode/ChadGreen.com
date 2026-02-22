@@ -1,0 +1,67 @@
+---
+export interface Tab {
+    id: string;
+    label: string;
+    href?: string;
+}
+
+export interface Props {
+    tabs: Tab[];
+    activeTab: string;
+    class?: string;
+}
+
+const { tabs, activeTab, class: className = '' } = Astro.props;
+---
+
+<nav class:list={['tab-nav', className]} role="tablist">
+    {tabs.map((tab) => (
+        <a
+            href={tab.href || `#${tab.id}`}
+            class:list={['tab-item', { 'tab-active': tab.id === activeTab }]}
+            role="tab"
+            aria-selected={tab.id === activeTab}
+            data-tab={tab.id}
+        >
+            {tab.label}
+        </a>
+    ))}
+</nav>
+
+<style>
+    .tab-nav {
+        display: flex;
+        border-bottom: 2px solid var(--color-border);
+        gap: var(--spacing-1);
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .tab-item {
+        padding: var(--spacing-3) var(--spacing-5);
+        font-size: var(--font-size-base);
+        font-weight: var(--font-weight-medium);
+        color: var(--color-text-secondary);
+        text-decoration: none;
+        border-bottom: 3px solid transparent;
+        margin-bottom: -2px;
+        white-space: nowrap;
+        transition: all var(--transition-fast);
+    }
+
+    .tab-item:hover {
+        color: var(--color-primary);
+    }
+
+    .tab-active {
+        color: var(--color-primary);
+        border-bottom-color: var(--color-primary);
+    }
+
+    @media (max-width: 640px) {
+        .tab-item {
+            padding: var(--spacing-2) var(--spacing-3);
+            font-size: var(--font-size-sm);
+        }
+    }
+</style>

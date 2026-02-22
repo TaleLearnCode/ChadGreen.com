@@ -1,0 +1,156 @@
+---
+import Navigation from './Navigation.astro';
+
+export interface Props {
+    siteName?: string;
+}
+
+const { siteName = 'Chad Green' } = Astro.props;
+---
+
+<header class="site-header">
+    <div class="header-container container">
+        <a href="/" class="site-logo">
+            <span class="logo-text">{siteName}</span>
+        </a>
+
+        <Navigation />
+
+        <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+            <span class="hamburger"></span>
+        </button>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <nav class="mobile-nav" aria-label="Mobile navigation">
+        <ul class="mobile-nav-list">
+            <li><a href="/">Home</a></li>
+            <li><a href="/presentations">Presentations</a></li>
+            <li><a href="/speaking">Speaking Engagements</a></li>
+            <li><a href="/meetups">Meetups</a></li>
+            <li><a href="/blog">Blog</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/contact">Contact</a></li>
+        </ul>
+    </nav>
+</header>
+
+<style>
+    .site-header {
+        background-color: var(--color-bg-primary);
+        border-bottom: 1px solid var(--color-border);
+        position: sticky;
+        top: 0;
+        z-index: var(--z-sticky);
+    }
+
+    .header-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: var(--header-height);
+        gap: var(--spacing-4);
+    }
+
+    .site-logo {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        flex-shrink: 0;
+    }
+
+    .logo-text {
+        font-size: var(--font-size-xl);
+        font-weight: var(--font-weight-bold);
+        color: var(--color-primary);
+    }
+
+    .mobile-menu-toggle {
+        display: none;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: var(--spacing-2);
+    }
+
+    .hamburger {
+        display: block;
+        width: 24px;
+        height: 2px;
+        background-color: var(--color-text-primary);
+        position: relative;
+        transition: background-color var(--transition-fast);
+    }
+
+    .hamburger::before,
+    .hamburger::after {
+        content: '';
+        position: absolute;
+        width: 24px;
+        height: 2px;
+        background-color: var(--color-text-primary);
+        left: 0;
+        transition: transform var(--transition-fast);
+    }
+
+    .hamburger::before {
+        top: -7px;
+    }
+
+    .hamburger::after {
+        bottom: -7px;
+    }
+
+    .mobile-nav {
+        display: none;
+        background-color: var(--color-bg-primary);
+        border-bottom: 1px solid var(--color-border);
+        padding: var(--spacing-4);
+    }
+
+    .mobile-nav-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .mobile-nav-list li {
+        margin: 0;
+    }
+
+    .mobile-nav-list a {
+        display: block;
+        padding: var(--spacing-3) var(--spacing-4);
+        color: var(--color-text-primary);
+        text-decoration: none;
+        font-weight: var(--font-weight-medium);
+        border-radius: var(--radius-md);
+        transition: all var(--transition-fast);
+    }
+
+    .mobile-nav-list a:hover {
+        background-color: var(--color-primary-bg);
+        color: var(--color-primary);
+    }
+
+    @media (max-width: 768px) {
+        .mobile-menu-toggle {
+            display: block;
+        }
+
+        .mobile-nav.open {
+            display: block;
+        }
+    }
+</style>
+
+<script>
+    const toggle = document.querySelector('.mobile-menu-toggle');
+    const mobileNav = document.querySelector('.mobile-nav');
+
+    toggle?.addEventListener('click', () => {
+        const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+        toggle.setAttribute('aria-expanded', (!isExpanded).toString());
+        mobileNav?.classList.toggle('open');
+    });
+</script>

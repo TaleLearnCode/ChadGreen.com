@@ -1,0 +1,70 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/ui/Button.astro';
+---
+
+<BaseLayout title="Page Not Found">
+    <section class="not-found">
+        <div class="container">
+            <div class="content">
+                <div class="error-code">404</div>
+                <h1>Page Not Found</h1>
+                <p>Oops! The page you're looking for doesn't exist or has been moved.</p>
+                <div class="actions">
+                    <Button href="/" variant="primary">Go Home</Button>
+                    <Button href="/contact" variant="outline">Contact Me</Button>
+                </div>
+            </div>
+        </div>
+    </section>
+</BaseLayout>
+
+<style>
+    .not-found {
+        min-height: 60vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: var(--spacing-12) 0;
+    }
+
+    .content {
+        max-width: 500px;
+    }
+
+    .error-code {
+        font-size: 8rem;
+        font-weight: var(--font-weight-bold);
+        color: var(--color-primary);
+        line-height: 1;
+        margin-bottom: var(--spacing-4);
+    }
+
+    h1 {
+        font-size: var(--font-size-3xl);
+        margin-bottom: var(--spacing-4);
+    }
+
+    p {
+        color: var(--color-text-secondary);
+        font-size: var(--font-size-lg);
+        margin-bottom: var(--spacing-8);
+    }
+
+    .actions {
+        display: flex;
+        gap: var(--spacing-4);
+        justify-content: center;
+    }
+
+    @media (max-width: 640px) {
+        .error-code {
+            font-size: 5rem;
+        }
+
+        .actions {
+            flex-direction: column;
+        }
+    }
+</style>

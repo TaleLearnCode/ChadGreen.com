@@ -1,0 +1,99 @@
+---
+export interface NavItem {
+    label: string;
+    href: string;
+    children?: NavItem[];
+}
+
+const navItems: NavItem[] = [
+    { label: 'Home', href: '/' },
+    { label: 'Presentations', href: '/presentations' },
+    { label: 'Speaking Engagements', href: '/speaking' },
+    { label: 'Meetups', href: '/meetups' },
+    { label: 'Blog', href: '/blog' },
+    { label: 'About', href: '/about' },
+    { label: 'Contact', href: '/contact' },
+];
+
+const currentPath = Astro.url.pathname;
+
+function isActive(href: string): boolean {
+    if (href === '/') {
+        return currentPath === '/';
+    }
+    return currentPath.startsWith(href);
+}
+---
+
+<nav class="main-nav" aria-label="Main navigation">
+    <ul class="nav-list">
+        {navItems.map((item) => (
+            <li class="nav-item">
+                <a
+                    href={item.href}
+                    class:list={['nav-link', { 'nav-active': isActive(item.href) }]}
+                    aria-current={isActive(item.href) ? 'page' : undefined}
+                >
+                    {item.label}
+                </a>
+            </li>
+        ))}
+    </ul>
+</nav>
+
+<style>
+    .main-nav {
+        display: flex;
+        align-items: center;
+    }
+
+    .nav-list {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        gap: var(--spacing-1);
+    }
+
+    .nav-item {
+        margin: 0;
+    }
+
+    .nav-link {
+        display: block;
+        padding: var(--spacing-2) var(--spacing-3);
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-medium);
+        color: var(--color-text-primary);
+        text-decoration: none;
+        border-radius: var(--radius-md);
+        transition: all var(--transition-fast);
+    }
+
+    .nav-link:hover {
+        color: var(--color-primary);
+        background-color: var(--color-primary-bg);
+    }
+
+    .nav-active {
+        color: var(--color-primary);
+        background-color: var(--color-primary-bg);
+    }
+
+    @media (max-width: 1024px) {
+        .nav-list {
+            gap: 0;
+        }
+
+        .nav-link {
+            padding: var(--spacing-2);
+            font-size: var(--font-size-xs);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .main-nav {
+            display: none;
+        }
+    }
+</style>

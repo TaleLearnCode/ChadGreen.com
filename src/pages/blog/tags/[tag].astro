@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PageHeader from '../../../components/ui/PageHeader.astro';
+import BlogCard from '../../../components/cards/BlogCard.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+    const posts = await getCollection('blog', ({ data }) => !data.draft);
+    
+    // Get all unique tags
+    const allTags = new Set<string>();
+    posts.forEach(post => {
+        post.data.tags?.forEach(tag => allTags.add(tag));
+    });
+
+    return Array.from(allTags).map(tag => ({
+        params: { tag },
+        props: {
+            tag,
+            posts: posts.filter(post => post.data.tags?.includes(tag))
+                .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+        }
+    }));
+}
+
+const { tag, posts } = Astro.props;
+---
+
+<BaseLayout 
+    title={`Posts tagged "${tag}"`}
+    description={`All blog posts tagged with ${tag}`}
+>
+    <PageHeader title={`Tag: #${tag}`}>
+        <p>{posts.length} post{posts.length !== 1 ? 's' : ''} with this tag</p>
+    </PageHeader>
+
+    <section class="section">
+        <div class="container">
+            <div class="blog-grid grid grid-3">
+                {posts.map((post: any) => (
+                    <BlogCard
+                        title={post.data.title}
+                        description={post.data.description}
+                        slug={post.id}
+                        pubDate={post.data.pubDate}
+                        heroImage={post.data.heroImage}
+                        category={post.data.category}
+                        tags={post.data.tags}
+                    />
+                ))}
+            </div>
+        </div>
+    </section>
+</BaseLayout>

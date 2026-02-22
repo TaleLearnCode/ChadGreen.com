@@ -1,0 +1,161 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/ui/Hero.astro';
+import Button from '../components/ui/Button.astro';
+import EventCard from '../components/cards/EventCard.astro';
+import BlogCard from '../components/cards/BlogCard.astro';
+import { getCollection } from 'astro:content';
+
+// Get upcoming events
+const allEvents = await getCollection('events');
+const now = new Date();
+const upcomingEvents = allEvents
+    .filter(e => e.data.startDate >= now)
+    .sort((a, b) => a.data.startDate.getTime() - b.data.startDate.getTime())
+    .slice(0, 4);
+
+// Get recent blog posts
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const recentPosts = allPosts
+    .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+    .slice(0, 3);
+---
+
+<BaseLayout title="Home">
+    <!-- Hero Section -->
+    <Hero
+        title="Chad Green"
+        tagline="Speaker • Community Leader • Developer"
+        image="/images/profile/home-hero.jpg"
+        imageAlt="Chad Green"        variant="overlay"    >
+        <Button href="/presentations" variant="primary">View Presentations</Button>
+        <Button href="/contact" variant="outline">Book Me to Speak</Button>
+    </Hero>
+
+    <!-- Upcoming Events Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Upcoming Events</h2>
+                <p class="section-subtitle">Catch me at these upcoming speaking engagements</p>
+            </div>
+
+            {upcomingEvents.length > 0 ? (
+                <div class="events-grid grid grid-4">
+                    {upcomingEvents.map((event) => (
+                        <EventCard
+                            title={event.data.title}
+                            slug={event.id}
+                            startDate={event.data.startDate}
+                            endDate={event.data.endDate}
+                            location={event.data.location}
+                            heroImage={event.data.heroImage}
+                            eventType={event.data.eventType}
+                            eventUrl={event.data.website}
+                            compact
+                        />
+                    ))}
+                </div>
+            ) : (
+                <div class="empty-state">
+                    <p>No upcoming events scheduled. Check back soon!</p>
+                </div>
+            )}
+
+            <div class="section-footer">
+                <Button href="/speaking" variant="outline">View All Speaking Engagements</Button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recent Blog Posts Section -->
+    <section class="section section-alt">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Recent Blog Posts</h2>
+                <p class="section-subtitle">Thoughts on technology, speaking, and community</p>
+            </div>
+
+            {recentPosts.length > 0 ? (
+                <div class="posts-grid grid grid-3">
+                    {recentPosts.map((post) => (
+                        <BlogCard
+                            title={post.data.title}
+                            description={post.data.description}
+                            slug={post.id}
+                            pubDate={post.data.pubDate}
+                            heroImage={post.data.heroImage}
+                            category={post.data.category}
+                            tags={post.data.tags}
+                            featured={post.data.featured}
+                        />
+                    ))}
+                </div>
+            ) : (
+                <div class="empty-state">
+                    <p>No blog posts yet. Check back soon!</p>
+                </div>
+            )}
+
+            <div class="section-footer">
+                <Button href="/blog" variant="outline">View All Posts</Button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="section cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Looking for a Speaker?</h2>
+                <p>I'd love to present at your conference, meetup, or corporate event. Let's discuss how I can help make your event a success.</p>
+                <Button href="/contact" variant="primary" size="lg">Get in Touch</Button>
+            </div>
+        </div>
+    </section>
+</BaseLayout>
+
+<style>
+    .section-alt {
+        background-color: var(--color-bg-secondary);
+    }
+
+    .section-header {
+        text-align: center;
+        margin-bottom: var(--spacing-10);
+    }
+
+    .section-footer {
+        text-align: center;
+        margin-top: var(--spacing-8);
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: var(--spacing-12);
+        background-color: var(--color-bg-secondary);
+        border-radius: var(--radius-lg);
+        color: var(--color-text-secondary);
+    }
+
+    .cta-section {
+        background-color: var(--color-primary);
+        color: var(--color-text-inverse);
+    }
+
+    .cta-content {
+        text-align: center;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .cta-content h2 {
+        color: var(--color-text-inverse);
+        margin-bottom: var(--spacing-4);
+    }
+
+    .cta-content p {
+        margin-bottom: var(--spacing-6);
+        opacity: 0.9;
+    }
+</style>

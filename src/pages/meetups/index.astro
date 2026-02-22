@@ -1,0 +1,61 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/ui/PageHeader.astro';
+import MeetupCard from '../../components/cards/MeetupCard.astro';
+import { getCollection } from 'astro:content';
+
+// Get all meetup groups
+const meetupGroups = await getCollection('meetupGroups');
+---
+
+<BaseLayout 
+    title="Meetups" 
+    description="Community meetups and user groups organized or co-organized by Chad Green."
+>
+    <PageHeader title="Meetups">
+        <p>Community groups I organize and participate in</p>
+    </PageHeader>
+
+    <section class="section">
+        <div class="container">
+            {meetupGroups.length > 0 ? (
+                <div class="meetups-grid grid grid-3">
+                    {meetupGroups.map((group) => (
+                        <MeetupCard
+                            name={group.data.title}
+                            slug={group.data.slug}
+                            shortDescription={group.data.description}
+                            thumbnail={group.data.heroImage}
+                            city={group.data.city}
+                            role={group.data.role}
+                            meetupUrl={group.data.website}
+                        />
+                    ))}
+                </div>
+            ) : (
+                <div class="empty-state">
+                    <h3>No Meetups Yet</h3>
+                    <p>Check back soon for community groups I'm involved with.</p>
+                </div>
+            )}
+        </div>
+    </section>
+</BaseLayout>
+
+<style>
+    .empty-state {
+        text-align: center;
+        padding: var(--spacing-16);
+        background-color: var(--color-bg-secondary);
+        border-radius: var(--radius-lg);
+    }
+
+    .empty-state h3 {
+        margin-bottom: var(--spacing-2);
+    }
+
+    .empty-state p {
+        color: var(--color-text-secondary);
+        margin-bottom: 0;
+    }
+</style>

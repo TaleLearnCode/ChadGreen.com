@@ -1,0 +1,45 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+    const presentations = await getCollection('presentations');
+
+    return presentations.map((presentation) => ({
+        params: { slug: presentation.id },
+        props: {
+            targetPath: `/presentations/${presentation.id}?tab=events`,
+            presentationTitle: presentation.data.title,
+        },
+    }));
+}
+
+const { targetPath, presentationTitle } = Astro.props;
+---
+
+<BaseLayout
+    title={`${presentationTitle} Events`}
+    description={`Redirecting to the events tab for ${presentationTitle}.`}
+    canonicalUrl={new URL(targetPath, Astro.url.origin).toString()}
+>
+    <section class="section">
+        <div class="container redirect-page">
+            <h1>Redirecting...</h1>
+            <p>If you are not redirected automatically, continue to <a id="redirect-link" href={targetPath}>events for this presentation</a>.</p>
+        </div>
+    </section>
+
+    <script is:inline>
+        const redirectLink = document.getElementById('redirect-link');
+        if (redirectLink instanceof HTMLAnchorElement) {
+            window.location.replace(redirectLink.href);
+        }
+    </script>
+</BaseLayout>
+
+<style>
+    .redirect-page {
+        text-align: center;
+        max-width: 760px;
+    }
+</style>

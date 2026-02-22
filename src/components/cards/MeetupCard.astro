@@ -1,0 +1,161 @@
+---
+import Button from '../ui/Button.astro';
+
+export interface Props {
+    name: string;
+    slug: string;
+    shortDescription: string;
+    thumbnail?: string;
+    frequency?: string;
+    city: string;
+    role?: string;
+    meetupUrl?: string;
+    class?: string;
+}
+
+const {
+    name,
+    slug,
+    shortDescription,
+    thumbnail = '/images/meetups/default-meetup.svg',
+    frequency,
+    city,
+    role = 'organizer',
+    meetupUrl,
+    class: className = '',
+} = Astro.props;
+
+const roleLabels: Record<string, string> = {
+    'organizer': 'Organizer',
+    'co-organizer': 'Co-Organizer',
+    'speaker': 'Speaker',
+    'member': 'Member',
+};
+---
+
+<article class:list={['meetup-card', className]}>
+    <a href={`/meetups/${slug}`} class="card-image-link" aria-label={`View details for ${name}`}>
+        <div class="card-image">
+            <img src={thumbnail} alt="" loading="lazy" />
+            <span class="role-badge">{roleLabels[role] || role}</span>
+        </div>
+    </a>
+    <div class="card-content">
+        <h3 class="card-title">
+            <a href={`/meetups/${slug}`}>{name}</a>
+        </h3>
+        <p class="card-location">{city}</p>
+        {frequency && <p class="card-frequency">{frequency}</p>}
+        <p class="card-description">{shortDescription}</p>
+        <div class="card-actions">
+            <Button href={`/meetups/${slug}`} variant="primary" size="sm">
+                Details
+            </Button>
+            {meetupUrl && (
+                <Button href={meetupUrl} variant="outline" size="sm">
+                    Meetup.com ↗
+                </Button>
+            )}
+        </div>
+    </div>
+</article>
+
+<style>
+    .meetup-card {
+        background-color: var(--color-bg-primary);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-card);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition: all var(--transition-normal);
+    }
+
+    .meetup-card:hover {
+        box-shadow: var(--shadow-card-hover);
+        transform: translateY(-4px);
+    }
+
+    .card-image {
+        position: relative;
+        aspect-ratio: 16 / 9;
+        overflow: hidden;
+        background-color: var(--color-gray-100);
+    }
+
+    .card-image-link {
+        display: block;
+        text-decoration: none;
+    }
+
+    .card-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .role-badge {
+        position: absolute;
+        top: var(--spacing-2);
+        right: var(--spacing-2);
+        background-color: var(--color-primary);
+        color: var(--color-text-inverse);
+        font-size: var(--font-size-xs);
+        font-weight: var(--font-weight-semibold);
+        padding: var(--spacing-1) var(--spacing-2);
+        border-radius: var(--radius-sm);
+    }
+
+    .card-content {
+        padding: var(--spacing-4);
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+    }
+
+    .card-title {
+        font-size: var(--font-size-lg);
+        font-weight: var(--font-weight-semibold);
+        margin-bottom: var(--spacing-1);
+        line-height: var(--line-height-tight);
+    }
+
+    .card-title a {
+        color: var(--color-text-primary);
+        text-decoration: none;
+    }
+
+    .card-title a:hover {
+        color: var(--color-primary);
+    }
+
+    .card-location {
+        font-size: var(--font-size-sm);
+        color: var(--color-primary);
+        font-weight: var(--font-weight-medium);
+        margin-bottom: var(--spacing-1);
+    }
+
+    .card-frequency {
+        font-size: var(--font-size-sm);
+        color: var(--color-text-secondary);
+        margin-bottom: var(--spacing-2);
+    }
+
+    .card-description {
+        font-size: var(--font-size-sm);
+        color: var(--color-text-secondary);
+        margin-bottom: var(--spacing-3);
+        flex: 1;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .card-actions {
+        display: flex;
+        gap: var(--spacing-2);
+        margin-top: auto;
+    }
+</style>

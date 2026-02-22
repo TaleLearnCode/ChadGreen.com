@@ -1,11 +1,23 @@
 {
-  "name": "vanilla-basic",
+  "name": "chad-green-website",
+  "type": "module",
   "version": "1.0.0",
-  "scripts": { 
-    "start": "sirv ./src public --cors --single --no-clear --port 8000",
-    "playwright_test" : "playwright test"
+  "description": "Personal website for Chad Green - Speaker, Community Leader",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^5.0.0",
+    "marked": "^17.0.2",
+    "rehype-mermaid": "^3.0.0"
   },
   "devDependencies": {
-    "@playwright/test": "^1.22.2"
+    "@types/node": "^20.0.0",
+    "playwright": "^1.58.2",
+    "typescript": "^5.3.0"
   }
 }

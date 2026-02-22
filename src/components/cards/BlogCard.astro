@@ -1,0 +1,185 @@
+---
+import Badge from '../ui/Badge.astro';
+import Button from '../ui/Button.astro';
+
+export interface Props {
+    title: string;
+    description: string;
+    slug: string;
+    pubDate: Date;
+    heroImage?: string;
+    category?: string;
+    tags?: string[];
+    featured?: boolean;
+    class?: string;
+}
+
+const {
+    title,
+    description,
+    slug,
+    pubDate,
+    heroImage = '/images/blog/default-hero.svg',
+    category = 'Other',
+    tags = [],
+    featured = false,
+    class: className = '',
+} = Astro.props;
+
+function formatDate(date: Date): string {
+    return date.toLocaleDateString('en-US', {
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric',
+    });
+}
+---
+
+<article class:list={['blog-card', { 'featured': featured }, className]}>
+    <a href={`/blog/${slug}`} class="card-image-link" aria-label={`Read ${title}`}>
+        <div class="card-image">
+            <img src={heroImage} alt="" loading="lazy" />
+            {featured && <span class="featured-badge">Featured</span>}
+        </div>
+    </a>
+    <div class="card-content">
+        <div class="card-meta">
+            <Badge variant="primary" size="sm">{category}</Badge>
+            <span class="pub-date">{formatDate(pubDate)}</span>
+        </div>
+        <h3 class="card-title">
+            <a href={`/blog/${slug}`}>{title}</a>
+        </h3>
+        <p class="card-description">{description}</p>
+        {tags.length > 0 && (
+            <div class="card-tags">
+                {tags.slice(0, 3).map((tag) => (
+                    <span class="tag">#{tag}</span>
+                ))}
+            </div>
+        )}
+        <div class="card-actions">
+            <Button href={`/blog/${slug}`} variant="primary" size="sm">
+                Read
+            </Button>
+        </div>
+    </div>
+</article>
+
+<style>
+    .blog-card {
+        background-color: var(--color-bg-primary);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-card);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition: all var(--transition-normal);
+    }
+
+    .blog-card:hover {
+        box-shadow: var(--shadow-card-hover);
+        transform: translateY(-4px);
+    }
+
+    .card-image {
+        position: relative;
+        aspect-ratio: 16 / 9;
+        overflow: hidden;
+        background-color: var(--color-gray-100);
+    }
+
+    .card-image-link {
+        display: block;
+        text-decoration: none;
+    }
+
+    .card-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform var(--transition-normal);
+    }
+
+    .blog-card:hover .card-image img {
+        transform: scale(1.05);
+    }
+
+    .featured-badge {
+        position: absolute;
+        top: var(--spacing-3);
+        right: var(--spacing-3);
+        background-color: var(--color-primary);
+        color: var(--color-text-inverse);
+        font-size: var(--font-size-xs);
+        font-weight: var(--font-weight-semibold);
+        padding: var(--spacing-1) var(--spacing-2);
+        border-radius: var(--radius-sm);
+    }
+
+    .card-content {
+        padding: var(--spacing-4);
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+    }
+
+    .card-meta {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-3);
+        margin-bottom: var(--spacing-2);
+    }
+
+    .pub-date {
+        font-size: var(--font-size-sm);
+        color: var(--color-text-muted);
+    }
+
+    .card-title {
+        font-size: var(--font-size-lg);
+        font-weight: var(--font-weight-semibold);
+        margin-bottom: var(--spacing-2);
+        line-height: var(--line-height-tight);
+    }
+
+    .card-title a {
+        color: var(--color-text-primary);
+        text-decoration: none;
+    }
+
+    .card-title a:hover {
+        color: var(--color-primary);
+    }
+
+    .card-description {
+        font-size: var(--font-size-sm);
+        color: var(--color-text-secondary);
+        margin-bottom: var(--spacing-3);
+        flex: 1;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .card-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--spacing-2);
+        margin-bottom: var(--spacing-3);
+    }
+
+    .tag {
+        font-size: var(--font-size-xs);
+        color: var(--color-text-muted);
+    }
+
+    .card-actions {
+        margin-top: auto;
+    }
+
+    .featured {
+        border: 2px solid var(--color-primary);
+    }
+</style>

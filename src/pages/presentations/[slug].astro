@@ -1,0 +1,506 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Badge from '../../components/ui/Badge.astro';
+import Button from '../../components/ui/Button.astro';
+import TabNav from '../../components/ui/TabNav.astro';
+import TabSyncScript from '../../components/ui/TabSyncScript.astro';
+import EventCard from '../../components/cards/EventCard.astro';
+import { getCollection, render } from 'astro:content';
+import { marked } from 'marked';
+
+export async function getStaticPaths() {
+    const presentations = await getCollection('presentations');
+    return presentations.map((presentation) => ({
+        params: { slug: presentation.id },
+        props: { presentation },
+    }));
+}
+
+const { presentation } = Astro.props;
+const { Content } = await render(presentation);
+
+// Get related presentations
+let relatedPresentations: any[] = [];
+if (presentation.data.relatedPresentations?.length) {
+    const allPresentations = await getCollection('presentations');
+    relatedPresentations = allPresentations.filter(p => 
+        presentation.data.relatedPresentations.includes(p.id)
+    );
+}
+
+// Get events where this presentation was given
+let presentationEvents: any[] = [];
+try {
+    const allEvents = await getCollection('events');
+    presentationEvents = allEvents
+        .filter(e => {
+            if (!e.data.presentations) return false;
+            // Handle both string format and object format
+            return e.data.presentations.some((p: any) => {
+                const presentationId = typeof p === 'string' ? p : p.id;
+                return presentationId === presentation.id;
+            });
+        })
+        .sort((a, b) => b.data.startDate.getTime() - a.data.startDate.getTime());
+} catch (e) {
+    // Collection might not exist yet
+}
+
+const tabs = [
+    { id: 'abstract', label: 'Abstract' },
+    { id: 'objectives', label: 'Learning Objectives' },
+    { id: 'events', label: `Events (${presentationEvents.length})` },
+    { id: 'resources', label: 'Resources' },
+];
+
+// Get current tab from URL
+const currentTab = Astro.url.searchParams.get('tab') || 'abstract';
+
+const typeLabels: Record<string, string> = {
+    'session': 'Session',
+    'workshop': 'Workshop',
+    'lightning-talk': 'Lightning Talk',
+    'keynote': 'Keynote',
+    'panel': 'Panel',
+    'webinar': 'Webinar',
+};
+
+const statusLabels: Record<string, string> = {
+    'active': 'Active',
+    'retired': 'Retired',
+    'in-development': 'In Development',
+};
+
+const statusVariants: Record<string, 'primary' | 'secondary' | 'outline' | 'success' | 'warning' | 'danger'> = {
+    'active': 'success',
+    'retired': 'outline',
+    'in-development': 'warning',
+};
+---
+
+<BaseLayout 
+    title={presentation.data.title}
+    description={presentation.data.description}
+    ogImage={presentation.data.heroImage}
+>
+    <!-- Presentation Header -->
+    <section class="presentation-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="header-image">
+                    <img 
+                        src={presentation.data.heroImage || '/images/presentations/default-thumbnail.svg'} 
+                        alt="" 
+                        loading="eager"
+                    />
+                </div>
+                <div class="header-info">
+                    <div class="header-meta">
+                        <Badge variant="primary">{typeLabels[presentation.data.type] || presentation.data.type}</Badge>
+                        {presentation.data.level && <Badge variant="secondary">{presentation.data.level}</Badge>}
+                        <Badge variant={statusVariants[presentation.data.status]}>{statusLabels[presentation.data.status]}</Badge>
+                        {presentation.data.durations && presentation.data.durations.length > 0 && (
+                            <span class="duration">⏱ {presentation.data.durations.join(' / ')} min</span>
+                        )}
+                    </div>
+                    
+                    <h1 class="presentation-title">{presentation.data.title}</h1>
+                    
+                    <p class="presentation-description">{presentation.data.description}</p>
+                    
+                    {presentation.data.tags?.length > 0 && (
+                        <div class="presentation-tags">
+                            {presentation.data.tags.map((tag: string) => (
+                                <a href={`/presentations/tags/${encodeURIComponent(tag)}`} class="tag-link">
+                                    <Badge variant="outline" size="sm">{tag}</Badge>
+                                </a>
+                            ))}
+                        </div>
+                    )}
+
+                    {relatedPresentations.length > 0 && (
+                        <div class="related-presentations">
+                            <span class="related-label">Related:</span>
+                            {relatedPresentations.map((rp) => (
+                                <a href={`/presentations/${rp.id}`} class="related-link">{rp.data.shortTitle || rp.data.title}</a>
+                            ))}
+                        </div>
+                    )}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tab Navigation -->
+    <div class="tabs-container">
+        <div class="container">
+            <TabNav 
+                tabs={tabs.map(t => ({ ...t, href: `?tab=${t.id}` }))} 
+                activeTab={currentTab} 
+            />
+        </div>
+    </div>
+
+    <!-- Tab Content -->
+    <section class="section tab-content">
+        <div class="container">
+            <!-- Abstract Tab -->
+            <div class="tab-panel" data-tab="abstract" style={currentTab !== 'abstract' ? 'display: none;' : ''}>
+                <div class="prose">
+                    {presentation.data.abstract ? (
+                        <div set:html={presentation.data.abstract} />
+                    ) : (
+                        <Content />
+                    )}
+                </div>
+            </div>
+
+            <!-- Learning Objectives Tab -->
+            <div class="tab-panel" data-tab="objectives" style={currentTab !== 'objectives' ? 'display: none;' : ''}>
+                {presentation.data.learningObjectives?.length > 0 ? (
+                    <div class="objectives-list">
+                        <h2>What You'll Learn</h2>
+                        <ul>
+                            {presentation.data.learningObjectives.map((objective: string, index: number) => (
+                                <li>
+                                    <span class="objective-number">{index + 1}</span>
+                                    <span class="objective-text" set:html={marked.parseInline(objective)} />
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                ) : (
+                    <div class="empty-state">
+                        <p>Learning objectives coming soon.</p>
+                    </div>
+                )}
+            </div>
+
+            <!-- Events Tab -->
+            <div class="tab-panel" data-tab="events" style={currentTab !== 'events' ? 'display: none;' : ''}>
+                {presentationEvents.length > 0 ? (
+                    <div class="events-list">
+                        <h2>Where I've Presented This</h2>
+                        <div class="grid grid-3">
+                            {presentationEvents.map((event) => (
+                                <EventCard
+                                    title={event.data.title}
+                                    slug={event.id}
+                                    startDate={event.data.startDate}
+                                    endDate={event.data.endDate}
+                                    location={event.data.location}
+                                    heroImage={event.data.heroImage}
+                                    logo={event.data.logo}
+                                    thumbnail={event.data.thumbnail}
+                                    eventType={event.data.eventType}
+                                    status={event.data.status}
+                                    eventUrl={event.data.eventUrl}
+                                    slidesUrl={event.data.slidesUrl}
+                                    demosUrl={event.data.demosUrl}
+                                />
+                            ))}
+                        </div>
+                    </div>
+                ) : (
+                    <div class="empty-state">
+                        <p>No events scheduled yet for this presentation.</p>
+                    </div>
+                )}
+            </div>
+
+            <!-- Resources Tab -->
+            <div class="tab-panel" data-tab="resources" style={currentTab !== 'resources' ? 'display: none;' : ''}>
+                {presentation.data.resources?.length > 0 ? (
+                    <div class="resources-list">
+                        <h2>Resources</h2>
+                        <div class="resources-grid">
+                            {presentation.data.resources.map((resource: any) => (
+                                <a href={resource.url} target="_blank" rel="noopener noreferrer" class="resource-card">
+                                    <span class="resource-icon">
+                                        {resource.type === 'slides' && '📊'}
+                                        {resource.type === 'video' && '🎬'}
+                                        {resource.type === 'github' && '💻'}
+                                        {resource.type === 'demo' && '🚀'}
+                                        {resource.type === 'blog' && '📝'}
+                                        {resource.type === 'download' && '⬇️'}
+                                        {resource.type === 'other' && '🔗'}
+                                    </span>
+                                    <span class="resource-title">{resource.title}</span>
+                                    {resource.description && <span class="resource-desc">{resource.description}</span>}
+                                </a>
+                            ))}
+                        </div>
+                    </div>
+                ) : (
+                    <div class="empty-state">
+                        <p>Resources coming soon.</p>
+                    </div>
+                )}
+            </div>
+        </div>
+    </section>
+
+    <!-- Book CTA -->
+    <section class="book-cta">
+        <div class="container">
+            <div class="cta-content">
+                <p>
+                    <strong>Want me to present this at your event?</strong><br>
+                    Email <a href="mailto:chadgreen@chadgreen.com">chadgreen@chadgreen.com</a> to book this presentation.
+                </p>
+                <Button href="/contact?type=speaking" variant="primary">Contact Me</Button>
+            </div>
+        </div>
+    </section>
+
+    <TabSyncScript />
+</BaseLayout>
+
+<style>
+    .presentation-header {
+        background-color: var(--color-bg-secondary);
+        padding: var(--spacing-10) 0;
+    }
+
+    .header-content {
+        display: grid;
+        grid-template-columns: 350px 1fr;
+        gap: var(--spacing-8);
+        align-items: start;
+    }
+
+    .header-image {
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        box-shadow: var(--shadow-lg);
+    }
+
+    .header-image img {
+        width: 100%;
+        height: auto;
+    }
+
+    .header-meta {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--spacing-2);
+        margin-bottom: var(--spacing-4);
+    }
+
+    .duration {
+        font-size: var(--font-size-sm);
+        color: var(--color-text-secondary);
+    }
+
+    .presentation-title {
+        font-size: var(--font-size-4xl);
+        margin-bottom: var(--spacing-4);
+        line-height: 1.2;
+    }
+
+    .presentation-description {
+        font-size: var(--font-size-lg);
+        color: var(--color-text-secondary);
+        margin-bottom: var(--spacing-4);
+    }
+
+    .presentation-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--spacing-2);
+        margin-bottom: var(--spacing-4);
+    }
+
+    .presentation-tags .tag-link {
+        text-decoration: none;
+    }
+
+    .presentation-tags .tag-link:hover :global(.badge) {
+        background-color: var(--color-primary);
+        color: white;
+        border-color: var(--color-primary);
+    }
+
+    .related-presentations {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--spacing-2);
+        font-size: var(--font-size-sm);
+    }
+
+    .related-label {
+        color: var(--color-text-secondary);
+    }
+
+    .related-link {
+        color: var(--color-primary);
+    }
+
+    .tabs-container {
+        background-color: var(--color-bg-primary);
+        border-bottom: 1px solid var(--color-border);
+        position: sticky;
+        top: var(--header-height);
+        z-index: var(--z-sticky);
+    }
+
+    .tab-content {
+        min-height: 400px;
+    }
+
+    .prose {
+        max-width: 800px;
+        font-size: var(--font-size-lg);
+        line-height: var(--line-height-relaxed);
+    }
+
+    .objectives-list h2,
+    .events-list h2,
+    .resources-list h2 {
+        margin-bottom: var(--spacing-6);
+    }
+
+    .objectives-list ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .objectives-list li {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--spacing-4);
+        margin-bottom: var(--spacing-4);
+        padding: var(--spacing-4);
+        background-color: var(--color-bg-secondary);
+        border-radius: var(--radius-md);
+    }
+
+    .objective-number {
+        flex-shrink: 0;
+        width: 32px;
+        height: 32px;
+        background-color: var(--color-primary);
+        color: var(--color-text-inverse);
+        border-radius: var(--radius-full);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: var(--font-weight-bold);
+    }
+
+    .objective-text {
+        font-size: var(--font-size-lg);
+    }
+
+    .resources-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: var(--spacing-4);
+    }
+
+    .resource-card {
+        display: flex;
+        flex-direction: column;
+        padding: var(--spacing-4);
+        background-color: var(--color-bg-secondary);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-lg);
+        text-decoration: none;
+        transition: all var(--transition-fast);
+    }
+
+    .resource-card:hover {
+        border-color: var(--color-primary);
+        transform: translateY(-2px);
+    }
+
+    .resource-icon {
+        font-size: 2rem;
+        margin-bottom: var(--spacing-2);
+    }
+
+    .resource-title {
+        font-weight: var(--font-weight-semibold);
+        color: var(--color-text-primary);
+    }
+
+    .resource-desc {
+        font-size: var(--font-size-sm);
+        color: var(--color-text-secondary);
+        margin-top: var(--spacing-1);
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: var(--spacing-12);
+        background-color: var(--color-bg-secondary);
+        border-radius: var(--radius-lg);
+        color: var(--color-text-secondary);
+    }
+
+    .book-cta {
+        background-color: var(--color-primary-bg);
+        padding: var(--spacing-10) 0;
+    }
+
+    .cta-content {
+        text-align: center;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .cta-content p {
+        margin-bottom: var(--spacing-4);
+    }
+
+    .cta-content a {
+        color: var(--color-primary);
+        font-weight: var(--font-weight-semibold);
+    }
+
+    @media (max-width: 1024px) {
+        .header-content {
+            grid-template-columns: 1fr;
+        }
+
+        .header-image {
+            max-width: 400px;
+        }
+
+        .presentation-title {
+            font-size: var(--font-size-3xl);
+        }
+    }
+</style>
+
+<script>
+    // Handle tab navigation without page reload
+    const tabLinks = document.querySelectorAll('.tab-nav a');
+    const tabPanels = document.querySelectorAll('.tab-panel');
+
+    tabLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const url = new URL((link as HTMLAnchorElement).href);
+            const tabId = url.searchParams.get('tab');
+
+            // Update URL without reload
+            window.history.pushState({}, '', url);
+
+            // Update active tab
+            tabLinks.forEach(l => l.classList.remove('tab-active'));
+            link.classList.add('tab-active');
+
+            // Show corresponding panel
+            tabPanels.forEach(panel => {
+                if ((panel as HTMLElement).dataset.tab === tabId) {
+                    (panel as HTMLElement).style.display = 'block';
+                } else {
+                    (panel as HTMLElement).style.display = 'none';
+                }
+            });
+        });
+    });
+</script>

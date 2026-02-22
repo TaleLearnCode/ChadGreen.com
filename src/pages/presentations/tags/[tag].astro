@@ -1,0 +1,75 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PageHeader from '../../../components/ui/PageHeader.astro';
+import PresentationCard from '../../../components/cards/PresentationCard.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+    const presentations = await getCollection('presentations');
+    
+    // Get all unique tags
+    const allTags = new Set<string>();
+    presentations.forEach(presentation => {
+        presentation.data.tags?.forEach(tag => allTags.add(tag));
+    });
+
+    return Array.from(allTags).map(tag => ({
+        params: { tag },
+        props: {
+            tag,
+            presentations: presentations.filter(p => p.data.tags?.includes(tag))
+                .sort((a, b) => a.data.title.localeCompare(b.data.title))
+        }
+    }));
+}
+
+const { tag, presentations } = Astro.props;
+---
+
+<BaseLayout 
+    title={`Presentations tagged "${tag}"`}
+    description={`All presentations tagged with ${tag}`}
+>
+    <PageHeader title={`Tag: #${tag}`}>
+        <p>{presentations.length} presentation{presentations.length !== 1 ? 's' : ''} with this tag</p>
+    </PageHeader>
+
+    <section class="section">
+        <div class="container">
+            <div class="presentations-grid grid grid-3">
+                {presentations.map((presentation: any) => (
+                    <PresentationCard
+                        title={presentation.data.title}
+                        description={presentation.data.description}
+                        slug={presentation.id}
+                        thumbnail={presentation.data.heroImage}
+                        presentationType={presentation.data.type}
+                        tags={presentation.data.tags}
+                        featured={presentation.data.featured}
+                    />
+                ))}
+            </div>
+            
+            <div class="back-link">
+                <a href="/presentations">&larr; All Presentations</a>
+            </div>
+        </div>
+    </section>
+</BaseLayout>
+
+<style>
+    .back-link {
+        margin-top: var(--spacing-8);
+        text-align: center;
+    }
+    
+    .back-link a {
+        color: var(--color-primary);
+        text-decoration: none;
+        font-weight: 500;
+    }
+    
+    .back-link a:hover {
+        text-decoration: underline;
+    }
+</style>

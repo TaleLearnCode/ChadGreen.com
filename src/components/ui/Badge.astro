@@ -1,0 +1,75 @@
+---
+export interface Props {
+    variant?: 'default' | 'primary' | 'secondary' | 'outline' | 'success' | 'warning' | 'danger';
+    size?: 'sm' | 'md';
+    class?: string;
+}
+
+const {
+    variant = 'default',
+    size = 'sm',
+    class: className = '',
+} = Astro.props;
+---
+
+<span class:list={['badge', `badge-${variant}`, `badge-${size}`, className]}>
+    <slot />
+</span>
+
+<style>
+    .badge {
+        display: inline-flex;
+        align-items: center;
+        font-weight: var(--font-weight-medium);
+        border-radius: var(--radius-full);
+        white-space: nowrap;
+    }
+
+    /* Sizes */
+    .badge-sm {
+        font-size: var(--font-size-xs);
+        padding: var(--spacing-1) var(--spacing-2);
+    }
+
+    .badge-md {
+        font-size: var(--font-size-sm);
+        padding: var(--spacing-1) var(--spacing-3);
+    }
+
+    /* Variants */
+    .badge-default {
+        background-color: var(--color-gray-200);
+        color: var(--color-text-secondary);
+    }
+
+    .badge-primary {
+        background-color: var(--color-primary);
+        color: var(--color-text-inverse);
+    }
+
+    .badge-secondary {
+        background-color: var(--color-primary-bg);
+        color: var(--color-primary-dark);
+    }
+
+    .badge-outline {
+        background-color: transparent;
+        color: var(--color-primary);
+        border: 1px solid var(--color-primary);
+    }
+
+    .badge-success {
+        background-color: #10b981;
+        color: white;
+    }
+
+    .badge-warning {
+        background-color: #f59e0b;
+        color: white;
+    }
+
+    .badge-danger {
+        background-color: #ef4444;
+        color: white;
+    }
+</style>

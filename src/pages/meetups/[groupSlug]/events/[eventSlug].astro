@@ -1,0 +1,518 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import Badge from '../../../../components/ui/Badge.astro';
+import Button from '../../../../components/ui/Button.astro';
+import TabNav from '../../../../components/ui/TabNav.astro';
+import TabSyncScript from '../../../../components/ui/TabSyncScript.astro';
+import { getCollection, render } from 'astro:content';
+import { marked } from 'marked';
+
+export async function getStaticPaths() {
+    const meetupEvents = await getCollection('meetupEvents');
+    const meetupGroups = await getCollection('meetupGroups');
+    
+    return meetupEvents.map((event) => {
+        const group = meetupGroups.find(g => g.data.slug === event.data.meetupGroup);
+        return {
+            params: { 
+                groupSlug: event.data.meetupGroup,
+                eventSlug: event.id 
+            },
+            props: { event, group },
+        };
+    });
+}
+
+const { event, group } = Astro.props;
+const { Content } = await render(event);
+
+// Determine if event is upcoming or past
+const now = new Date();
+const eventDate = new Date(event.data.date);
+const isUpcoming = eventDate >= now;
+
+// Format date
+const dateFormatter = new Intl.DateTimeFormat('en-US', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+});
+const formattedDate = dateFormatter.format(eventDate);
+
+const tabs = [
+    { id: 'details', label: 'Event Details' },
+    { id: 'speaker', label: 'About the Speaker' },
+    { id: 'resources', label: 'Resources' },
+];
+
+// Get current tab from URL
+const currentTab = Astro.url.searchParams.get('tab') || 'details';
+---
+
+<BaseLayout 
+    title={event.data.title}
+    description={event.data.description}
+    ogImage={event.data.heroImage || event.data.thumbnail}
+>
+    <!-- Event Header -->
+    <section class="event-header">
+        <div class="container">
+            <div class="header-content">
+                {(event.data.heroImage || event.data.thumbnail) && (
+                    <div class="header-image">
+                        <img 
+                            src={event.data.heroImage || event.data.thumbnail || '/images/meetups/default-meetup.svg'} 
+                            alt="" 
+                            loading="eager"
+                        />
+                    </div>
+                )}
+                <div class="header-info">
+                    <div class="header-meta">
+                        {group && (
+                            <a href={`/meetups/${group.data.slug}`}>
+                                <Badge variant="primary">{group.data.title}</Badge>
+                            </a>
+                        )}
+                        <Badge variant={isUpcoming ? 'success' : 'outline'}>
+                            {isUpcoming ? 'Upcoming' : 'Past Event'}
+                        </Badge>
+                    </div>
+                    
+                    <h1 class="event-title">{event.data.title}</h1>
+                    
+                    <div class="event-info">
+                        <div class="info-item">
+                            <span class="info-icon">📅</span>
+                            <span>{formattedDate}</span>
+                        </div>
+                        {event.data.time && (
+                            <div class="info-item">
+                                <span class="info-icon">🕐</span>
+                                <span>{event.data.time}</span>
+                            </div>
+                        )}
+                        {event.data.location?.venue && (
+                            <div class="info-item">
+                                <span class="info-icon">📍</span>
+                                <span>
+                                    {event.data.location.venue}
+                                    {event.data.location.city && `, ${event.data.location.city}`}
+                                    {event.data.location.state && `, ${event.data.location.state}`}
+                                </span>
+                            </div>
+                        )}
+                    </div>
+
+                    {event.data.shortDescription && (
+                        <p class="event-short-description">{event.data.shortDescription}</p>
+                    )}
+
+                    <div class="header-actions">
+                        {isUpcoming && event.data.eventUrl && (
+                            <Button href={event.data.eventUrl} variant="primary" target="_blank" rel="noopener noreferrer">
+                                RSVP on Meetup.com
+                            </Button>
+                        )}
+                        {group && (
+                            <Button href={`/meetups/${group.data.slug}`} variant="outline">
+                                View All {group.data.title} Events
+                            </Button>
+                        )}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tab Navigation -->
+    <div class="tabs-container">
+        <div class="container">
+            <TabNav 
+                tabs={tabs.map(t => ({ ...t, href: `?tab=${t.id}` }))} 
+                activeTab={currentTab} 
+            />
+        </div>
+    </div>
+
+    <!-- Tab Content -->
+    <section class="section tab-content">
+        <div class="container">
+            <!-- Details Tab -->
+            <div class="tab-panel" data-tab="details" style={currentTab !== 'details' ? 'display: none;' : ''}>
+                <div class="prose">
+                    <Content />
+                </div>
+            </div>
+
+            <!-- Speaker Tab -->
+            <div class="tab-panel" data-tab="speaker" style={currentTab !== 'speaker' ? 'display: none;' : ''}>
+                {event.data.speaker ? (
+                    <div class="speaker-info">
+                        <div class="speaker-header">
+                            {event.data.speaker.photo && (
+                                <img src={event.data.speaker.photo} alt={event.data.speaker.name} class="speaker-photo" />
+                            )}
+                            <div class="speaker-details">
+                                <h2>{event.data.speaker.name}</h2>
+                                {event.data.speaker.title && (
+                                    <p class="speaker-title">
+                                        {event.data.speaker.title}
+                                        {event.data.speaker.company && ` at ${event.data.speaker.company}`}
+                                    </p>
+                                )}
+                                {event.data.speaker.social && (
+                                    <div class="speaker-social">
+                                        {event.data.speaker.social.website && (
+                                            <a href={event.data.speaker.social.website} target="_blank" rel="noopener noreferrer" aria-label="Website">
+                                                <svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                                    <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                                                </svg>
+                                            </a>
+                                        )}
+                                        {event.data.speaker.social.linkedin && (
+                                            <a href={event.data.speaker.social.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                                                in
+                                            </a>
+                                        )}
+                                        {event.data.speaker.social.twitter && (
+                                            <a href={event.data.speaker.social.twitter.startsWith('http') ? event.data.speaker.social.twitter : `https://twitter.com/${event.data.speaker.social.twitter}`} target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+                                                𝕏
+                                            </a>
+                                        )}
+                                        {event.data.speaker.social.github && (
+                                            <a href={event.data.speaker.social.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                                                <svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                                    <path fill="currentColor" d="M12 1.5c-5.8 0-10.5 4.7-10.5 10.5 0 4.6 3 8.5 7.1 9.9.5.1.7-.2.7-.5v-1.9c-2.9.6-3.5-1.2-3.5-1.2-.5-1.2-1.2-1.5-1.2-1.5-1-.7.1-.7.1-.7 1.1.1 1.7 1.1 1.7 1.1 1 .1.9 1.7 2.8 1.7.2-.7.4-1.1.7-1.4-2.3-.3-4.7-1.2-4.7-5.1 0-1.1.4-2 1.1-2.8-.1-.3-.5-1.4.1-2.8 0 0 .9-.3 2.9 1.1.8-.2 1.7-.4 2.6-.4s1.8.1 2.6.4c2-1.4 2.9-1.1 2.9-1.1.6 1.4.2 2.5.1 2.8.7.8 1.1 1.7 1.1 2.8 0 4-2.4 4.8-4.7 5.1.4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5 4.1-1.4 7.1-5.3 7.1-9.9C22.5 6.2 17.8 1.5 12 1.5z"/>
+                                                </svg>
+                                            </a>
+                                        )}
+                                        {event.data.speaker.social.youtube && (
+                                            <a href={event.data.speaker.social.youtube} target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                                                ▶
+                                            </a>
+                                        )}
+                                        {event.data.speaker.social.sessionize && (
+                                            <a href={event.data.speaker.social.sessionize} target="_blank" rel="noopener noreferrer" aria-label="Sessionize">
+                                                <svg class="social-icon" viewBox="0 0 288 288" aria-hidden="true">
+                                                    <path fill="currentColor" d="M0 0 C0.66 0 1.32 0 2 0 C2.1952124 0.53665283 2.3904248 1.07330566 2.59155273 1.6262207 C13.88022447 32.45486643 28.56058295 60.7451903 51.57275391 84.52148438 C53.05641746 86.05844409 54.51772277 87.61501765 55.98046875 89.171875 C69.14572675 102.97302573 84.49161439 113.57396083 101 123 C101.69029297 123.39670898 102.38058594 123.79341797 103.09179688 124.20214844 C115.70986798 131.37724797 129.78542825 138.75697778 144 142 C144 142.66 144 143.32 144 144 C127.05908203 151.52929688 110.11816406 159.05859375 93.17724609 166.58789062 C92.24720764 167.00124161 91.31716919 167.41459259 90.35894775 167.84046936 C88.50327723 168.66521068 86.64760503 169.48994824 84.79193115 170.31468201 C80.17488732 172.36668172 75.55787307 174.41874792 70.94091797 176.47094727 C62.26888893 180.325514 53.59659599 184.17948324 44.92330933 188.03121948 C40.89554105 189.81996501 36.86793119 191.60906707 32.84033203 193.39819336 C30.94832061 194.23853922 29.05623442 195.07871676 27.1640625 195.91870117 C14.42520427 201.57387727 1.70506426 207.26929574 -11 213 C-7.69105274 215.68756979 -4.41788955 218.01572329 -0.75 220.1875 C14.22291468 229.70112139 24.53768989 245.41257386 28.6875 262.5625 C30.48674659 270.99157912 31 278.233547 31 287 C19.12 287 7.24 287 -5 287 C-5.66 282.05 -6.32 277.1 -7 272 C-10.91137988 260.48936779 -15.70023301 252.94504795 -26.703125 247.3828125 C-40.92409236 241.41809396 -54.61841556 239.86349032 -69.91601562 239.5703125 C-76.78055822 239.34101671 -82.6975894 238.64653114 -88.2421875 234.203125 C-93.57868928 227.81974967 -95.53605434 222.42904844 -95 214 C-94.14283211 211.13575071 -92.94061489 208.46849553 -91.6953125 205.75390625 C-91.34499969 204.96314194 -90.99468689 204.17237762 -90.63375854 203.35765076 C-89.47642796 200.75360167 -88.30085404 198.15823092 -87.125 195.5625 C-86.30357099 193.72380568 -85.483277 191.88460392 -84.6640625 190.04492188 C-82.53960045 185.2832126 -80.39951987 180.52871757 -78.25354004 175.77667236 C-76.68012967 172.2914665 -75.11172581 168.80402101 -73.54342651 165.31651306 C-70.95105387 159.55174259 -68.35645109 153.78799447 -65.75439453 148.02758789 C-60.42394555 136.21917173 -55.19065072 124.37045949 -50 112.5 C-43.71989414 98.13807389 -37.34303859 83.8236084 -30.88809204 69.53945923 C-24.12838417 54.57521334 -17.5002593 39.55538504 -10.92382812 24.50976562 C-7.340091 16.3129276 -3.7435652 8.12561183 0 0 Z" transform="translate(143,1)"/>
+                                                    <path fill="currentColor" d="M0 0 C12.0473224 -0.38044176 23.24528877 0.27422992 35 3 C35.66789551 3.15033691 36.33579102 3.30067383 37.02392578 3.45556641 C63.19129136 9.57335544 86.1863146 24.14112044 105 43 C105.85851562 43.84691406 106.71703125 44.69382813 107.6015625 45.56640625 C132.16962678 71.10939372 145.58029318 106.33467018 145.0703125 141.51953125 C145.04710937 142.66808594 145.02390625 143.81664062 145 145 C144.67 144.34 144.34 143.68 144 143 C142.00353292 142.64612105 140.00264336 142.31706577 138 142 C108.93482109 132.0631867 81.60115091 115.84966407 59.52587891 94.47460938 C58.46942478 93.45365211 57.40610583 92.43976855 56.33740234 91.43164062 C41.51491689 77.44075218 30.14455128 61.62143085 20 44 C19.64099609 43.39043457 19.28199219 42.78086914 18.91210938 42.15283203 C2 13.3003854 2 13.3003854 2 1 C1.34 0.67 0.68 0.34 0 0 Z" transform="translate(143,0)"/>
+                                                    <path fill="currentColor" d="M0 0 C10.91066087 3.30825259 20.12959842 13.78697888 25.375 23.5625 C26.23968076 26.93475495 26.43360096 29.53119234 26 33 C23.9375 35.9375 23.9375 35.9375 21 38 C15.08428577 39.00455525 10.82979218 37.23431325 6 34 C-1.54015365 28.04970821 -10.94705226 20.17679726 -12.25 10.05859375 C-12.44919569 6.67849192 -12.2517866 4.41964433 -10.5 1.5 C-6.96605542 -0.62036675 -3.9512935 -0.68749612 0 0 Z" transform="translate(215,47)"/>
+                                                </svg>
+                                            </a>
+                                        )}
+                                        {event.data.speaker.social.bluesky && (
+                                            <a href={event.data.speaker.social.bluesky} target="_blank" rel="noopener noreferrer" aria-label="Bluesky">
+                                                <svg class="social-icon" viewBox="-40 0 290 221" aria-hidden="true">
+                                                    <path fill="currentColor" d="M0 0 C17.03768082 7.94690413 32.38533021 22.13015812 44.31640625 36.546875 C45.11046875 37.45308594 45.90453125 38.35929687 46.72265625 39.29296875 C83.31640625 81.18821563 83.31640625 81.18821563 83.31640625 94.546875 C83.97640625 94.546875 84.63640625 94.546875 85.31640625 94.546875 C85.56648438 93.69738281 85.8165625 92.84789063 86.07421875 91.97265625 C87.41053751 88.28727401 89.15725762 85.06302252 91.19140625 81.734375 C91.58215332 81.09056885 91.97290039 80.4467627 92.37548828 79.78344727 C102.62147012 63.16116781 114.47023024 47.45986566 127.828125 33.22265625 C129.9130171 30.98066082 131.90750831 28.7001215 133.87890625 26.359375 C145.61477554 12.93109903 164.21451231 -2.30523757 182.60546875 -3.703125 C194.81836617 -4.11450681 194.81836617 -4.11450681 200.31640625 0.546875 C211.4176252 15.31423725 205.0481052 42.01402931 203.50390625 59.171875 C203.42113434 60.11627441 203.33836243 61.06067383 203.25308228 62.03369141 C199.63262928 102.79993027 199.63262928 102.79993027 185.31640625 115.546875 C173.44553795 124.69420547 160.83131039 127.14696039 146.31640625 128.546875 C147.36699219 128.97097656 148.41757813 129.39507812 149.5 129.83203125 C162.00383337 135.00248701 172.60378426 140.69321084 178.69140625 153.421875 C180.68268935 163.37829052 178.8795885 171.81950396 173.515625 180.44140625 C164.48827783 193.25498058 151.8755555 205.52662277 136.31640625 209.546875 C126.70257428 210.73141755 119.09860889 209.74223255 111.23828125 204.0390625 C98.38367929 193.49043875 90.19778751 177.22361866 85.31640625 161.546875 C85.31640625 160.556875 85.31640625 159.566875 85.31640625 158.546875 C84.65640625 158.546875 83.99640625 158.546875 83.31640625 158.546875 C83.20425781 159.22878906 83.09210938 159.91070312 82.9765625 160.61328125 C79.22577022 177.28100314 69.2711736 195.17995377 55.62890625 205.546875 C48.1455628 210.0651201 40.88172781 210.42256283 32.31640625 209.546875 C24.07222207 207.33526152 17.67138888 203.10608379 11.31640625 197.546875 C10.49269531 196.86625 9.66898438 196.185625 8.8203125 195.484375 C-1.0460658 187.0746766 -9.15797694 177.11494981 -11.05859375 163.94921875 C-11.46034593 155.82629177 -8.57798774 149.61285167 -3.55859375 143.359375 C3.46535577 135.84330163 12.89997813 132.20342613 22.31640625 128.546875 C20.82753906 128.41732422 20.82753906 128.41732422 19.30859375 128.28515625 C3.04249086 126.68455076 -11.65198054 122.24408036 -22.55859375 109.296875 C-30.72530223 97.73062758 -32.25396416 85.26465142 -33.68359375 71.546875 C-33.82039551 70.23541504 -33.95719727 68.92395508 -34.09814453 67.57275391 C-35.63288502 52.5344242 -36.94512029 37.48458441 -37.05859375 22.359375 C-37.07237061 21.36969727 -37.08614746 20.38001953 -37.1003418 19.36035156 C-37.0529883 12.13483874 -36.06133054 6.35138506 -31.24609375 0.671875 C-22.17435301 -6.85103195 -10.18237329 -4.05019541 0 0 Z"/>
+                                                </svg>
+                                            </a>
+                                        )}
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                        {event.data.speaker.bio && (
+                            <div class="speaker-bio prose">
+                                <div set:html={marked.parse(event.data.speaker.bio)} />
+                            </div>
+                        )}
+                    </div>
+                ) : (
+                    <div class="empty-state">
+                        <p>Speaker information coming soon.</p>
+                    </div>
+                )}
+            </div>
+
+            <!-- Resources Tab -->
+            <div class="tab-panel" data-tab="resources" style={currentTab !== 'resources' ? 'display: none;' : ''}>
+                {event.data.resources?.length > 0 ? (
+                    <div class="resources-list">
+                        <h2>Resources</h2>
+                        <div class="resources-grid">
+                            {event.data.resources.map((resource: any) => (
+                                <a href={resource.url} target="_blank" rel="noopener noreferrer" class="resource-card">
+                                    <span class="resource-icon">
+                                        {resource.type === 'slides' && '📊'}
+                                        {resource.type === 'video' && '🎬'}
+                                        {resource.type === 'github' && '💻'}
+                                        {resource.type === 'code' && '💻'}
+                                        {resource.type === 'demo' && '🚀'}
+                                        {resource.type === 'blog' && '📝'}
+                                        {resource.type === 'download' && '⬇️'}
+                                        {resource.type === 'documentation' && '📚'}
+                                        {resource.type === 'other' && '🔗'}
+                                    </span>
+                                    <span class="resource-title">{resource.title}</span>
+                                    {resource.description && <span class="resource-desc">{resource.description}</span>}
+                                </a>
+                            ))}
+                        </div>
+                    </div>
+                ) : (
+                    <div class="empty-state">
+                        <p>Resources {isUpcoming ? 'will be available after the event.' : 'coming soon.'}</p>
+                    </div>
+                )}
+            </div>
+        </div>
+    </section>
+</BaseLayout>
+
+<TabSyncScript />
+
+<style>
+    .event-header {
+        background: linear-gradient(135deg, var(--color-primary-50) 0%, var(--color-primary-100) 100%);
+        padding: var(--spacing-12) 0 var(--spacing-8);
+    }
+
+    .header-content {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: var(--spacing-8);
+    }
+
+    @media (min-width: 768px) {
+        .header-content {
+            grid-template-columns: 350px 1fr;
+            gap: var(--spacing-10);
+        }
+    }
+
+    .header-image {
+        background-color: var(--color-gray-100);
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        box-shadow: var(--shadow-lg);
+        aspect-ratio: 16 / 9;
+    }
+
+    .header-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .header-info {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-4);
+    }
+
+    .header-meta {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--spacing-2);
+    }
+
+    .event-title {
+        font-size: var(--font-size-4xl);
+        font-weight: 700;
+        line-height: 1.1;
+        margin: 0;
+        color: var(--color-gray-900);
+    }
+
+    .event-info {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-2);
+    }
+
+    .info-item {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-2);
+        font-size: var(--font-size-lg);
+        color: var(--color-gray-700);
+    }
+
+    .info-icon {
+        font-size: var(--font-size-xl);
+    }
+
+    .event-short-description {
+        font-size: var(--font-size-lg);
+        color: var(--color-gray-700);
+        margin: var(--spacing-2) 0;
+    }
+
+    .header-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--spacing-3);
+        margin-top: var(--spacing-4);
+    }
+
+    .tabs-container {
+        background: var(--color-white);
+        border-bottom: 1px solid var(--color-gray-200);
+        position: sticky;
+        top: 0;
+        z-index: 10;
+    }
+
+    .tab-content {
+        padding: var(--spacing-8) 0;
+    }
+
+    .tab-panel {
+        animation: fadeIn 0.3s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .prose {
+        max-width: 75ch;
+        font-size: var(--font-size-lg);
+        line-height: 1.7;
+        color: var(--color-gray-800);
+    }
+
+    .speaker-info {
+        max-width: 900px;
+    }
+
+    .speaker-header {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-6);
+        margin-bottom: var(--spacing-8);
+        padding: var(--spacing-6);
+        background: var(--color-gray-50);
+        border-radius: var(--radius-lg);
+    }
+
+    @media (min-width: 768px) {
+        .speaker-header {
+            flex-direction: row;
+            align-items: start;
+        }
+    }
+
+    .speaker-photo {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        box-shadow: var(--shadow-md);
+    }
+
+    .speaker-details h2 {
+        margin: 0;
+        font-size: var(--font-size-2xl);
+        color: var(--color-gray-900);
+    }
+
+    .speaker-title {
+        font-size: var(--font-size-lg);
+        color: var(--color-gray-600);
+        margin: var(--spacing-2) 0;
+    }
+
+    .speaker-social {
+        display: flex;
+        gap: var(--spacing-3);
+        margin-top: var(--spacing-3);
+    }
+
+    .speaker-social a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background-color: var(--color-white);
+        border: 1px solid var(--color-gray-300);
+        border-radius: var(--radius-full);
+        color: var(--color-gray-700);
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.2s;
+    }
+
+    .speaker-social .social-icon {
+        width: 20px;
+        height: 20px;
+        display: block;
+    }
+
+    .speaker-social .social-icon path {
+        shape-rendering: geometricPrecision;
+    }
+
+    .speaker-social a:hover {
+        background-color: var(--color-primary-500);
+        border-color: var(--color-primary-500);
+        color: var(--color-white);
+        transform: translateY(-2px);
+    }
+
+    .speaker-bio {
+        font-size: var(--font-size-base);
+        line-height: 1.7;
+    }
+
+    .resources-list h2 {
+        font-size: var(--font-size-2xl);
+        margin-bottom: var(--spacing-6);
+        color: var(--color-gray-900);
+    }
+
+    .resources-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: var(--spacing-4);
+    }
+
+    .resource-card {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-2);
+        padding: var(--spacing-5);
+        background: var(--color-white);
+        border: 1px solid var(--color-gray-200);
+        border-radius: var(--radius-md);
+        text-decoration: none;
+        transition: all 0.2s;
+    }
+
+    .resource-card:hover {
+        border-color: var(--color-primary-500);
+        box-shadow: var(--shadow-md);
+        transform: translateY(-2px);
+    }
+
+    .resource-icon {
+        font-size: var(--font-size-3xl);
+    }
+
+    .resource-title {
+        font-weight: 600;
+        font-size: var(--font-size-lg);
+        color: var(--color-gray-900);
+    }
+
+    .resource-desc {
+        font-size: var(--font-size-sm);
+        color: var(--color-gray-600);
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: var(--spacing-12) var(--spacing-4);
+        color: var(--color-gray-500);
+    }
+
+    .empty-state p {
+        font-size: var(--font-size-lg);
+    }
+</style>

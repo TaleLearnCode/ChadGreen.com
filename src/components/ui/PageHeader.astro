@@ -1,0 +1,35 @@
+---
+export interface Props {
+    title: string;
+    class?: string;
+}
+
+const { title, class: className = '' } = Astro.props;
+---
+
+<header class:list={['page-header', className]}>
+    <div class="container">
+        <h1>{title}</h1>
+        <slot />
+    </div>
+</header>
+
+<style>
+    .page-header {
+        background-color: var(--color-primary);
+        color: var(--color-text-inverse);
+        padding: var(--spacing-8) 0;
+    }
+
+    .page-header h1 {
+        color: var(--color-text-inverse);
+        margin-bottom: 0;
+        font-size: var(--font-size-3xl);
+    }
+
+    .page-header :global(p) {
+        color: var(--color-primary-lighter);
+        margin-top: var(--spacing-2);
+        margin-bottom: 0;
+    }
+</style>

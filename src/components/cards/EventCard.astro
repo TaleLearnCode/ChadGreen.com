@@ -1,0 +1,266 @@
+---
+import Badge from '../ui/Badge.astro';
+import Button from '../ui/Button.astro';
+
+export interface Props {
+    title: string;
+    slug: string;
+    startDate: Date;
+    endDate?: Date;
+    location: {
+        city: string;
+        state?: string;
+        country: string;
+        virtual?: boolean;
+    };
+    logo?: string;
+    thumbnail?: string;
+    heroImage?: string;
+    eventType?: string;
+    status?: string;
+    eventUrl?: string;
+    slidesUrl?: string;
+    demosUrl?: string;
+    featured?: boolean;
+    compact?: boolean;
+    class?: string;
+}
+
+const {
+    title,
+    slug,
+    startDate,
+    endDate,
+    location,
+    logo,
+    thumbnail,
+    heroImage,
+    eventType = 'conference',
+    status = 'upcoming',
+    eventUrl,
+    slidesUrl,
+    demosUrl,
+    featured = false,
+    compact = false,
+    class: className = '',
+} = Astro.props;
+
+const utc = { timeZone: 'UTC' as const };
+
+function formatDate(date: Date): string {
+    return date.toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+        ...utc,
+    });
+}
+
+function formatDateRange(start: Date, end?: Date): string {
+    if (!end || start.getTime() === end.getTime()) {
+        return formatDate(start);
+    }
+    
+    const sameMonth = start.getUTCMonth() === end.getUTCMonth() && start.getUTCFullYear() === end.getUTCFullYear();
+    
+    if (sameMonth) {
+        return `${start.toLocaleDateString('en-US', { month: 'short', day: 'numeric', ...utc })} - ${end.getUTCDate()}, ${end.getUTCFullYear()}`;
+    }
+    
+    return `${formatDate(start)} - ${formatDate(end)}`;
+}
+
+function formatLocation(loc: typeof location): string {
+    if (loc.virtual) return 'Virtual Event';
+    const parts = [loc.city];
+    if (loc.state) parts.push(loc.state);
+    parts.push(loc.country);
+    return parts.join(', ');
+}
+
+const isUpcoming = status === 'upcoming' || status === 'confirmed';
+const displayImage = heroImage || logo || thumbnail || '/images/events/default-event.svg';
+const primaryHref = `/speaking/${slug}`;
+---
+
+<article class:list={['event-card', { 'featured': featured, 'compact': compact }, className]}>
+    <a href={primaryHref} class="card-image-link" aria-label={`View details for ${title}`}>
+        <div class="card-image">
+            <img src={displayImage} alt={`${title} logo`} loading="lazy" />
+            {isUpcoming && <span class="status-badge upcoming">Upcoming</span>}
+            {status === 'completed' && <span class="status-badge completed">Past Event</span>}
+        </div>
+    </a>
+    <div class="card-content">
+        <div class="card-meta">
+            <span class="event-date">{formatDateRange(startDate, endDate)}</span>
+            {location.virtual && <Badge variant="secondary" size="sm">Virtual</Badge>}
+        </div>
+        <h3 class="card-title">
+            <a href={primaryHref}>{title}</a>
+        </h3>
+        <p class="card-location">{formatLocation(location)}</p>
+        
+        {!compact && (slidesUrl || demosUrl) && (
+            <div class="resource-links">
+                {slidesUrl && (
+                    <a href={slidesUrl} target="_blank" rel="noopener noreferrer" class="resource-link">
+                        📊 Slides
+                    </a>
+                )}
+                {demosUrl && (
+                    <a href={demosUrl} target="_blank" rel="noopener noreferrer" class="resource-link">
+                        💻 Demos
+                    </a>
+                )}
+            </div>
+        )}
+        
+        <div class="card-actions">
+            <Button href={primaryHref} variant="primary" size="sm">
+                Details
+            </Button>
+            {eventUrl && (
+                <Button href={eventUrl} variant="outline" size="sm">
+                    Event Site ↗
+                </Button>
+            )}
+        </div>
+    </div>
+</article>
+
+<style>
+    .event-card {
+        background-color: var(--color-bg-primary);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-card);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition: all var(--transition-normal);
+    }
+
+    .event-card:hover {
+        box-shadow: var(--shadow-card-hover);
+        transform: translateY(-4px);
+    }
+
+    .card-image {
+        position: relative;
+        aspect-ratio: 16 / 10;
+        overflow: hidden;
+        background-color: var(--color-gray-100);
+    }
+
+    .card-image-link {
+        display: block;
+        text-decoration: none;
+    }
+
+    .card-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .status-badge {
+        position: absolute;
+        top: var(--spacing-2);
+        left: var(--spacing-2);
+        font-size: var(--font-size-xs);
+        font-weight: var(--font-weight-semibold);
+        padding: var(--spacing-1) var(--spacing-2);
+        border-radius: var(--radius-sm);
+    }
+
+    .status-badge.upcoming {
+        background-color: var(--color-primary);
+        color: var(--color-text-inverse);
+    }
+
+    .status-badge.completed {
+        background-color: var(--color-gray-600);
+        color: var(--color-text-inverse);
+    }
+
+    .card-content {
+        padding: var(--spacing-4);
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+    }
+
+    .card-meta {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-2);
+        margin-bottom: var(--spacing-2);
+    }
+
+    .event-date {
+        font-size: var(--font-size-sm);
+        color: var(--color-primary);
+        font-weight: var(--font-weight-semibold);
+    }
+
+    .card-title {
+        font-size: var(--font-size-lg);
+        font-weight: var(--font-weight-semibold);
+        margin-bottom: var(--spacing-1);
+        line-height: var(--line-height-tight);
+    }
+
+    .card-title a {
+        color: var(--color-text-primary);
+        text-decoration: none;
+    }
+
+    .card-title a:hover {
+        color: var(--color-primary);
+    }
+
+    .card-location {
+        font-size: var(--font-size-sm);
+        color: var(--color-text-secondary);
+        margin-bottom: var(--spacing-3);
+    }
+
+    .resource-links {
+        display: flex;
+        gap: var(--spacing-3);
+        margin-bottom: var(--spacing-3);
+    }
+
+    .resource-link {
+        font-size: var(--font-size-sm);
+        color: var(--color-text-link);
+        text-decoration: none;
+    }
+
+    .resource-link:hover {
+        text-decoration: underline;
+    }
+
+    .card-actions {
+        display: flex;
+        gap: var(--spacing-2);
+        margin-top: auto;
+    }
+
+    .featured {
+        border: 2px solid var(--color-primary);
+    }
+
+    /* Compact variant */
+    .compact .card-image {
+        aspect-ratio: 4 / 3;
+    }
+
+    .compact .card-content {
+        padding: var(--spacing-3);
+    }
+
+    .compact .card-title {
+        font-size: var(--font-size-base);
+    }
+</style>

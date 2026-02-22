@@ -1,0 +1,65 @@
+---
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import '@/styles/global.css';
+
+export interface Props {
+    title: string;
+    description?: string;
+    ogImage?: string;
+    canonicalUrl?: string;
+}
+
+const {
+    title,
+    description = 'Chad Green - Speaker, Community Leader, Developer. Presentations, speaking engagements, and community events.',
+    ogImage = '/images/og-default.png',
+    canonicalUrl,
+} = Astro.props;
+
+const siteTitle = title ? `${title} | Chad Green` : 'Chad Green - Speaker & Community Leader';
+const fullCanonicalUrl = canonicalUrl || Astro.url.href;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content={description}>
+    <meta name="author" content="Chad Green">
+    
+    <!-- Open Graph / Social -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content={fullCanonicalUrl}>
+    <meta property="og:title" content={siteTitle}>
+    <meta property="og:description" content={description}>
+    <meta property="og:image" content={ogImage}>
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content={siteTitle}>
+    <meta name="twitter:description" content={description}>
+    <meta name="twitter:image" content={ogImage}>
+    
+    <!-- Canonical -->
+    <link rel="canonical" href={fullCanonicalUrl}>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
+    <title>{siteTitle}</title>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <Header />
+    
+    <main id="main-content">
+        <slot />
+    </main>
+    
+    <Footer />
+</body>
+</html>

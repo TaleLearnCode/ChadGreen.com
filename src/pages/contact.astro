@@ -1,0 +1,140 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/ui/PageHeader.astro';
+import ContactForm from '../components/forms/ContactForm.astro';
+---
+
+<BaseLayout 
+    title="Contact" 
+    description="Get in touch with Chad Green for speaking engagements, media inquiries, collaborations, or general questions."
+>
+    <PageHeader title="Contact">
+        <p>I'd love to hear from you!</p>
+    </PageHeader>
+
+    <section class="section">
+        <div class="container">
+            <div class="contact-layout">
+                <div class="contact-info">
+                    <h2>Let's Connect</h2>
+                    <p>Whether you're looking for a speaker for your next event, have a media inquiry, or just want to say hello, I'm here to help.</p>
+                    
+                    <div class="contact-methods">
+                        <div class="contact-method">
+                            <span class="method-icon">📧</span>
+                            <div class="method-info">
+                                <h3>Email</h3>
+                                <a href="mailto:chadgreen@chadgreen.com">chadgreen@chadgreen.com</a>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-method">
+                            <span class="method-icon">🐦</span>
+                            <div class="method-info">
+                                <h3>Twitter/X</h3>
+                                <a href="https://twitter.com/chadgreen" target="_blank" rel="noopener noreferrer">@chadgreen</a>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-method">
+                            <span class="method-icon">💼</span>
+                            <div class="method-info">
+                                <h3>LinkedIn</h3>
+                                <a href="https://linkedin.com/in/chadgreen" target="_blank" rel="noopener noreferrer">/in/chadgreen</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="response-note">
+                        <p><strong>Response Time:</strong> I typically respond within 2-3 business days. For urgent speaking inquiries, please mention the event date in your message.</p>
+                    </div>
+                </div>
+
+                <div class="contact-form-wrapper">
+                    <ContactForm />
+                </div>
+            </div>
+        </div>
+    </section>
+</BaseLayout>
+
+<style>
+    .contact-layout {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: var(--spacing-12);
+        align-items: start;
+    }
+
+    .contact-info h2 {
+        margin-bottom: var(--spacing-4);
+    }
+
+    .contact-info > p {
+        color: var(--color-text-secondary);
+        margin-bottom: var(--spacing-8);
+    }
+
+    .contact-methods {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-4);
+        margin-bottom: var(--spacing-8);
+    }
+
+    .contact-method {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--spacing-3);
+        padding: var(--spacing-4);
+        background-color: var(--color-bg-secondary);
+        border-radius: var(--radius-lg);
+    }
+
+    .method-icon {
+        font-size: 1.5rem;
+    }
+
+    .method-info h3 {
+        font-size: var(--font-size-base);
+        margin-bottom: var(--spacing-1);
+    }
+
+    .method-info a {
+        color: var(--color-primary);
+        text-decoration: none;
+    }
+
+    .method-info a:hover {
+        text-decoration: underline;
+    }
+
+    .response-note {
+        padding: var(--spacing-4);
+        background-color: var(--color-primary-bg);
+        border-radius: var(--radius-md);
+        border-left: 4px solid var(--color-primary);
+    }
+
+    .response-note p {
+        margin: 0;
+        font-size: var(--font-size-sm);
+        color: var(--color-text-secondary);
+    }
+
+    @media (max-width: 1024px) {
+        .contact-layout {
+            grid-template-columns: 1fr;
+        }
+
+        .contact-info {
+            text-align: center;
+        }
+
+        .contact-methods {
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+</style>
