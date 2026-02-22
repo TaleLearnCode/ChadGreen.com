@@ -1,0 +1,147 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/ui/PageHeader.astro';
+import BlogCard from '../../components/cards/BlogCard.astro';
+import { getCollection } from 'astro:content';
+
+// Get all published blog posts
+let posts: any[] = [];
+try {
+    posts = await getCollection('blog', ({ data }) => !data.draft);
+    posts = posts.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+} catch (e) {
+    // Collection might not exist yet
+}
+
+// Get all categories and tags
+const categories = [...new Set(posts.map(p => p.data.category))];
+---
+
+<BaseLayout 
+    title="Blog" 
+    description="Articles and thoughts on technology, speaking, community, and more by Chad Green."
+>
+    <PageHeader title="Blog">
+        <p>Thoughts on technology, speaking, and community</p>
+    </PageHeader>
+
+    <section class="section">
+        <div class="container">
+            <!-- Category Filter -->
+            {categories.length > 1 && (
+                <div class="filter-controls">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    {categories.map((category) => (
+                        <button class="filter-btn" data-filter={category}>{category}</button>
+                    ))}
+                </div>
+            )}
+
+            {posts.length > 0 ? (
+                <div class="blog-grid grid grid-3" id="blog-grid">
+                    {posts.map((post) => (
+                        <div class="blog-item" data-category={post.data.category}>
+                            <BlogCard
+                                title={post.data.title}
+                                description={post.data.description}
+                                slug={post.id}
+                                pubDate={post.data.pubDate}
+                                heroImage={post.data.heroImage}
+                                category={post.data.category}
+                                tags={post.data.tags}
+                                featured={post.data.featured}
+                            />
+                        </div>
+                    ))}
+                </div>
+            ) : (
+                <div class="empty-state">
+                    <h3>No Blog Posts Yet</h3>
+                    <p>Check back soon for articles and insights.</p>
+                </div>
+            )}
+        </div>
+    </section>
+</BaseLayout>
+
+<style>
+    .filter-controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--spacing-2);
+        margin-bottom: var(--spacing-8);
+        justify-content: center;
+    }
+
+    .filter-btn {
+        padding: var(--spacing-2) var(--spacing-4);
+        background-color: var(--color-bg-secondary);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-full);
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-medium);
+        color: var(--color-text-secondary);
+        cursor: pointer;
+        transition: all var(--transition-fast);
+    }
+
+    .filter-btn:hover {
+        border-color: var(--color-primary);
+        color: var(--color-primary);
+    }
+
+    .filter-btn.active {
+        background-color: var(--color-primary);
+        border-color: var(--color-primary);
+        color: var(--color-text-inverse);
+    }
+
+    .blog-item {
+        transition: opacity var(--transition-fast);
+    }
+
+    .blog-item.hidden {
+        display: none;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: var(--spacing-16);
+        background-color: var(--color-bg-secondary);
+        border-radius: var(--radius-lg);
+    }
+
+    .empty-state h3 {
+        margin-bottom: var(--spacing-2);
+    }
+
+    .empty-state p {
+        color: var(--color-text-secondary);
+        margin-bottom: 0;
+    }
+</style>
+
+<script>
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const items = document.querySelectorAll('.blog-item');
+
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const filter = (btn as HTMLElement).dataset.filter;
+
+            // Update active state
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            // Filter items
+            items.forEach(item => {
+                const category = (item as HTMLElement).dataset.category;
+                if (filter === 'all' || category === filter) {
+                    item.classList.remove('hidden');
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
+        });
+    });
+</script>

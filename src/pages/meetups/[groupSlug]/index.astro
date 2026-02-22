@@ -1,0 +1,316 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Badge from '../../../components/ui/Badge.astro';
+import Button from '../../../components/ui/Button.astro';
+import TabNav from '../../../components/ui/TabNav.astro';
+import TabSyncScript from '../../../components/ui/TabSyncScript.astro';
+import MeetupEventCard from '../../../components/cards/MeetupEventCard.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+    const groups = await getCollection('meetupGroups');
+    return groups.map((group) => ({
+        params: { groupSlug: group.data.slug },
+        props: { group },
+    }));
+}
+
+const { group } = Astro.props;
+const { Content } = await render(group);
+
+// Get all events for this group
+let allEvents: any[] = [];
+let upcomingEvents: any[] = [];
+let pastEvents: any[] = [];
+try {
+    const allMeetupEvents = await getCollection('meetupEvents');
+    const now = new Date();
+    allEvents = allMeetupEvents
+        .filter(e => e.data.meetupGroup === group.data.slug)
+        .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+    
+    upcomingEvents = allEvents.filter(e => e.data.date >= now).slice(0, 5);
+    pastEvents = allEvents.filter(e => e.data.date < now).slice(0, 10);
+} catch (e) {
+    // Collection might not exist yet
+}
+
+const tabs = [
+    { id: 'details', label: 'Meetup Details' },
+    { id: 'events', label: `Events (${allEvents.length})` },
+];
+
+const currentTab = Astro.url.searchParams.get('tab') || 'details';
+
+const roleLabels: Record<string, string> = {
+    'organizer': 'Organizer',
+    'co-organizer': 'Co-Organizer',
+    'speaker': 'Speaker',
+    'member': 'Member',
+};
+---
+
+<BaseLayout 
+    title={group.data.title}
+    description={group.data.description}
+    ogImage={group.data.heroImage}
+>
+    <section class="meetup-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="meetup-logo">
+                    <img 
+                        src={group.data.heroImage || '/images/meetups/default-meetup.svg'} 
+                        alt={`${group.data.title} logo`}
+                    />
+                </div>
+                <div class="meetup-info">
+                    {group.data.role && (
+                        <div class="meetup-meta">
+                            <Badge variant="primary">{group.data.role}</Badge>
+                        </div>
+                    )}
+                    
+                    <h1 class="meetup-title">{group.data.title}</h1>
+                    
+                    <div class="meetup-details">
+                        <div class="detail-item">
+                            <span class="detail-icon">📍</span>
+                            <span class="detail-text">{group.data.city}, {group.data.state || ''} {group.data.country}</span>
+                        </div>
+                    </div>
+
+                    <p class="meetup-description">{group.data.description}</p>
+
+                    <div class="meetup-actions">
+                        {group.data.website && (
+                            <Button href={group.data.website} variant="primary">
+                                View on Meetup.com ↗
+                            </Button>
+                        )}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tab Navigation -->
+    <div class="tabs-container">
+        <div class="container">
+            <TabNav 
+                tabs={tabs.map(t => ({ ...t, href: `?tab=${t.id}` }))} 
+                activeTab={currentTab} 
+            />
+        </div>
+    </div>
+
+    <!-- Tab Content -->
+    <section class="section tab-content">
+        <div class="container">
+            <!-- Details Tab -->
+            <div class="tab-panel" id="tab-details" data-tab="details" style={currentTab !== 'details' ? 'display: none;' : ''}>
+                <div class="meetup-content">
+                    <Content />
+                </div>
+            </div>
+
+            <!-- Events Tab -->
+            <div class="tab-panel" id="tab-events" data-tab="events" style={currentTab !== 'events' ? 'display: none;' : ''}>
+                {allEvents.length > 0 ? (
+                    <div class="events-section">
+                        {upcomingEvents.length > 0 && (
+                            <div class="upcoming-events">
+                                <h3>Upcoming Events</h3>
+                                <div class="events-list">
+                                    {upcomingEvents.map((event) => (
+                                        <MeetupEventCard
+                                            title={event.data.title}
+                                            date={event.data.date}
+                                            shortDescription={event.data.shortDescription || event.data.description}
+                                            eventUrl={event.data.eventUrl}
+                                            thumbnail={event.data.thumbnail}
+                                            meetupGroup={group.data.slug}
+                                            eventSlug={event.id}
+                                        />
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
+                        {pastEvents.length > 0 && (
+                            <div class="past-events">
+                                <h3>Past Events</h3>
+                                <div class="events-list">
+                                    {pastEvents.map((event) => (
+                                        <MeetupEventCard
+                                            title={event.data.title}
+                                            date={event.data.date}
+                                            shortDescription={event.data.shortDescription || event.data.description}
+                                            eventUrl={event.data.eventUrl}
+                                            thumbnail={event.data.thumbnail}
+                                            meetupGroup={group.data.slug}
+                                            eventSlug={event.id}
+                                        />
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                ) : (
+                    <div class="empty-state">
+                        <p>No events listed yet. Check the Meetup page for the latest information.</p>
+                        {group.data.website && (
+                            <Button href={group.data.website} variant="primary">
+                                View on Meetup.com ↗
+                            </Button>
+                        )}
+                    </div>
+                )}
+            </div>
+        </div>
+    </section>
+
+    <TabSyncScript />
+
+    <style>
+        .tabs-container {
+            background-color: var(--color-bg-secondary);
+            border-bottom: 1px solid var(--color-border);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .tab-panel {
+            animation: fadeIn 0.2s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .events-section {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-10);
+        }
+
+        .upcoming-events,
+        .past-events {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-4);
+        }
+
+        .upcoming-events h3,
+        .past-events h3 {
+            font-size: var(--font-size-2xl);
+            margin-bottom: var(--spacing-4);
+        }
+
+        .events-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-4);
+            max-width: 800px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: var(--spacing-10);
+            background-color: var(--color-bg-secondary);
+            border-radius: var(--radius-lg);
+        }
+
+        .empty-state p {
+            color: var(--color-text-secondary);
+            margin-bottom: var(--spacing-4);
+        }
+
+        .meetup-header {
+            background-color: var(--color-bg-secondary);
+            padding: var(--spacing-10) 0;
+        }
+
+        .header-content {
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            gap: var(--spacing-8);
+            align-items: start;
+        }
+
+        .meetup-logo {
+            background-color: var(--color-bg-primary);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-4);
+            box-shadow: var(--shadow-md);
+        }
+
+        .meetup-logo img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .meetup-meta {
+            margin-bottom: var(--spacing-3);
+        }
+
+        .meetup-title {
+            font-size: var(--font-size-4xl);
+            margin-bottom: var(--spacing-4);
+            line-height: 1.2;
+        }
+
+        .meetup-details {
+            margin-bottom: var(--spacing-4);
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-2);
+            margin-bottom: var(--spacing-2);
+        }
+
+        .detail-icon {
+            font-size: 1.25rem;
+        }
+
+        .detail-text {
+            color: var(--color-text-secondary);
+        }
+
+        .meetup-description {
+            font-size: var(--font-size-lg);
+            color: var(--color-text-secondary);
+            margin-bottom: var(--spacing-6);
+            max-width: 700px;
+        }
+
+        .meetup-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-3);
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                grid-template-columns: 1fr;
+            }
+
+            .meetup-logo {
+                max-width: 150px;
+            }
+
+            .meetup-title {
+                font-size: var(--font-size-3xl);
+            }
+        }
+    </style>
+</BaseLayout>

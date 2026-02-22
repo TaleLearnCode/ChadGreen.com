@@ -1,0 +1,258 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Badge from '../ui/Badge.astro';
+import Button from '../ui/Button.astro';
+import { render, type CollectionEntry } from 'astro:content';
+import { getResourceIcon } from '@/lib/engagementPresentations';
+
+export interface Props {
+    engagement: CollectionEntry<'engagementPresentations'>;
+    event?: CollectionEntry<'events'>;
+    presentation?: CollectionEntry<'presentations'>;
+    canonicalUrl: string;
+}
+
+const { engagement, event, presentation, canonicalUrl } = Astro.props;
+const { Content } = await render(engagement);
+
+const displayTitle = engagement.data.sessionTitle || engagement.data.title;
+const eventTitle = event?.data.title || engagement.data.eventSlug;
+const presentationTitle = presentation?.data.title || engagement.data.presentationSlug;
+const sessionImage = engagement.data.thumbnail || engagement.data.heroImage || presentation?.data.heroImage || '/images/presentations/default-thumbnail.svg';
+const resourceLinks = engagement.data.links.length > 0
+    ? engagement.data.links
+    : (presentation?.data.resources || []);
+---
+
+<BaseLayout
+    title={displayTitle}
+    description={engagement.data.description}
+    ogImage={engagement.data.heroImage || presentation?.data.heroImage}
+    canonicalUrl={canonicalUrl}
+>
+    <section class="session-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="header-image">
+                    <img
+                        src={sessionImage}
+                        alt={`${displayTitle} thumbnail`}
+                        loading="eager"
+                    />
+                </div>
+                <div class="header-info">
+                    <div class="header-meta">
+                        <Badge variant="primary">Engagement Presentation</Badge>
+                        <Badge variant="secondary">{eventTitle}</Badge>
+                    </div>
+
+                    <h1 class="session-title">{displayTitle}</h1>
+                    <p class="session-description">{engagement.data.description}</p>
+
+                    <div class="session-details">
+                        {engagement.data.date && (
+                            <div class="detail-item">
+                                <span>📅</span>
+                                <span>{engagement.data.date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' })}</span>
+                            </div>
+                        )}
+                        {(engagement.data.time || engagement.data.timeZone) && (
+                            <div class="detail-item">
+                                <span>🕐</span>
+                                <span>{engagement.data.time || 'TBA'}{engagement.data.timeZone ? ` ${engagement.data.timeZone}` : ''}</span>
+                            </div>
+                        )}
+                        {engagement.data.room && (
+                            <div class="detail-item">
+                                <span>📍</span>
+                                <span>{engagement.data.room}</span>
+                            </div>
+                        )}
+                    </div>
+
+                    <div class="header-actions">
+                        <Button href={`/speaking/${engagement.data.eventSlug}`} variant="outline">Event Details</Button>
+                        <Button href={`/presentations/${engagement.data.presentationSlug}`} variant="outline">Base Presentation</Button>
+                        {engagement.data.sessionUrl && (
+                            <Button href={engagement.data.sessionUrl} variant="primary" external>Session Listing</Button>
+                        )}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="content-grid">
+                <article class="session-content prose">
+                    <Content />
+                </article>
+
+                <aside class="session-sidebar">
+                    <div class="sidebar-card">
+                        <h2>Session Info</h2>
+                        <p><strong>Event:</strong> <a href={`/speaking/${engagement.data.eventSlug}`}>{eventTitle}</a></p>
+                        <p><strong>Presentation:</strong> <a href={`/presentations/${engagement.data.presentationSlug}`}>{presentationTitle}</a></p>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-alt">
+        <div class="container">
+            <h2>Session Resources</h2>
+            {resourceLinks.length > 0 ? (
+                <div class="resources-grid">
+                    {resourceLinks.map((resource: any) => (
+                        <a href={resource.url} target="_blank" rel="noopener noreferrer" class="resource-card">
+                            <span class="resource-icon">{getResourceIcon(resource.type)}</span>
+                            <span class="resource-title">{resource.title}</span>
+                            {resource.description && <span class="resource-description">{resource.description}</span>}
+                        </a>
+                    ))}
+                </div>
+            ) : (
+                <p class="resources-empty">Resources will be added soon.</p>
+            )}
+        </div>
+    </section>
+</BaseLayout>
+
+<style>
+    .session-header {
+        background-color: var(--color-bg-secondary);
+        padding: var(--spacing-10) 0;
+    }
+
+    .header-content {
+        display: grid;
+        grid-template-columns: 350px 1fr;
+        gap: var(--spacing-8);
+        align-items: start;
+    }
+
+    .header-image {
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        box-shadow: var(--shadow-lg);
+    }
+
+    .header-image img {
+        width: 100%;
+        height: auto;
+    }
+
+    .header-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--spacing-2);
+        margin-bottom: var(--spacing-4);
+    }
+
+    .session-title {
+        margin-bottom: var(--spacing-3);
+        line-height: 1.2;
+    }
+
+    .session-description {
+        font-size: var(--font-size-lg);
+        color: var(--color-text-secondary);
+        margin-bottom: var(--spacing-5);
+    }
+
+    .session-details {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--spacing-4);
+        margin-bottom: var(--spacing-5);
+    }
+
+    .detail-item {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--spacing-2);
+        color: var(--color-text-secondary);
+        font-size: var(--font-size-sm);
+    }
+
+    .header-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--spacing-2);
+    }
+
+    .content-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: var(--spacing-8);
+    }
+
+    .sidebar-card {
+        background-color: var(--color-bg-secondary);
+        border-radius: var(--radius-lg);
+        padding: var(--spacing-5);
+    }
+
+    .sidebar-card h2 {
+        margin-bottom: var(--spacing-3);
+        font-size: var(--font-size-xl);
+    }
+
+    .sidebar-card p {
+        margin-bottom: var(--spacing-2);
+    }
+
+    .section-alt {
+        background-color: var(--color-bg-secondary);
+    }
+
+    .resources-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: var(--spacing-4);
+        margin-top: var(--spacing-4);
+    }
+
+    .resource-card {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-2);
+        text-decoration: none;
+        color: inherit;
+        background-color: var(--color-bg-primary);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-lg);
+        padding: var(--spacing-4);
+        transition: all var(--transition-fast);
+    }
+
+    .resource-card:hover {
+        border-color: var(--color-primary);
+        transform: translateY(-2px);
+    }
+
+    .resource-icon {
+        font-size: var(--font-size-2xl);
+    }
+
+    .resource-title {
+        font-weight: var(--font-weight-semibold);
+    }
+
+    .resource-description,
+    .resources-empty {
+        color: var(--color-text-secondary);
+    }
+
+    @media (max-width: 900px) {
+        .header-content {
+            grid-template-columns: 1fr;
+        }
+
+        .content-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>

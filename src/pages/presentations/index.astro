@@ -1,0 +1,182 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/ui/PageHeader.astro';
+import PresentationCard from '../../components/cards/PresentationCard.astro';
+import { getCollection } from 'astro:content';
+
+// Get all active presentations
+let presentations: any[] = [];
+try {
+    const allPresentations = await getCollection('presentations');
+    presentations = allPresentations
+        .sort((a, b) => {
+            // Featured first, then by creation date
+            if (a.data.featured && !b.data.featured) return -1;
+            if (!a.data.featured && b.data.featured) return 1;
+            const dateA = a.data.createdDate?.getTime() || 0;
+            const dateB = b.data.createdDate?.getTime() || 0;
+            return dateB - dateA;
+        });
+} catch (e) {
+    // Collection might not exist yet
+}
+
+// Group by type for filtering
+const presentationTypes = [...new Set(presentations.map(p => p.data.type))];
+---
+
+<BaseLayout 
+    title="Presentations" 
+    description="Browse all presentations by Chad Green on Azure, .NET, DevOps, and more."
+>
+    <PageHeader title="Presentations">
+        <p>Explore my collection of talks, workshops, and presentations</p>
+    </PageHeader>
+
+    <section class="section">
+        <div class="container">
+            <!-- Filter Controls -->
+            {presentationTypes.length > 1 && (
+                <div class="filter-controls">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    {presentationTypes.map((type) => (
+                        <button class="filter-btn" data-filter={type}>
+                            {type.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                        </button>
+                    ))}
+                </div>
+            )}
+
+            {presentations.length > 0 ? (
+                <div class="presentations-grid grid grid-3" id="presentations-grid">
+                    {presentations.map((presentation) => (
+                        <div class="presentation-item" data-type={presentation.data.type}>
+                            <PresentationCard
+                                title={presentation.data.title}
+                                description={presentation.data.description}
+                                slug={presentation.id}
+                                thumbnail={presentation.data.heroImage}
+                                presentationType={presentation.data.type}
+                                tags={presentation.data.tags}
+                                featured={presentation.data.featured}
+                            />
+                        </div>
+                    ))}
+                </div>
+            ) : (
+                <div class="empty-state">
+                    <h3>No Presentations Yet</h3>
+                    <p>Check back soon for my collection of presentations.</p>
+                </div>
+            )}
+        </div>
+    </section>
+
+    <!-- Book CTA -->
+    <section class="book-cta">
+        <div class="container">
+            <div class="cta-content">
+                <p>
+                    <strong>Interested in one of these presentations?</strong><br>
+                    Email <a href="mailto:chadgreen@chadgreen.com">chadgreen@chadgreen.com</a> to have Chad present at your event.
+                </p>
+            </div>
+        </div>
+    </section>
+</BaseLayout>
+
+<style>
+    .filter-controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--spacing-2);
+        margin-bottom: var(--spacing-8);
+        justify-content: center;
+    }
+
+    .filter-btn {
+        padding: var(--spacing-2) var(--spacing-4);
+        background-color: var(--color-bg-secondary);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-full);
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-medium);
+        color: var(--color-text-secondary);
+        cursor: pointer;
+        transition: all var(--transition-fast);
+    }
+
+    .filter-btn:hover {
+        border-color: var(--color-primary);
+        color: var(--color-primary);
+    }
+
+    .filter-btn.active {
+        background-color: var(--color-primary);
+        border-color: var(--color-primary);
+        color: var(--color-text-inverse);
+    }
+
+    .presentation-item {
+        transition: opacity var(--transition-fast);
+    }
+
+    .presentation-item.hidden {
+        display: none;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: var(--spacing-16);
+        background-color: var(--color-bg-secondary);
+        border-radius: var(--radius-lg);
+    }
+
+    .empty-state h3 {
+        margin-bottom: var(--spacing-2);
+    }
+
+    .empty-state p {
+        color: var(--color-text-secondary);
+        margin-bottom: 0;
+    }
+
+    .book-cta {
+        background-color: var(--color-primary-bg);
+        padding: var(--spacing-8) 0;
+    }
+
+    .book-cta .cta-content {
+        text-align: center;
+    }
+
+    .book-cta a {
+        color: var(--color-primary);
+        font-weight: var(--font-weight-semibold);
+    }
+</style>
+
+<script>
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const items = document.querySelectorAll('.presentation-item');
+
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const filter = (btn as HTMLElement).dataset.filter;
+
+            // Update active state
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            // Filter items
+            items.forEach(item => {
+                const type = (item as HTMLElement).dataset.type;
+                if (filter === 'all' || type === filter) {
+                    item.classList.remove('hidden');
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
+        });
+    });
+</script>

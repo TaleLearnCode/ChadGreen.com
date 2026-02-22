@@ -1,0 +1,445 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Badge from '../../components/ui/Badge.astro';
+import Button from '../../components/ui/Button.astro';
+import TabNav from '../../components/ui/TabNav.astro';
+import TabSyncScript from '../../components/ui/TabSyncScript.astro';
+import PresentationCard from '../../components/cards/PresentationCard.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+    const events = await getCollection('events');
+    return events.map((event) => ({
+        params: { slug: event.id },
+        props: { event },
+    }));
+}
+
+const { event } = Astro.props;
+const { Content } = await render(event);
+
+// Get linked presentations with their event-specific details
+let linkedPresentations: any[] = [];
+if (event.data.presentations?.length) {
+    const [allPresentations, allEngagementPresentations] = await Promise.all([
+        getCollection('presentations'),
+        getCollection('engagementPresentations'),
+    ]);
+
+    const sessionSlugByPresentationId = new Map(
+        allEngagementPresentations
+            .filter((entry) => entry.data.eventSlug === event.id)
+            .map((entry) => [entry.data.presentationSlug, entry.data.sessionSlug])
+    );
+    
+    linkedPresentations = event.data.presentations.map((p: any) => {
+        // Handle both string format (old) and object format (new)
+        const presentationId = typeof p === 'string' ? p : p.id;
+        const presentationData = allPresentations.find(pres => pres.id === presentationId);
+        
+        if (!presentationData) return null;
+        
+        // Add event-specific scheduling details
+        const sessionSlug = sessionSlugByPresentationId.get(presentationId);
+
+        return {
+            ...presentationData,
+            detailsHref: sessionSlug
+                ? `/speaking/${event.id}/presentations/${sessionSlug}`
+                : `/presentations/${presentationId}`,
+            sessionName: typeof p === 'object' ? p.sessionName : undefined,
+            scheduleDate: typeof p === 'object' ? p.date : undefined,
+            scheduleTime: typeof p === 'object' ? p.time : undefined,
+            scheduleTimeZone: typeof p === 'object' ? p.timeZone : undefined,
+            scheduleRoom: typeof p === 'object' ? p.room : undefined,
+            sessionUrl: typeof p === 'object' ? p.sessionUrl : undefined,
+        };
+    }).filter(Boolean);
+}
+
+function formatDateRange(start: Date, end?: Date): string {
+    const utc = { timeZone: 'UTC' as const };
+    if (!end || start.getTime() === end.getTime()) {
+        return start.toLocaleDateString('en-US', { 
+            weekday: 'long',
+            month: 'long', 
+            day: 'numeric', 
+            year: 'numeric',
+            ...utc
+        });
+    }
+    const sameMonth = start.getUTCMonth() === end.getUTCMonth() && start.getUTCFullYear() === end.getUTCFullYear();
+    if (sameMonth) {
+        return `${start.toLocaleDateString('en-US', { month: 'long', day: 'numeric', ...utc })} - ${end.getUTCDate()}, ${end.getUTCFullYear()}`;
+    }
+    return `${start.toLocaleDateString('en-US', { month: 'long', day: 'numeric', ...utc })} - ${end.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', ...utc })}`;
+}
+
+function formatLocation(loc: any): string {
+    if (loc.virtual) return 'Virtual Event';
+    const parts = [];
+    if (loc.venue) parts.push(loc.venue);
+    parts.push(loc.city);
+    if (loc.state) parts.push(loc.state);
+    parts.push(loc.country);
+    return parts.join(', ');
+}
+
+// Determine if event is upcoming based on start date
+const now = new Date();
+const isUpcoming = event.data.startDate >= now;
+
+const tabs = [
+    { id: 'about', label: 'About' },
+    { id: 'presentations', label: `My Presentations (${linkedPresentations.length})` },
+];
+
+// Get current tab from URL
+const currentTab = Astro.url.searchParams.get('tab') || 'about';
+
+const typeLabels: Record<string, string> = {
+    'conference': 'Conference',
+    'meetup': 'Meetup',
+    'webinar': 'Webinar',
+    'podcast': 'Podcast',
+    'workshop': 'Workshop',
+    'user-group': 'User Group',
+    'corporate': 'Corporate Event',
+    'other': 'Event',
+};
+---
+
+<BaseLayout 
+    title={event.data.title}
+    description={event.data.description || `Speaking engagement at ${event.data.title}`}
+    ogImage={event.data.heroImage}
+>
+    <section class="event-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="event-logo">
+                    <img 
+                        src={event.data.heroImage || '/images/events/default-event.svg'} 
+                        alt={`${event.data.title} logo`}
+                    />
+                </div>
+                <div class="event-info">
+                    <div class="event-meta">
+                        {isUpcoming ? (
+                            <Badge variant="primary">Upcoming</Badge>
+                        ) : (
+                            <Badge variant="default">Past Event</Badge>
+                        )}
+                        <Badge variant="secondary">
+                            {typeLabels[event.data.eventType] || event.data.eventType}
+                        </Badge>
+                        {event.data.location.virtual && <Badge variant="outline">Virtual</Badge>}
+                    </div>
+                    
+                    <h1 class="event-title">{event.data.title}</h1>
+                    
+                    {event.data.description && (
+                        <p class="event-subtitle">{event.data.description}</p>
+                    )}
+                    
+                    <div class="event-details">
+                        <div class="detail-item">
+                            <span class="detail-icon">📅</span>
+                            <span class="detail-text">{formatDateRange(event.data.startDate, event.data.endDate)}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-icon">📍</span>
+                            <span class="detail-text">{formatLocation(event.data.location)}</span>
+                        </div>
+                        {event.data.audience && (
+                            <div class="detail-item">
+                                <span class="detail-icon">👥</span>
+                                <span class="detail-text">{event.data.audience} attendees</span>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tab Navigation -->
+    <div class="tabs-container">
+        <div class="container">
+            <TabNav 
+                tabs={tabs.map(t => ({ ...t, href: `?tab=${t.id}` }))} 
+                activeTab={currentTab} 
+            />
+        </div>
+    </div>
+
+    <!-- Tab Content -->
+    <section class="section tab-content">
+        <div class="container">
+            <!-- About Tab -->
+            <div class="tab-panel" data-tab="about" style={currentTab !== 'about' ? 'display: none;' : ''}>
+                <div class="prose">
+                    <Content />
+                </div>
+                
+                {event.data.website && (
+                    <div class="event-links">
+                        <Button href={event.data.website} variant="primary">
+                            Visit Event Website ↗
+                        </Button>
+                    </div>
+                )}
+
+                {event.data.photos && event.data.photos.length > 0 && (
+                    <div class="photos-section">
+                        <h2>Photos</h2>
+                        <div class="photos-grid">
+                            {event.data.photos.map((photo: string) => (
+                                <div class="photo-item">
+                                    <img src={photo} alt="Event photo" loading="lazy" />
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
+            </div>
+
+            <!-- Presentations Tab -->
+            <div class="tab-panel" data-tab="presentations" style={currentTab !== 'presentations' ? 'display: none;' : ''}>
+                {linkedPresentations.length > 0 ? (
+                    <div class="presentations-list">
+                        <h2>My Sessions at This Event</h2>
+                        <div class="grid grid-3">
+                            {linkedPresentations.map((presentation) => (
+                                <PresentationCard
+                                    title={presentation.data.title}
+                                    description={presentation.data.description}
+                                    slug={presentation.id}
+                                    detailsHref={presentation.detailsHref}
+                                    thumbnail={presentation.data.heroImage}
+                                    presentationType={presentation.data.type}
+                                    tags={presentation.data.tags}
+                                    showSchedule={true}
+                                    sessionName={presentation.sessionName}
+                                    scheduleDate={presentation.scheduleDate}
+                                    scheduleTime={presentation.scheduleTime}
+                                    scheduleTimeZone={presentation.scheduleTimeZone}
+                                    scheduleRoom={presentation.scheduleRoom}
+                                    sessionUrl={presentation.sessionUrl}
+                                />
+                            ))}
+                        </div>
+                    </div>
+                ) : (
+                    <div class="empty-state">
+                        <p>No presentations listed for this event yet.</p>
+                    </div>
+                )}
+            </div>
+        </div>
+    </section>
+
+    <TabSyncScript />
+</BaseLayout>
+
+<style>
+    .event-header {
+        background-color: var(--color-bg-secondary);
+        padding: var(--spacing-10) 0;
+    }
+
+    .header-content {
+        display: grid;
+        grid-template-columns: 200px 1fr;
+        gap: var(--spacing-8);
+        align-items: start;
+    }
+
+    .event-logo {
+        background-color: var(--color-bg-primary);
+        border-radius: var(--radius-lg);
+        padding: var(--spacing-4);
+        box-shadow: var(--shadow-md);
+    }
+
+    .event-logo img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+    }
+
+    .event-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--spacing-2);
+        margin-bottom: var(--spacing-4);
+    }
+
+    .event-title {
+        font-size: var(--font-size-4xl);
+        margin-bottom: var(--spacing-4);
+        line-height: 1.2;
+    }
+
+    .event-subtitle {
+        font-size: var(--font-size-lg);
+        color: var(--color-text-secondary);
+        margin-bottom: var(--spacing-4);
+        max-width: 800px;
+    }
+
+    .event-details {
+        margin-bottom: var(--spacing-4);
+    }
+
+    .detail-item {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-2);
+        margin-bottom: var(--spacing-2);
+        font-size: var(--font-size-lg);
+    }
+
+    .detail-icon {
+        font-size: 1.25rem;
+    }
+
+    .detail-text {
+        color: var(--color-text-secondary);
+    }
+
+    .event-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--spacing-3);
+    }
+
+    .tabs-container {
+        background-color: var(--color-bg-primary);
+        border-bottom: 1px solid var(--color-border);
+        position: sticky;
+        top: 0;
+        z-index: 10;
+    }
+
+    .tab-content {
+        padding: var(--spacing-10) 0;
+    }
+
+    .tab-panel {
+        animation: fadeIn 0.3s ease-in;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .prose {
+        max-width: 800px;
+        line-height: 1.7;
+        margin-bottom: var(--spacing-8);
+    }
+
+    .prose h2 {
+        margin-top: var(--spacing-8);
+        margin-bottom: var(--spacing-4);
+    }
+
+    .prose p {
+        margin-bottom: var(--spacing-4);
+    }
+
+    .event-links {
+        margin-top: var(--spacing-6);
+    }
+
+    .presentations-list h2 {
+        margin-bottom: var(--spacing-6);
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: var(--spacing-12) var(--spacing-4);
+        color: var(--color-text-secondary);
+    }
+
+    .photos-section {
+        margin-top: var(--spacing-10);
+    }
+
+    .photos-section h2 {
+        margin-bottom: var(--spacing-6);
+    }
+
+    .photos-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: var(--spacing-4);
+    }
+
+    .photo-item {
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        aspect-ratio: 16 / 10;
+    }
+
+    .photo-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    @media (max-width: 768px) {
+        .header-content {
+            grid-template-columns: 1fr;
+        }
+
+        .event-logo {
+            max-width: 200px;
+        }
+
+        .event-title {
+            font-size: var(--font-size-3xl);
+        }
+    }
+</style>
+
+<script>
+    // Client-side tab switching
+    document.addEventListener('DOMContentLoaded', () => {
+        const tabLinks = document.querySelectorAll('.tab-item');
+        const tabPanels = document.querySelectorAll('.tab-panel');
+        
+        tabLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetTab = link.getAttribute('data-tab');
+                
+                // Update active tab styling
+                tabLinks.forEach(l => l.classList.remove('tab-active'));
+                link.classList.add('tab-active');
+                
+                // Show/hide panels
+                tabPanels.forEach(panel => {
+                    if (panel.getAttribute('data-tab') === targetTab) {
+                        panel.style.display = '';
+                    } else {
+                        panel.style.display = 'none';
+                    }
+                });
+                
+                // Update URL without reload
+                const url = new URL(window.location.href);
+                url.searchParams.set('tab', targetTab);
+                window.history.pushState({}, '', url);
+            });
+        });
+    });
+</script>

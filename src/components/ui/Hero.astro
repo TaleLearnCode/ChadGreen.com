@@ -1,0 +1,205 @@
+---
+export interface Props {
+    title: string;
+    tagline?: string;
+    image?: string;
+    imageAlt?: string;
+    size?: 'sm' | 'md' | 'lg';
+    centered?: boolean;
+    variant?: 'default' | 'overlay';
+    class?: string;
+}
+
+const {
+    title,
+    tagline,
+    image,
+    imageAlt = '',
+    size = 'lg',
+    centered = false,
+    variant = 'default',
+    class: className = '',
+} = Astro.props;
+---
+
+<section 
+    class:list={['hero', `hero-${size}`, `hero-${variant}`, { 'hero-centered': centered }, className]}
+    style={variant === 'overlay' && image ? `background-image: url(${image});` : undefined}
+>
+    {variant === 'overlay' && <div class="hero-overlay"></div>}
+    <div class="hero-container container">
+        <div class="hero-content">
+            <h1 class="hero-title">{title}</h1>
+            {tagline && <p class="hero-tagline">{tagline}</p>}
+            <div class="hero-actions">
+                <slot />
+            </div>
+        </div>
+        {variant === 'default' && image && (
+            <div class="hero-image">
+                <img src={image} alt={imageAlt} loading="eager" />
+            </div>
+        )}
+    </div>
+</section>
+
+<style>
+    .hero {
+        background-color: var(--color-bg-secondary);
+        overflow: hidden;
+        position: relative;
+    }
+
+    .hero-container {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-8);
+    }
+
+    .hero-content {
+        flex: 1;
+    }
+
+    .hero-title {
+        font-size: var(--font-size-4xl);
+        font-weight: var(--font-weight-bold);
+        color: var(--color-text-primary);
+        margin-bottom: var(--spacing-4);
+        line-height: 1.2;
+    }
+
+    .hero-tagline {
+        font-size: var(--font-size-xl);
+        color: var(--color-text-secondary);
+        margin-bottom: var(--spacing-6);
+        max-width: 600px;
+    }
+
+    .hero-actions {
+        display: flex;
+        gap: var(--spacing-4);
+        flex-wrap: wrap;
+    }
+
+    .hero-image {
+        flex-shrink: 0;
+    }
+
+    .hero-image img {
+        border-radius: var(--radius-lg);
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* Overlay variant */
+    .hero-overlay {
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        min-height: 500px;
+    }
+
+    .hero-overlay .hero-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+            135deg,
+            rgba(0, 0, 0, 0.7) 0%,
+            rgba(0, 0, 0, 0.5) 50%,
+            rgba(0, 0, 0, 0.3) 100%
+        );
+        z-index: 1;
+    }
+
+    .hero-overlay .hero-container {
+        position: relative;
+        z-index: 2;
+    }
+
+    .hero-overlay .hero-title,
+    .hero-overlay .hero-tagline {
+        color: white;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero-overlay .hero-content {
+        max-width: 800px;
+    }
+
+    /* Sizes */
+    .hero-sm {
+        padding: var(--spacing-8) 0;
+    }
+
+    .hero-sm .hero-title {
+        font-size: var(--font-size-2xl);
+    }
+
+    .hero-md {
+        padding: var(--spacing-12) 0;
+    }
+
+    .hero-md .hero-title {
+        font-size: var(--font-size-3xl);
+    }
+
+    .hero-lg {
+        padding: var(--spacing-16) 0;
+    }
+
+    .hero-lg .hero-image img {
+        max-width: 350px;
+    }
+
+    .hero-overlay.hero-lg {
+        min-height: 600px;
+        padding: var(--spacing-20) 0;
+    }
+
+    .hero-overlay.hero-md {
+        min-height: 450px;
+    }
+
+    .hero-overlay.hero-sm {
+        min-height: 350px;
+    }
+
+    /* Centered variant */
+    .hero-centered .hero-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-centered .hero-tagline {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero-centered .hero-actions {
+        justify-content: center;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .hero-container {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-size: var(--font-size-3xl);
+        }
+
+        .hero-actions {
+            justify-content: center;
+        }
+
+        .hero-image {
+            order: -1;
+        }
+
+        .hero-lg .hero-image img {
+            max-width: 250px;
+        }
+    }
+</style>

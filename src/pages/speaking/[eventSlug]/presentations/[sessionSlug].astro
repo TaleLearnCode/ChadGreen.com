@@ -1,0 +1,37 @@
+---
+import { getCollection } from 'astro:content';
+import EngagementPresentationPage from '@/components/presentations/EngagementPresentationPage.astro';
+import { getCanonicalPath } from '@/lib/engagementPresentations';
+
+export async function getStaticPaths() {
+    const engagementPresentations = await getCollection('engagementPresentations');
+
+    return engagementPresentations.map((engagement) => ({
+        params: {
+            eventSlug: engagement.data.eventSlug,
+            sessionSlug: engagement.data.sessionSlug,
+        },
+        props: { engagement },
+    }));
+}
+
+const { engagement } = Astro.props;
+
+const [events, presentations] = await Promise.all([
+    getCollection('events'),
+    getCollection('presentations'),
+]);
+
+const event = events.find((entry) => entry.id === engagement.data.eventSlug);
+const presentation = presentations.find((entry) => entry.id === engagement.data.presentationSlug);
+
+const canonicalPath = getCanonicalPath(engagement);
+const canonicalUrl = new URL(canonicalPath, Astro.url.origin).toString();
+---
+
+<EngagementPresentationPage
+    engagement={engagement}
+    event={event}
+    presentation={presentation}
+    canonicalUrl={canonicalUrl}
+/>

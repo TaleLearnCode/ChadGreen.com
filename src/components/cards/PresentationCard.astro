@@ -1,0 +1,274 @@
+---
+import Badge from '../ui/Badge.astro';
+import Button from '../ui/Button.astro';
+
+export interface Props {
+    title: string;
+    description: string;
+    slug: string;
+    detailsHref?: string;
+    thumbnail?: string;
+    presentationType?: string;
+    tags?: string[];
+    featured?: boolean;
+    class?: string;
+    // Event-specific props
+    showSchedule?: boolean;
+    sessionName?: string;
+    scheduleDate?: string;
+    scheduleTime?: string;
+    scheduleTimeZone?: string;
+    scheduleRoom?: string;
+    sessionUrl?: string;
+}
+
+const {
+    title,
+    description,
+    slug,
+    detailsHref,
+    thumbnail = '/images/presentations/default-thumbnail.svg',
+    presentationType = 'session',
+    tags = [],
+    featured = false,
+    class: className = '',
+    showSchedule = false,
+    sessionName,
+    scheduleDate,
+    scheduleTime,
+    scheduleTimeZone,
+    scheduleRoom,
+    sessionUrl,
+} = Astro.props;
+
+const displayTitle = sessionName || title;
+
+const typeLabels: Record<string, string> = {
+    'session': 'Session',
+    'workshop': 'Workshop',
+    'lightning-talk': 'Lightning Talk',
+    'keynote': 'Keynote',
+    'panel': 'Panel',
+    'webinar': 'Webinar',
+};
+
+// Check if any schedule information is provided
+const hasScheduleInfo = scheduleDate || scheduleTime || scheduleRoom;
+const cardDetailsHref = detailsHref || `/presentations/${slug}`;
+---
+
+<article class:list={['presentation-card', { 'featured': featured }, className]}>
+    <a href={cardDetailsHref} class="card-image-link" aria-label={`View details for ${displayTitle}`}>
+        <div class="card-image">
+            <img src={thumbnail} alt="" loading="lazy" />
+            {featured && <span class="featured-badge">Featured</span>}
+        </div>
+    </a>
+    <div class="card-content">
+        <div class="card-meta">
+            <Badge variant="secondary">{typeLabels[presentationType] || presentationType}</Badge>
+        </div>
+        {showSchedule && (
+            <div class="card-schedule">
+                {hasScheduleInfo ? (
+                    <>
+                        <div class="schedule-item">
+                            <span class="schedule-icon">📅</span>
+                            <span class="schedule-text">{scheduleDate || 'TBA'}</span>
+                        </div>
+                        <div class="schedule-item">
+                            <span class="schedule-icon">🕐</span>
+                            <span class="schedule-text">
+                                {scheduleTime || 'TBA'}{scheduleTime && scheduleTimeZone && ` ${scheduleTimeZone}`}
+                            </span>
+                        </div>
+                        <div class="schedule-item">
+                            <span class="schedule-icon">📍</span>
+                            <span class="schedule-text">{scheduleRoom || 'TBA'}</span>
+                        </div>
+                    </>
+                ) : (
+                    <div class="schedule-pending">
+                        <span class="schedule-icon">📅</span>
+                        <span class="schedule-text">Schedule pending</span>
+                    </div>
+                )}
+            </div>
+        )}
+        <h3 class="card-title">
+            <a href={cardDetailsHref}>{displayTitle}</a>
+        </h3>
+        <p class="card-description">{description}</p>
+        {tags.length > 0 && (
+            <div class="card-tags">
+                {tags.slice(0, 3).map((tag) => (
+                    <a href={`/presentations/tags/${encodeURIComponent(tag)}`} class="tag-link">
+                        <Badge variant="outline" size="sm">{tag}</Badge>
+                    </a>
+                ))}
+            </div>
+        )}
+        <div class="card-actions">
+            <Button href={cardDetailsHref} variant="primary" size="sm">
+                Details
+            </Button>
+            {sessionUrl && (
+                <Button href={sessionUrl} variant="outline" size="sm" external>
+                    Event Page
+                </Button>
+            )}
+        </div>
+    </div>
+</article>
+
+<style>
+    .presentation-card {
+        background-color: var(--color-bg-primary);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-card);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition: all var(--transition-normal);
+    }
+
+    .presentation-card:hover {
+        box-shadow: var(--shadow-card-hover);
+        transform: translateY(-4px);
+    }
+
+    .card-image {
+        position: relative;
+        aspect-ratio: 16 / 9;
+        overflow: hidden;
+        background-color: var(--color-gray-100);
+    }
+
+    .card-image-link {
+        display: block;
+        text-decoration: none;
+    }
+
+    .card-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform var(--transition-normal);
+    }
+
+    .presentation-card:hover .card-image img {
+        transform: scale(1.05);
+    }
+
+    .featured-badge {
+        position: absolute;
+        top: var(--spacing-3);
+        right: var(--spacing-3);
+        background-color: var(--color-primary);
+        color: var(--color-text-inverse);
+        font-size: var(--font-size-xs);
+        font-weight: var(--font-weight-semibold);
+        padding: var(--spacing-1) var(--spacing-2);
+        border-radius: var(--radius-sm);
+    }
+
+    .card-content {
+        padding: var(--spacing-4);
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+    }
+
+    .card-meta {
+        margin-bottom: var(--spacing-2);
+    }
+
+    .card-schedule {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-1);
+        padding: var(--spacing-3);
+        background-color: var(--color-bg-secondary);
+        border-radius: var(--radius-md);
+        margin-bottom: var(--spacing-3);
+        border-left: 3px solid var(--color-primary);
+    }
+
+    .schedule-item {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-2);
+        font-size: var(--font-size-sm);
+    }
+
+    .schedule-pending {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-2);
+        font-size: var(--font-size-sm);
+        font-style: italic;
+    }
+
+    .schedule-icon {
+        font-size: var(--font-size-base);
+    }
+
+    .schedule-text {
+        color: var(--color-text-secondary);
+    }
+
+    .card-title {
+        font-size: var(--font-size-lg);
+        font-weight: var(--font-weight-semibold);
+        margin-bottom: var(--spacing-2);
+        line-height: var(--line-height-tight);
+    }
+
+    .card-title a {
+        color: var(--color-text-primary);
+        text-decoration: none;
+    }
+
+    .card-title a:hover {
+        color: var(--color-primary);
+    }
+
+    .card-description {
+        font-size: var(--font-size-sm);
+        color: var(--color-text-secondary);
+        margin-bottom: var(--spacing-3);
+        flex: 1;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .card-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--spacing-1);
+        margin-bottom: var(--spacing-3);
+    }
+
+    .tag-link {
+        text-decoration: none;
+    }
+
+    .tag-link:hover :global(.badge) {
+        background-color: var(--color-primary);
+        color: white;
+        border-color: var(--color-primary);
+    }
+
+    .card-actions {
+        margin-top: auto;
+        display: flex;
+        gap: var(--spacing-2);
+        flex-wrap: wrap;
+    }
+
+    .featured {
+        border: 2px solid var(--color-primary);
+    }
+</style>

@@ -1,0 +1,671 @@
+---
+// Contact form with 5 inquiry types
+// This component handles form rendering - submission is handled client-side
+---
+
+<div class="contact-form-container">
+    <!-- Inquiry Type Selection -->
+    <div class="inquiry-type-selector" id="inquiry-selector">
+        <h2>How can I help you?</h2>
+        <p class="selector-subtitle">Select the type of inquiry that best describes your needs.</p>
+        
+        <div class="inquiry-types">
+            <button type="button" class="inquiry-type-btn" data-type="general">
+                <span class="inquiry-icon">💬</span>
+                <span class="inquiry-label">General Inquiry</span>
+                <span class="inquiry-desc">Questions, feedback, or just saying hello</span>
+            </button>
+            
+            <button type="button" class="inquiry-type-btn" data-type="speaking">
+                <span class="inquiry-icon">🎤</span>
+                <span class="inquiry-label">Speaking Engagement</span>
+                <span class="inquiry-desc">Invite me to speak at your event</span>
+            </button>
+            
+            <button type="button" class="inquiry-type-btn" data-type="media">
+                <span class="inquiry-icon">📰</span>
+                <span class="inquiry-label">Media / Interview</span>
+                <span class="inquiry-desc">Press, podcast, or interview requests</span>
+            </button>
+            
+            <button type="button" class="inquiry-type-btn" data-type="collaboration">
+                <span class="inquiry-icon">🤝</span>
+                <span class="inquiry-label">Collaboration</span>
+                <span class="inquiry-desc">Partnership or collaboration opportunities</span>
+            </button>
+            
+            <button type="button" class="inquiry-type-btn" data-type="feedback">
+                <span class="inquiry-icon">⭐</span>
+                <span class="inquiry-label">Feedback / Testimonial</span>
+                <span class="inquiry-desc">Share your experience or testimonial</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Form Container -->
+    <form class="contact-form" id="contact-form" style="display: none;">
+        <input type="hidden" name="inquiryType" id="inquiryType" value="">
+        
+        <!-- Honeypot field for spam protection -->
+        <div class="honeypot" aria-hidden="true">
+            <label for="website">Website</label>
+            <input type="text" name="website" id="website" tabindex="-1" autocomplete="off">
+        </div>
+
+        <div class="form-header">
+            <button type="button" class="back-btn" id="back-btn">← Back</button>
+            <h3 id="form-title">Contact Form</h3>
+        </div>
+
+        <!-- Common Fields -->
+        <div class="form-section" id="common-fields">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="name">Name <span class="required">*</span></label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email <span class="required">*</span></label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+            </div>
+        </div>
+
+        <!-- General Inquiry Fields -->
+        <div class="form-section type-fields" id="fields-general" style="display: none;">
+            <div class="form-group">
+                <label for="subject">Subject <span class="required">*</span></label>
+                <input type="text" id="subject" name="subject">
+            </div>
+            <div class="form-group">
+                <label for="message-general">Message <span class="required">*</span></label>
+                <textarea id="message-general" name="message" rows="5"></textarea>
+            </div>
+        </div>
+
+        <!-- Speaking Engagement Fields -->
+        <div class="form-section type-fields" id="fields-speaking" style="display: none;">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="organization">Organization <span class="required">*</span></label>
+                    <input type="text" id="organization" name="organization">
+                </div>
+                <div class="form-group">
+                    <label for="eventName">Event Name <span class="required">*</span></label>
+                    <input type="text" id="eventName" name="eventName">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="eventDate">Event Date <span class="required">*</span></label>
+                    <input type="date" id="eventDate" name="eventDate">
+                </div>
+                <div class="form-group">
+                    <label for="location">Location <span class="required">*</span></label>
+                    <input type="text" id="location" name="location" placeholder="City, Country or Virtual">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="audienceSize">Expected Audience Size</label>
+                    <select id="audienceSize" name="audienceSize">
+                        <option value="">Select...</option>
+                        <option value="1-50">1-50</option>
+                        <option value="51-100">51-100</option>
+                        <option value="101-250">101-250</option>
+                        <option value="251-500">251-500</option>
+                        <option value="500+">500+</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="eventType">Event Type</label>
+                    <select id="eventType" name="eventType">
+                        <option value="">Select...</option>
+                        <option value="conference">Conference</option>
+                        <option value="meetup">Meetup/User Group</option>
+                        <option value="corporate">Corporate Event</option>
+                        <option value="workshop">Workshop</option>
+                        <option value="webinar">Webinar</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="preferredTopics">Preferred Topics</label>
+                <textarea id="preferredTopics" name="preferredTopics" rows="2" placeholder="What topics are you interested in?"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="budgetRange">Budget Range</label>
+                <select id="budgetRange" name="budgetRange">
+                    <option value="">Select...</option>
+                    <option value="volunteer">Volunteer/Community Event</option>
+                    <option value="expenses">Travel & Expenses Only</option>
+                    <option value="honorarium">Honorarium + Expenses</option>
+                    <option value="professional">Professional Speaker Fee</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="message-speaking">Additional Information <span class="required">*</span></label>
+                <textarea id="message-speaking" name="message" rows="4" placeholder="Tell me more about your event..."></textarea>
+            </div>
+        </div>
+
+        <!-- Media/Interview Fields -->
+        <div class="form-section type-fields" id="fields-media" style="display: none;">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="outlet">Publication/Outlet <span class="required">*</span></label>
+                    <input type="text" id="outlet" name="outlet" placeholder="Company, podcast, blog, etc.">
+                </div>
+                <div class="form-group">
+                    <label for="interviewType">Interview Type <span class="required">*</span></label>
+                    <select id="interviewType" name="interviewType">
+                        <option value="">Select...</option>
+                        <option value="podcast">Podcast Interview</option>
+                        <option value="written">Written Interview</option>
+                        <option value="video">Video Interview</option>
+                        <option value="live">Live Stream</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="deadline">Deadline</label>
+                    <input type="date" id="deadline" name="deadline">
+                </div>
+                <div class="form-group">
+                    <label for="topicsOfInterest">Topics of Interest</label>
+                    <input type="text" id="topicsOfInterest" name="topicsOfInterest" placeholder="What would you like to discuss?">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="message-media">Message <span class="required">*</span></label>
+                <textarea id="message-media" name="message" rows="4" placeholder="Tell me about the interview opportunity..."></textarea>
+            </div>
+        </div>
+
+        <!-- Collaboration Fields -->
+        <div class="form-section type-fields" id="fields-collaboration" style="display: none;">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="org-collab">Organization <span class="required">*</span></label>
+                    <input type="text" id="org-collab" name="organization">
+                </div>
+                <div class="form-group">
+                    <label for="partnershipType">Partnership Type <span class="required">*</span></label>
+                    <select id="partnershipType" name="partnershipType">
+                        <option value="">Select...</option>
+                        <option value="content">Content Collaboration</option>
+                        <option value="course">Course/Training</option>
+                        <option value="sponsorship">Sponsorship</option>
+                        <option value="advisory">Advisory/Consulting</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="projectDescription">Project Description <span class="required">*</span></label>
+                <textarea id="projectDescription" name="projectDescription" rows="3" placeholder="Describe the collaboration opportunity..."></textarea>
+            </div>
+            <div class="form-group">
+                <label for="timeline">Timeline</label>
+                <input type="text" id="timeline" name="timeline" placeholder="Expected timeline or deadline">
+            </div>
+            <div class="form-group">
+                <label for="message-collab">Additional Information <span class="required">*</span></label>
+                <textarea id="message-collab" name="message" rows="4"></textarea>
+            </div>
+        </div>
+
+        <!-- Feedback/Testimonial Fields -->
+        <div class="form-section type-fields" id="fields-feedback" style="display: none;">
+            <div class="form-group">
+                <label for="eventAttended">Event/Presentation Attended <span class="required">*</span></label>
+                <input type="text" id="eventAttended" name="eventAttended" placeholder="Which talk or event did you attend?">
+            </div>
+            <div class="form-group">
+                <label for="rating">Rating</label>
+                <div class="rating-group">
+                    <label class="rating-option">
+                        <input type="radio" name="rating" value="5"> ⭐⭐⭐⭐⭐ Excellent
+                    </label>
+                    <label class="rating-option">
+                        <input type="radio" name="rating" value="4"> ⭐⭐⭐⭐ Great
+                    </label>
+                    <label class="rating-option">
+                        <input type="radio" name="rating" value="3"> ⭐⭐⭐ Good
+                    </label>
+                    <label class="rating-option">
+                        <input type="radio" name="rating" value="2"> ⭐⭐ Fair
+                    </label>
+                    <label class="rating-option">
+                        <input type="radio" name="rating" value="1"> ⭐ Poor
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="testimonial">Your Feedback/Testimonial <span class="required">*</span></label>
+                <textarea id="testimonial" name="testimonial" rows="5" placeholder="Share your experience..."></textarea>
+            </div>
+            <div class="form-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" name="permissionToPublish" value="yes">
+                    I give permission to publish my testimonial (with first name only)
+                </label>
+            </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="form-actions">
+            <button type="submit" class="submit-btn" id="submit-btn">
+                <span class="btn-text">Send Message</span>
+                <span class="btn-loading" style="display: none;">Sending...</span>
+            </button>
+        </div>
+
+        <!-- Status Messages -->
+        <div class="form-status" id="form-status" style="display: none;"></div>
+    </form>
+
+    <!-- Success Message -->
+    <div class="success-message" id="success-message" style="display: none;">
+        <div class="success-icon">✓</div>
+        <h2>Thank You!</h2>
+        <p>Your message has been sent successfully. I'll get back to you as soon as possible.</p>
+        <button type="button" class="reset-btn" id="reset-btn">Send Another Message</button>
+    </div>
+</div>
+
+<style>
+    .contact-form-container {
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    /* Honeypot - hidden from users */
+    .honeypot {
+        position: absolute;
+        left: -9999px;
+        top: -9999px;
+    }
+
+    /* Inquiry Type Selector */
+    .inquiry-type-selector h2 {
+        text-align: center;
+        margin-bottom: var(--spacing-2);
+    }
+
+    .selector-subtitle {
+        text-align: center;
+        color: var(--color-text-secondary);
+        margin-bottom: var(--spacing-6);
+    }
+
+    .inquiry-types {
+        display: grid;
+        gap: var(--spacing-4);
+    }
+
+    .inquiry-type-btn {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: var(--spacing-4);
+        background-color: var(--color-bg-primary);
+        border: 2px solid var(--color-border);
+        border-radius: var(--radius-lg);
+        cursor: pointer;
+        text-align: left;
+        transition: all var(--transition-fast);
+    }
+
+    .inquiry-type-btn:hover {
+        border-color: var(--color-primary);
+        background-color: var(--color-primary-bg);
+    }
+
+    .inquiry-icon {
+        font-size: 2rem;
+        margin-bottom: var(--spacing-2);
+    }
+
+    .inquiry-label {
+        font-size: var(--font-size-lg);
+        font-weight: var(--font-weight-semibold);
+        color: var(--color-text-primary);
+        margin-bottom: var(--spacing-1);
+    }
+
+    .inquiry-desc {
+        font-size: var(--font-size-sm);
+        color: var(--color-text-secondary);
+    }
+
+    /* Form Styles */
+    .contact-form {
+        background-color: var(--color-bg-primary);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-lg);
+        padding: var(--spacing-6);
+    }
+
+    .form-header {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-4);
+        margin-bottom: var(--spacing-6);
+        padding-bottom: var(--spacing-4);
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .back-btn {
+        background: none;
+        border: none;
+        color: var(--color-text-link);
+        cursor: pointer;
+        font-size: var(--font-size-base);
+        padding: var(--spacing-2);
+    }
+
+    .back-btn:hover {
+        color: var(--color-text-link-hover);
+    }
+
+    .form-header h3 {
+        margin: 0;
+        flex: 1;
+    }
+
+    .form-section {
+        margin-bottom: var(--spacing-4);
+    }
+
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--spacing-4);
+    }
+
+    @media (max-width: 640px) {
+        .form-row {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .form-group {
+        margin-bottom: var(--spacing-4);
+    }
+
+    .form-group label {
+        display: block;
+        font-weight: var(--font-weight-medium);
+        margin-bottom: var(--spacing-2);
+        color: var(--color-text-primary);
+    }
+
+    .required {
+        color: var(--color-error);
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        width: 100%;
+        padding: var(--spacing-3);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-md);
+        font-size: var(--font-size-base);
+        transition: border-color var(--transition-fast);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+        outline: none;
+        border-color: var(--color-primary);
+        box-shadow: 0 0 0 3px var(--color-primary-bg);
+    }
+
+    .rating-group {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-2);
+    }
+
+    .rating-option {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-2);
+        font-weight: var(--font-weight-normal);
+        cursor: pointer;
+    }
+
+    .checkbox-label {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-2);
+        font-weight: var(--font-weight-normal);
+        cursor: pointer;
+    }
+
+    .form-actions {
+        margin-top: var(--spacing-6);
+    }
+
+    .submit-btn {
+        width: 100%;
+        padding: var(--spacing-4);
+        background-color: var(--color-primary);
+        color: var(--color-text-inverse);
+        border: none;
+        border-radius: var(--radius-md);
+        font-size: var(--font-size-lg);
+        font-weight: var(--font-weight-semibold);
+        cursor: pointer;
+        transition: background-color var(--transition-fast);
+    }
+
+    .submit-btn:hover {
+        background-color: var(--color-primary-dark);
+    }
+
+    .submit-btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+
+    .form-status {
+        margin-top: var(--spacing-4);
+        padding: var(--spacing-3);
+        border-radius: var(--radius-md);
+        text-align: center;
+    }
+
+    .form-status.error {
+        background-color: #FEE2E2;
+        color: var(--color-error);
+    }
+
+    .form-status.success {
+        background-color: var(--color-primary-bg);
+        color: var(--color-primary-dark);
+    }
+
+    /* Success Message */
+    .success-message {
+        text-align: center;
+        padding: var(--spacing-12);
+    }
+
+    .success-icon {
+        width: 80px;
+        height: 80px;
+        background-color: var(--color-primary);
+        color: var(--color-text-inverse);
+        font-size: 3rem;
+        border-radius: var(--radius-full);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto var(--spacing-6);
+    }
+
+    .success-message h2 {
+        margin-bottom: var(--spacing-4);
+    }
+
+    .success-message p {
+        color: var(--color-text-secondary);
+        margin-bottom: var(--spacing-6);
+    }
+
+    .reset-btn {
+        padding: var(--spacing-3) var(--spacing-6);
+        background-color: var(--color-primary);
+        color: var(--color-text-inverse);
+        border: none;
+        border-radius: var(--radius-md);
+        font-size: var(--font-size-base);
+        font-weight: var(--font-weight-semibold);
+        cursor: pointer;
+        transition: background-color var(--transition-fast);
+    }
+
+    .reset-btn:hover {
+        background-color: var(--color-primary-dark);
+    }
+</style>
+
+<script>
+    const inquirySelector = document.getElementById('inquiry-selector');
+    const contactForm = document.getElementById('contact-form') as HTMLFormElement;
+    const successMessage = document.getElementById('success-message');
+    const formStatus = document.getElementById('form-status');
+    const submitBtn = document.getElementById('submit-btn');
+    const backBtn = document.getElementById('back-btn');
+    const resetBtn = document.getElementById('reset-btn');
+    const inquiryTypeInput = document.getElementById('inquiryType') as HTMLInputElement;
+    const formTitle = document.getElementById('form-title');
+
+    const formTitles: Record<string, string> = {
+        general: 'General Inquiry',
+        speaking: 'Speaking Engagement Inquiry',
+        media: 'Media / Interview Request',
+        collaboration: 'Collaboration Inquiry',
+        feedback: 'Feedback / Testimonial',
+    };
+
+    // Inquiry type selection
+    document.querySelectorAll('.inquiry-type-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+            const type = (btn as HTMLElement).dataset.type;
+            if (!type) return;
+
+            // Hide selector, show form
+            inquirySelector!.style.display = 'none';
+            contactForm!.style.display = 'block';
+
+            // Set inquiry type
+            inquiryTypeInput!.value = type;
+            formTitle!.textContent = formTitles[type];
+
+            // Show relevant fields
+            document.querySelectorAll('.type-fields').forEach((el) => {
+                (el as HTMLElement).style.display = 'none';
+            });
+            const fieldsEl = document.getElementById(`fields-${type}`);
+            if (fieldsEl) fieldsEl.style.display = 'block';
+
+            // Update required fields
+            updateRequiredFields(type);
+        });
+    });
+
+    function updateRequiredFields(type: string) {
+        // Remove all required from type-specific fields
+        document.querySelectorAll('.type-fields input, .type-fields textarea, .type-fields select').forEach((el) => {
+            (el as HTMLInputElement).required = false;
+        });
+
+        // Add required based on type
+        const requiredFields: Record<string, string[]> = {
+            general: ['subject', 'message-general'],
+            speaking: ['organization', 'eventName', 'eventDate', 'location', 'message-speaking'],
+            media: ['outlet', 'interviewType', 'message-media'],
+            collaboration: ['org-collab', 'partnershipType', 'projectDescription', 'message-collab'],
+            feedback: ['eventAttended', 'testimonial'],
+        };
+
+        requiredFields[type]?.forEach((id) => {
+            const el = document.getElementById(id) as HTMLInputElement;
+            if (el) el.required = true;
+        });
+    }
+
+    // Back button
+    backBtn?.addEventListener('click', () => {
+        contactForm!.style.display = 'none';
+        inquirySelector!.style.display = 'block';
+        formStatus!.style.display = 'none';
+    });
+
+    // Reset button
+    resetBtn?.addEventListener('click', () => {
+        successMessage!.style.display = 'none';
+        inquirySelector!.style.display = 'block';
+        contactForm!.reset();
+    });
+
+    // Form submission
+    contactForm?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const btnText = submitBtn?.querySelector('.btn-text');
+        const btnLoading = submitBtn?.querySelector('.btn-loading');
+
+        // Show loading state
+        if (btnText) (btnText as HTMLElement).style.display = 'none';
+        if (btnLoading) (btnLoading as HTMLElement).style.display = 'inline';
+        submitBtn!.setAttribute('disabled', 'true');
+
+        // Collect form data
+        const formData = new FormData(contactForm);
+        const data: Record<string, string> = {};
+        formData.forEach((value, key) => {
+            data[key] = value.toString();
+        });
+
+        try {
+            const response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+
+            const result = await response.json();
+
+            if (response.ok && result.success) {
+                // Show success message
+                contactForm!.style.display = 'none';
+                successMessage!.style.display = 'block';
+            } else {
+                // Show error
+                formStatus!.textContent = result.error || result.errors?.join(', ') || 'An error occurred. Please try again.';
+                formStatus!.className = 'form-status error';
+                formStatus!.style.display = 'block';
+            }
+        } catch (error) {
+            formStatus!.textContent = 'Network error. Please check your connection and try again.';
+            formStatus!.className = 'form-status error';
+            formStatus!.style.display = 'block';
+        } finally {
+            // Reset button state
+            if (btnText) (btnText as HTMLElement).style.display = 'inline';
+            if (btnLoading) (btnLoading as HTMLElement).style.display = 'none';
+            submitBtn!.removeAttribute('disabled');
+        }
+    });
+</script>

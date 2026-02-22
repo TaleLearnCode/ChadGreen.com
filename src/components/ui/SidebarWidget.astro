@@ -1,0 +1,37 @@
+---
+export interface Props {
+    title: string;
+    class?: string;
+}
+
+const { title, class: className = '' } = Astro.props;
+---
+
+<div class:list={['sidebar-widget', className]}>
+    <h3 class="widget-title">{title}</h3>
+    <div class="widget-content">
+        <slot />
+    </div>
+</div>
+
+<style>
+    .sidebar-widget {
+        background-color: var(--color-bg-primary);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+    }
+
+    .widget-title {
+        background-color: var(--color-primary);
+        color: var(--color-text-inverse);
+        font-size: var(--font-size-base);
+        font-weight: var(--font-weight-semibold);
+        padding: var(--spacing-3) var(--spacing-4);
+        margin: 0;
+    }
+
+    .widget-content {
+        padding: var(--spacing-4);
+    }
+</style>

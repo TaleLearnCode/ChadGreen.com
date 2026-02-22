@@ -1,0 +1,54 @@
+<script is:inline>
+    (() => {
+        const tabs = Array.from(document.querySelectorAll('[role="tab"][data-tab]'));
+        const panels = Array.from(document.querySelectorAll('.tab-panel[data-tab]'));
+
+        if (tabs.length === 0 || panels.length === 0) {
+            return;
+        }
+
+        const tabIds = new Set(tabs.map((tab) => tab.getAttribute('data-tab')).filter(Boolean));
+
+        const getRequestedTab = () => {
+            const requested = new URLSearchParams(window.location.search).get('tab');
+            if (requested && tabIds.has(requested)) {
+                return requested;
+            }
+            return tabs[0].getAttribute('data-tab');
+        };
+
+        const setActiveTab = (tabId, updateUrl = false) => {
+            tabs.forEach((tab) => {
+                const isActive = tab.getAttribute('data-tab') === tabId;
+                tab.classList.toggle('tab-active', isActive);
+                tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+            });
+
+            panels.forEach((panel) => {
+                const isActive = panel.getAttribute('data-tab') === tabId;
+                panel.style.display = isActive ? '' : 'none';
+            });
+
+            if (updateUrl) {
+                const url = new URL(window.location.href);
+                url.searchParams.set('tab', tabId);
+                window.history.pushState({}, '', url);
+            }
+        };
+
+        setActiveTab(getRequestedTab(), false);
+
+        tabs.forEach((tab) => {
+            tab.addEventListener('click', (event) => {
+                event.preventDefault();
+                const tabId = tab.getAttribute('data-tab');
+                if (!tabId) return;
+                setActiveTab(tabId, true);
+            });
+        });
+
+        window.addEventListener('popstate', () => {
+            setActiveTab(getRequestedTab(), false);
+        });
+    })();
+</script>

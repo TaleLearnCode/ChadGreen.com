@@ -1,0 +1,217 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import SidebarWidget from '../components/ui/SidebarWidget.astro';
+import { getCollection } from 'astro:content';
+
+export interface Props {
+    title: string;
+    description?: string;
+    ogImage?: string;
+    showRecentPosts?: boolean;
+    showTags?: boolean;
+    showUpcomingEvents?: boolean;
+    specificTags?: string[];
+}
+
+const {
+    title,
+    description,
+    ogImage,
+    showRecentPosts = true,
+    showTags = true,
+    showUpcomingEvents = true,
+    specificTags,
+} = Astro.props;
+
+// Get recent blog posts
+let recentPosts: any[] = [];
+if (showRecentPosts) {
+    try {
+        const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+        recentPosts = allPosts
+            .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+            .slice(0, 3);
+    } catch (e) {
+        // Collection might not exist yet
+    }
+}
+
+// Get upcoming events
+let upcomingEvents: any[] = [];
+if (showUpcomingEvents) {
+    try {
+        const allEvents = await getCollection('events');
+        const now = new Date();
+        upcomingEvents = allEvents
+            .filter(e => e.data.startDate >= now)
+            .sort((a, b) => a.data.startDate.getTime() - b.data.startDate.getTime())
+            .slice(0, 3);
+    } catch (e) {
+        // Collection might not exist yet
+    }
+}
+
+// Get all tags
+let allTags: string[] = [];
+if (showTags) {
+    if (specificTags && specificTags.length > 0) {
+        // Use specific tags if provided (e.g., from a blog post)
+        allTags = specificTags;
+    } else {
+        // Otherwise gather all tags from blog posts
+        try {
+            const posts = await getCollection('blog', ({ data }) => !data.draft);
+            
+            const tagSet = new Set<string>();
+            posts.forEach(p => p.data.tags?.forEach(t => tagSet.add(t)));
+            allTags = Array.from(tagSet).sort().slice(0, 15);
+        } catch (e) {
+            // Collections might not exist yet
+        }
+    }
+}
+
+function formatDate(date: Date): string {
+    return date.toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+    });
+}
+---
+
+<BaseLayout title={title} description={description} ogImage={ogImage}>
+    <div class="section">
+        <div class="container">
+            <div class="layout-with-sidebar">
+                <div class="main-content">
+                    <slot />
+                </div>
+                
+                <aside class="sidebar">
+                    {showTags && allTags.length > 0 && (
+                        <SidebarWidget title="Tags">
+                            <div class="tag-cloud">
+                                {allTags.map((tag) => (
+                                    <a href={`/blog/tags/${encodeURIComponent(tag)}`} class="tag">{tag}</a>
+                                ))}
+                            </div>
+                        </SidebarWidget>
+                    )}
+
+                    {showRecentPosts && recentPosts.length > 0 && (
+                        <SidebarWidget title="Recent Posts">
+                            <ul class="sidebar-list">
+                                {recentPosts.map((post) => (
+                                    <li>
+                                        <a href={`/blog/${post.id}`}>
+                                            <span class="post-title">{post.data.title}</span>
+                                            <span class="post-date">{formatDate(post.data.pubDate)}</span>
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </SidebarWidget>
+                    )}
+
+                    {showUpcomingEvents && upcomingEvents.length > 0 && (
+                        <SidebarWidget title="Upcoming Speaking Engagements">
+                            <ul class="sidebar-list events-list">
+                                {upcomingEvents.map((event) => (
+                                    <li>
+                                        <a href={`/speaking/${event.id}`}>
+                                            <span class="event-date">{formatDate(event.data.startDate)}</span>
+                                            <span class="event-title">{event.data.title}</span>
+                                            <span class="event-location">{event.data.location.city}, {event.data.location.country}</span>
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </SidebarWidget>
+                    )}
+
+                    <slot name="sidebar" />
+                </aside>
+            </div>
+        </div>
+    </div>
+</BaseLayout>
+
+<style>
+    .sidebar-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .sidebar-list li {
+        margin-bottom: var(--spacing-3);
+        padding-bottom: var(--spacing-3);
+        border-bottom: 1px solid var(--color-border-light);
+    }
+
+    .sidebar-list li:last-child {
+        margin-bottom: 0;
+        padding-bottom: 0;
+        border-bottom: none;
+    }
+
+    .sidebar-list a {
+        display: flex;
+        flex-direction: column;
+        text-decoration: none;
+        transition: color var(--transition-fast);
+    }
+
+    .sidebar-list a:hover .post-title,
+    .sidebar-list a:hover .event-title {
+        color: var(--color-primary);
+    }
+
+    .post-title,
+    .event-title {
+        font-weight: var(--font-weight-medium);
+        color: var(--color-text-primary);
+        font-size: var(--font-size-sm);
+        line-height: var(--line-height-tight);
+    }
+
+    .post-date {
+        font-size: var(--font-size-xs);
+        color: var(--color-text-muted);
+        margin-top: var(--spacing-1);
+    }
+
+    .events-list .event-date {
+        font-size: var(--font-size-xs);
+        color: var(--color-primary);
+        font-weight: var(--font-weight-semibold);
+    }
+
+    .event-location {
+        font-size: var(--font-size-xs);
+        color: var(--color-text-muted);
+    }
+
+    .tag-cloud {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--spacing-2);
+    }
+
+    .tag {
+        display: inline-block;
+        padding: var(--spacing-1) var(--spacing-2);
+        background-color: var(--color-bg-secondary);
+        color: var(--color-text-secondary);
+        font-size: var(--font-size-xs);
+        border-radius: var(--radius-sm);
+        text-decoration: none;
+        transition: all var(--transition-fast);
+    }
+
+    .tag:hover {
+        background-color: var(--color-primary-bg);
+        color: var(--color-primary);
+    }
+</style>

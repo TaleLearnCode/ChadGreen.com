@@ -1,0 +1,217 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/ui/PageHeader.astro';
+import EventCard from '../../components/cards/EventCard.astro';
+import { getCollection } from 'astro:content';
+
+// Get all events
+let allEvents: any[] = [];
+try {
+    allEvents = await getCollection('events');
+} catch (e) {
+    // Collection might not exist yet
+}
+
+// Separate upcoming and past events
+const now = new Date();
+const upcomingEvents = allEvents
+    .filter(e => e.data.startDate >= now)
+    .sort((a, b) => a.data.startDate.getTime() - b.data.startDate.getTime());
+
+const pastEvents = allEvents
+    .filter(e => e.data.startDate < now)
+    .sort((a, b) => b.data.startDate.getTime() - a.data.startDate.getTime());
+
+// Group past events by year
+const pastEventsByYear = pastEvents.reduce((acc, event) => {
+    const year = event.data.startDate.getFullYear();
+    if (!acc[year]) acc[year] = [];
+    acc[year].push(event);
+    return acc;
+}, {} as Record<number, any[]>);
+
+const years = Object.keys(pastEventsByYear).sort((a, b) => Number(b) - Number(a));
+
+function formatDateRange(start: Date, end?: Date): string {
+    const utc = { timeZone: 'UTC' as const };
+    if (!end || start.getTime() === end.getTime()) {
+        return start.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', ...utc });
+    }
+    const sameMonth = start.getUTCMonth() === end.getUTCMonth() && start.getUTCFullYear() === end.getUTCFullYear();
+    if (sameMonth) {
+        return `${start.toLocaleDateString('en-US', { month: 'short', day: 'numeric', ...utc })} - ${end.getUTCDate()}, ${end.getUTCFullYear()}`;
+    }
+    return `${start.toLocaleDateString('en-US', { month: 'short', day: 'numeric', ...utc })} - ${end.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', ...utc })}`;
+}
+
+function formatLocation(loc: any): string {
+    if (loc.virtual) return 'Virtual';
+    const parts = [loc.city];
+    if (loc.state) parts.push(loc.state);
+    parts.push(loc.country);
+    return parts.join(', ');
+}
+---
+
+<BaseLayout 
+    title="Speaking Engagements" 
+    description="Upcoming and past speaking engagements by Chad Green at conferences, meetups, and events worldwide."
+>
+    <PageHeader title="Speaking Engagements">
+        <p>Conferences, meetups, and events where I've spoken or will be speaking</p>
+    </PageHeader>
+
+    <!-- Upcoming Events -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Upcoming Events</h2>
+
+            {upcomingEvents.length > 0 ? (
+                <div class="upcoming-grid grid grid-3">
+                    {upcomingEvents.map((event) => (
+                        <EventCard
+                            title={event.data.title}
+                            slug={event.id}
+                            startDate={event.data.startDate}
+                            endDate={event.data.endDate}
+                            location={event.data.location}
+                            heroImage={event.data.heroImage}
+                            eventType={event.data.eventType}
+                            status="upcoming"
+                            eventUrl={event.data.eventUrl}
+                            featured={event.data.featured}
+                        />
+                    ))}
+                </div>
+            ) : (
+                <div class="empty-state">
+                    <p>No upcoming events scheduled. Check back soon!</p>
+                </div>
+            )}
+        </div>
+    </section>
+
+    <!-- Past Events by Year -->
+    {years.length > 0 && (
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title">Past Events</h2>
+
+                {years.map((year) => (
+                    <div class="year-section">
+                        <h3 class="year-heading">{year}</h3>
+                        <div class="events-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Event</th>
+                                        <th>Location</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {pastEventsByYear[Number(year)].map((event: any) => (
+                                        <tr>
+                                            <td class="date-col">
+                                                {formatDateRange(event.data.startDate, event.data.endDate)}
+                                            </td>
+                                            <td class="event-col">
+                                                <a href={`/speaking/${event.id}`}>{event.data.title}</a>
+                                            </td>
+                                            <td class="location-col">
+                                                {formatLocation(event.data.location)}
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </section>
+    )}
+</BaseLayout>
+
+<style>
+    .section-title {
+        margin-bottom: var(--spacing-8);
+    }
+
+    .section-alt {
+        background-color: var(--color-bg-secondary);
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: var(--spacing-12);
+        background-color: var(--color-bg-secondary);
+        border-radius: var(--radius-lg);
+        color: var(--color-text-secondary);
+    }
+
+    .year-section {
+        margin-bottom: var(--spacing-10);
+    }
+
+    .year-heading {
+        font-size: var(--font-size-2xl);
+        color: var(--color-primary);
+        margin-bottom: var(--spacing-4);
+        padding-bottom: var(--spacing-2);
+        border-bottom: 2px solid var(--color-primary);
+    }
+
+    .events-table {
+        overflow-x: auto;
+    }
+
+    .events-table table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .events-table th {
+        text-align: left;
+        padding: var(--spacing-3) var(--spacing-4);
+        background-color: var(--color-bg-primary);
+        font-weight: var(--font-weight-semibold);
+        border-bottom: 2px solid var(--color-border);
+    }
+
+    .events-table td {
+        padding: var(--spacing-3) var(--spacing-4);
+        border-bottom: 1px solid var(--color-border-light);
+    }
+
+    .events-table tbody tr:hover {
+        background-color: var(--color-bg-primary);
+    }
+
+    .date-col {
+        white-space: nowrap;
+        width: 180px;
+        color: var(--color-text-secondary);
+    }
+
+    .event-col a {
+        color: var(--color-text-primary);
+        font-weight: var(--font-weight-medium);
+        text-decoration: none;
+    }
+
+    .event-col a:hover {
+        color: var(--color-primary);
+    }
+
+    .location-col {
+        color: var(--color-text-secondary);
+    }
+
+    @media (max-width: 768px) {
+        .events-table th:nth-child(3),
+        .events-table td:nth-child(3) {
+            display: none;
+        }
+    }
+</style>
