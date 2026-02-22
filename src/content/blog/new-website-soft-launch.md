@@ -166,20 +166,63 @@ This creates multiple discoverability paths for visitors: by topic/presentation,
 
 Here is the current high-level sitemap and route relationship model:
 
-The site has the following sections and relationships:
+```mermaid
+flowchart TB
+  Home[Home /]
 
-- **Home** (`/`) - Entry point
-- **Presentations** (`/presentations`) - Canonical presentation catalog that can be viewed standalone
-- **Speaking Engagements** (`/speaking`) - Event-centric view where presentations are discovered through events
-- **Meetups** (`/meetups`) - Meetup groups and their associated events
-- **Blog** (`/blog`) - Articles and long-form content
-- **About** (`/about`) - Personal background
-- **Contact** (`/contact`) - Reach-out workflow
+  %% Top-level pages in main navigation
+  Presentations[Presentations /presentations]
+  Speaking[Speaking Engagements /speaking]
+  Meetups[Meetups /meetups]
+  Blog[Blog /blog]
+  About[About /about]
+  Contact[Contact /contact]
 
-Each presentation can be viewed through multiple paths:
-- Directly through the presentations section
-- Through a specific event's session detail page
-- Through the related linking between events and presentations
+  Home --> Presentations
+  Home --> Speaking
+  Home --> Meetups
+  Home --> Blog
+  Home --> About
+  Home --> Contact
+
+  %% Presentations section
+  PresentationDetail[Presentation Detail /presentations/:slug]
+  PresentationTag[Presentation Tag /presentations/tags/:tag]
+  PresentationEventsAlias[Presentation Events List /presentations/:slug/events]
+  PresentationEventPage[Engagement Presentation /presentations/:slug/events/:eventSlug]
+  Presentations --> PresentationDetail
+  Presentations --> PresentationTag
+  PresentationDetail --> PresentationEventsAlias
+  PresentationDetail --> PresentationEventPage
+  PresentationEventsAlias -. redirects to .-> PresentationDetailTab[Presentation Detail Tab /presentations/:slug?tab=events]
+
+  %% Speaking section
+  SpeakingDetail[Event Detail /speaking/:slug]
+  SpeakingPresentationsAlias[Event Presentations List /speaking/:eventSlug/presentations]
+  SpeakingSessionPage[Engagement Presentation /speaking/:eventSlug/presentations/:sessionSlug]
+  Speaking --> SpeakingDetail
+  SpeakingDetail --> SpeakingPresentationsAlias
+  SpeakingDetail --> SpeakingSessionPage
+  SpeakingPresentationsAlias -. redirects to .-> SpeakingDetailTab[Event Detail Tab /speaking/:eventSlug?tab=presentations]
+
+  %% Equivalent route variants for the same source content
+  PresentationEventPage -. same source .- SpeakingSessionPage
+
+  %% Meetups section
+  MeetupGroup[Meetup Group /meetups/:groupSlug]
+  MeetupEvent[Meetup Event /meetups/:groupSlug/events/:eventSlug]
+  Meetups --> MeetupGroup
+  MeetupGroup --> MeetupEvent
+
+  %% Blog section
+  BlogPost[Blog Post /blog/:slug]
+  BlogTag[Blog Tag /blog/tags/:tag]
+  Blog --> BlogPost
+  Blog --> BlogTag
+
+  %% Utility page
+  NotFound[404 Page /404]
+```
 
 ***
 
