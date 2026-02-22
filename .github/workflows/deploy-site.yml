@@ -32,7 +32,7 @@ jobs:
         run: npm install -D @playwright/test@latest
       
       - name: Install Playwright browsers
-        run: npx playwright install chromium
+        run: npx playwright install --with-deps
       
       - name: Build And Deploy
         id: builddeploy
