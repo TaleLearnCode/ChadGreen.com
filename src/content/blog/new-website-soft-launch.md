@@ -3,6 +3,8 @@ title: "Soft Launch: The New chadgreen.com Is Live"
 description: "After multiple restarts since 2022, the new chadgreen.com is finally live in soft-launch form. Here’s the full story of what changed, what’s working, and what’s next."
 author: "Chad Green"
 pubDate: 2026-02-21
+heroImage: "/images/blog/new-website-soft-launch.webp"
+heroImageAlt: "Soft Launch: The New chadgreen.com Is Live"
 category: "Announcement"
 tags: ["website", "announcement", "github-copilot", "speaking", "community"]
 draft: false
@@ -28,7 +30,7 @@ If you have been around for a while, you may remember that I started rebuilding 
 
 At one point, my homepage literally pointed out that a new site was imminent:
 
-![Screenshot of the longtime chadgreen.com placeholder home page](/images/blog/chadgreen-homepage-placeholder.png)
+![Screenshot of the longtime chadgreen.com placeholder home page](/images/blog/chadgreen-homepage-placeholder.webp)
 
 *The placeholder home page message that stayed up far longer than planned.*
 
