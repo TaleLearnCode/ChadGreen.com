@@ -28,6 +28,9 @@ jobs:
           restore-keys: |
             playwright-browsers-${{ runner.os }}-
       
+      - name: Install Playwright
+        run: npm install -D @playwright/test@latest
+      
       - name: Install Playwright browsers
         run: npx playwright install chromium
       
