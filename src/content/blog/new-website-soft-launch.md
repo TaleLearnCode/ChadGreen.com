@@ -139,6 +139,8 @@ This tech stack keeps things simple, performant, and maintainable. Static genera
 
 One of the goals of the design was not just visual polish, but also cleaner navigation between related content domains.
 
+![Site map and route relationship model for chadgreen.com](/images/blog/new-website-soft-launch-sitemap.svg)
+
 ### Core Sections
 
 - **Home (`/`)**: Entry point and high-level highlights.
@@ -159,14 +161,6 @@ The site is designed so that presentation content and event content are connecte
 - Blog and informational pages provide context around the work, community, and updates.
 
 This creates multiple discoverability paths for visitors: by topic/presentation, by event, by community activity, or by written content.
-
-***
-
-## Site Map
-
-Here is the current high-level sitemap and route relationship model:
-
-![Site map and route relationship model for chadgreen.com](/images/blog/new-website-soft-launch-sitemap.svg)
 
 ***
 

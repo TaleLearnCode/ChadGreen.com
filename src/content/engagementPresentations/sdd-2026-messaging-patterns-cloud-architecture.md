@@ -24,5 +24,3 @@ Gain actionable insights on integrating these techniques into your solutions, bo
 - Master core messaging fundamentals across patterns such as publish-subscribe and request-reply to build resilient cloud architectures.
 - Implement real-world messaging solutions through detailed demonstrations and practical case studies for production use.
 - Transform and elevate cloud strategy with best practices for scalability, reliability, and maintainability.
-
-For the canonical version of this presentation, use the base presentation page linked above.
