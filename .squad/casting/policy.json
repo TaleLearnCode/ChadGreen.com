@@ -1,0 +1,7 @@
+{
+  "universes": [
+    "heist-film"
+  ],
+  "maxAgents": 10,
+  "legacyNamed": false
+}
