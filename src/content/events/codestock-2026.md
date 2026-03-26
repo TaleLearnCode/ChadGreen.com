@@ -12,7 +12,7 @@ location:
 website: "https://www.codestock.org/"
 registrationUrl: "https://ti.to/codestock/codestock-2026"
 featured: false
-heroImage: "/images/events/codestock.png"
+heroImage: "/images/events/codestock.webp"
 presentations:
   - id: "messaging-patterns-cloud-architecture"
   - id: "navigating-maze-architecture-decisions"

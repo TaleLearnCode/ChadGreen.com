@@ -11,7 +11,7 @@ location:
   state: "Nevada"
   country: "USA"
 website: "https://vslive.com/events/las-vegas-2026/home.aspx"
-heroImage: "/images/events/visual-studio-live.png"
+heroImage: "/images/events/visual-studio-live.webp"
 presentations:
   - id: "time-travelling-data-lightning"
     sessionName: "Fast Focus: Time Travelling Data"

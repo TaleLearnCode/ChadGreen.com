@@ -11,7 +11,7 @@ location:
   state: "Quebec"
   country: "Canada"
 website: "https://confoo.ca/en/2026"
-heroImage: "/images/events/confoo-2026.png"
+heroImage: "/images/events/confoo-2026.webp"
 presentations:
   - id: "embracing-azure-container-apps"
     sessionName: "Effortless & Sustainable Apps with Azure Containers"
