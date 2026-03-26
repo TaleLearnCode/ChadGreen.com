@@ -1,0 +1,50 @@
+[
+  {
+    "persistent_name": "Keaton",
+    "universe": "heist-film",
+    "role": "Lead",
+    "created_at": "2026-03-26T20:21:44Z",
+    "legacy_named": false,
+    "status": "active"
+  },
+  {
+    "persistent_name": "Dallas",
+    "universe": "heist-film",
+    "role": "Content Dev",
+    "created_at": "2026-03-26T20:21:44Z",
+    "legacy_named": false,
+    "status": "active"
+  },
+  {
+    "persistent_name": "Fenster",
+    "universe": "heist-film",
+    "role": "DevOps/Deploy",
+    "created_at": "2026-03-26T20:21:44Z",
+    "legacy_named": false,
+    "status": "active"
+  },
+  {
+    "persistent_name": "Hockney",
+    "universe": "heist-film",
+    "role": "QA",
+    "created_at": "2026-03-26T20:21:44Z",
+    "legacy_named": false,
+    "status": "active"
+  },
+  {
+    "persistent_name": "Scribe",
+    "universe": "team-role",
+    "role": "Scribe",
+    "created_at": "2026-03-26T20:21:44Z",
+    "legacy_named": false,
+    "status": "active"
+  },
+  {
+    "persistent_name": "Ralph",
+    "universe": "team-role",
+    "role": "Work Monitor",
+    "created_at": "2026-03-26T20:21:44Z",
+    "legacy_named": false,
+    "status": "active"
+  }
+]
