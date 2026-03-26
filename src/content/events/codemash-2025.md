@@ -15,6 +15,7 @@ featured: false
 heroImage: "/images/events/codemash-2025.webp"
 presentations:
   - id: "the-dark-side-of-design-patterns"
+  - id: "messaging-patterns-cloud-architecture"
 ---
 
 ## About CodeMash

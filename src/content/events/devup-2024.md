@@ -15,6 +15,7 @@ featured: false
 heroImage: "/images/events/devup.webp"
 presentations:
   - id: "the-dark-side-of-design-patterns"
+  - id: "messaging-patterns-cloud-architecture"
 ---
 
 ## About dev up

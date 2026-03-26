@@ -15,10 +15,11 @@ featured: false
 heroImage: "/images/events/beer-city-code.webp"
 presentations:
   - id: "the-dark-side-of-design-patterns"
-    date: "August 3, 2026"
+    date: "August 3, 2024"
     time: "11:00 AM"
     timeZone: "EST"
     room: "107"
+  - id: "messaging-patterns-cloud-architecture"
 ---
 
 ## About Beer City Code
