@@ -28,6 +28,16 @@ presentations:
     time: "11:00 AM"
     timeZone: "CDT"
     room: "Prosperity"
+  - id: "building-event-driven-microservices"
+    date: "June 7, 2022"
+    time: "11:00 AM"
+    timeZone: "CDT"
+    room: "Imagination B"
+  - id: "building-microservice-rest-apis-azure-functions"
+    date: "June 7, 2022"
+    time: "8:30 AM"
+    timeZone: "CDT"
+    room: "Imagination A"
 ---
 
 ## About dev up

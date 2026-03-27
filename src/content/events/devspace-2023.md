@@ -19,6 +19,11 @@ presentations:
     time: "2:30 PM"
     timeZone: "CDT"
     room: "Ballroom 4"
+  - id: "building-great-libraries"
+    date: "October 23, 2023"
+    time: "1:00 PM"
+    timeZone: "CDT"
+    room: "Ballroom 3"
 ---
 
 ## About DevSpace 2023

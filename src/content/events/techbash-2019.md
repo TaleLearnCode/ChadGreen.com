@@ -19,6 +19,16 @@ presentations:
     time: "11:30 AM"
     timeZone: "EST"
     room: "Rosewood"
+  - id: "event-driven-architecture-cloud"
+    date: "November 13, 2019"
+    time: "4:00 PM"
+    timeZone: "EST"
+    room: "Sagewood"
+  - id: "graphing-your-way-through-cosmos"
+    date: "November 15, 2019"
+    time: "9:00 AM"
+    timeZone: "EST"
+    room: "Aloeswood"
 ---
 
 ## About TechBash 2019

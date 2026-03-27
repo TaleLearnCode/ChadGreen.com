@@ -19,6 +19,11 @@ presentations:
     time: "3:30 PM"
     timeZone: "EDT"
     room: "2207"
+  - id: "file-new-event-driven-microservice"
+    date: "March 25, 2023"
+    time: "2:30 PM"
+    timeZone: "EDT"
+    room: "2207"
 ---
 
 ## About Orlando Code Camp

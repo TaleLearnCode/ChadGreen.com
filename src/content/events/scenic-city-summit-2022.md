@@ -19,6 +19,11 @@ presentations:
     time: "2:00 PM"
     timeZone: "EDT"
     room: "Ballroom"
+  - id: "building-microservice-rest-apis-azure-functions"
+    date: "July 22, 2022"
+    time: "9:00 AM"
+    timeZone: "EDT"
+    room: "Ballroom"
 ---
 
 ## About Scenic City Summit

@@ -19,6 +19,11 @@ presentations:
     time: "2:50 PM"
     timeZone: "EST"
     room: "Kilimanjaro 8"
+  - id: "building-microservice-rest-apis-azure-functions"
+    date: "November 10, 2022"
+    time: "11:30 AM"
+    timeZone: "EST"
+    room: "Suite 10"
 ---
 
 ## About TechBash 2022
