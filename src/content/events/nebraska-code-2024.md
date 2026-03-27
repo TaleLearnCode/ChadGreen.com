@@ -13,7 +13,7 @@ website: "https://nebraskacode.amegala.com/"
 featured: false
 heroImage: "/images/events/amegala.webp"
 presentations:
-  - id: "serverless-event-driven-microservice-solution"
+  - id: "building-serverless-solutions"
     date: "July 17, 2024"
     time: "8:45 AM"
     timeZone: "CDT"

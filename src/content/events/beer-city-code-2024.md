@@ -20,6 +20,11 @@ presentations:
     timeZone: "EST"
     room: "107"
   - id: "messaging-patterns-cloud-architecture"
+  - id: "building-serverless-solutions"
+    date: "August 2, 2024"
+    time: "9:00 AM"
+    timeZone: "EDT"
+    room: "Room 255"
 ---
 
 ## About Beer City Code
