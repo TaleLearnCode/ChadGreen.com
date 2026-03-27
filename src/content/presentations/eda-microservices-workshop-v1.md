@@ -1,6 +1,5 @@
 ---
 title: "Design and Develop a Serverless Event-Driven Microservice-Based Solution"
-slug: "eda-microservices-workshop-v1"
 description: "A hands-on full-day workshop where you design, develop, and deploy a serverless event-driven microservice-based solution using .NET, Azure Functions, Azure Service Bus, and Azure Event Hubs."
 type: "workshop"
 durations: [480]
@@ -15,6 +14,7 @@ tags:
   - "azure"
   - "serverless"
   - "dotnet"
+heroImage: "/images/presentations/eda-microservices-workshop-v1.webp"
 status: "active"
 featured: false
 
