@@ -23,6 +23,11 @@ presentations:
     time: "4:00 PM"
     timeZone: "CDT"
     room: "Lancaster 2&3"
+  - id: "essential-software-design-patterns"
+    date: "July 17, 2024"
+    time: "11:30 AM"
+    timeZone: "CDT"
+    room: "Arbor 2"
 
 ---
 

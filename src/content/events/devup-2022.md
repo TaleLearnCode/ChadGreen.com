@@ -18,6 +18,11 @@ presentations:
     time: "9:45 AM"
     timeZone: "CDT"
     room: "Room D1"
+  - id: "ch-ch-ch-changes"
+    date: "June 8, 2022"
+    time: "8:30 AM"
+    timeZone: "CDT"
+    room: "Insight"
 ---
 
 ## About dev up

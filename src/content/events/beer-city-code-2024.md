@@ -25,6 +25,11 @@ presentations:
     time: "9:00 AM"
     timeZone: "EDT"
     room: "Room 255"
+  - id: "essential-software-design-patterns"
+    date: "August 3, 2024"
+    time: "4:00 PM"
+    timeZone: "EDT"
+    room: "Room 135"
 ---
 
 ## About Beer City Code
