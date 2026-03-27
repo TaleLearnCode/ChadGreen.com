@@ -11,9 +11,9 @@ location:
   country: "USA"
 website: "https://www.codemash.org/"
 featured: false
-heroImage: "/images/events/default-event.webp"
+heroImage: "/images/events/codemash-2024.webp"
 presentations:
-  - id: "eda-microservices-workshop-v1"
+  - id: "serverless-event-driven-microservice-solution"
     date: "January 10, 2024"
     time: "8:00 AM"
     timeZone: "EST"

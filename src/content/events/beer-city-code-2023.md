@@ -13,7 +13,7 @@ website: "https://www.beercitycode.com/"
 featured: false
 heroImage: "/images/events/beer-city-code.webp"
 presentations:
-  - id: "eda-microservices-workshop-v1"
+  - id: "serverless-event-driven-microservice-solution"
     date: "August 4, 2023"
     time: "9:00 AM"
     timeZone: "EDT"

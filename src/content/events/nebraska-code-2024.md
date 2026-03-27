@@ -11,9 +11,9 @@ location:
   country: "USA"
 website: "https://nebraskacode.amegala.com/"
 featured: false
-heroImage: "/images/events/default-event.webp"
+heroImage: "/images/events/amegala.webp"
 presentations:
-  - id: "eda-microservices-workshop-v1"
+  - id: "serverless-event-driven-microservice-solution"
     date: "July 17, 2024"
     time: "8:45 AM"
     timeZone: "CDT"

@@ -11,9 +11,9 @@ location:
   country: "USA"
 website: "https://techbash.com/"
 featured: false
-heroImage: "/images/events/default-event.webp"
+heroImage: "/images/events/techbash.webp"
 presentations:
-  - id: "eda-microservices-workshop-v1"
+  - id: "serverless-event-driven-microservice-solution"
     date: "November 7, 2023"
 ---
 
