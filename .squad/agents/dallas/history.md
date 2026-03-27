@@ -101,3 +101,74 @@ Personal portfolio and speaking engagement site for Chad Green. Showcases presen
 - Session times: Added "TBD" for Beer City Code and CodeMash; DevUp has TBD. Need actual times?
 - Recording links: No video/recording URLs found in current repos. Should I research these separately?
 - Private repo access: Issue mentions UnlockThePowerOfMessagingPatterns-private as source of truth. Couldn't access directly; used existing public-repo-derived presentation as canonical source.
+
+---
+
+## Issue #5 Execution: Generative AI for .NET Developers (2026-03-26)
+
+### Completed Work
+✅ Extracted Generative AI for .NET Developers presentation
+✅ Created 1 base presentation entry
+✅ Created 1 event entry (Louisville .NET Meetup)
+✅ Created 1 engagement presentation entry
+✅ Schema validation: All files pass Astro build (150 pages generated)
+✅ Committed and pushed to feature branch
+✅ PR #15 created and ready for review
+
+### Key Learnings
+
+**GitHub API Access:**
+- Both private and public repos accessible via GitHub MCP server
+- Identical content in both repos (same README.md)
+- Source of truth clearly marked in issue specification
+- Can now extract from private repos directly without local cloning
+
+**Event Creation Pattern:**
+- New event required for Louisville .NET Meetup (first entry for this venue)
+- No existing event entry for this meetup—created new event from scratch
+- Event structure follows pattern: venue, date/time, location details
+- Event links presentation through `presentations` array with session metadata
+
+**Consolidation Workflow:**
+- Private and public repos identical in this case
+- Both link to private as authoritative source in resources
+- Consolidation creates single presentation entry (not separate variants)
+- Works perfectly for this public-private pair
+
+**Metadata Extraction Best Practices:**
+- Short abstract, full abstract, elevator pitch all captured from README
+- Learning objectives extracted as array items
+- Tags derived from content keywords
+- Durations (45/60/75 min) captured from README table format
+- Level: introductory (good starting point for AI topic for .NET devs)
+- Status: active (currently being delivered)
+
+**Engagement Presentation Structure:**
+- Minimal but complete: links event and presentation with slug references
+- sessionSlug unique identifier for deduplication (e.g., `louisville-dotnet-2024-08-22-generative-ai`)
+- Date/time/room/timezone required for meetup context
+- canonicalPath: 'speaking-session' for meetup context
+- Learning objectives duplicated from base presentation for context
+
+**Schema Field Mappings (All Collections):**
+- **presentations:** type (session), durations (array), level, learningObjectives (array), tags, status, resources (github links work well)
+- **events:** startDate (required), endDate (optional), eventType, location (object with venue/city/state/country), presentations (array with session details)
+- **engagementPresentations:** eventSlug, presentationSlug, sessionSlug, date, time, timeZone, canonicalPath
+
+### Naming Conventions Observed
+- Presentation slug: `generative-ai-dotnet-developers` (hyphen-separated, lowercase)
+- Event slug: `louisville-dotnet-meetup-2024-08-22` (includes date for uniqueness)
+- File names: match slug names with .md extension
+- sessionSlug: Similar format but may include event-specific identifiers
+
+### Schema Validation Success
+- All enum values must match exactly (e.g., 'introductory' not 'beginner')
+- Date fields use coerce.date() format (YYYY-MM-DD)
+- Required fields: title, description, eventSlug, presentationSlug, sessionSlug (engagementPresentations)
+- Optional fields gracefully handled (no errors on omission)
+- GitHub resource type works correctly in resources array
+
+### Open Questions / Notes for Chad (Issue #5)
+- None—full extraction completed successfully with all available repo data
+- Louisville .NET Meetup appears to be a standing monthly meetup
+- No future event dates documented in repo; used single 2024-08-22 date from README table
