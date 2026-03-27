@@ -46,6 +46,9 @@ const presentations = defineCollection({
         // Status
         status: z.enum(['active', 'retired', 'in-development']).default('active'),
         featured: z.boolean().default(false),
+
+        // Set to true once content has been reviewed and confirmed accurate
+        validated: z.boolean().optional().default(false),
     }),
 });
 
@@ -98,6 +101,9 @@ const events = defineCollection({
 
         // Status
         featured: z.boolean().default(false),
+
+        // Set to true once content has been reviewed and confirmed accurate
+        validated: z.boolean().optional().default(false),
 
         // Media
         heroImage: z.string().optional(),

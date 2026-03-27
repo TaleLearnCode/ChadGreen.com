@@ -5,6 +5,7 @@ import Button from '../../components/ui/Button.astro';
 import TabNav from '../../components/ui/TabNav.astro';
 import TabSyncScript from '../../components/ui/TabSyncScript.astro';
 import EventCard from '../../components/cards/EventCard.astro';
+import UnderConstructionBanner from '../../components/ui/UnderConstructionBanner.astro';
 import { getCollection, render } from 'astro:content';
 import { marked } from 'marked';
 
@@ -130,6 +131,8 @@ const statusVariants: Record<string, 'primary' | 'secondary' | 'outline' | 'succ
             </div>
         </div>
     </section>
+
+    <UnderConstructionBanner show={!presentation.data.validated} />
 
     <!-- Tab Navigation -->
     <div class="tabs-container">

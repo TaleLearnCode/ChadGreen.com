@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Badge from '../ui/Badge.astro';
 import Button from '../ui/Button.astro';
+import UnderConstructionBanner from '../ui/UnderConstructionBanner.astro';
 import { render, type CollectionEntry } from 'astro:content';
 import { getResourceIcon } from '@/lib/engagementPresentations';
 
@@ -14,6 +15,9 @@ export interface Props {
 
 const { engagement, event, presentation, canonicalUrl } = Astro.props;
 const { Content } = await render(engagement);
+
+const eventYear = event?.data.startDate.getFullYear();
+const showBanner = eventYear !== 2026 && !presentation?.data.validated;
 
 const displayTitle = engagement.data.sessionTitle || engagement.data.title;
 const eventTitle = event?.data.title || engagement.data.eventSlug;
@@ -81,6 +85,8 @@ const resourceLinks = engagement.data.links.length > 0
             </div>
         </div>
     </section>
+
+    <UnderConstructionBanner show={showBanner} />
 
     <section class="section">
         <div class="container">
