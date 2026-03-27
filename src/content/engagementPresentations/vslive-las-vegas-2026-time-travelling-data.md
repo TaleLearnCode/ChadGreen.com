@@ -2,7 +2,7 @@
 title: "Time Travelling Data: A Quick Overview of SQL Server Temporal Tables"
 description: "Session details and resources for Visual Studio Live! Las Vegas 2026: Fast Focus: Time Travelling Data."
 eventSlug: "vslive-las-vegas-2026"
-presentationSlug: "time-travelling-data-lightning"
+presentationSlug: "time-travelling-data"
 sessionSlug: "time-travelling-data"
 sessionTitle: "Fast Focus: Time Travelling Data"
 date: 2026-03-18

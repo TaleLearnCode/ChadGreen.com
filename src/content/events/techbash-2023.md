@@ -15,6 +15,17 @@ heroImage: "/images/events/techbash.webp"
 presentations:
   - id: "serverless-event-driven-microservice-solution"
     date: "November 7, 2023"
+  - id: "time-travelling-data"
+    date: "November 8, 2023"
+    time: "1:30 PM"
+    timeZone: "EST"
+    room: "Aloeswood"
+  - id: "technical-debt-is-not-free"
+    date: "November 8, 2023"
+    time: "1:30 PM"
+    timeZone: "EST"
+    room: "Aloeswood"
+
 ---
 
 ## About TechBash

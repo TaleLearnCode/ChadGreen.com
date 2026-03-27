@@ -13,7 +13,7 @@ location:
 website: "https://vslive.com/events/las-vegas-2026/home.aspx"
 heroImage: "/images/events/visual-studio-live.webp"
 presentations:
-  - id: "time-travelling-data-lightning"
+  - id: "time-travelling-data"
     sessionName: "Fast Focus: Time Travelling Data"
     date: "March 18, 2026"
     time: "1:30 PM"

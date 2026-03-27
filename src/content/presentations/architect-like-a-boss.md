@@ -1,6 +1,5 @@
 ---
 title: "Architect Like a Boss: Mastering Serverless Design Patterns"
-slug: "architect-like-a-boss"
 description: "Ready to advance your serverless architecture skills? Join this session, where you will master serverless design patterns and learn to architect like a boss!"
 type: "session"
 level: "intermediate"

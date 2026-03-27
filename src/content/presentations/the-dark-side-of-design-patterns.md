@@ -1,6 +1,5 @@
 ---
 title: "The Dark Side of Design Patterns: What They Don't Tell You"
-slug: "the-dark-side-of-design-patterns"
 description: "Dive into the paradox of software design patterns! Uncover hidden complexities and pitfalls. Learn which patterns create more burden than benefit and how to mitigate their negative impacts."
 type: "session"
 level: "intermediate"

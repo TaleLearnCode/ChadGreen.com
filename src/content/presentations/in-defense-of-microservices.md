@@ -1,10 +1,9 @@
 ---
 title: "In Defense of Microservices"
-slug: "in-defense-of-microservices"
 description: "Once hailed as the solution for modern applications, microservices are now criticized for complexity and operational bottlenecks. Here we will address critiques with practical solutions and showcase actual implementations. Discover why microservices still matter and how to adopt them effectively."
 type: "session"
 level: "intermediate"
-durations: [75]
+durations: [45, 60, 75]
 tags: ["Microservices", "Cloud Architecture", "Architecture", "Scalability", "Design Patterns"]
 featured: false
 heroImage: "/images/presentations/in-defense-of-microservices.webp"

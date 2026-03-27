@@ -1,7 +1,6 @@
 ---
 title: "Navigating the Maze of Communicating Architecture Decisions"
-slug: "navigating-maze-architecture-decisions"
-description: "DA guided tour of how ADRs bring structure, clarity, and long‑term value to architectural decision‑making by capturing context, rationale, and consequences with precision."
+description: "A guided tour of how ADRs bring structure, clarity, and long‑term value to architectural decision‑making by capturing context, rationale, and consequences with precision."
 type: "session"
 level: "intermediate"
 durations: [45, 60, 75, 90]

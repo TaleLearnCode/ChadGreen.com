@@ -19,6 +19,11 @@ presentations:
     timeZone: "CDT"
     room: "105"
     sessionUrl: "https://nebraskacode.amegala.com/Sessions/1157"
+  - id: "software-craftsmanship-new-developers"
+    date: "July 15, 2021"
+    time: "2:30 PM"
+    timeZone: "CDT"
+    room: "Arbor 1"
 ---
 
 ## About Nebraska.Code()
