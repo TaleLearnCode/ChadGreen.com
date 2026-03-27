@@ -19,6 +19,11 @@ presentations:
     time: "4:00 PM"
     timeZone: "CDT"
     room: "101"
+  - id: "navigating-maze-architecture-decisions"
+    date: "August 7, 2025"
+    time: "2:45 PM"
+    timeZone: "CDT"
+    room: "101"
 ---
 
 ## About dev up 2025
