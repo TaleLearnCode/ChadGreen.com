@@ -19,6 +19,11 @@ presentations:
     time: "11:00 AM"
     timeZone: "EDT"
     room: "229"
+  - id: "transform-chaos-azure-durable-functions"
+    date: "August 9, 2025"
+    time: "9:00 AM"
+    timeZone: "EDT"
+    room: "222"
 ---
 
 ## About Beer City Code 2025

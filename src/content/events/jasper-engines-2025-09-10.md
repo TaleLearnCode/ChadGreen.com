@@ -1,10 +1,10 @@
 ---
-title: "Jasper Engines - May 2025"
-slug: "jasper-engines-2025-05-13"
+title: "Jasper Engines - September 2025"
+slug: "jasper-engines-2025-09-10"
 eventType: "corporate"
 description: "A private corporate training event at Jasper Engines & Transmissions in Jasper, Indiana."
-startDate: 2025-05-13
-endDate: 2025-05-13
+startDate: 2025-09-10
+endDate: 2025-09-10
 location:
   venue: "Jasper Engines & Transmissions"
   city: "Jasper"
@@ -14,21 +14,11 @@ website: "https://www.jasperengines.com/"
 featured: false
 heroImage: "/images/events/default-event.webp"
 presentations:
-  - id: "messaging-patterns-cloud-architecture"
-    date: "May 13, 2025"
-    time: "1:00 PM"
+  - id: "technical-debt-is-not-free"
+    date: "September 10, 2025"
+    time: "9:00 AM"
     timeZone: "EDT"
-    room: "FRED 3"
-  - id: "navigating-maze-architecture-decisions"
-    date: "May 13, 2025"
-    time: "3:00 PM"
-    timeZone: "EDT"
-    room: "FRED 1"
-  - id: "the-few-the-proud-the-leaders"
-    date: "May 13, 2025"
-    time: "11:00 AM"
-    timeZone: "EDT"
-    room: "FRED 3"
+    room: "Track"
 ---
 
 ## About This Event
@@ -37,5 +27,5 @@ A private corporate training event hosted at Jasper Engines & Transmissions in J
 
 ## Event Details
 
-**Date:** May 13, 2025  
+**Date:** September 10, 2025  
 **Location:** Jasper Engines & Transmissions, Jasper, IN

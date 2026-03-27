@@ -19,6 +19,11 @@ presentations:
     timeZone: "EST"
     room: "Cyprus"
     sessionUrl: "https://codemash.org/session-details/?id=532679"
+  - id: "technical-debt-is-not-free"
+    date: "January 12, 2024"
+    time: "12:15 PM"
+    timeZone: "EST"
+    room: "Cypress"
 ---
 
 ## About CodeMash

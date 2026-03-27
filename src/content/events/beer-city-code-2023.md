@@ -17,6 +17,11 @@ presentations:
     date: "August 4, 2023"
     time: "9:00 AM"
     timeZone: "EDT"
+  - id: "getting-deeper-azure-functions"
+    date: "August 5, 2023"
+    time: "4:00 PM"
+    timeZone: "EDT"
+    room: "Room 255"
 ---
 
 ## About Beer City Code

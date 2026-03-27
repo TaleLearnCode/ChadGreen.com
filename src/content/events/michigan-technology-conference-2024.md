@@ -15,6 +15,11 @@ featured: false
 heroImage: "/images/events/michigan-technology-conference.webp"
 presentations:
   - id: "the-dark-side-of-design-patterns"
+  - id: "technical-debt-is-not-free"
+    date: "March 21, 2024"
+    time: "2:30 PM"
+    timeZone: "EDT"
+    room: "Cyera Room"
 ---
 
 ## About Michigan Technology Conference

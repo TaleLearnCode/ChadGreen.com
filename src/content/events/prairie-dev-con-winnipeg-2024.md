@@ -19,6 +19,11 @@ presentations:
     time: "11:00 AM"
     timeZone: "CDT"
     room: "A4"
+  - id: "terraform-swiss-army-knife"
+    date: "September 24, 2024"
+    time: "8:35 AM"
+    timeZone: "CDT"
+    room: "K"
 ---
 
 ## About Prairie Dev Con Winnipeg 2024

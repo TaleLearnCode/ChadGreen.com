@@ -19,6 +19,11 @@ presentations:
     time: "9:45 AM"
     timeZone: "CDT"
     room: "A4"
+  - id: "getting-deeper-azure-functions"
+    date: "June 12, 2023"
+    time: "11:00 AM"
+    timeZone: "CDT"
+    room: "A2"
 ---
 
 ## About Prairie Dev Con Winnipeg 2023

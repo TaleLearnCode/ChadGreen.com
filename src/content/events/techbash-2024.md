@@ -1,31 +1,28 @@
 ---
-title: "TechBash 2023"
-slug: "techbash-2023"
+title: "TechBash 2024"
+slug: "techbash-2024"
 description: "TechBash is a developer conference in the Pocono Mountains of Pennsylvania focused on practical software development, cloud technologies, and modern engineering practices."
-startDate: 2023-11-07
-endDate: 2023-11-10
+startDate: 2024-09-24
+endDate: 2024-09-27
 location:
   venue: "Kalahari Resorts & Conventions"
   city: "Pocono Manor"
   state: "Pennsylvania"
   country: "USA"
-website: "https://techbash.com/"
+website: "https://www.techbash.com/"
 featured: false
 heroImage: "/images/events/techbash.webp"
 presentations:
-  - id: "serverless-event-driven-microservice-solution"
-    date: "November 7, 2023"
-  - id: "time-travelling-data"
-    date: "November 8, 2023"
-    time: "1:30 PM"
-    timeZone: "EST"
-    room: "Aloeswood"
+  - id: "getting-deeper-azure-functions"
+    date: "September 25, 2024"
+    time: "10:20 AM"
+    timeZone: "EDT"
+    room: "Salons EF"
   - id: "technical-debt-is-not-free"
-    date: "November 8, 2023"
-    time: "1:30 PM"
-    timeZone: "EST"
-    room: "Aloeswood"
-
+    date: "September 25, 2024"
+    time: "10:20 AM"
+    timeZone: "EDT"
+    room: "Salons EF"
 ---
 
 ## About TechBash
@@ -36,5 +33,5 @@ Known for combining high-quality technical content with a family-friendly resort
 
 ## Event Details
 
-**Dates:** November 7–10, 2023  
+**Dates:** September 24–27, 2024  
 **Location:** Kalahari Resorts & Conventions, Pocono Manor, PA

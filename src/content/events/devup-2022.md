@@ -23,6 +23,11 @@ presentations:
     time: "8:30 AM"
     timeZone: "CDT"
     room: "Insight"
+  - id: "technical-debt-is-not-free"
+    date: "June 8, 2022"
+    time: "11:00 AM"
+    timeZone: "CDT"
+    room: "Prosperity"
 ---
 
 ## About dev up

@@ -17,6 +17,11 @@ presentations:
     time: "1:45 PM"
     timeZone: "CET"
     room: "Hall A"
+  - id: "transform-chaos-azure-durable-functions"
+    date: "November 15, 2024"
+    time: "12:30 PM"
+    timeZone: "CET"
+    room: "Hall D"
 ---
 
 ## About Update Conference Prague

@@ -19,6 +19,11 @@ presentations:
     time: "1:00 PM"
     timeZone: "CET"
     room: "Horizon"
+  - id: "transform-chaos-azure-durable-functions"
+    date: "November 5, 2025"
+    time: "3:50 PM"
+    timeZone: "CET"
+    room: "Orbit"
 ---
 
 ## About Øredev 2025
