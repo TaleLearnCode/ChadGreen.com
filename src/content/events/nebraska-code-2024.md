@@ -18,6 +18,12 @@ presentations:
     time: "8:45 AM"
     timeZone: "CDT"
     room: "Lancaster 2&3"
+  - id: "architect-like-a-boss"
+    date: "July 18, 2024"
+    time: "4:00 PM"
+    timeZone: "CDT"
+    room: "Lancaster 2&3"
+
 ---
 
 ## About Nebraska.Code()

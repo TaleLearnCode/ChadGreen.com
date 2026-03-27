@@ -1,6 +1,5 @@
 ---
 title: "Code, Connect, Conquer: Mastering Serverless and API-Centric Designs"
-slug: "code-connect-conquer"
 description: "A story‑driven exploration of serverless computing and API‑centric design that reveals how modern cloud architectures achieve agility, scalability, and efficiency."
 type: "session"
 level: "intermediate"

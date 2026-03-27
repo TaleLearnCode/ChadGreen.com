@@ -1,6 +1,5 @@
 ---
 title: "Messaging Patterns to Transform Your Cloud Architecture"
-slug: "messaging-patterns-cloud-architecture"
 description: "An immersive session revealing how modern messaging patterns can transform your cloud architecture into a scalable, resilient, and elegantly orchestrated system."
 type: "session"
 level: "intermediate"

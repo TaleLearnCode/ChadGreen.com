@@ -17,6 +17,11 @@ presentations:
     time: "11:30 AM"
     timeZone: "CEST"
     room: "Salon 4"
+  - id: "architect-like-a-boss"
+    date: "October 22, 2024"
+    time: "11:30 AM"
+    timeZone: "CEST"
+    room: "TBA"
 ---
 
 ## About Serverless Architecture Conference Berlin
