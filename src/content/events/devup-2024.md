@@ -16,6 +16,11 @@ heroImage: "/images/events/devup.webp"
 presentations:
   - id: "the-dark-side-of-design-patterns"
   - id: "messaging-patterns-cloud-architecture"
+  - id: "building-serverless-solutions"
+    date: "August 14, 2024"
+    time: "8:30 AM"
+    timeZone: "CDT"
+    room: "Junior Ballroom A"
 ---
 
 ## About dev up
