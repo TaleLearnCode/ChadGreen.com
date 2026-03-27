@@ -25,8 +25,8 @@ learningObjectives:
 
 resources:
   - type: "github"
-    title: "EDAMicroserviceWorkshop Repository"
-    url: "https://github.com/TaleLearnCode/EDAMicroserviceWorkshop"
+    title: "DesignDevelopServerlessEventDrivenMicroserviceSolution Repository"
+    url: "https://github.com/TaleLearnCode/DesignDevelopServerlessEventDrivenMicroserviceSolution"
     description: "Workshop lab materials, demos, and slide assets"
 ---
 
