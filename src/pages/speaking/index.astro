@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHeader from '../../components/ui/PageHeader.astro';
 import EventCard from '../../components/cards/EventCard.astro';
+import UnderConstructionBanner from '../../components/ui/UnderConstructionBanner.astro';
 import { getCollection } from 'astro:content';
 
 // Get all events
@@ -61,7 +62,7 @@ function formatLocation(loc: any): string {
         <p>Conferences, meetups, and events where I've spoken or will be speaking</p>
     </PageHeader>
 
-    <!-- Upcoming Events -->
+    <UnderConstructionBanner />
     <section class="section">
         <div class="container">
             <h2 class="section-title">Upcoming Events</h2>

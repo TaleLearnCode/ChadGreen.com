@@ -5,6 +5,7 @@ import Button from '../../components/ui/Button.astro';
 import TabNav from '../../components/ui/TabNav.astro';
 import TabSyncScript from '../../components/ui/TabSyncScript.astro';
 import PresentationCard from '../../components/cards/PresentationCard.astro';
+import UnderConstructionBanner from '../../components/ui/UnderConstructionBanner.astro';
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -88,6 +89,7 @@ function formatLocation(loc: any): string {
 // Determine if event is upcoming based on start date
 const now = new Date();
 const isUpcoming = event.data.startDate >= now;
+const eventYear = event.data.startDate.getFullYear();
 
 const tabs = [
     { id: 'about', label: 'About' },
@@ -162,6 +164,8 @@ const typeLabels: Record<string, string> = {
             </div>
         </div>
     </section>
+
+    <UnderConstructionBanner show={eventYear !== 2026 && !event.data.validated} />
 
     <!-- Tab Navigation -->
     <div class="tabs-container">

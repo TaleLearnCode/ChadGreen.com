@@ -1,0 +1,54 @@
+---
+interface Props {
+    show?: boolean;
+}
+
+const { show = true } = Astro.props;
+---
+
+{show && (
+    <aside class="construction-banner" role="note" aria-label="Work in progress notice">
+        <div class="banner-inner">
+            <span class="banner-icon" aria-hidden="true">🚧</span>
+            <p>
+                <strong>Work in Progress</strong> — This site is actively being updated.
+                Some details may be inaccurate and images may be missing while content is validated.
+            </p>
+        </div>
+    </aside>
+)}
+
+<style>
+    .construction-banner {
+        background-color: #fef9c3;
+        border-top: 1px solid #fde047;
+        border-bottom: 1px solid #fde047;
+        padding: 0.5rem 0;
+    }
+
+    .banner-inner {
+        max-width: var(--container-max, 1280px);
+        margin: 0 auto;
+        padding: 0 var(--spacing-6, 1.5rem);
+        display: flex;
+        align-items: center;
+        gap: 0.625rem;
+    }
+
+    .banner-icon {
+        flex-shrink: 0;
+        font-size: 1rem;
+        line-height: 1;
+    }
+
+    .construction-banner p {
+        margin: 0;
+        font-size: var(--font-size-sm, 0.875rem);
+        color: #713f12;
+        line-height: 1.4;
+    }
+
+    .construction-banner strong {
+        color: #422006;
+    }
+</style>
