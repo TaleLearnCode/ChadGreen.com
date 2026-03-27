@@ -14,6 +14,11 @@ website: "https://www.codestock.org/"
 featured: false
 heroImage: "/images/events/default-event.webp"
 presentations:
+  - id: "taming-the-api"
+    date: "April 7, 2022"
+    time: "1:55 PM"
+    timeZone: "EDT"
+    room: "Ballroom B"
   - id: "building-event-driven-microservices"
     date: "April 7, 2022"
     time: "1:55 PM"

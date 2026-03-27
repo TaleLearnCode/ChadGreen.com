@@ -17,6 +17,9 @@ presentations:
   - id: "the-few-the-proud-the-leaders"
     date: "April 20, 2018"
     timeZone: "CDT"
+  - id: "secrets-of-conflict-resolution"
+    date: "April 20, 2018"
+    timeZone: "CDT"
 ---
 
 ## About CodeStock

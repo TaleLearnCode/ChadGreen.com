@@ -14,6 +14,11 @@ website: "https://www.beercitycode.com/"
 featured: false
 heroImage: "/images/events/beer-city-code.webp"
 presentations:
+  - id: "taming-the-api"
+    date: "August 6, 2022"
+    time: "4:00 PM"
+    timeZone: "EDT"
+    room: "Room 222"
   - id: "time-travelling-data"
     date: "August 6, 2022"
     time: "2:00 PM"

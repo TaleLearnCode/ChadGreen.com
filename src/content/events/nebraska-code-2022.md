@@ -14,6 +14,11 @@ website: "https://nebraskacode.amegala.com/"
 featured: false
 heroImage: "/images/events/default-event.webp"
 presentations:
+  - id: "taming-the-api"
+    date: "July 15, 2022"
+    time: "2:30 PM"
+    timeZone: "CDT"
+    room: "Yankee Hill"
   - id: "technical-debt-is-not-free"
     date: "July 15, 2022"
     time: "1:15 PM"

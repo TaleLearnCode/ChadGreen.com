@@ -19,6 +19,11 @@ presentations:
     time: "9:45 AM"
     timeZone: "CDT"
     room: "Lombardy"
+  - id: "secrets-of-conflict-resolution"
+    date: "October 4, 2022"
+    time: "1:00 PM"
+    timeZone: "CDT"
+    room: "Tuscany"
 ---
 
 ## About Prairie Dev Con Regina 2022

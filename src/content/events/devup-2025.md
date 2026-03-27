@@ -24,6 +24,11 @@ presentations:
     time: "2:45 PM"
     timeZone: "CDT"
     room: "101"
+  - id: "supercharge-messaging-patterns-workshop"
+    date: "August 6, 2025"
+    time: "8:30 AM"
+    timeZone: "CDT"
+    room: "Junior Ballroom D"
 ---
 
 ## About dev up 2025

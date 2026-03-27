@@ -19,6 +19,11 @@ presentations:
     time: "11:00 AM"
     timeZone: "PDT"
     room: "TBA"
+  - id: "secrets-of-conflict-resolution"
+    date: "September 11, 2025"
+    time: "8:00 AM"
+    timeZone: "PDT"
+    room: "TBA"
 ---
 
 ## About VSLive! San Diego 2025

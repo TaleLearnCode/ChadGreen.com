@@ -24,6 +24,11 @@ presentations:
     time: "9:00 AM"
     timeZone: "EDT"
     room: "222"
+  - id: "supercharge-messaging-patterns-workshop"
+    date: "August 8, 2025"
+    time: "9:00 AM"
+    timeZone: "EDT"
+    room: "255"
 ---
 
 ## About Beer City Code 2025

@@ -38,6 +38,11 @@ presentations:
     time: "8:30 AM"
     timeZone: "CDT"
     room: "Imagination A"
+  - id: "taming-the-api"
+    date: "June 8, 2022"
+    time: "4:00 PM"
+    timeZone: "CDT"
+    room: "Imagination C & D"
 ---
 
 ## About dev up

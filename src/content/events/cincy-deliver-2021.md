@@ -19,6 +19,11 @@ presentations:
     time: "4:00 PM"
     timeZone: "EDT"
     room: "Marquis - Ascendum"
+  - id: "serverless-microservices"
+    date: "July 30, 2021"
+    time: "1:20 PM"
+    timeZone: "EDT"
+    room: "Sterling"
 ---
 
 ## About CincyDeliver 2021

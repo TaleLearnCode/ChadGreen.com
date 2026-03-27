@@ -19,6 +19,11 @@ presentations:
     time: "11:00 AM"
     timeZone: "PDT"
     room: "Celebrity 3"
+  - id: "secrets-of-conflict-resolution"
+    date: "March 23, 2023"
+    time: "2:45 PM"
+    timeZone: "PDT"
+    room: "Celebrity 3"
 ---
 
 ## About VSLive! Las Vegas

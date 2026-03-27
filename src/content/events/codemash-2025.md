@@ -16,6 +16,11 @@ heroImage: "/images/events/codemash-2025.webp"
 presentations:
   - id: "the-dark-side-of-design-patterns"
   - id: "messaging-patterns-cloud-architecture"
+  - id: "supercharge-messaging-patterns-workshop"
+    date: "January 15, 2025"
+    time: "8:00 AM"
+    timeZone: "EST"
+    room: "Orange"
 ---
 
 ## About CodeMash

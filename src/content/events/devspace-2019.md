@@ -19,6 +19,11 @@ presentations:
     time: "1:00 PM"
     timeZone: "CDT"
     room: "Ballroom 3"
+  - id: "serverless-in-action"
+    date: "October 11, 2019"
+    time: "4:00 PM"
+    timeZone: "CDT"
+    room: "Ballroom 4"
 ---
 
 ## About DevSpace 2019

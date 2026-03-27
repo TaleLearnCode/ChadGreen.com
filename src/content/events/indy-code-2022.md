@@ -14,6 +14,11 @@ website: "https://indycode.amegala.com/"
 featured: false
 heroImage: "/images/events/default-event.webp"
 presentations:
+  - id: "taming-the-api"
+    date: "October 19, 2022"
+    time: "2:30 PM"
+    timeZone: "EDT"
+    room: "Sycamore"
   - id: "building-event-driven-microservices"
     date: "October 19, 2022"
     time: "9:35 AM"

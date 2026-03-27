@@ -14,6 +14,11 @@ website: "https://techbash.com/"
 featured: false
 heroImage: "/images/events/default-event.webp"
 presentations:
+  - id: "serverless-in-action"
+    date: "November 14, 2019"
+    time: "4:00 PM"
+    timeZone: "EST"
+    room: "Aloeswood"
   - id: "time-travelling-data"
     date: "November 15, 2019"
     time: "11:30 AM"
