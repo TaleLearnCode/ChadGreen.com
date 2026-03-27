@@ -21,6 +21,7 @@ tags:
   - "intelligent-apps"
   - "machine-learning"
   - "cloud"
+heroImage: "/images/presentations/generative-ai-dotnet-developers.webp"
 status: "active"
 featured: false
 resources:

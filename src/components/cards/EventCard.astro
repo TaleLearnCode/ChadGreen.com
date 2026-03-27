@@ -78,7 +78,8 @@ function formatLocation(loc: typeof location): string {
     return parts.join(', ');
 }
 
-const isUpcoming = status === 'upcoming' || status === 'confirmed';
+const now = new Date();
+const isUpcoming = startDate >= now;
 const displayImage = heroImage || logo || thumbnail || '/images/events/default-event.svg';
 const primaryHref = `/speaking/${slug}`;
 ---
@@ -88,7 +89,7 @@ const primaryHref = `/speaking/${slug}`;
         <div class="card-image">
             <img src={displayImage} alt={`${title} logo`} loading="lazy" />
             {isUpcoming && <span class="status-badge upcoming">Upcoming</span>}
-            {status === 'completed' && <span class="status-badge completed">Past Event</span>}
+            {!isUpcoming && <span class="status-badge completed">Past Event</span>}
         </div>
     </a>
     <div class="card-content">
