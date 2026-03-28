@@ -61,7 +61,7 @@ For those attending a future MVP Summit, here are the things you simply cannot m
 
 [Seastar Restaurant](https://seastarrestaurant.com/) in Bellevue is a tradition, and it earns every bit of its reputation. If you are a seafood person, there is no better place to decompress after a long day of sessions. The menu is consistently excellent, and the atmosphere hits exactly the right balance of upscale and relaxed.
 
-And yes — Phil Japiske did get his seared tuna. Those who know, know.
+And yes — Phil Japikse did get his seared tuna. Those who know, know.
 
 ### Paddy Coyne's Irish Pub
 
