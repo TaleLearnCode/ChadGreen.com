@@ -1,6 +1,6 @@
 ---
 title: "Reflections on the 2026 Microsoft MVP Summit"
-description: "From packed AI sessions and candid feedback roundtables to late nights at Paddy Coyne's and a historic .NET Rocks! milestone — here are my reflections on a week well spent at the MVP Summit in Redmond."
+description: "From packed AI sessions and candid feedback roundtables to late nights at Paddy Coyne's and a historic .NET Rocks! milestone; here are my reflections on a week well spent at the MVP Summit in Redmond."
 author: "Chad Green"
 pubDate: 2026-03-28
 heroImage: "/images/blog/mvp-summit-2026.webp"
@@ -11,7 +11,7 @@ draft: false
 featured: true
 ---
 
-I'm writing this from 30,000 feet, somewhere over the middle of the country, on my way home from the Microsoft MVP Summit in Redmond, Washington. My laptop battery is at 61%, my sleep debt is considerable, and my brain is absolutely full. In the best way.
+I'm writing this from 37,000 feet, somewhere over the middle of the country, on my way home from the Microsoft MVP Summit in Redmond, Washington. My laptop battery is at 61%, my sleep debt is considerable, and my brain is absolutely full. In the best way.
 
 Every year, the MVP Summit reminds me why this community matters so much, and this year was no exception.
 
@@ -71,7 +71,7 @@ It also served a very specific purpose for a subset of us this year: as fellow C
 
 ### The Party with Palermo
 
-The [Party with Palermo](https://www.eventbrite.com/e/party-with-palermo-mvp-summit-featuring-net-rocks-registration-1979908843649?aff=oddtdtcreator) is always one of the highlights of MVP Summit week, and this year it featured a very special guest: [.NET Rocks!](https://www.dotnetrocks.com/)
+The [Party with Palermo](https://www.eventbrite.com/e/party-with-palermo-mvp-summit-featuring-net-rocks-registration-1979908843649?aff=oddtdtcreator) is always one of the highlights of MVP Summit week, and this year it featured very special guests: [.NET Rocks!](https://www.dotnetrocks.com/)
 
 ---
 
