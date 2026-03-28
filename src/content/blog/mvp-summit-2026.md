@@ -21,7 +21,7 @@ Every year, the MVP Summit reminds me why this community matters so much, and th
 
 Let's address this upfront. The vast majority of what gets discussed at the MVP Summit is under NDA. What happens in Redmond stays in Redmond.
 
-So if you are hoping for a deep dive into what Microsoft is building, what they showed us behind closed doors, or what the next version of anything looks like, I genuinely cannot help you there. What I *can* tell you is that there were many sessions on AI. Like, a *lot*. 
+So if you are hoping for a deep dive into what Microsoft is building, what they showed us behind closed doors, or what the next version of anything looks like, I genuinely cannot help you there. What I *can* tell you is that there were many sessions on AI. Like, a *lot*.
 
 I really enjoyed hearing about [REDACTED], and [REDACTED], and also [REDACTED].
 
