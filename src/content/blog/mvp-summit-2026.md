@@ -101,7 +101,7 @@ It is not a small thing to make over a thousand people feel genuinely welcomed a
 
 ## Until Next Year
 
-Time to put the laptop down, recline my seat, and get a little rest before landing. There is a week's worth of normal life waiting to be reclaimed. 
+Time to put the laptop down, recline my seat, and get a little rest before landing. There is a week's worth of normal life waiting to be reclaimed.
 
 But I am heading home energized, full of ideas, and as always deeply grateful to be part of this community.
 
