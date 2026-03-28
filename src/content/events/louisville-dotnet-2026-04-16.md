@@ -11,6 +11,7 @@ location:
   country: "USA"
 website: "https://www.meetup.com/louisville-dotnet/events/313892686"
 featured: false
+heroImage: "/images/events/loudotnet.webp"
 presentations:
   - id: "what-if-your-ai-could-be-a-team"
     date: "April 16, 2026"
