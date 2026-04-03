@@ -7,7 +7,7 @@ sessionSlug: "messaging-patterns-cloud-architecture"
 sessionTitle: "Messaging Patterns to Transform Your Cloud Architecture"
 date: 2026-04-10
 time: "10:15 AM"
-timeZone: "EST"
+timeZone: "EDT"
 room: "301E"
 sessionUrl: "https://www.codestock.org/schedule"
 canonicalPath: "speaking-session"

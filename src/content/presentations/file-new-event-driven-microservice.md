@@ -17,7 +17,7 @@ tags:
   - "Cloud-Native"
   - "Cosmos DB"
 heroImage: "/images/presentations/file-new-event-driven-microservice.webp"
-status: "active"
+status: "retired"
 featured: false
 
 learningObjectives:

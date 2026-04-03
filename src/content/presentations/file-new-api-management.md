@@ -18,7 +18,7 @@ tags:
   - "Microsoft"
   - "Serverless"
 heroImage: "/images/presentations/file-new-api-management.webp"
-status: "active"
+status: "retired"
 featured: false
 learningObjectives:
   - "Understand what an API gateway is and how it can help improve the usability of your APIs"

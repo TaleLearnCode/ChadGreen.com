@@ -14,7 +14,7 @@ tags:
   - "azure-functions"
   - "cloud-computing"
 heroImage: "/images/presentations/building-serverless-solutions.webp"
-status: "active"
+status: "retired"
 featured: false
 
 learningObjectives:

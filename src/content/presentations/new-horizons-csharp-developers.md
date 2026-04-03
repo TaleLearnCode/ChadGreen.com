@@ -16,7 +16,7 @@ tags:
   - "Software Engineering"
   - "Web Development"
 heroImage: "/images/presentations/new-horizons-csharp-developers.webp"
-status: "active"
+status: "retired"
 featured: false
 resources:
   - type: "github"

@@ -6,7 +6,7 @@ durations: [45, 60, 75]
 level: "intermediate"
 tags: ["Azure Functions", "Best Practices", "Cloud Computing", "Event-Driven Applications", "Extreme Scalability", "Innovation", "Scalability", "Serverless Computing"]
 heroImage: "/images/presentations/unleashing-extreme-scalability-azure-functions.webp"
-status: "active"
+status: "retired"
 featured: false
 
 learningObjectives:

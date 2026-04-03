@@ -18,7 +18,7 @@ tags:
   - "Microsoft"
   - "Serverless"
 heroImage: "/images/presentations/taming-the-api.webp"
-status: "active"
+status: "retired"
 featured: false
 resources:
   - type: "github"

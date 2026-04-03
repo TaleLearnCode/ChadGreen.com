@@ -6,7 +6,7 @@ durations: [45, 60, 75]
 level: "intermediate"
 tags: ["Collaboration", "Cloud Services", "Continuous Improvement", "Declarative Configuration Language", "Development Workflows", "Infrastructure as Code", "Integration", "Operations Teams", "Scalable Infrastructure", "Terraform"]
 heroImage: "/images/presentations/terraform-swiss-army-knife.webp"
-status: "active"
+status: "retired"
 featured: false
 
 learningObjectives:

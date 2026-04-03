@@ -15,7 +15,7 @@ tags:
   - "serverless"
   - "dotnet"
 heroImage: "/images/presentations/serverless-event-driven-microservice-solution.webp"
-status: "active"
+status: "retired"
 featured: false
 
 learningObjectives:

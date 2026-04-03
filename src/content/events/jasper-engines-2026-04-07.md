@@ -1,10 +1,10 @@
 ---
-title: "Jasper Engines - June 2025"
-slug: "jasper-engines-2025-06-03"
+title: "Jasper Engines - April 7, 2026"
+slug: "jasper-engines-2026-04-07"
 eventType: "corporate"
 description: "A private corporate training event at Jasper Engines & Transmissions in Jasper, Indiana."
-startDate: 2025-06-03
-endDate: 2025-06-03
+startDate: 2026-04-07
+endDate: 2026-04-07
 location:
   venue: "Jasper Engines & Transmissions"
   city: "Jasper"
@@ -14,11 +14,12 @@ website: "https://www.jasperengines.com/"
 featured: false
 heroImage: "/images/events/jasper.webp"
 presentations:
-  - id: "messaging-patterns-cloud-architecture"
-    date: "June 3, 2025"
-    time: "2:30 PM"
+  - id: "what-if-your-ai-could-be-a-team"
+    date: "April 7, 2026"
+    time: "11:00 AM"
     timeZone: "EDT"
-    room: "FRED 1"
+    room: "Lower Level Small Training Room"
+
 ---
 
 ## About This Event
@@ -27,5 +28,6 @@ A private corporate training event hosted at Jasper Engines & Transmissions in J
 
 ## Event Details
 
-**Date:** June 3, 2025  
+**Date:** April 7, 2026  
 **Location:** Jasper Engines & Transmissions, Jasper, IN
+

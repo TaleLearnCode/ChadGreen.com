@@ -12,7 +12,7 @@ location:
   country: "USA"
 website: "https://www.jasperengines.com/"
 featured: false
-heroImage: "/images/events/default-event.webp"
+heroImage: "/images/events/jasper.webp"
 presentations:
   - id: "messaging-patterns-cloud-architecture"
     date: "May 13, 2025"

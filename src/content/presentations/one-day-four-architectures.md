@@ -8,7 +8,8 @@ durations: [360, 420, 480]
 tags: ["Architecture", "Microservices", "Monolith", "Modular Monolith", "N-Tier", "Hands-On", "Design Patterns", "Software Design", "Trade-offs"]
 featured: true
 heroImage: "/images/presentations/one-day-four-architectures.webp"
-status: "active"
+status: "in-development"
+validated: true
 
 learningObjectives:
   - "**Experience Four Architectural Styles:** Gain hands-on experience building the same application using monolithic, n-tier, modular monolith, and microservices architectures to see firsthand how each approach handles the same requirements."

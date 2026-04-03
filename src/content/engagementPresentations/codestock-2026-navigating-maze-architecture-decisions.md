@@ -7,7 +7,7 @@ sessionSlug: "navigating-maze-architecture-decisions"
 sessionTitle: "Navigating the Maze of Communicating Architecture Decisions"
 date: 2026-04-09
 time: "3:00 PM"
-timeZone: "EST"
+timeZone: "EDT"
 room: "301C"
 sessionUrl: "https://www.codestock.org/schedule"
 canonicalPath: "speaking-session"
