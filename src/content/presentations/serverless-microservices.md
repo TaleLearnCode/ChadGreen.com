@@ -15,7 +15,7 @@ tags:
   - "Microservices"
   - "Serverless"
 heroImage: "/images/presentations/serverless-microservices.webp"
-status: "active"
+status: "retired"
 featured: false
 resources:
   - type: "github"

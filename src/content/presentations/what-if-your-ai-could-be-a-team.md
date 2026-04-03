@@ -22,7 +22,8 @@ tags:
   - "developer-tools"
 heroImage: "/images/presentations/what-if-your-ai-could-be-a-team.webp"
 status: "active"
-featured: false
+featured: true
+validated: true
 resources:
   - type: "github"
     title: "what-if-your-ai-could-be-a-team (Public)"

@@ -13,7 +13,7 @@ tags:
   - "C#"
   - "Microsoft"
 heroImage: "/images/presentations/automation-azure-event-grid.webp"
-status: "active"
+status: "retired"
 featured: false
 
 learningObjectives:

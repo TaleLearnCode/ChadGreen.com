@@ -12,29 +12,35 @@ location:
 website: "https://www.codestock.org/"
 registrationUrl: "https://ti.to/codestock/codestock-2026"
 featured: false
-heroImage: "/images/events/codestock.webp"
+heroImage: "/images/events/codestock-2026.webp"
 presentations:
   - id: "messaging-patterns-cloud-architecture"
+    date: "April 10, 2026"
+    time: "10:15 AM"
+    timeZone: "EDT"
+    room: "301E"
   - id: "navigating-maze-architecture-decisions"
+    date: "April 9, 2026"
+    time: "3:00 PM"
+    timeZone: "EDT"
+    room: "301C"
 ---
 
 ## About CodeStock
 
-CodeStock is a two-day technology conference created to **Educate, Inspire, and Connect** the technology community. For 15 years, CodeStock has been serving the technology industry as a community-driven event—created by the community, for the community. This is not an industry trade show pushing the latest marketing buzz, but a gathering of working professionals sharing real knowledge and experience.
+CodeStock is a two-day event for technology and information exchange. CodeStock was created to **Educate**, **Inspire**, and **Connect** the technology community. Created by the community, for the community – this is not an industry trade show pushing the latest in marketing as technology, but a gathering of working professionals sharing knowledge and experience.
 
-Join over 100 sessions across two days, featuring presentations by attendees' peers, industry leaders, and first-time speakers. Every speaker is challenged to follow CodeStock's core motto in their presentations: to **Educate, Inspire, and Connect** the audience, adding as much value as possible in each 60-minute session.
-
-### Educate
-
-To educate is to teach, train, or inform. At CodeStock, you'll learn from experienced professionals sharing practical knowledge and real-world solutions to technology challenges.
-
-### Inspire
-
-Inspire means to excite, encourage, or breathe life into ideas. CodeStock sessions are designed to spark innovation and motivate you to grow both personally and professionally.
-
-### Connect
-
-Connecting with others fosters a sense of openness and availability. CodeStock brings together the developer community as a family learning together, growing together, connecting with old friends, and making new ones.
+> **Educate**
+>
+> To educate is to teach, train, or inform. At CodeStock, you'll learn from experienced professionals sharing practical knowledge and real-world solutions to technology challenges.
+>
+> **Inspire**
+>
+> Inspire means to excite, encourage, or breathe life into ideas. CodeStock sessions are designed to spark innovation and motivate you to grow both personally and professionally.
+>
+> **Connect**
+>
+> Connecting with others fosters a sense of openness and availability. CodeStock brings together the developer community as a family, learning, growing, connecting with old friends, and making new ones.
 
 ## Event Details
 

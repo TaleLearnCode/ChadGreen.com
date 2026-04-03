@@ -7,7 +7,7 @@ level: "intermediate"
 tags:
   - "C#"
   - ".NET"
-status: "active"
+status: "retired"
 featured: false
 resources:
   - type: "github"

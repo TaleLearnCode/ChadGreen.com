@@ -10,7 +10,7 @@ tags:
   - "Azure Functions"
   - "Cloud"
   - "Serverless"
-status: "active"
+status: "retired"
 featured: false
 resources:
   - type: "github"

@@ -12,7 +12,7 @@ location:
   country: "USA"
 website: "https://www.jasperengines.com/"
 featured: false
-heroImage: "/images/events/default-event.webp"
+heroImage: "/images/events/jasper.webp"
 presentations:
   - id: "technical-debt-is-not-free"
     date: "September 10, 2025"

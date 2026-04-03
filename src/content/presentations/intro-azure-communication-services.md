@@ -12,7 +12,7 @@ tags:
   - "Telephony"
   - "Video Calling"
   - "Voice"
-status: "active"
+status: "retired"
 featured: false
 resources:
   - type: "github"

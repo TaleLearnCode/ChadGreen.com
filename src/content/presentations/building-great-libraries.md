@@ -12,7 +12,7 @@ tags:
   - "Best Practices"
   - "Software Design"
 heroImage: "/images/presentations/building-great-libraries.webp"
-status: "active"
+status: "retired"
 featured: false
 
 learningObjectives:

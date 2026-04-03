@@ -6,7 +6,7 @@ type: "workshop"
 level: "advanced"
 durations: [420, 480, 540]
 tags: ["Serverless", "Cloud Architecture", "AWS", "Azure", "GCP", "Hands-On", "Best Practices", "Cloud Computing", "Architecture Patterns"]
-featured: true
+featured: false
 heroImage: "/images/presentations/advanced-serverless-workshop.webp"
 status: "active"
 

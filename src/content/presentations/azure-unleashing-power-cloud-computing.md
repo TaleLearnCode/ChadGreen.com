@@ -16,7 +16,7 @@ tags:
   - "Security"
   - "Microsoft Azure"
 heroImage: "/images/presentations/azure-unleashing-power-cloud-computing.webp"
-status: "active"
+status: "retired"
 featured: false
 
 learningObjectives:

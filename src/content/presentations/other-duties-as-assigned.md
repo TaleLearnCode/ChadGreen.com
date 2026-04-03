@@ -7,7 +7,7 @@ tags:
   - "Professional Development"
   - "Soft Skills"
 heroImage: "/images/presentations/other-duties-as-assigned.webp"
-status: "active"
+status: "in-development"
 featured: false
 resources:
   - type: "github"
