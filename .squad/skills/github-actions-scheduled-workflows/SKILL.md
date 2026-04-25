@@ -73,7 +73,7 @@ jobs:
 
 **File:** `.github/workflows/nightly-rebuild.yml`
 
-- **Schedule:** 2:00 AM UTC (avoids peak traffic, runs during night hours globally)
+- **Schedule:** 5:00 AM UTC (matches cron `0 5 * * *`; avoids peak traffic, runs during night hours globally)
 - **Build:** `npm run build` (Astro static generation, 1-2 min typical)
 - **Deploy:** Azure Static Web Apps deploy action (same token as primary workflow)
 - **No code changes:** Content visibility filtered at build time by date/status fields
