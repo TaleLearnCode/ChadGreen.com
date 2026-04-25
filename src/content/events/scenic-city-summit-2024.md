@@ -28,5 +28,5 @@ Scenic City Summit is a community-driven developer conference held in Chattanoog
 
 ## Event Details
 
-**Date:** June 28, 2024
+**Date:** June 28, 2024  
 **Location:** Chattanooga, Tennessee

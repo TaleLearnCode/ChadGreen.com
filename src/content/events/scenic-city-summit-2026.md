@@ -27,5 +27,5 @@ Scenic City Summit is where Chattanooga’s innovation engine meets the Southeas
 
 ## Event Details
 
-**Date:** June 4-5, 2026
+**Date:** June 4-5, 2026  
 **Location:** Chattanooga, Tennessee

@@ -28,5 +28,5 @@ Scenic City Summit is a developer conference held in Chattanooga, Tennessee. The
 
 ## Event Details
 
-**Date:** October 4, 2019
+**Date:** October 4, 2019  
 **Location:** Chattanooga, TN
