@@ -40,7 +40,7 @@ Personal portfolio and speaking engagement site for Chad Green. Showcases presen
 **Task:** Create automated nightly rebuild pipeline for static site refresh
 
 **Decision:** Implemented `.github/workflows/nightly-rebuild.yml` with:
-- **Schedule:** Cron `0 2 * * *` (2:00 AM UTC daily)
+- **Schedule:** Cron `0 5 * * *` (5:00 AM UTC daily)
 - **Trigger:** Both scheduled and manual (`workflow_dispatch`)
 - **Pipeline:** Checkout → Setup Node → Cache Playwright → Install browsers → Install deps → Build → Deploy to Azure Static Web Apps
 
