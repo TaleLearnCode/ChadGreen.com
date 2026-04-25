@@ -12,7 +12,8 @@ location:
   country: "USA"
 website: "https://sceniccitysummit.com/"
 featured: false
-heroImage: "/images/events/default-event.webp"
+validated: true
+heroImage: "/images/events/scenic-city-summit.webp"
 presentations:
   - id: "technical-debt-is-not-free"
     date: "July 22, 2022"
