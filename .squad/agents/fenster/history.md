@@ -32,3 +32,32 @@ Personal portfolio and speaking engagement site for Chad Green. Showcases presen
 - Monitor deployment pipeline
 - Check performance and caching
 - Coordinate with Hockney on pre-deployment verification
+
+## Learnings
+
+### Nightly Rebuild Workflow (Day 2)
+**Date:** 2026-03-27  
+**Task:** Create automated nightly rebuild pipeline for static site refresh
+
+**Decision:** Implemented `.github/workflows/nightly-rebuild.yml` with:
+- **Schedule:** Cron `0 2 * * *` (2:00 AM UTC daily)
+- **Trigger:** Both scheduled and manual (`workflow_dispatch`)
+- **Pipeline:** Checkout → Setup Node → Cache Playwright → Install browsers → Install deps → Build → Deploy to Azure Static Web Apps
+
+**Key Observations:**
+1. Reused existing `deploy-site.yml` structure but simplified (no PR logic, no close job)
+2. Secret `AZURE_STATIC_WEB_APPS_API_TOKEN_POLITE_DUNE_01D25BA0F` is the deployment token from original workflow
+3. Included Playwright browser caching for consistency with primary workflow
+4. Used `npm ci` instead of `npm install` for clean, reproducible builds in CI
+5. No git commit needed - workflow is pure deploy (dates/status fields filter content at build time)
+
+**Why This Works:**
+- Astro collections already have `status` and date filtering in templates (events/blog posts marked as "past" get filtered at build time)
+- Nightly rebuild ensures content visibility changes are reflected without code changes
+- Playwright cache keeps CI job times acceptable
+
+**Azure Static Web Apps Config:**
+- Build output: `dist/` (Astro default)
+- API location: `api/` (Azure Functions for contact endpoint)
+- App location: `.` (root)
+- No special environment variables needed; all content is markdown-based
