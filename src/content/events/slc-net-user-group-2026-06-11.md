@@ -2,7 +2,7 @@
 title: "SLC .NET User Group - June 2026"
 slug: "slc-net-user-group-2026-06-11"
 eventType: "meetup"
-description: "The Louisville .NET Meetup is a community group for .NET developers in Louisville, Kentucky, meeting regularly to discuss .NET technologies and software development best practices."
+description: "The SLC .NET User Group is the largest .NET community in Utah! They bring folks together to learn, socialize, and share passion for tech."
 startDate: 2026-06-11
 location:
   city: "Louisville"
@@ -12,14 +12,13 @@ website: "https://www.meetup.com/louisville-dotnet/"
 featured: false
 heroImage: "/images/events/slc_net_user_group.webp"
 presentations:
-  - id: "messaging-patterns-cloud-architecture"
-    date: "April 18, 2025"
-    time: "6:30 PM"
-    timeZone: "EDT"
-    room: "Conference Room"
+  - id: "what-if-your-ai-could-be-a-team"
+    date: "June 11, 2026"
+    time: "6:00 PM"
+    timeZone: "MDT"
 ---
 
-## About Louisville .NET Meetup
+## About SLC .NET User Group
 
 The SLC .NET User Group is the largest .NET community in Utah! They bring folks together to learn, socialize, and share passion for tech. Visit their website at https://slcnet.tech/.
 
