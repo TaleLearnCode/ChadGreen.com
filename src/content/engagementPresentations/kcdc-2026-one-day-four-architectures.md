@@ -24,7 +24,7 @@ Discover how to:
 
 - Implement Best Practices: Gain insights into design patterns, scalability, and maintainability.
 
-This workshop is perfect for developers and architects eager to broaden their horizons and make impactful architectural choices. By the end of the day, you'll have the confidence and expertise to select and implement exemplary architecture to elevate your projects
+This workshop is perfect for developers and architects eager to broaden their horizons and make impactful architectural choices. By the end of the day, you'll have the confidence and expertise to select and implement exemplary architecture to elevate your projects.
 
 ### Learning Objectives
 
