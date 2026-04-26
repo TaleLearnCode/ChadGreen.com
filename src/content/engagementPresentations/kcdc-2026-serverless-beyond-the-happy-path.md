@@ -11,7 +11,7 @@ canonicalPath: "speaking-session"
 
 Thanks for attending **Serverless Beyond the Happy Path: What Actually Happens in Production** at **KCDC 2026**!
 
-## Going Schema-less: How to migrate a relational database to a NoSQL database
+## Serverless Byeond the Happy Path: What Actually Happens in Production
 
 Most serverless talks end at the demo. This one starts where production begins.
 
