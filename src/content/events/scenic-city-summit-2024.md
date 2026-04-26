@@ -12,7 +12,8 @@ location:
   country: "USA"
 website: "https://sceniccitysummit.com/"
 featured: false
-heroImage: "/images/events/default-event.webp"
+validated: true
+heroImage: "/images/events/scenic-city-summit.webp"
 presentations:
   - id: "essential-software-design-patterns"
     date: "June 28, 2024"
@@ -27,5 +28,5 @@ Scenic City Summit is a community-driven developer conference held in Chattanoog
 
 ## Event Details
 
-**Date:** June 28, 2024
+**Date:** June 28, 2024  
 **Location:** Chattanooga, Tennessee
