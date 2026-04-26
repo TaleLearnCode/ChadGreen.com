@@ -1,15 +1,15 @@
 ---
-title: "Serverless Byeond the Happy Path: What Actually Happens in Production"
-description: "Session details and resources for KCDC 2026: Serverless Byeond the Happy Path: What Actually Happens in Production."
+title: "Serverless Beyond the Happy Path: What Actually Happens in Production"
+description: "Session details and resources for KCDC 2026: Serverless Beyond the Happy Path: What Actually Happens in Production."
 eventSlug: "kcdc-2026"
 presentationSlug: "serverless-beyond-the-happy-path"
 sessionSlug: "serverless-beyond-the-happy-path"
-sessionTitle: "Serverless Byeond the Happy Path: What Actually Happens in Production"
+sessionTitle: "Serverless Beyond the Happy Path: What Actually Happens in Production"
 timeZone: "CDT"
 canonicalPath: "speaking-session"
 ---
 
-Thanks for attending **Serverless Byeond the Happy Path: What Actually Happens in Production** at **KCDC 2026**!
+Thanks for attending **Serverless Beyond the Happy Path: What Actually Happens in Production** at **KCDC 2026**!
 
 ## Going Schema-less: How to migrate a relational database to a NoSQL database
 
