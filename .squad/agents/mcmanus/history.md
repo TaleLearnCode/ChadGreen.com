@@ -25,3 +25,7 @@ Personal portfolio and speaking engagement site for Chad Green, focused on prese
 - Start planning from upcoming speaking dates and newly published content.
 - Use channel-aware post formats and platform character constraints.
 - Keep calls to action clear and tied to event/session or content destination.
+
+## Recent Updates
+
+📌 Team update (2026-05-31T15:32:04.586-04:00): Social media plan batch started for May 31–June 6. Priority remains balanced coverage across events, blog/news, and announcements; channels stay X primary, LinkedIn for professional amplification, Bluesky for secondary reach, with YouTube/Twitch only when relevant.
