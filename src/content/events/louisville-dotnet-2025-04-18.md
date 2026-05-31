@@ -8,7 +8,7 @@ location:
   city: "Louisville"
   state: "Kentucky"
   country: "USA"
-website: "https://www.meetup.com/louisville-dotnet/"
+website: "https://www.meetup.com/louisville-dotnet/events/307268301"
 featured: false
 presentations:
   - id: "messaging-patterns-cloud-architecture"
