@@ -16,6 +16,7 @@
 | Dallas | Content Dev | ⚛️ Content structure, collections, markdown | Active |
 | Fenster | DevOps/Deploy | 🔧 Azure, CI/CD, builds | Active |
 | Hockney | QA | 🧪 Content quality, accuracy, links | Active |
+| McManus | Social Media Manager | 📣 Social strategy, cross-platform promotion, campaign planning | Active |
 | Scribe | Session Logger | 📋 Decisions, memory, logs | Active |
 | Ralph | Work Monitor | 🔄 Backlog, work queue | Active |
 
@@ -42,4 +43,4 @@
 7. authors — Author profiles
 8. siteData — Global site configuration
 
-**Current Capacity:** 4 agents + Scribe + Ralph = full team ready
+**Current Capacity:** 5 agents + Scribe + Ralph = full team ready

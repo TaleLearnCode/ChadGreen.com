@@ -8,12 +8,14 @@
 | Content creation & markdown | Dallas | Add presentations, events, blog posts, meetup info |
 | Deployment & builds | Fenster | Deploy to Azure, fix build failures, CI/CD |
 | Content QA & validation | Hockney | Review before merge, check links, validate schema |
+| Social promotion & campaigns | McManus | Build weekly plans for X, LinkedIn, Bluesky, YouTube, Twitch |
 | Session logging & decisions | Scribe | Automatic after work batches; never needs routing |
 | Backlog monitoring | Ralph | Track work queue, alert to blocked items |
 
 ## Anticipatory Routing
 
 - **Dallas content work** → automatically route to **Hockney** for QA review before merge
+- **Dallas content work** → automatically route to **McManus** for a promotion plan when publishable
 - **Any agent** → **Keaton** when major decisions or scope changes needed
 - **Fenster deployments** → **Hockney** for post-deployment verification
 
@@ -26,6 +28,7 @@
 | `squad:fenster` | Deployment, build, infrastructure | Fenster |
 | `squad:hockney` | Quality, testing, accuracy | Hockney |
 | `squad:keaton` | Scope, decisions, reviews | Keaton |
+| `squad:mcmanus` | Social plans, campaign sequencing, cross-platform messaging | McManus |
 
 ### How Issue Assignment Works
 
