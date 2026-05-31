@@ -46,5 +46,13 @@
     "created_at": "2026-03-26T20:21:44Z",
     "legacy_named": false,
     "status": "active"
+  },
+  {
+    "persistent_name": "McManus",
+    "universe": "heist-film",
+    "role": "Social Media Manager",
+    "created_at": "2026-05-31T12:40:04.420-04:00",
+    "legacy_named": false,
+    "status": "active"
   }
 ]
