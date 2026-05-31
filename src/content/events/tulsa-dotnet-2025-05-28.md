@@ -8,7 +8,7 @@ location:
   city: "Tulsa"
   state: "Oklahoma"
   country: "USA"
-website: "https://www.meetup.com/TulsaDevelopers-net/"
+website: "https://www.meetup.com/tulsadevelopers-net/events/308068892"
 featured: false
 presentations:
   - id: "messaging-patterns-cloud-architecture"

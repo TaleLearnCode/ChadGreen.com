@@ -10,7 +10,7 @@ location:
   city: "Columbus"
   state: "Ohio"
   country: "USA"
-website: "https://stirtrek.com/"
+website: "https://stirtrek.com/speakers/2025/Chad-Green.html"
 featured: false
 heroImage: "/images/events/default-event.webp"
 presentations:
