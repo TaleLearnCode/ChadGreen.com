@@ -27,6 +27,20 @@
 
 ---
 
+## Website Fix Batch (2026-05-31)
+
+### Canonical Social Link Source
+**By:** Keaton, Hockney  
+**What:** Use `src/content/authors/chad-green.md` as the canonical source for Chad's social links. Mirror the LinkedIn URL everywhere it appears as `https://www.linkedin.com/in/chadwickgreen/`.
+**Why:** Keeps footer, about/contact surfaces, and author metadata aligned so the profile URL does not drift across pages.
+
+### Contact Form Behavior
+**By:** Fenster  
+**What:** Keep the contact form as a client-side `fetch('/api/contact')` flow with inline success/error messaging.
+**Why:** Preserves the static-site UX while Fenster verifies runtime and deployment behavior around the Azure Functions endpoint.
+
+---
+
 ## Repository Consolidation Strategy (2026-03-26)
 
 ### Decision: Revise 79-Repo Decomposition
