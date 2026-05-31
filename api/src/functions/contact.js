@@ -143,12 +143,24 @@ app.http('contact', {
                 context.log('ACS not configured - logging form submission');
                 context.log('Form data:', JSON.stringify(data, null, 2));
                 
-                // In development, just log and return success
+                // In development, just log and return success.
+                // Production still needs the Azure Communication Services settings configured.
                 return {
                     status: 200,
                     jsonBody: { 
                         success: true, 
                         message: 'Form submitted successfully (development mode)' 
+                    }
+                };
+            }
+
+            if (!senderEmail || !recipientEmail) {
+                context.error('ACS configured but sender/recipient email is missing');
+                return {
+                    status: 500,
+                    jsonBody: {
+                        success: false,
+                        error: 'Contact form is not configured on the server.'
                     }
                 };
             }

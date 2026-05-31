@@ -556,6 +556,21 @@
         feedback: 'Feedback / Testimonial',
     };
 
+    function setTypeFieldsEnabled(activeType: string | null) {
+        document.querySelectorAll('.type-fields').forEach((section) => {
+            const isActive = activeType ? section.id === `fields-${activeType}` : false;
+            section.querySelectorAll('input, textarea, select').forEach((field) => {
+                const control = field as HTMLInputElement;
+                control.disabled = !isActive;
+                if (!isActive && control.type !== 'hidden') {
+                    control.required = false;
+                }
+            });
+        });
+    }
+
+    setTypeFieldsEnabled(null);
+
     // Inquiry type selection
     document.querySelectorAll('.inquiry-type-btn').forEach((btn) => {
         btn.addEventListener('click', () => {
@@ -575,6 +590,7 @@
                 (el as HTMLElement).style.display = 'none';
             });
             const fieldsEl = document.getElementById(`fields-${type}`);
+            setTypeFieldsEnabled(type);
             if (fieldsEl) fieldsEl.style.display = 'block';
 
             // Update required fields
@@ -608,6 +624,7 @@
         contactForm!.style.display = 'none';
         inquirySelector!.style.display = 'block';
         formStatus!.style.display = 'none';
+        setTypeFieldsEnabled(null);
     });
 
     // Reset button
@@ -615,6 +632,7 @@
         successMessage!.style.display = 'none';
         inquirySelector!.style.display = 'block';
         contactForm!.reset();
+        setTypeFieldsEnabled(null);
     });
 
     // Form submission

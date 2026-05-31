@@ -5,6 +5,6 @@ bio: "Speaker, community leader, and software developer passionate about cloud t
 avatar: "/images/profile/chad-green.svg"
 social:
   twitter: "https://twitter.com/chadgreen"
-  linkedin: "https://linkedin.com/in/chadgreen"
+  linkedin: "https://www.linkedin.com/in/chadwickgreen/"
   github: "https://github.com/chadgreen"
 ---

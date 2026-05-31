@@ -2,7 +2,7 @@
   "name": "api",
   "version": "1.0.0",
   "description": "Azure Functions API for Chad Green Website",
-  "main": "src/functions/*.js",
+  "main": "src/functions/index.js",
   "scripts": {
     "start": "func start",
     "test": "echo \"No tests configured\""
