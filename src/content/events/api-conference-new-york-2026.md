@@ -12,14 +12,19 @@ location:
   country: "USA"
 website: "https://apiconference.net/new-york/"
 featured: false
+heroImage: "/images/events/api-conference.webp"
 presentations:
   - id: "contract-first-apis-age-ai-agents"
     sessionName: "Contract-First APIs in the Age of AI Agents"
     sessionUrl: "https://apiconference.net/api-design/contract-first-apis-age-ai-agents/"
+    date: "September 29, 2026"
+    time: "5:15 PM"
     timeZone: "EDT"
   - id: "future-api-documentation"
     sessionName: "Future API Documentation"
     sessionUrl: "https://apiconference.net/api-development/future-api-documentation/"
+    date: "September 29, 2026"
+    time: "11:30 AM"
     timeZone: "EDT"
 ---
 

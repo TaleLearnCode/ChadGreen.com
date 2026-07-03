@@ -12,7 +12,8 @@ location:
   country: "USA"
 website: "https://apiconference.net/new-york/"
 featured: false
-heroImage: "/images/events/default-event.webp"
+validated: true
+heroImage: "/images/events/api-conference.webp"
 presentations:
   - id: "building-resilient-scalable-apis-azure"
     date: "September 29, 2025"

@@ -12,7 +12,8 @@ location:
   country: "Germany"
 website: "https://apiconference.net/berlin/"
 featured: false
-heroImage: "/images/events/default-event.webp"
+validated: true
+heroImage: "/images/events/api-conference.webp"
 presentations:
   - id: "code-connect-conquer"
     date: "October 23, 2024"
