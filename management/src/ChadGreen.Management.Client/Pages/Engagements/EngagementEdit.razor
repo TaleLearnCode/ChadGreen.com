@@ -1,0 +1,567 @@
+@page "/engagements/new"
+@page "/engagements/{Slug}"
+@implements IDisposable
+@using System.Globalization
+@inject ManagementApiHttpClient ApiClient
+@inject NavigationManager Navigation
+@inject IJSRuntime JS
+
+<PageTitle>@(_isNew ? "New Engagement" : $"Edit {_model.Title}")</PageTitle>
+
+<h1>@(_isNew ? "New Speaking Engagement" : "Edit Speaking Engagement")</h1>
+
+<NavigationLock ConfirmExternalNavigation="_hasUnsavedChanges" OnBeforeInternalNavigation="ConfirmInternalNavigationAsync" />
+
+<div class="mb-3 d-flex gap-2">
+    <button class="btn btn-outline-secondary" @onclick="@(() => Navigation.NavigateTo("/engagements"))">Back to List</button>
+    @if (!_isNew)
+    {
+        <button class="btn btn-outline-danger" @onclick="ArchiveAsync">Archive</button>
+    }
+</div>
+
+@if (!string.IsNullOrWhiteSpace(_message))
+{
+    <div class="alert @(_isError ? "alert-danger" : "alert-success")">@_message</div>
+}
+
+@if (_isLoading)
+{
+    <p>Loading engagement...</p>
+}
+else
+{
+    <EditForm EditContext="_editContext" OnValidSubmit="SaveAsync">
+        <div class="row g-3">
+            <div class="col-md-8">
+                <label class="form-label">Title</label>
+                <InputText class="form-control" @bind-Value="_model.Title" />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Slug</label>
+                <InputText class="form-control" @bind-Value="_model.Slug" />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Event Type</label>
+                <InputSelect class="form-select" @bind-Value="_model.EventType">
+                    <option value="conference">conference</option>
+                    <option value="meetup">meetup</option>
+                    <option value="webinar">webinar</option>
+                    <option value="podcast">podcast</option>
+                    <option value="workshop">workshop</option>
+                    <option value="user-group">user-group</option>
+                    <option value="corporate">corporate</option>
+                    <option value="other">other</option>
+                </InputSelect>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Start Date</label>
+                <InputDate class="form-control" @bind-Value="_model.StartDate" />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">End Date</label>
+                <InputDate class="form-control" @bind-Value="_model.EndDate" />
+            </div>
+            <div class="col-12">
+                <label class="form-label">Description</label>
+                <InputTextArea class="form-control" rows="3" @bind-Value="_model.Description" />
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Venue</label>
+                <InputText class="form-control" @bind-Value="_model.Venue" />
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">City</label>
+                <InputText class="form-control" @bind-Value="_model.City" />
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">State</label>
+                <InputText class="form-control" @bind-Value="_model.State" />
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Country</label>
+                <InputText class="form-control" @bind-Value="_model.Country" />
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Website</label>
+                <InputText class="form-control" @bind-Value="_model.Website" />
+            </div>
+            <div class="col-md-6">
+                <MediaPickerField Label="Hero Image" PreviewAlt="Hero image preview" @bind-Value="_model.HeroImage" />
+            </div>
+            <div class="col-md-3 d-flex align-items-end">
+                <div class="form-check">
+                    <InputCheckbox class="form-check-input" @bind-Value="_model.Featured" />
+                    <label class="form-check-label">Featured</label>
+                </div>
+            </div>
+            <div class="col-md-3 d-flex align-items-end">
+                <div class="form-check">
+                    <InputCheckbox class="form-check-input" @bind-Value="_model.Validated" />
+                    <label class="form-check-label">Validated</label>
+                </div>
+            </div>
+            <div class="col-12">
+                <label class="form-label">Presentations</label>
+                <div class="d-flex gap-2 mb-2">
+                    <select class="form-select" @bind="_selectedPresentationSlug">
+                        <option value="">Select presentation</option>
+                        @foreach (var option in _presentationOptions)
+                        {
+                            <option value="@option.Slug">@option.Title (@option.Status)</option>
+                        }
+                    </select>
+                    <button type="button" class="btn btn-outline-secondary" @onclick="AddPresentation">Add</button>
+                </div>
+
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>Order</th>
+                            <th>Presentation</th>
+                            <th>Session Name</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Time Zone</th>
+                            <th>Room</th>
+                            <th>Session URL</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var assignment in _model.Assignments.OrderBy(item => item.DisplayOrder).ToList())
+                        {
+                            <tr>
+                                <td>
+                                    <div class="btn-group-vertical">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary" @onclick="() => MoveAssignment(assignment, -1)">↑</button>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary" @onclick="() => MoveAssignment(assignment, 1)">↓</button>
+                                    </div>
+                                </td>
+                                <td>@assignment.Id</td>
+                                <td><InputText class="form-control form-control-sm" @bind-Value="assignment.SessionName" /></td>
+                                <td><InputDate class="form-control form-control-sm" @bind-Value="assignment.PresentationDate" /></td>
+                                <td><InputText class="form-control form-control-sm" @bind-Value="assignment.Time" /></td>
+                                <td><InputText class="form-control form-control-sm" @bind-Value="assignment.TimeZone" /></td>
+                                <td><InputText class="form-control form-control-sm" @bind-Value="assignment.Room" /></td>
+                                <td><InputText class="form-control form-control-sm" @bind-Value="assignment.SessionUrl" /></td>
+                                <td><button type="button" class="btn btn-sm btn-outline-danger" @onclick="() => RemoveAssignment(assignment)">Remove</button></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-12">
+                <label class="form-label">Markdown Body</label>
+                <InputTextArea class="form-control" rows="16" @bind-Value="_model.MarkdownBody" />
+            </div>
+        </div>
+
+        <div class="mt-4 d-flex gap-2">
+            <button type="submit" class="btn btn-primary" disabled="@_isSaving">Save</button>
+            <button type="button" class="btn btn-outline-primary" @onclick="SaveAndCommitAsync" disabled="@_isSaving || !_gitCommitAvailable">Save + Commit</button>
+            @if (!string.IsNullOrWhiteSpace(_message) && !_isError)
+            {
+                <span class="text-success align-self-center">@_message</span>
+            }
+        </div>
+    </EditForm>
+
+    <div class="card mt-3">
+        <div class="card-body">
+            <h2 class="h5">Commit Details</h2>
+            <div class="row g-2">
+                <div class="col-md-3">
+                    <label class="form-label">Type</label>
+                    <InputSelect class="form-select" @bind-Value="_commit.Type">
+                        <option value="@ConventionalCommitType.Feat">feat</option>
+                        <option value="@ConventionalCommitType.Fix">fix</option>
+                        <option value="@ConventionalCommitType.Docs">docs</option>
+                        <option value="@ConventionalCommitType.Refactor">refactor</option>
+                        <option value="@ConventionalCommitType.Chore">chore</option>
+                    </InputSelect>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Scope</label>
+                    <InputText class="form-control" @bind-Value="_commit.Scope" />
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Description</label>
+                    <InputText class="form-control" @bind-Value="_commit.Description" />
+                </div>
+                <div class="col-12">
+                    <label class="form-label">Body (optional)</label>
+                    <InputTextArea class="form-control" rows="3" @bind-Value="_commit.Body" />
+                </div>
+            </div>
+            @if (!_gitCommitAvailable)
+            {
+                <p class="text-muted mb-0 mt-2">Save + Commit is unavailable (git integration disabled or unavailable).</p>
+            }
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter] public string? Slug { get; set; }
+
+    private readonly EngagementEditModel _model = new();
+    private readonly EditContext _editContext;
+    private readonly CommitDraft _commit = new() { Type = ConventionalCommitType.Chore, Scope = "speaking" };
+    private bool _isNew => string.IsNullOrWhiteSpace(Slug);
+    private bool _isLoading = true;
+    private bool _isSaving;
+    private bool _gitCommitAvailable;
+    private bool _hasUnsavedChanges;
+    private string? _message;
+    private bool _isError;
+    private DateTimeOffset? _expectedLastModifiedUtc;
+    private List<PresentationOptionDto> _presentationOptions = [];
+    private string? _selectedPresentationSlug;
+    private string? HeroImagePreviewUrl => HeroImagePreviewResolver.Resolve(_model.HeroImage);
+
+    public EngagementEdit()
+    {
+        _editContext = new EditContext(_model);
+        _editContext.OnFieldChanged += HandleFieldChanged;
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        _isLoading = true;
+        _message = null;
+        _isError = false;
+
+        try
+        {
+            await LoadGitCapabilityAsync();
+            _presentationOptions = (await ApiClient.GetPresentationOptionsAsync()).ToList();
+
+            if (_isNew)
+            {
+                ResetDefaults();
+                _hasUnsavedChanges = false;
+            }
+            else
+            {
+                var detail = await ApiClient.GetEngagementAsync(Slug!);
+                if (detail is null)
+                {
+                    _isError = true;
+                    _message = "Engagement not found.";
+                    return;
+                }
+
+                MapFromDetail(detail);
+                _hasUnsavedChanges = false;
+            }
+        }
+        catch (Exception exception)
+        {
+            _isError = true;
+            _message = exception.Message;
+        }
+        finally
+        {
+            _isLoading = false;
+        }
+    }
+
+    private async Task SaveAsync()
+    {
+        await SaveInternalAsync(false);
+    }
+
+    private async Task SaveAndCommitAsync()
+    {
+        await SaveInternalAsync(true);
+    }
+
+    private async Task SaveInternalAsync(bool commitAfterSave)
+    {
+        _isSaving = true;
+        _message = null;
+        _isError = false;
+
+        try
+        {
+            NormalizeAssignmentOrder();
+
+            var request = new EngagementUpsertRequest(
+                _model.Title.Trim(),
+                string.IsNullOrWhiteSpace(_model.Slug) ? null : _model.Slug.Trim(),
+                _model.EventType,
+                string.IsNullOrWhiteSpace(_model.Description) ? null : _model.Description.Trim(),
+                _model.StartDate,
+                _model.EndDate,
+                new EngagementLocationDto(
+                    string.IsNullOrWhiteSpace(_model.Venue) ? null : _model.Venue.Trim(),
+                    _model.City.Trim(),
+                    string.IsNullOrWhiteSpace(_model.State) ? null : _model.State.Trim(),
+                    _model.Country.Trim()),
+                string.IsNullOrWhiteSpace(_model.Website) ? null : _model.Website.Trim(),
+                _model.Featured,
+                _model.Validated,
+                string.IsNullOrWhiteSpace(_model.HeroImage) ? null : _model.HeroImage.Trim(),
+                _model.Assignments
+                    .OrderBy(item => item.DisplayOrder)
+                    .Select((item, index) => new EngagementPresentationAssignmentDto(
+                        item.Id,
+                        index,
+                        string.IsNullOrWhiteSpace(item.SessionName) ? null : item.SessionName.Trim(),
+                        item.PresentationDate?.ToString("MMMM d, yyyy", CultureInfo.InvariantCulture),
+                        string.IsNullOrWhiteSpace(item.Time) ? null : item.Time.Trim(),
+                        string.IsNullOrWhiteSpace(item.TimeZone) ? null : item.TimeZone.Trim(),
+                        string.IsNullOrWhiteSpace(item.Room) ? null : item.Room.Trim(),
+                        string.IsNullOrWhiteSpace(item.SessionUrl) ? null : item.SessionUrl.Trim()))
+                    .ToList(),
+                _model.MarkdownBody ?? string.Empty,
+                _isNew ? null : _expectedLastModifiedUtc);
+
+            var detail = _isNew
+                ? await ApiClient.CreateEngagementAsync(request)
+                : await ApiClient.UpdateEngagementAsync(Slug!, request);
+
+            MapFromDetail(detail);
+            if (_isNew)
+            {
+                Slug = detail.Slug;
+                _hasUnsavedChanges = false;
+                Navigation.NavigateTo($"/engagements/{detail.Slug}", forceLoad: false);
+            }
+
+            _message = $"Saved '{detail.Title}'.";
+            _hasUnsavedChanges = false;
+
+            if (commitAfterSave)
+            {
+                var commitRequest = new CommitRequest(
+                    _commit.Type,
+                    string.IsNullOrWhiteSpace(_commit.Description) ? $"update engagement {_model.Slug}" : _commit.Description.Trim(),
+                    string.IsNullOrWhiteSpace(_commit.Scope) ? null : _commit.Scope.Trim(),
+                    string.IsNullOrWhiteSpace(_commit.Body) ? null : _commit.Body.Trim(),
+                    IncludeAllChanges: true);
+
+                var commitResponse = await ApiClient.CommitAsync(commitRequest);
+                _message = $"{_message} Commit: {commitResponse.CommitSha ?? "(no sha)"}";
+            }
+        }
+        catch (Exception exception)
+        {
+            _isError = true;
+            _message = exception.Message;
+        }
+        finally
+        {
+            _isSaving = false;
+        }
+    }
+
+    private async Task ArchiveAsync()
+    {
+        if (_isNew)
+        {
+            return;
+        }
+
+        if (!await JS.InvokeAsync<bool>("confirm", $"Archive '{_model.Title}'?"))
+        {
+            return;
+        }
+
+        try
+        {
+            await ApiClient.ArchiveEngagementAsync(Slug!);
+            _hasUnsavedChanges = false;
+            Navigation.NavigateTo("/engagements");
+        }
+        catch (Exception exception)
+        {
+            _isError = true;
+            _message = exception.Message;
+        }
+    }
+
+    private async Task LoadGitCapabilityAsync()
+    {
+        var capability = await ApiClient.GetGitCapabilityAsync();
+        _gitCommitAvailable = capability?.Enabled == true && capability.IsRepository && capability.GitCliAvailable;
+    }
+
+    private void AddPresentation()
+    {
+        if (string.IsNullOrWhiteSpace(_selectedPresentationSlug))
+        {
+            return;
+        }
+
+        if (_model.Assignments.Any(item => item.Id == _selectedPresentationSlug))
+        {
+            _message = $"Presentation '{_selectedPresentationSlug}' is already assigned.";
+            _isError = true;
+            return;
+        }
+
+        _model.Assignments.Add(new AssignmentEditModel
+        {
+            Id = _selectedPresentationSlug,
+            DisplayOrder = _model.Assignments.Count
+        });
+        _hasUnsavedChanges = true;
+        _selectedPresentationSlug = null;
+    }
+
+    private void RemoveAssignment(AssignmentEditModel assignment)
+    {
+        _model.Assignments.Remove(assignment);
+        NormalizeAssignmentOrder();
+        _hasUnsavedChanges = true;
+    }
+
+    private void MoveAssignment(AssignmentEditModel assignment, int delta)
+    {
+        NormalizeAssignmentOrder();
+        var index = _model.Assignments.FindIndex(item => item.Id == assignment.Id && item.DisplayOrder == assignment.DisplayOrder);
+        if (index < 0)
+        {
+            return;
+        }
+
+        var nextIndex = index + delta;
+        if (nextIndex < 0 || nextIndex >= _model.Assignments.Count)
+        {
+            return;
+        }
+
+        (_model.Assignments[index], _model.Assignments[nextIndex]) = (_model.Assignments[nextIndex], _model.Assignments[index]);
+        NormalizeAssignmentOrder();
+        _hasUnsavedChanges = true;
+    }
+
+    private void NormalizeAssignmentOrder()
+    {
+        for (var i = 0; i < _model.Assignments.Count; i++)
+        {
+            _model.Assignments[i].DisplayOrder = i;
+        }
+    }
+
+    private void MapFromDetail(EngagementDetailDto detail)
+    {
+        _model.Title = detail.Title;
+        _model.Slug = detail.Slug;
+        _model.EventType = detail.EventType;
+        _model.Description = detail.Description ?? string.Empty;
+        _model.StartDate = detail.StartDate;
+        _model.EndDate = detail.EndDate;
+        _model.Venue = detail.Location.Venue ?? string.Empty;
+        _model.City = detail.Location.City;
+        _model.State = detail.Location.State ?? string.Empty;
+        _model.Country = detail.Location.Country;
+        _model.Website = detail.Website ?? string.Empty;
+        _model.HeroImage = detail.HeroImage ?? string.Empty;
+        _model.Featured = detail.Featured;
+        _model.Validated = detail.Validated;
+        _model.MarkdownBody = detail.MarkdownBody;
+        _expectedLastModifiedUtc = detail.LastModifiedUtc;
+        _model.Assignments.Clear();
+        _model.Assignments.AddRange(detail.Presentations
+            .OrderBy(item => item.DisplayOrder)
+            .Select(item => new AssignmentEditModel
+            {
+                Id = item.Id,
+                DisplayOrder = item.DisplayOrder,
+                SessionName = item.SessionName ?? string.Empty,
+                PresentationDate = DateOnly.TryParse(item.Date, out var parsedDate) ? parsedDate : null,
+                Time = item.Time ?? string.Empty,
+                TimeZone = item.TimeZone ?? string.Empty,
+                Room = item.Room ?? string.Empty,
+                SessionUrl = item.SessionUrl ?? string.Empty
+            }));
+        NormalizeAssignmentOrder();
+        _commit.Description = $"update engagement {detail.Slug}";
+    }
+
+    private void ResetDefaults()
+    {
+        _model.Title = string.Empty;
+        _model.Slug = string.Empty;
+        _model.EventType = "conference";
+        _model.Description = string.Empty;
+        _model.StartDate = DateOnly.FromDateTime(DateTime.Today);
+        _model.EndDate = DateOnly.FromDateTime(DateTime.Today);
+        _model.Venue = string.Empty;
+        _model.City = string.Empty;
+        _model.State = string.Empty;
+        _model.Country = "USA";
+        _model.Website = string.Empty;
+        _model.HeroImage = string.Empty;
+        _model.Featured = false;
+        _model.Validated = false;
+        _model.MarkdownBody = string.Empty;
+        _expectedLastModifiedUtc = null;
+        _model.Assignments.Clear();
+        _commit.Description = "add engagement";
+    }
+
+    private sealed class EngagementEditModel
+    {
+        public string Title { get; set; } = string.Empty;
+        public string Slug { get; set; } = string.Empty;
+        public string EventType { get; set; } = "conference";
+        public string Description { get; set; } = string.Empty;
+        public DateOnly StartDate { get; set; } = DateOnly.FromDateTime(DateTime.Today);
+        public DateOnly? EndDate { get; set; } = DateOnly.FromDateTime(DateTime.Today);
+        public string Venue { get; set; } = string.Empty;
+        public string City { get; set; } = string.Empty;
+        public string State { get; set; } = string.Empty;
+        public string Country { get; set; } = "USA";
+        public string Website { get; set; } = string.Empty;
+        public string HeroImage { get; set; } = string.Empty;
+        public bool Featured { get; set; }
+        public bool Validated { get; set; }
+        public string MarkdownBody { get; set; } = string.Empty;
+        public List<AssignmentEditModel> Assignments { get; set; } = [];
+    }
+
+    private sealed class AssignmentEditModel
+    {
+        public string Id { get; set; } = string.Empty;
+        public int DisplayOrder { get; set; }
+        public string SessionName { get; set; } = string.Empty;
+        public DateOnly? PresentationDate { get; set; }
+        public string Time { get; set; } = string.Empty;
+        public string TimeZone { get; set; } = string.Empty;
+        public string Room { get; set; } = string.Empty;
+        public string SessionUrl { get; set; } = string.Empty;
+    }
+
+    private async Task ConfirmInternalNavigationAsync(LocationChangingContext context)
+    {
+        if (!_hasUnsavedChanges)
+        {
+            return;
+        }
+
+        var shouldLeave = await JS.InvokeAsync<bool>("confirm", "You have unsaved changes. Leave without saving?");
+        if (!shouldLeave)
+        {
+            context.PreventNavigation();
+        }
+    }
+
+    private void HandleFieldChanged(object? sender, FieldChangedEventArgs e) => _hasUnsavedChanges = true;
+
+    public void Dispose()
+    {
+        _editContext.OnFieldChanged -= HandleFieldChanged;
+    }
+
+    private sealed class CommitDraft
+    {
+        public ConventionalCommitType Type { get; set; } = ConventionalCommitType.Chore;
+        public string? Scope { get; set; }
+        public string Description { get; set; } = string.Empty;
+        public string? Body { get; set; }
+    }
+}

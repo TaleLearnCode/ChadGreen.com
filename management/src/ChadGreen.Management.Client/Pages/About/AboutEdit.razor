@@ -1,0 +1,298 @@
+@page "/about-profile"
+@implements IDisposable
+@inject ManagementApiHttpClient ApiClient
+@inject IJSRuntime JS
+
+<PageTitle>Edit About Profile</PageTitle>
+
+<h1>Edit About Profile</h1>
+
+<NavigationLock ConfirmExternalNavigation="_hasUnsavedChanges" OnBeforeInternalNavigation="ConfirmInternalNavigationAsync" />
+
+@if (!string.IsNullOrWhiteSpace(_message))
+{
+    <div class="alert @(_isError ? "alert-danger" : "alert-success")">@_message</div>
+}
+
+@if (_isLoading)
+{
+    <p>Loading profile...</p>
+}
+else
+{
+    <EditForm EditContext="_editContext" OnValidSubmit="SaveAsync">
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label class="form-label">Name</label>
+                <InputText class="form-control" @bind-Value="_model.Name" />
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Email</label>
+                <InputText class="form-control" @bind-Value="_model.Email" />
+            </div>
+            <div class="col-12">
+                <label class="form-label">Tagline</label>
+                <InputText class="form-control" @bind-Value="_model.Tagline" />
+            </div>
+            <div class="col-md-6">
+                <MediaPickerField Label="Avatar" PreviewAlt="Avatar preview" @bind-Value="_model.Avatar" />
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Short Bio</label>
+                <InputTextArea class="form-control" rows="3" @bind-Value="_model.ShortBio" />
+            </div>
+            <div class="col-12">
+                <label class="form-label">Bio</label>
+                <InputTextArea class="form-control" rows="6" @bind-Value="_model.Bio" />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Twitter</label>
+                <InputText class="form-control" @bind-Value="_model.SocialTwitter" />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">LinkedIn</label>
+                <InputText class="form-control" @bind-Value="_model.SocialLinkedin" />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">GitHub</label>
+                <InputText class="form-control" @bind-Value="_model.SocialGithub" />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">YouTube</label>
+                <InputText class="form-control" @bind-Value="_model.SocialYoutube" />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Website</label>
+                <InputText class="form-control" @bind-Value="_model.SocialWebsite" />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Sessionize</label>
+                <InputText class="form-control" @bind-Value="_model.SocialSessionize" />
+            </div>
+            <div class="col-12">
+                <label class="form-label">Markdown Body</label>
+                <InputTextArea class="form-control" rows="16" @bind-Value="_model.MarkdownBody" />
+            </div>
+        </div>
+
+        <div class="mt-4 d-flex gap-2">
+            <button type="submit" class="btn btn-primary" disabled="@_isSaving">Save</button>
+            <button type="button" class="btn btn-outline-primary" @onclick="SaveAndCommitAsync" disabled="@_isSaving || !_gitCommitAvailable">Save + Commit</button>
+        </div>
+    </EditForm>
+
+    <div class="card mt-3">
+        <div class="card-body">
+            <h2 class="h5">Commit Details</h2>
+            <div class="row g-2">
+                <div class="col-md-3">
+                    <label class="form-label">Type</label>
+                    <InputSelect class="form-select" @bind-Value="_commit.Type">
+                        <option value="@ConventionalCommitType.Feat">feat</option>
+                        <option value="@ConventionalCommitType.Fix">fix</option>
+                        <option value="@ConventionalCommitType.Docs">docs</option>
+                        <option value="@ConventionalCommitType.Refactor">refactor</option>
+                        <option value="@ConventionalCommitType.Chore">chore</option>
+                    </InputSelect>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Scope</label>
+                    <InputText class="form-control" @bind-Value="_commit.Scope" />
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Description</label>
+                    <InputText class="form-control" @bind-Value="_commit.Description" />
+                </div>
+                <div class="col-12">
+                    <label class="form-label">Body (optional)</label>
+                    <InputTextArea class="form-control" rows="3" @bind-Value="_commit.Body" />
+                </div>
+            </div>
+            @if (!_gitCommitAvailable)
+            {
+                <p class="text-muted mb-0 mt-2">Save + Commit is unavailable (git integration disabled or unavailable).</p>
+            }
+        </div>
+    </div>
+}
+
+@code {
+    private readonly AboutEditModel _model = new();
+    private readonly EditContext _editContext;
+    private readonly CommitDraft _commit = new() { Type = ConventionalCommitType.Chore, Scope = "about" };
+    private bool _isLoading = true;
+    private bool _isSaving;
+    private bool _gitCommitAvailable;
+    private bool _hasUnsavedChanges;
+    private string? _message;
+    private bool _isError;
+    private DateTimeOffset? _expectedLastModifiedUtc;
+    private string? AvatarPreviewUrl => HeroImagePreviewResolver.Resolve(_model.Avatar);
+
+    public AboutEdit()
+    {
+        _editContext = new EditContext(_model);
+        _editContext.OnFieldChanged += HandleFieldChanged;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        _isLoading = true;
+        _message = null;
+        _isError = false;
+
+        try
+        {
+            await LoadGitCapabilityAsync();
+            var detail = await ApiClient.GetAboutProfileAsync();
+            if (detail is null)
+            {
+                _isError = true;
+                _message = "About profile could not be loaded.";
+                return;
+            }
+
+            MapFromDetail(detail);
+            _hasUnsavedChanges = false;
+        }
+        catch (Exception exception)
+        {
+            _isError = true;
+            _message = exception.Message;
+        }
+        finally
+        {
+            _isLoading = false;
+        }
+    }
+
+    private async Task SaveAsync() => await SaveInternalAsync(commitAfterSave: false);
+
+    private async Task SaveAndCommitAsync() => await SaveInternalAsync(commitAfterSave: true);
+
+    private async Task SaveInternalAsync(bool commitAfterSave)
+    {
+        _isSaving = true;
+        _message = null;
+        _isError = false;
+
+        try
+        {
+            var social = new AboutSocialDto(
+                string.IsNullOrWhiteSpace(_model.SocialTwitter) ? null : _model.SocialTwitter.Trim(),
+                string.IsNullOrWhiteSpace(_model.SocialLinkedin) ? null : _model.SocialLinkedin.Trim(),
+                string.IsNullOrWhiteSpace(_model.SocialGithub) ? null : _model.SocialGithub.Trim(),
+                string.IsNullOrWhiteSpace(_model.SocialYoutube) ? null : _model.SocialYoutube.Trim(),
+                string.IsNullOrWhiteSpace(_model.SocialWebsite) ? null : _model.SocialWebsite.Trim(),
+                string.IsNullOrWhiteSpace(_model.SocialSessionize) ? null : _model.SocialSessionize.Trim());
+
+            var request = new AboutProfileUpsertRequest(
+                _model.Name.Trim(),
+                string.IsNullOrWhiteSpace(_model.Tagline) ? null : _model.Tagline.Trim(),
+                string.IsNullOrWhiteSpace(_model.Bio) ? null : _model.Bio.Trim(),
+                string.IsNullOrWhiteSpace(_model.ShortBio) ? null : _model.ShortBio.Trim(),
+                string.IsNullOrWhiteSpace(_model.Avatar) ? null : _model.Avatar.Trim(),
+                string.IsNullOrWhiteSpace(_model.Email) ? null : _model.Email.Trim(),
+                social,
+                _model.MarkdownBody ?? string.Empty,
+                _expectedLastModifiedUtc);
+
+            var detail = await ApiClient.UpdateAboutProfileAsync(request);
+            MapFromDetail(detail);
+            _message = $"Saved '{detail.Name}'.";
+            _hasUnsavedChanges = false;
+
+            if (commitAfterSave)
+            {
+                var commitRequest = new CommitRequest(
+                    _commit.Type,
+                    string.IsNullOrWhiteSpace(_commit.Description) ? "update about profile" : _commit.Description.Trim(),
+                    string.IsNullOrWhiteSpace(_commit.Scope) ? null : _commit.Scope.Trim(),
+                    string.IsNullOrWhiteSpace(_commit.Body) ? null : _commit.Body.Trim(),
+                    IncludeAllChanges: true);
+                var commitResponse = await ApiClient.CommitAsync(commitRequest);
+                _message = $"{_message} Commit: {commitResponse.CommitSha ?? "(no sha)"}";
+            }
+        }
+        catch (Exception exception)
+        {
+            _isError = true;
+            _message = exception.Message;
+        }
+        finally
+        {
+            _isSaving = false;
+        }
+    }
+
+    private async Task LoadGitCapabilityAsync()
+    {
+        var capability = await ApiClient.GetGitCapabilityAsync();
+        _gitCommitAvailable = capability?.Enabled == true && capability.IsRepository && capability.GitCliAvailable;
+    }
+
+    private void MapFromDetail(AboutProfileDetailDto detail)
+    {
+        _model.Name = detail.Name;
+        _model.Tagline = detail.Tagline ?? string.Empty;
+        _model.Bio = detail.Bio ?? string.Empty;
+        _model.ShortBio = detail.ShortBio ?? string.Empty;
+        _model.Avatar = detail.Avatar;
+        _model.Email = detail.Email ?? string.Empty;
+        _model.MarkdownBody = detail.MarkdownBody;
+        _model.SocialTwitter = detail.Social?.Twitter ?? string.Empty;
+        _model.SocialLinkedin = detail.Social?.Linkedin ?? string.Empty;
+        _model.SocialGithub = detail.Social?.Github ?? string.Empty;
+        _model.SocialYoutube = detail.Social?.Youtube ?? string.Empty;
+        _model.SocialWebsite = detail.Social?.Website ?? string.Empty;
+        _model.SocialSessionize = detail.Social?.Sessionize ?? string.Empty;
+        _expectedLastModifiedUtc = detail.LastModifiedUtc;
+        _commit.Description = "update about profile";
+    }
+
+    private async Task ConfirmInternalNavigationAsync(LocationChangingContext context)
+    {
+        if (!_hasUnsavedChanges)
+        {
+            return;
+        }
+
+        var shouldLeave = await JS.InvokeAsync<bool>("confirm", "You have unsaved changes. Leave without saving?");
+        if (!shouldLeave)
+        {
+            context.PreventNavigation();
+        }
+    }
+
+    private void HandleFieldChanged(object? sender, FieldChangedEventArgs e) => _hasUnsavedChanges = true;
+
+    public void Dispose()
+    {
+        _editContext.OnFieldChanged -= HandleFieldChanged;
+    }
+
+    private sealed class AboutEditModel
+    {
+        public string Name { get; set; } = string.Empty;
+        public string Tagline { get; set; } = string.Empty;
+        public string Bio { get; set; } = string.Empty;
+        public string ShortBio { get; set; } = string.Empty;
+        public string Avatar { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
+        public string SocialTwitter { get; set; } = string.Empty;
+        public string SocialLinkedin { get; set; } = string.Empty;
+        public string SocialGithub { get; set; } = string.Empty;
+        public string SocialYoutube { get; set; } = string.Empty;
+        public string SocialWebsite { get; set; } = string.Empty;
+        public string SocialSessionize { get; set; } = string.Empty;
+        public string MarkdownBody { get; set; } = string.Empty;
+    }
+
+    private sealed class CommitDraft
+    {
+        public ConventionalCommitType Type { get; set; } = ConventionalCommitType.Chore;
+        public string? Scope { get; set; }
+        public string Description { get; set; } = string.Empty;
+        public string? Body { get; set; }
+    }
+}

@@ -1,0 +1,371 @@
+@page "/blog/new"
+@page "/blog/{Slug}"
+@implements IDisposable
+@inject ManagementApiHttpClient ApiClient
+@inject NavigationManager Navigation
+@inject IJSRuntime JS
+
+<PageTitle>@(_isNew ? "New Blog Post" : $"Edit {_model.Title}")</PageTitle>
+
+<h1>@(_isNew ? "New Blog Post" : "Edit Blog Post")</h1>
+
+<NavigationLock ConfirmExternalNavigation="_hasUnsavedChanges" OnBeforeInternalNavigation="ConfirmInternalNavigationAsync" />
+
+<div class="mb-3 d-flex gap-2">
+    <button class="btn btn-outline-secondary" @onclick="@(() => Navigation.NavigateTo("/blog"))">Back to List</button>
+</div>
+
+@if (!string.IsNullOrWhiteSpace(_message))
+{
+    <div class="alert @(_isError ? "alert-danger" : "alert-success")">@_message</div>
+}
+
+@if (_isLoading)
+{
+    <p>Loading blog post...</p>
+}
+else
+{
+    <EditForm EditContext="_editContext" OnValidSubmit="SaveAsync">
+        <div class="row g-3">
+            <div class="col-md-8">
+                <label class="form-label">Title</label>
+                <InputText class="form-control" @bind-Value="_model.Title" />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Slug</label>
+                <InputText class="form-control" @bind-Value="_model.Slug" />
+            </div>
+            <div class="col-12">
+                <label class="form-label">Description</label>
+                <InputTextArea class="form-control" rows="3" @bind-Value="_model.Description" />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Author</label>
+                <InputText class="form-control" @bind-Value="_model.Author" />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Published Date</label>
+                <InputDate class="form-control" @bind-Value="_model.PubDate" />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Updated Date</label>
+                <InputDate class="form-control" @bind-Value="_model.UpdatedDate" />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Category</label>
+                <InputSelect class="form-select" @bind-Value="_model.Category">
+                    @foreach (var category in Categories)
+                    {
+                        <option value="@category">@category</option>
+                    }
+                </InputSelect>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Tags (comma separated)</label>
+                <InputText class="form-control" @bind-Value="_model.Tags" />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Related Presentations (comma separated slugs)</label>
+                <InputText class="form-control" @bind-Value="_model.RelatedPresentations" />
+            </div>
+            <div class="col-md-6">
+                <MediaPickerField Label="Hero Image" PreviewAlt="Hero image preview" @bind-Value="_model.HeroImage" />
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Hero Image Alt</label>
+                <InputText class="form-control" @bind-Value="_model.HeroImageAlt" />
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Canonical URL</label>
+                <InputText class="form-control" @bind-Value="_model.CanonicalUrl" />
+            </div>
+            <div class="col-md-3 d-flex align-items-end">
+                <div class="form-check">
+                    <InputCheckbox class="form-check-input" @bind-Value="_model.Draft" />
+                    <label class="form-check-label">Draft</label>
+                </div>
+            </div>
+            <div class="col-md-3 d-flex align-items-end">
+                <div class="form-check">
+                    <InputCheckbox class="form-check-input" @bind-Value="_model.Featured" />
+                    <label class="form-check-label">Featured</label>
+                </div>
+            </div>
+            <div class="col-12">
+                <label class="form-label">Markdown Body</label>
+                <InputTextArea class="form-control" rows="18" @bind-Value="_model.MarkdownBody" />
+            </div>
+        </div>
+
+        <div class="mt-4 d-flex gap-2">
+            <button type="submit" class="btn btn-primary" disabled="@_isSaving">Save</button>
+            <button type="button" class="btn btn-outline-primary" @onclick="SaveAndCommitAsync" disabled="@_isSaving || !_gitCommitAvailable">Save + Commit</button>
+        </div>
+    </EditForm>
+
+    <div class="card mt-3">
+        <div class="card-body">
+            <h2 class="h5">Commit Details</h2>
+            <div class="row g-2">
+                <div class="col-md-3">
+                    <label class="form-label">Type</label>
+                    <InputSelect class="form-select" @bind-Value="_commit.Type">
+                        <option value="@ConventionalCommitType.Feat">feat</option>
+                        <option value="@ConventionalCommitType.Fix">fix</option>
+                        <option value="@ConventionalCommitType.Docs">docs</option>
+                        <option value="@ConventionalCommitType.Refactor">refactor</option>
+                        <option value="@ConventionalCommitType.Chore">chore</option>
+                    </InputSelect>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Scope</label>
+                    <InputText class="form-control" @bind-Value="_commit.Scope" />
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Description</label>
+                    <InputText class="form-control" @bind-Value="_commit.Description" />
+                </div>
+                <div class="col-12">
+                    <label class="form-label">Body (optional)</label>
+                    <InputTextArea class="form-control" rows="3" @bind-Value="_commit.Body" />
+                </div>
+            </div>
+            @if (!_gitCommitAvailable)
+            {
+                <p class="text-muted mb-0 mt-2">Save + Commit is unavailable (git integration disabled or unavailable).</p>
+            }
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter] public string? Slug { get; set; }
+
+    private static readonly string[] Categories = ["Technical", "Speaking", "Community", "Career", "Tutorial", "Announcement", "Personal", "Other"];
+    private readonly BlogEditModel _model = new();
+    private readonly EditContext _editContext;
+    private readonly CommitDraft _commit = new() { Type = ConventionalCommitType.Chore, Scope = "blog" };
+    private bool _isNew => string.IsNullOrWhiteSpace(Slug);
+    private bool _isLoading = true;
+    private bool _isSaving;
+    private bool _gitCommitAvailable;
+    private bool _hasUnsavedChanges;
+    private string? _message;
+    private bool _isError;
+    private DateTimeOffset? _expectedLastModifiedUtc;
+    private string? HeroImagePreviewUrl => HeroImagePreviewResolver.Resolve(_model.HeroImage);
+
+    public BlogEdit()
+    {
+        _editContext = new EditContext(_model);
+        _editContext.OnFieldChanged += HandleFieldChanged;
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        _isLoading = true;
+        _message = null;
+        _isError = false;
+
+        try
+        {
+            await LoadGitCapabilityAsync();
+            if (_isNew)
+            {
+                ResetDefaults();
+                _hasUnsavedChanges = false;
+            }
+            else
+            {
+                var detail = await ApiClient.GetBlogPostAsync(Slug!);
+                if (detail is null)
+                {
+                    _isError = true;
+                    _message = "Blog post not found.";
+                    return;
+                }
+
+                MapFromDetail(detail);
+                _hasUnsavedChanges = false;
+            }
+        }
+        catch (Exception exception)
+        {
+            _isError = true;
+            _message = exception.Message;
+        }
+        finally
+        {
+            _isLoading = false;
+        }
+    }
+
+    private async Task SaveAsync() => await SaveInternalAsync(commitAfterSave: false);
+
+    private async Task SaveAndCommitAsync() => await SaveInternalAsync(commitAfterSave: true);
+
+    private async Task SaveInternalAsync(bool commitAfterSave)
+    {
+        _isSaving = true;
+        _message = null;
+        _isError = false;
+
+        try
+        {
+            var request = new BlogUpsertRequest(
+                _model.Title.Trim(),
+                string.IsNullOrWhiteSpace(_model.Slug) ? null : _model.Slug.Trim(),
+                _model.Description.Trim(),
+                _model.Author.Trim(),
+                _model.PubDate,
+                _model.UpdatedDate,
+                _model.Category,
+                SplitCsv(_model.Tags),
+                SplitCsv(_model.RelatedPresentations),
+                string.IsNullOrWhiteSpace(_model.HeroImage) ? null : _model.HeroImage.Trim(),
+                string.IsNullOrWhiteSpace(_model.HeroImageAlt) ? null : _model.HeroImageAlt.Trim(),
+                _model.Draft,
+                _model.Featured,
+                string.IsNullOrWhiteSpace(_model.CanonicalUrl) ? null : _model.CanonicalUrl.Trim(),
+                _model.MarkdownBody ?? string.Empty,
+                _isNew ? null : _expectedLastModifiedUtc);
+
+            var detail = _isNew
+                ? await ApiClient.CreateBlogPostAsync(request)
+                : await ApiClient.UpdateBlogPostAsync(Slug!, request);
+
+            MapFromDetail(detail);
+            if (_isNew)
+            {
+                Slug = detail.Slug;
+                Navigation.NavigateTo($"/blog/{detail.Slug}", forceLoad: false);
+            }
+
+            _message = $"Saved '{detail.Title}'.";
+            _hasUnsavedChanges = false;
+
+            if (commitAfterSave)
+            {
+                var commitRequest = new CommitRequest(
+                    _commit.Type,
+                    string.IsNullOrWhiteSpace(_commit.Description) ? $"update blog {_model.Slug}" : _commit.Description.Trim(),
+                    string.IsNullOrWhiteSpace(_commit.Scope) ? null : _commit.Scope.Trim(),
+                    string.IsNullOrWhiteSpace(_commit.Body) ? null : _commit.Body.Trim(),
+                    IncludeAllChanges: true);
+                var commitResponse = await ApiClient.CommitAsync(commitRequest);
+                _message = $"{_message} Commit: {commitResponse.CommitSha ?? "(no sha)"}";
+            }
+        }
+        catch (Exception exception)
+        {
+            _isError = true;
+            _message = exception.Message;
+        }
+        finally
+        {
+            _isSaving = false;
+        }
+    }
+
+    private async Task LoadGitCapabilityAsync()
+    {
+        var capability = await ApiClient.GetGitCapabilityAsync();
+        _gitCommitAvailable = capability?.Enabled == true && capability.IsRepository && capability.GitCliAvailable;
+    }
+
+    private void MapFromDetail(BlogDetailDto detail)
+    {
+        _model.Title = detail.Title;
+        _model.Slug = detail.Slug;
+        _model.Description = detail.Description;
+        _model.Author = detail.Author;
+        _model.PubDate = detail.PubDate;
+        _model.UpdatedDate = detail.UpdatedDate;
+        _model.Category = detail.Category;
+        _model.Tags = string.Join(", ", detail.Tags);
+        _model.RelatedPresentations = string.Join(", ", detail.RelatedPresentations);
+        _model.HeroImage = detail.HeroImage;
+        _model.HeroImageAlt = detail.HeroImageAlt ?? string.Empty;
+        _model.CanonicalUrl = detail.CanonicalUrl ?? string.Empty;
+        _model.Draft = detail.Draft;
+        _model.Featured = detail.Featured;
+        _model.MarkdownBody = detail.MarkdownBody;
+        _expectedLastModifiedUtc = detail.LastModifiedUtc;
+        _commit.Description = $"update blog {detail.Slug}";
+    }
+
+    private void ResetDefaults()
+    {
+        _model.Title = string.Empty;
+        _model.Slug = string.Empty;
+        _model.Description = string.Empty;
+        _model.Author = "Chad Green";
+        _model.PubDate = DateOnly.FromDateTime(DateTime.Today);
+        _model.UpdatedDate = null;
+        _model.Category = "Other";
+        _model.Tags = string.Empty;
+        _model.RelatedPresentations = string.Empty;
+        _model.HeroImage = "/images/blog/default-hero.svg";
+        _model.HeroImageAlt = string.Empty;
+        _model.CanonicalUrl = string.Empty;
+        _model.Draft = true;
+        _model.Featured = false;
+        _model.MarkdownBody = string.Empty;
+        _expectedLastModifiedUtc = null;
+        _commit.Description = "add blog";
+    }
+
+    private static List<string> SplitCsv(string? value)
+        => string.IsNullOrWhiteSpace(value)
+            ? []
+            : value.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).ToList();
+
+    private async Task ConfirmInternalNavigationAsync(LocationChangingContext context)
+    {
+        if (!_hasUnsavedChanges)
+        {
+            return;
+        }
+
+        var shouldLeave = await JS.InvokeAsync<bool>("confirm", "You have unsaved changes. Leave without saving?");
+        if (!shouldLeave)
+        {
+            context.PreventNavigation();
+        }
+    }
+
+    private void HandleFieldChanged(object? sender, FieldChangedEventArgs e) => _hasUnsavedChanges = true;
+
+    public void Dispose()
+    {
+        _editContext.OnFieldChanged -= HandleFieldChanged;
+    }
+
+    private sealed class BlogEditModel
+    {
+        public string Title { get; set; } = string.Empty;
+        public string Slug { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
+        public string Author { get; set; } = "Chad Green";
+        public DateOnly PubDate { get; set; } = DateOnly.FromDateTime(DateTime.Today);
+        public DateOnly? UpdatedDate { get; set; }
+        public string Category { get; set; } = "Other";
+        public string Tags { get; set; } = string.Empty;
+        public string RelatedPresentations { get; set; } = string.Empty;
+        public string HeroImage { get; set; } = "/images/blog/default-hero.svg";
+        public string HeroImageAlt { get; set; } = string.Empty;
+        public string CanonicalUrl { get; set; } = string.Empty;
+        public bool Draft { get; set; } = true;
+        public bool Featured { get; set; }
+        public string MarkdownBody { get; set; } = string.Empty;
+    }
+
+    private sealed class CommitDraft
+    {
+        public ConventionalCommitType Type { get; set; } = ConventionalCommitType.Chore;
+        public string? Scope { get; set; }
+        public string Description { get; set; } = string.Empty;
+        public string? Body { get; set; }
+    }
+}

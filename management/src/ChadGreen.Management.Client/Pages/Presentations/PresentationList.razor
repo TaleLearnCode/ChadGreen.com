@@ -1,0 +1,243 @@
+@page "/presentations"
+@inject ManagementApiHttpClient ApiClient
+@inject NavigationManager Navigation
+@inject IJSRuntime JS
+
+<PageTitle>Presentations</PageTitle>
+
+<h1>Presentations</h1>
+
+<div class="mb-3 d-flex gap-2">
+    <button class="btn btn-primary" @onclick="@(() => Navigation.NavigateTo("/presentations/new"))">New Presentation</button>
+    <button class="btn btn-outline-secondary" @onclick="LoadAsync" disabled="@_isLoading">Refresh</button>
+</div>
+
+<div class="card mb-3">
+    <div class="card-body">
+        <div class="row g-3 align-items-end">
+            <div class="col-md-4">
+                <label class="form-label">Quick Search</label>
+                <input class="form-control" @bind="_searchTerm" @bind:event="oninput" placeholder="Filter by presentation title" />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Status Filters</label>
+                <div class="d-flex flex-wrap gap-3">
+                    @foreach (var status in StatusOptions)
+                    {
+                        var statusId = $"status-filter-{status}";
+                        <div class="form-check">
+                            <input id="@statusId"
+                                   class="form-check-input"
+                                   type="checkbox"
+                                   checked="@_selectedStatuses.Contains(status)"
+                                   @onchange="eventArgs => OnStatusFilterChanged(status, eventArgs.Value is true)" />
+                            <label class="form-check-label" for="@statusId">@status</label>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Featured Filter</label>
+                <InputSelect class="form-select" @bind-Value="_featuredFilter">
+                    <option value="all">All</option>
+                    <option value="featured-only">Featured only</option>
+                    <option value="not-featured">Not featured</option>
+                </InputSelect>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (!string.IsNullOrWhiteSpace(_message))
+{
+    <div class="alert @(_isError ? "alert-danger" : "alert-success")">@_message</div>
+}
+
+@if (_isLoading)
+{
+    <p>Loading presentations...</p>
+}
+else if (_items.Count == 0)
+{
+    <p>No presentations found.</p>
+}
+else
+{
+    var filteredItems = GetFilteredItems();
+    if (filteredItems.Count == 0)
+    {
+        <p>No presentations match the selected filters.</p>
+    }
+    else
+    {
+        <table class="table table-striped table-sm align-middle">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Status</th>
+                    <th>Featured</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in filteredItems)
+                {
+                    <tr>
+                        <td>
+                            <a href="@($"/presentations/{item.Slug}")">@item.Title</a>
+                            <div class="text-muted small">@item.Description</div>
+                        </td>
+                        <td style="max-width: 170px;">
+                            <select class="form-select form-select-sm" value="@item.Status" @onchange="eventArgs => OnStatusChangedAsync(item, eventArgs.Value?.ToString())">
+                                <option value="in-development">in-development</option>
+                                <option value="active">active</option>
+                                <option value="retired">retired</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input type="checkbox" checked="@item.Featured" @onchange="eventArgs => OnFeaturedChangedAsync(item, eventArgs.Value is true)" />
+                        </td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-danger" @onclick="() => ArchiveAsync(item)">Archive</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+}
+
+@code {
+    private static readonly string[] StatusOptions = ["in-development", "active", "retired"];
+    private List<PresentationListItemDto> _items = [];
+    private readonly HashSet<string> _selectedStatuses = ["in-development", "active"];
+    private string _searchTerm = string.Empty;
+    private string _featuredFilter = "all";
+    private bool _isLoading = true;
+    private string? _message;
+    private bool _isError;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadAsync();
+    }
+
+    private async Task LoadAsync()
+    {
+        _isLoading = true;
+        _message = null;
+        _isError = false;
+
+        try
+        {
+            _items = (await ApiClient.GetPresentationsAsync()).ToList();
+        }
+        catch (Exception exception)
+        {
+            _isError = true;
+            _message = exception.Message;
+        }
+        finally
+        {
+            _isLoading = false;
+        }
+    }
+
+    private async Task OnStatusChangedAsync(PresentationListItemDto item, string? status)
+    {
+        try
+        {
+            if (string.IsNullOrWhiteSpace(status))
+            {
+                return;
+            }
+
+            var updated = await ApiClient.UpdatePresentationStatusAsync(item.Slug, status);
+            item = item with { Status = updated.Status };
+            ReplaceItem(item);
+            _message = $"Updated status for '{item.Title}'.";
+            _isError = false;
+        }
+        catch (Exception exception)
+        {
+            _isError = true;
+            _message = exception.Message;
+        }
+    }
+
+    private async Task OnFeaturedChangedAsync(PresentationListItemDto item, bool featured)
+    {
+        try
+        {
+            var updated = await ApiClient.UpdatePresentationFeaturedAsync(item.Slug, featured);
+            item = item with { Featured = updated.Featured };
+            ReplaceItem(item);
+            _message = $"Updated featured flag for '{item.Title}'.";
+            _isError = false;
+        }
+        catch (Exception exception)
+        {
+            _isError = true;
+            _message = exception.Message;
+        }
+    }
+
+    private async Task ArchiveAsync(PresentationListItemDto item)
+    {
+        if (!await JS.InvokeAsync<bool>("confirm", $"Archive '{item.Title}'?"))
+        {
+            return;
+        }
+
+        try
+        {
+            await ApiClient.ArchivePresentationAsync(item.Slug);
+            _items.RemoveAll(candidate => candidate.Slug == item.Slug);
+            _message = $"Archived '{item.Title}'.";
+            _isError = false;
+        }
+        catch (Exception exception)
+        {
+            _isError = true;
+            _message = exception.Message;
+        }
+    }
+
+    private void ReplaceItem(PresentationListItemDto item)
+    {
+        var index = _items.FindIndex(candidate => candidate.Slug == item.Slug);
+        if (index >= 0)
+        {
+            _items[index] = item;
+        }
+    }
+
+    private void OnStatusFilterChanged(string status, bool isSelected)
+    {
+        if (isSelected)
+        {
+            _selectedStatuses.Add(status);
+            return;
+        }
+
+        _selectedStatuses.Remove(status);
+    }
+
+    private List<PresentationListItemDto> GetFilteredItems()
+    {
+        var normalizedSearchTerm = _searchTerm.Trim();
+        var hasStatusFilters = _selectedStatuses.Count > 0;
+
+        return _items
+            .Where(item => !hasStatusFilters || _selectedStatuses.Contains(item.Status))
+            .Where(item => string.IsNullOrWhiteSpace(normalizedSearchTerm)
+                || item.Title.Contains(normalizedSearchTerm, StringComparison.OrdinalIgnoreCase))
+            .Where(item => _featuredFilter switch
+            {
+                "featured-only" => item.Featured,
+                "not-featured" => !item.Featured,
+                _ => true
+            })
+            .ToList();
+    }
+}

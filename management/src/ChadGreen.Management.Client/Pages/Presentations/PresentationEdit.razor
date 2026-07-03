@@ -1,0 +1,446 @@
+@page "/presentations/new"
+@page "/presentations/{Slug}"
+@inject ManagementApiHttpClient ApiClient
+@inject NavigationManager Navigation
+@inject IJSRuntime JS
+
+<PageTitle>@(_isNew ? "New Presentation" : $"Edit {_model.Title}")</PageTitle>
+
+<h1>@(_isNew ? "New Presentation" : "Edit Presentation")</h1>
+
+<div class="mb-3 d-flex gap-2">
+    <button class="btn btn-outline-secondary" @onclick="@(() => Navigation.NavigateTo("/presentations"))">Back to List</button>
+    @if (!_isNew)
+    {
+        <button class="btn btn-outline-danger" @onclick="ArchiveAsync">Archive</button>
+    }
+</div>
+
+@if (!string.IsNullOrWhiteSpace(_message))
+{
+    <div class="alert @(_isError ? "alert-danger" : "alert-success")">@_message</div>
+}
+
+@if (_isLoading)
+{
+    <p>Loading presentation...</p>
+}
+else
+{
+    <EditForm Model="_model" OnValidSubmit="SaveAsync">
+        <div class="row g-3">
+            <div class="col-md-8">
+                <label class="form-label">Title</label>
+                <InputText class="form-control" @bind-Value="_model.Title" />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Slug</label>
+                <InputText class="form-control" @bind-Value="_model.Slug" />
+            </div>
+            <div class="col-12">
+                <label class="form-label">Description</label>
+                <InputTextArea class="form-control" rows="4" @bind-Value="_model.Description" />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Type</label>
+                <InputSelect class="form-select" @bind-Value="_model.Type">
+                    <option value="session">session</option>
+                    <option value="workshop">workshop</option>
+                    <option value="lightning-talk">lightning-talk</option>
+                    <option value="keynote">keynote</option>
+                    <option value="panel">panel</option>
+                    <option value="webinar">webinar</option>
+                </InputSelect>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Status</label>
+                <InputSelect class="form-select" @bind-Value="_model.Status">
+                    <option value="in-development">in-development</option>
+                    <option value="active">active</option>
+                    <option value="retired">retired</option>
+                </InputSelect>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Level</label>
+                <InputSelect class="form-select" @bind-Value="_model.Level">
+                    <option value="introductory">introductory</option>
+                    <option value="intermediate">intermediate</option>
+                    <option value="advanced">advanced</option>
+                    <option value="all">all</option>
+                </InputSelect>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Durations (comma separated)</label>
+                <InputText class="form-control" @bind-Value="_model.Durations" />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Tags (comma separated)</label>
+                <InputText class="form-control" @bind-Value="_model.Tags" />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Related Presentations (comma separated slugs)</label>
+                <InputText class="form-control" @bind-Value="_model.RelatedPresentations" />
+            </div>
+            <div class="col-md-6">
+                <MediaPickerField Label="Hero Image" PreviewAlt="Hero image preview" @bind-Value="_model.HeroImage" />
+            </div>
+            <div class="col-md-3 d-flex align-items-end">
+                <div class="form-check">
+                    <InputCheckbox class="form-check-input" @bind-Value="_model.Featured" />
+                    <label class="form-check-label">Featured</label>
+                </div>
+            </div>
+            <div class="col-md-3 d-flex align-items-end">
+                <div class="form-check">
+                    <InputCheckbox class="form-check-input" @bind-Value="_model.Validated" />
+                    <label class="form-check-label">Validated</label>
+                </div>
+            </div>
+            <div class="col-12">
+                <label class="form-label">Learning Objectives (one per line)</label>
+                <InputTextArea class="form-control" rows="5" @bind-Value="_model.LearningObjectives" />
+            </div>
+            <div class="col-12">
+                <label class="form-label">Resources</label>
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Title</th>
+                            <th>URL</th>
+                            <th>Description</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var resource in _model.Resources)
+                        {
+                            <tr>
+                                <td><InputText class="form-control form-control-sm" @bind-Value="resource.Type" /></td>
+                                <td><InputText class="form-control form-control-sm" @bind-Value="resource.Title" /></td>
+                                <td><InputText class="form-control form-control-sm" @bind-Value="resource.Url" /></td>
+                                <td><InputText class="form-control form-control-sm" @bind-Value="resource.Description" /></td>
+                                <td><button type="button" class="btn btn-sm btn-outline-danger" @onclick="() => RemoveResource(resource)">Remove</button></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <button type="button" class="btn btn-sm btn-outline-secondary" @onclick="AddResource">Add Resource</button>
+            </div>
+            <div class="col-12">
+                <label class="form-label">Markdown Body</label>
+                <InputTextArea class="form-control" rows="16" @bind-Value="_model.MarkdownBody" />
+            </div>
+        </div>
+
+        <div class="mt-4 d-flex gap-2">
+            <button type="submit" class="btn btn-primary" disabled="@_isSaving">Save</button>
+            <button type="button" class="btn btn-outline-primary" @onclick="SaveAndCommitAsync" disabled="@_isSaving || !_gitCommitAvailable">Save + Commit</button>
+            @if (!string.IsNullOrWhiteSpace(_message) && !_isError)
+            {
+                <span class="text-success align-self-center">@_message</span>
+            }
+        </div>
+    </EditForm>
+
+    <div class="card mt-3">
+        <div class="card-body">
+            <h2 class="h5">Commit Details</h2>
+            <div class="row g-2">
+                <div class="col-md-3">
+                    <label class="form-label">Type</label>
+                    <InputSelect class="form-select" @bind-Value="_commit.Type">
+                        <option value="@ConventionalCommitType.Feat">feat</option>
+                        <option value="@ConventionalCommitType.Fix">fix</option>
+                        <option value="@ConventionalCommitType.Docs">docs</option>
+                        <option value="@ConventionalCommitType.Refactor">refactor</option>
+                        <option value="@ConventionalCommitType.Chore">chore</option>
+                    </InputSelect>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Scope</label>
+                    <InputText class="form-control" @bind-Value="_commit.Scope" />
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Description</label>
+                    <InputText class="form-control" @bind-Value="_commit.Description" />
+                </div>
+                <div class="col-12">
+                    <label class="form-label">Body (optional)</label>
+                    <InputTextArea class="form-control" rows="3" @bind-Value="_commit.Body" />
+                </div>
+            </div>
+            @if (!_gitCommitAvailable)
+            {
+                <p class="text-muted mb-0 mt-2">Save + Commit is unavailable (git integration disabled or unavailable).</p>
+            }
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter] public string? Slug { get; set; }
+
+    private readonly PresentationEditModel _model = new();
+    private readonly CommitDraft _commit = new() { Type = ConventionalCommitType.Chore, Scope = "speaking" };
+    private bool _isNew => string.IsNullOrWhiteSpace(Slug);
+    private bool _isLoading = true;
+    private bool _isSaving;
+    private bool _gitCommitAvailable;
+    private string? _message;
+    private bool _isError;
+    private DateTimeOffset? _expectedLastModifiedUtc;
+    private string? HeroImagePreviewUrl => HeroImagePreviewResolver.Resolve(_model.HeroImage);
+
+    protected override async Task OnParametersSetAsync()
+    {
+        _isLoading = true;
+        _message = null;
+
+        try
+        {
+            await LoadGitCapabilityAsync();
+            if (_isNew)
+            {
+                ResetDefaults();
+            }
+            else
+            {
+                var detail = await ApiClient.GetPresentationAsync(Slug!);
+                if (detail is null)
+                {
+                    _isError = true;
+                    _message = "Presentation not found.";
+                    return;
+                }
+
+                MapFromDetail(detail);
+            }
+        }
+        catch (Exception exception)
+        {
+            _isError = true;
+            _message = exception.Message;
+        }
+        finally
+        {
+            _isLoading = false;
+        }
+    }
+
+    private async Task SaveAsync()
+    {
+        await SaveInternalAsync(commitAfterSave: false);
+    }
+
+    private async Task SaveAndCommitAsync()
+    {
+        await SaveInternalAsync(commitAfterSave: true);
+    }
+
+    private async Task SaveInternalAsync(bool commitAfterSave)
+    {
+        _isSaving = true;
+        _message = null;
+        _isError = false;
+
+        try
+        {
+            var request = BuildRequest();
+            var detail = _isNew
+                ? await ApiClient.CreatePresentationAsync(request)
+                : await ApiClient.UpdatePresentationAsync(Slug!, request);
+
+            MapFromDetail(detail);
+            if (_isNew)
+            {
+                Slug = detail.Slug;
+                Navigation.NavigateTo($"/presentations/{detail.Slug}", forceLoad: false);
+            }
+
+            _message = $"Saved '{detail.Title}'.";
+
+            if (commitAfterSave)
+            {
+                var commitRequest = new CommitRequest(
+                    _commit.Type,
+                    string.IsNullOrWhiteSpace(_commit.Description) ? $"update presentation {_model.Slug}" : _commit.Description.Trim(),
+                    string.IsNullOrWhiteSpace(_commit.Scope) ? null : _commit.Scope.Trim(),
+                    string.IsNullOrWhiteSpace(_commit.Body) ? null : _commit.Body.Trim(),
+                    IncludeAllChanges: true);
+
+                var commitResponse = await ApiClient.CommitAsync(commitRequest);
+                _message = $"{_message} Commit: {commitResponse.CommitSha ?? "(no sha)"}";
+            }
+        }
+        catch (Exception exception)
+        {
+            _isError = true;
+            _message = exception.Message;
+        }
+        finally
+        {
+            _isSaving = false;
+        }
+    }
+
+    private async Task ArchiveAsync()
+    {
+        if (_isNew)
+        {
+            return;
+        }
+
+        if (!await JS.InvokeAsync<bool>("confirm", $"Archive '{_model.Title}'?"))
+        {
+            return;
+        }
+
+        try
+        {
+            await ApiClient.ArchivePresentationAsync(Slug!);
+            Navigation.NavigateTo("/presentations");
+        }
+        catch (Exception exception)
+        {
+            _isError = true;
+            _message = exception.Message;
+        }
+    }
+
+    private async Task LoadGitCapabilityAsync()
+    {
+        var capability = await ApiClient.GetGitCapabilityAsync();
+        _gitCommitAvailable = capability?.Enabled == true && capability.IsRepository && capability.GitCliAvailable;
+    }
+
+    private void AddResource() => _model.Resources.Add(new ResourceEditModel());
+
+    private void RemoveResource(ResourceEditModel model) => _model.Resources.Remove(model);
+
+    private PresentationUpsertRequest BuildRequest()
+    {
+        return new PresentationUpsertRequest(
+            _model.Title.Trim(),
+            string.IsNullOrWhiteSpace(_model.Slug) ? null : _model.Slug.Trim(),
+            _model.Description.Trim(),
+            _model.Type,
+            _model.Durations.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+                .Select(value => int.TryParse(value, out var duration) ? duration : 0)
+                .Where(value => value > 0)
+                .Distinct()
+                .ToList(),
+            _model.Level,
+            SplitLines(_model.LearningObjectives),
+            SplitCsv(_model.Tags),
+            SplitCsv(_model.RelatedPresentations),
+            _model.Resources
+                .Where(resource => !string.IsNullOrWhiteSpace(resource.Title) && !string.IsNullOrWhiteSpace(resource.Url))
+                .Select(resource => new PresentationResourceDto(
+                    resource.Type ?? "other",
+                    resource.Title!,
+                    resource.Url!,
+                    string.IsNullOrWhiteSpace(resource.Description) ? null : resource.Description))
+                .ToList(),
+            string.IsNullOrWhiteSpace(_model.HeroImage) ? null : _model.HeroImage,
+            _model.Status,
+            _model.Featured,
+            _model.Validated,
+            _model.MarkdownBody ?? string.Empty,
+            _isNew ? null : _expectedLastModifiedUtc);
+    }
+
+    private void MapFromDetail(PresentationDetailDto detail)
+    {
+        _model.Title = detail.Title;
+        _model.Slug = detail.Slug;
+        _model.Description = detail.Description;
+        _model.Type = detail.Type;
+        _model.Durations = string.Join(", ", detail.Durations);
+        _model.Level = detail.Level;
+        _model.LearningObjectives = string.Join(Environment.NewLine, detail.LearningObjectives);
+        _model.Tags = string.Join(", ", detail.Tags);
+        _model.RelatedPresentations = string.Join(", ", detail.RelatedPresentations);
+        _model.HeroImage = detail.HeroImage;
+        _model.Status = detail.Status;
+        _model.Featured = detail.Featured;
+        _model.Validated = detail.Validated;
+        _model.MarkdownBody = detail.MarkdownBody;
+        _expectedLastModifiedUtc = detail.LastModifiedUtc;
+        _model.Resources.Clear();
+        _model.Resources.AddRange(detail.Resources.Select(resource => new ResourceEditModel
+        {
+            Type = resource.Type,
+            Title = resource.Title,
+            Url = resource.Url,
+            Description = resource.Description
+        }));
+        _commit.Description = $"update presentation {detail.Slug}";
+    }
+
+    private void ResetDefaults()
+    {
+        _model.Title = string.Empty;
+        _model.Slug = string.Empty;
+        _model.Description = string.Empty;
+        _model.Type = "session";
+        _model.Durations = "45";
+        _model.Level = "all";
+        _model.LearningObjectives = string.Empty;
+        _model.Tags = string.Empty;
+        _model.RelatedPresentations = string.Empty;
+        _model.HeroImage = string.Empty;
+        _model.Status = "in-development";
+        _model.Featured = false;
+        _model.Validated = false;
+        _model.MarkdownBody = string.Empty;
+        _expectedLastModifiedUtc = null;
+        _model.Resources.Clear();
+        _commit.Description = "add presentation";
+    }
+
+    private static List<string> SplitLines(string? value)
+        => string.IsNullOrWhiteSpace(value)
+            ? []
+            : value.Split(["\r\n", "\n"], StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).ToList();
+
+    private static List<string> SplitCsv(string? value)
+        => string.IsNullOrWhiteSpace(value)
+            ? []
+            : value.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).ToList();
+
+    private sealed class PresentationEditModel
+    {
+        public string Title { get; set; } = string.Empty;
+        public string Slug { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
+        public string Type { get; set; } = "session";
+        public string Durations { get; set; } = "45";
+        public string Level { get; set; } = "all";
+        public string LearningObjectives { get; set; } = string.Empty;
+        public string Tags { get; set; } = string.Empty;
+        public string RelatedPresentations { get; set; } = string.Empty;
+        public string? HeroImage { get; set; }
+        public string Status { get; set; } = "in-development";
+        public bool Featured { get; set; }
+        public bool Validated { get; set; }
+        public string MarkdownBody { get; set; } = string.Empty;
+        public List<ResourceEditModel> Resources { get; set; } = [];
+    }
+
+    private sealed class ResourceEditModel
+    {
+        public string Type { get; set; } = "other";
+        public string? Title { get; set; }
+        public string? Url { get; set; }
+        public string? Description { get; set; }
+    }
+
+    private sealed class CommitDraft
+    {
+        public ConventionalCommitType Type { get; set; } = ConventionalCommitType.Chore;
+        public string? Scope { get; set; }
+        public string Description { get; set; } = string.Empty;
+        public string? Body { get; set; }
+    }
+}

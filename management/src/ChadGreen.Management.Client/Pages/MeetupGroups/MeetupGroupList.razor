@@ -1,0 +1,114 @@
+@page "/meetup-groups"
+@inject ManagementApiHttpClient ApiClient
+@inject NavigationManager Navigation
+@inject IJSRuntime JS
+
+<PageTitle>Meetup Groups</PageTitle>
+
+<h1>Meetup Groups</h1>
+
+<div class="mb-3 d-flex gap-2">
+    <button class="btn btn-primary" @onclick="@(() => Navigation.NavigateTo("/meetup-groups/new"))">New Meetup Group</button>
+    <button class="btn btn-outline-secondary" @onclick="LoadAsync" disabled="@_isLoading">Refresh</button>
+</div>
+
+@if (!string.IsNullOrWhiteSpace(_message))
+{
+    <div class="alert @(_isError ? "alert-danger" : "alert-success")">@_message</div>
+}
+
+@if (_isLoading)
+{
+    <p>Loading meetup groups...</p>
+}
+else if (_items.Count == 0)
+{
+    <p>No meetup groups found.</p>
+}
+else
+{
+    <table class="table table-striped table-sm align-middle">
+        <thead>
+            <tr>
+                <th>Group</th>
+                <th>Location</th>
+                <th>Events</th>
+                <th>Featured</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in _items)
+            {
+                <tr>
+                    <td><a href="@($"/meetup-groups/{item.Slug}")">@item.Title</a></td>
+                    <td>@BuildLocation(item)</td>
+                    <td>@item.EventCount</td>
+                    <td>@(item.Featured ? "Yes" : "No")</td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-danger" @onclick="() => ArchiveAsync(item)">Archive</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<MeetupGroupListItemDto> _items = [];
+    private bool _isLoading = true;
+    private string? _message;
+    private bool _isError;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadAsync();
+    }
+
+    private async Task LoadAsync()
+    {
+        _isLoading = true;
+        _message = null;
+        _isError = false;
+
+        try
+        {
+            _items = (await ApiClient.GetMeetupGroupsAsync()).ToList();
+        }
+        catch (Exception exception)
+        {
+            _isError = true;
+            _message = exception.Message;
+        }
+        finally
+        {
+            _isLoading = false;
+        }
+    }
+
+    private async Task ArchiveAsync(MeetupGroupListItemDto item)
+    {
+        if (!await JS.InvokeAsync<bool>("confirm", $"Archive '{item.Title}'?"))
+        {
+            return;
+        }
+
+        try
+        {
+            await ApiClient.ArchiveMeetupGroupAsync(item.Slug);
+            _items.RemoveAll(candidate => candidate.Slug == item.Slug);
+            _message = $"Archived '{item.Title}'.";
+            _isError = false;
+        }
+        catch (Exception exception)
+        {
+            _isError = true;
+            _message = exception.Message;
+        }
+    }
+
+    private static string BuildLocation(MeetupGroupListItemDto item)
+        => string.IsNullOrWhiteSpace(item.State)
+            ? $"{item.City}, {item.Country}"
+            : $"{item.City}, {item.State}, {item.Country}";
+}

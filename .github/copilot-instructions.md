@@ -17,9 +17,21 @@ Use these commands first:
 
 ```bash
 npm run dev
+npm run dev:api
 npm run build
 npm run preview
 ```
+
+To run Client + API together for local development, use two terminals:
+
+- One-time API dependency setup: `npm run setup:api`
+- Terminal 1 (Client): `npm run dev:client`
+- Terminal 2 (API): `npm run dev:api`
+
+Build commands are non-destructive:
+
+- `npm run build` or `npm run build:client` builds the Astro site into `dist/`
+- API has no separate build step; run `npm --prefix api run test` for its baseline check
 
 ## Source-of-Truth Files
 

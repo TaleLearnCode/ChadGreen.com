@@ -1,0 +1,282 @@
+@page "/media"
+@inject ManagementApiHttpClient ApiClient
+@inject IJSRuntime JS
+
+<PageTitle>Media Library</PageTitle>
+
+<h1>Media Library</h1>
+
+@if (!string.IsNullOrWhiteSpace(_message))
+{
+    <div class="alert @(_isError ? "alert-danger" : "alert-success")">@_message</div>
+}
+
+<div class="card mb-3">
+    <div class="card-body">
+        <div class="row g-2 align-items-end">
+            <div class="col-md-4">
+                <label class="form-label">Folder under /images</label>
+                <InputSelect class="form-select" @bind-Value="_folder">
+                    <option value="">/images (root)</option>
+                    @foreach (var folder in _folderOptions)
+                    {
+                        <option value="@folder">@folder</option>
+                    }
+                </InputSelect>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Upload image</label>
+                <InputFile OnChange="UploadAsync" accept=".png,.jpg,.jpeg,.webp,.svg" />
+                <div class="small text-muted">Accepted: png/jpg/webp/svg, max 5 MB.</div>
+            </div>
+            <div class="col-md-4 d-flex gap-2">
+                <button type="button" class="btn btn-outline-primary" @onclick="LoadAsync" disabled="@_isBusy">Browse</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (_isBusy)
+{
+    <p>Loading media...</p>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-sm align-middle">
+            <thead>
+                <tr>
+                    <th>Preview</th>
+                    <th>Path</th>
+                    <th>Size</th>
+                    <th>Updated (UTC)</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (_items.Count == 0)
+                {
+                    <tr>
+                        <td colspan="5" class="text-muted">No images found.</td>
+                    </tr>
+                }
+                else
+                {
+                    @foreach (var item in _items)
+                    {
+                        <tr>
+                            <td>
+                                <button type="button" class="btn btn-link p-0 border-0" title="Open larger preview" @onclick="@(() => OpenPreview(item))">
+                                    <img src="@HeroImagePreviewResolver.Resolve(item.PublicUrl)" alt="@item.FileName" class="img-thumbnail" style="max-height: 80px;" />
+                                </button>
+                            </td>
+                            <td>
+                                <div class="fw-semibold">@item.PublicUrl</div>
+                                <div class="small text-muted">@item.RelativePath</div>
+                            </td>
+                            <td>@FormatSize(item.SizeBytes)</td>
+                            <td>@item.LastModifiedUtc.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                            <td>
+                                <div class="d-flex flex-column gap-1">
+                                    <button type="button" class="btn btn-sm btn-outline-secondary" @onclick="@(() => CopyPathAsync(item.PublicUrl))">Copy URL</button>
+                                    <InputFile OnChange="@((args) => ReplaceAsync(item.RelativePath, args))" accept=".png,.jpg,.jpeg,.webp,.svg" />
+                                    <button type="button" class="btn btn-sm btn-outline-danger" @onclick="@(() => ArchiveAsync(item.RelativePath, item.PublicUrl))">Archive</button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+@if (_previewItem is not null)
+{
+    <div class="modal d-block" tabindex="-1" role="dialog" @onclick="ClosePreview">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document" @onclick:stopPropagation="true">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">@_previewItem.FileName</h5>
+                    <button type="button" class="btn-close" aria-label="Close" @onclick="ClosePreview"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img src="@HeroImagePreviewResolver.Resolve(_previewItem.PublicUrl)" alt="@_previewItem.FileName" class="img-fluid" />
+                    <div class="small text-muted mt-2">@_previewItem.PublicUrl</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop fade show"></div>
+}
+
+@code {
+    private readonly List<MediaItemDto> _items = [];
+    private readonly List<string> _folderOptions = [];
+    private string? _folder;
+    private string? _message;
+    private bool _isError;
+    private bool _isBusy;
+    private MediaItemDto? _previewItem;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadAsync();
+    }
+
+    private async Task LoadAsync()
+    {
+        _isBusy = true;
+        _isError = false;
+        _message = null;
+
+        try
+        {
+            var allItemsTask = ApiClient.GetMediaAsync();
+            var selectedItemsTask = string.IsNullOrWhiteSpace(_folder)
+                ? allItemsTask
+                : ApiClient.GetMediaAsync(_folder);
+
+            var allItems = await allItemsTask;
+            var selectedItems = await selectedItemsTask;
+
+            RefreshFolderOptions(allItems);
+            _items.Clear();
+            _items.AddRange(selectedItems);
+        }
+        catch (Exception exception)
+        {
+            _isError = true;
+            _message = exception.Message;
+        }
+        finally
+        {
+            _isBusy = false;
+        }
+    }
+
+    private async Task UploadAsync(InputFileChangeEventArgs args)
+    {
+        var file = args.File;
+        if (file is null)
+        {
+            return;
+        }
+
+        _isError = false;
+        _message = null;
+
+        try
+        {
+            await ApiClient.UploadMediaAsync(file, _folder);
+            _message = $"Uploaded '{file.Name}'.";
+            await LoadAsync();
+        }
+        catch (Exception exception)
+        {
+            _isError = true;
+            _message = exception.Message;
+        }
+    }
+
+    private async Task ReplaceAsync(string relativePath, InputFileChangeEventArgs args)
+    {
+        var file = args.File;
+        if (file is null)
+        {
+            return;
+        }
+
+        _isError = false;
+        _message = null;
+
+        try
+        {
+            await ApiClient.ReplaceMediaAsync(relativePath, file);
+            _message = $"Replaced '{relativePath}'.";
+            await LoadAsync();
+        }
+        catch (Exception exception)
+        {
+            _isError = true;
+            _message = exception.Message;
+        }
+    }
+
+    private async Task ArchiveAsync(string relativePath, string publicUrl)
+    {
+        var confirmed = await JS.InvokeAsync<bool>("confirm", $"Archive '{publicUrl}'?");
+        if (!confirmed)
+        {
+            return;
+        }
+
+        _isError = false;
+        _message = null;
+
+        try
+        {
+            await ApiClient.ArchiveMediaAsync(relativePath);
+            _message = $"Archived '{publicUrl}'.";
+            if (_previewItem?.RelativePath == relativePath)
+            {
+                _previewItem = null;
+            }
+
+            await LoadAsync();
+        }
+        catch (Exception exception)
+        {
+            _isError = true;
+            _message = exception.Message;
+        }
+    }
+
+    private async Task CopyPathAsync(string path)
+    {
+        await JS.InvokeVoidAsync("navigator.clipboard.writeText", path);
+        _isError = false;
+        _message = $"Copied '{path}'.";
+    }
+
+    private void OpenPreview(MediaItemDto item)
+        => _previewItem = item;
+
+    private void ClosePreview()
+        => _previewItem = null;
+
+    private void RefreshFolderOptions(IEnumerable<MediaItemDto> items)
+    {
+        var currentSelection = _folder;
+
+        _folderOptions.Clear();
+        _folderOptions.AddRange(items
+            .Select(item => item.Directory)
+            .Where(directory => !string.IsNullOrWhiteSpace(directory))
+            .Select(directory => directory!)
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .OrderBy(directory => directory, StringComparer.OrdinalIgnoreCase));
+
+        if (!string.IsNullOrWhiteSpace(currentSelection) &&
+            !_folderOptions.Any(folder => string.Equals(folder, currentSelection, StringComparison.OrdinalIgnoreCase)))
+        {
+            _folderOptions.Insert(0, currentSelection);
+        }
+    }
+
+    private static string FormatSize(long bytes)
+    {
+        if (bytes < 1024)
+        {
+            return $"{bytes} B";
+        }
+
+        var kb = bytes / 1024d;
+        if (kb < 1024)
+        {
+            return $"{kb:F1} KB";
+        }
+
+        return $"{kb / 1024d:F1} MB";
+    }
+}

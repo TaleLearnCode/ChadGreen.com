@@ -1,0 +1,629 @@
+@page "/meetup-events/new"
+@page "/meetup-events/{Slug}"
+@implements IDisposable
+@inject ManagementApiHttpClient ApiClient
+@inject NavigationManager Navigation
+@inject IJSRuntime JS
+
+<PageTitle>@(_isNew ? "New Meetup Event" : $"Edit {_model.Title}")</PageTitle>
+
+<h1>@(_isNew ? "New Meetup Event" : "Edit Meetup Event")</h1>
+
+<NavigationLock ConfirmExternalNavigation="_hasUnsavedChanges" OnBeforeInternalNavigation="ConfirmInternalNavigationAsync" />
+
+<div class="mb-3 d-flex gap-2">
+    <button class="btn btn-outline-secondary" @onclick="@(() => Navigation.NavigateTo(BuildBackUri()))">Back</button>
+    @if (!_isNew)
+    {
+        <button class="btn btn-outline-danger" @onclick="ArchiveAsync">Archive</button>
+    }
+</div>
+
+@if (!string.IsNullOrWhiteSpace(_message))
+{
+    <div class="alert @(_isError ? "alert-danger" : "alert-success")">@_message</div>
+}
+
+@if (_isLoading)
+{
+    <p>Loading meetup event...</p>
+}
+else
+{
+    <EditForm EditContext="_editContext" OnValidSubmit="SaveAsync">
+        <div class="row g-3">
+            <div class="col-md-8">
+                <label class="form-label">Title</label>
+                <InputText class="form-control" @bind-Value="_model.Title" />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Slug</label>
+                <InputText class="form-control" @bind-Value="_model.Slug" />
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Meetup Group</label>
+                <InputSelect class="form-select" @bind-Value="_model.MeetupGroup">
+                    <option value="">Select meetup group</option>
+                    @foreach (var group in _meetupGroups)
+                    {
+                        <option value="@group.Slug">@group.Title</option>
+                    }
+                </InputSelect>
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Date</label>
+                <InputDate class="form-control" @bind-Value="_model.Date" />
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Status</label>
+                <InputSelect class="form-select" @bind-Value="_model.Status">
+                    <option value="upcoming">upcoming</option>
+                    <option value="past">past</option>
+                </InputSelect>
+            </div>
+            <div class="col-12">
+                <label class="form-label">Description</label>
+                <InputTextArea class="form-control" rows="4" @bind-Value="_model.Description" />
+            </div>
+            <div class="col-12">
+                <label class="form-label">Short Description</label>
+                <InputTextArea class="form-control" rows="2" @bind-Value="_model.ShortDescription" />
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Time</label>
+                <InputText class="form-control" @bind-Value="_model.Time" />
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Event URL</label>
+                <InputText class="form-control" @bind-Value="_model.EventUrl" />
+            </div>
+            <div class="col-md-6">
+                <MediaPickerField Label="Hero Image" PreviewAlt="Hero image preview" @bind-Value="_model.HeroImage" />
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Thumbnail</label>
+                <InputText class="form-control" @bind-Value="_model.Thumbnail" />
+            </div>
+
+            <div class="col-12"><h2 class="h5 mt-2">Speaker</h2></div>
+            <div class="col-md-6">
+                <label class="form-label">Name</label>
+                <InputText class="form-control" @bind-Value="_model.SpeakerName" />
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Title</label>
+                <InputText class="form-control" @bind-Value="_model.SpeakerTitle" />
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Company</label>
+                <InputText class="form-control" @bind-Value="_model.SpeakerCompany" />
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Photo</label>
+                <InputText class="form-control" @bind-Value="_model.SpeakerPhoto" />
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Bio</label>
+                <InputTextArea class="form-control" rows="3" @bind-Value="_model.SpeakerBio" />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Speaker Website</label>
+                <InputText class="form-control" @bind-Value="_model.SpeakerWebsite" />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Speaker LinkedIn</label>
+                <InputText class="form-control" @bind-Value="_model.SpeakerLinkedin" />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Speaker Twitter</label>
+                <InputText class="form-control" @bind-Value="_model.SpeakerTwitter" />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Speaker GitHub</label>
+                <InputText class="form-control" @bind-Value="_model.SpeakerGithub" />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Speaker YouTube</label>
+                <InputText class="form-control" @bind-Value="_model.SpeakerYoutube" />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Speaker Sessionize</label>
+                <InputText class="form-control" @bind-Value="_model.SpeakerSessionize" />
+            </div>
+
+            <div class="col-12"><h2 class="h5 mt-2">Location</h2></div>
+            <div class="col-md-3">
+                <label class="form-label">Venue</label>
+                <InputText class="form-control" @bind-Value="_model.LocationVenue" />
+            </div>
+            <div class="col-md-5">
+                <label class="form-label">Address</label>
+                <InputText class="form-control" @bind-Value="_model.LocationAddress" />
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">City</label>
+                <InputText class="form-control" @bind-Value="_model.LocationCity" />
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">State</label>
+                <InputText class="form-control" @bind-Value="_model.LocationState" />
+            </div>
+
+            <div class="col-12">
+                <label class="form-label">Resources</label>
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Title</th>
+                            <th>URL</th>
+                            <th>Description</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var resource in _model.Resources)
+                        {
+                            <tr>
+                                <td><InputText class="form-control form-control-sm" @bind-Value="resource.Type" /></td>
+                                <td><InputText class="form-control form-control-sm" @bind-Value="resource.Title" /></td>
+                                <td><InputText class="form-control form-control-sm" @bind-Value="resource.Url" /></td>
+                                <td><InputText class="form-control form-control-sm" @bind-Value="resource.Description" /></td>
+                                <td><button type="button" class="btn btn-sm btn-outline-danger" @onclick="() => RemoveResource(resource)">Remove</button></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <button type="button" class="btn btn-sm btn-outline-secondary" @onclick="AddResource">Add Resource</button>
+            </div>
+
+            <div class="col-12">
+                <label class="form-label">Markdown Body</label>
+                <InputTextArea class="form-control" rows="16" @bind-Value="_model.MarkdownBody" />
+            </div>
+        </div>
+
+        <div class="mt-4 d-flex gap-2">
+            <button type="submit" class="btn btn-primary" disabled="@_isSaving">Save</button>
+            <button type="button" class="btn btn-outline-primary" @onclick="SaveAndCommitAsync" disabled="@_isSaving || !_gitCommitAvailable">Save + Commit</button>
+        </div>
+    </EditForm>
+
+    <div class="card mt-3">
+        <div class="card-body">
+            <h2 class="h5">Commit Details</h2>
+            <div class="row g-2">
+                <div class="col-md-3">
+                    <label class="form-label">Type</label>
+                    <InputSelect class="form-select" @bind-Value="_commit.Type">
+                        <option value="@ConventionalCommitType.Feat">feat</option>
+                        <option value="@ConventionalCommitType.Fix">fix</option>
+                        <option value="@ConventionalCommitType.Docs">docs</option>
+                        <option value="@ConventionalCommitType.Refactor">refactor</option>
+                        <option value="@ConventionalCommitType.Chore">chore</option>
+                    </InputSelect>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Scope</label>
+                    <InputText class="form-control" @bind-Value="_commit.Scope" />
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Description</label>
+                    <InputText class="form-control" @bind-Value="_commit.Description" />
+                </div>
+                <div class="col-12">
+                    <label class="form-label">Body (optional)</label>
+                    <InputTextArea class="form-control" rows="3" @bind-Value="_commit.Body" />
+                </div>
+            </div>
+            @if (!_gitCommitAvailable)
+            {
+                <p class="text-muted mb-0 mt-2">Save + Commit is unavailable (git integration disabled or unavailable).</p>
+            }
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter] public string? Slug { get; set; }
+    [SupplyParameterFromQuery(Name = "groupSlug")] public string? GroupSlugQuery { get; set; }
+
+    private readonly MeetupEventEditModel _model = new();
+    private readonly EditContext _editContext;
+    private readonly CommitDraft _commit = new() { Type = ConventionalCommitType.Chore, Scope = "meetups" };
+    private bool _isNew => string.IsNullOrWhiteSpace(Slug);
+    private bool _isLoading = true;
+    private bool _isSaving;
+    private bool _gitCommitAvailable;
+    private bool _hasUnsavedChanges;
+    private string? _message;
+    private bool _isError;
+    private DateTimeOffset? _expectedLastModifiedUtc;
+    private List<MeetupGroupListItemDto> _meetupGroups = [];
+    private string? HeroImagePreviewUrl => HeroImagePreviewResolver.Resolve(_model.HeroImage);
+
+    public MeetupEventEdit()
+    {
+        _editContext = new EditContext(_model);
+        _editContext.OnFieldChanged += HandleFieldChanged;
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        _isLoading = true;
+        _message = null;
+        _isError = false;
+
+        try
+        {
+            await LoadGitCapabilityAsync();
+            _meetupGroups = (await ApiClient.GetMeetupGroupsAsync()).ToList();
+
+            if (_isNew)
+            {
+                ResetDefaults();
+                if (!string.IsNullOrWhiteSpace(GroupSlugQuery))
+                {
+                    _model.MeetupGroup = GroupSlugQuery;
+                }
+                _hasUnsavedChanges = false;
+            }
+            else
+            {
+                var detail = await ApiClient.GetMeetupEventAsync(Slug!);
+                if (detail is null)
+                {
+                    _isError = true;
+                    _message = "Meetup event not found.";
+                    return;
+                }
+
+                MapFromDetail(detail);
+                _hasUnsavedChanges = false;
+            }
+        }
+        catch (Exception exception)
+        {
+            _isError = true;
+            _message = exception.Message;
+        }
+        finally
+        {
+            _isLoading = false;
+        }
+    }
+
+    private async Task SaveAsync() => await SaveInternalAsync(commitAfterSave: false);
+
+    private async Task SaveAndCommitAsync() => await SaveInternalAsync(commitAfterSave: true);
+
+    private async Task SaveInternalAsync(bool commitAfterSave)
+    {
+        _isSaving = true;
+        _message = null;
+        _isError = false;
+
+        try
+        {
+            var request = new MeetupEventUpsertRequest(
+                _model.Title.Trim(),
+                string.IsNullOrWhiteSpace(_model.Slug) ? null : _model.Slug.Trim(),
+                _model.Description.Trim(),
+                string.IsNullOrWhiteSpace(_model.ShortDescription) ? null : _model.ShortDescription.Trim(),
+                _model.MeetupGroup.Trim(),
+                _model.Date,
+                string.IsNullOrWhiteSpace(_model.Time) ? null : _model.Time.Trim(),
+                string.IsNullOrWhiteSpace(_model.EventUrl) ? null : _model.EventUrl.Trim(),
+                BuildSpeaker(),
+                _model.Resources
+                    .Where(resource => !string.IsNullOrWhiteSpace(resource.Title) && !string.IsNullOrWhiteSpace(resource.Url))
+                    .Select(resource => new MeetupResourceDto(
+                        string.IsNullOrWhiteSpace(resource.Type) ? "other" : resource.Type.Trim(),
+                        resource.Title!.Trim(),
+                        resource.Url!.Trim(),
+                        string.IsNullOrWhiteSpace(resource.Description) ? null : resource.Description.Trim()))
+                    .ToList(),
+                string.IsNullOrWhiteSpace(_model.Thumbnail) ? null : _model.Thumbnail.Trim(),
+                string.IsNullOrWhiteSpace(_model.HeroImage) ? null : _model.HeroImage.Trim(),
+                BuildLocation(),
+                _model.Status,
+                _model.MarkdownBody ?? string.Empty,
+                _isNew ? null : _expectedLastModifiedUtc);
+
+            var detail = _isNew
+                ? await ApiClient.CreateMeetupEventAsync(request)
+                : await ApiClient.UpdateMeetupEventAsync(Slug!, request);
+
+            MapFromDetail(detail);
+            if (_isNew)
+            {
+                Slug = detail.Slug;
+                Navigation.NavigateTo(BuildEventEditUri(detail.Slug), forceLoad: false);
+            }
+
+            _message = $"Saved '{detail.Title}'.";
+            _hasUnsavedChanges = false;
+
+            if (commitAfterSave)
+            {
+                var commitRequest = new CommitRequest(
+                    _commit.Type,
+                    string.IsNullOrWhiteSpace(_commit.Description) ? $"update meetup event {_model.Slug}" : _commit.Description.Trim(),
+                    string.IsNullOrWhiteSpace(_commit.Scope) ? null : _commit.Scope.Trim(),
+                    string.IsNullOrWhiteSpace(_commit.Body) ? null : _commit.Body.Trim(),
+                    IncludeAllChanges: true);
+                var commitResponse = await ApiClient.CommitAsync(commitRequest);
+                _message = $"{_message} Commit: {commitResponse.CommitSha ?? "(no sha)"}";
+            }
+        }
+        catch (Exception exception)
+        {
+            _isError = true;
+            _message = exception.Message;
+        }
+        finally
+        {
+            _isSaving = false;
+        }
+    }
+
+    private MeetupSpeakerDto? BuildSpeaker()
+    {
+        if (string.IsNullOrWhiteSpace(_model.SpeakerName))
+        {
+            return null;
+        }
+
+        var social = new MeetupSpeakerSocialDto(
+            string.IsNullOrWhiteSpace(_model.SpeakerWebsite) ? null : _model.SpeakerWebsite.Trim(),
+            string.IsNullOrWhiteSpace(_model.SpeakerLinkedin) ? null : _model.SpeakerLinkedin.Trim(),
+            string.IsNullOrWhiteSpace(_model.SpeakerTwitter) ? null : _model.SpeakerTwitter.Trim(),
+            string.IsNullOrWhiteSpace(_model.SpeakerGithub) ? null : _model.SpeakerGithub.Trim(),
+            string.IsNullOrWhiteSpace(_model.SpeakerYoutube) ? null : _model.SpeakerYoutube.Trim(),
+            string.IsNullOrWhiteSpace(_model.SpeakerSessionize) ? null : _model.SpeakerSessionize.Trim(),
+            null);
+
+        if (string.IsNullOrWhiteSpace(social.Website) &&
+            string.IsNullOrWhiteSpace(social.Linkedin) &&
+            string.IsNullOrWhiteSpace(social.Twitter) &&
+            string.IsNullOrWhiteSpace(social.Github) &&
+            string.IsNullOrWhiteSpace(social.Youtube) &&
+            string.IsNullOrWhiteSpace(social.Sessionize))
+        {
+            social = null;
+        }
+
+        return new MeetupSpeakerDto(
+            _model.SpeakerName.Trim(),
+            string.IsNullOrWhiteSpace(_model.SpeakerBio) ? null : _model.SpeakerBio.Trim(),
+            string.IsNullOrWhiteSpace(_model.SpeakerTitle) ? null : _model.SpeakerTitle.Trim(),
+            string.IsNullOrWhiteSpace(_model.SpeakerCompany) ? null : _model.SpeakerCompany.Trim(),
+            string.IsNullOrWhiteSpace(_model.SpeakerPhoto) ? null : _model.SpeakerPhoto.Trim(),
+            social);
+    }
+
+    private MeetupLocationDto? BuildLocation()
+    {
+        if (string.IsNullOrWhiteSpace(_model.LocationVenue) &&
+            string.IsNullOrWhiteSpace(_model.LocationAddress) &&
+            string.IsNullOrWhiteSpace(_model.LocationCity) &&
+            string.IsNullOrWhiteSpace(_model.LocationState))
+        {
+            return null;
+        }
+
+        return new MeetupLocationDto(
+            string.IsNullOrWhiteSpace(_model.LocationVenue) ? null : _model.LocationVenue.Trim(),
+            string.IsNullOrWhiteSpace(_model.LocationAddress) ? null : _model.LocationAddress.Trim(),
+            string.IsNullOrWhiteSpace(_model.LocationCity) ? null : _model.LocationCity.Trim(),
+            string.IsNullOrWhiteSpace(_model.LocationState) ? null : _model.LocationState.Trim());
+    }
+
+    private async Task ArchiveAsync()
+    {
+        if (_isNew)
+        {
+            return;
+        }
+
+        if (!await JS.InvokeAsync<bool>("confirm", $"Archive '{_model.Title}'?"))
+        {
+            return;
+        }
+
+        try
+        {
+            await ApiClient.ArchiveMeetupEventAsync(Slug!);
+            _hasUnsavedChanges = false;
+            Navigation.NavigateTo(BuildBackUri());
+        }
+        catch (Exception exception)
+        {
+            _isError = true;
+            _message = exception.Message;
+        }
+    }
+
+    private async Task LoadGitCapabilityAsync()
+    {
+        var capability = await ApiClient.GetGitCapabilityAsync();
+        _gitCommitAvailable = capability?.Enabled == true && capability.IsRepository && capability.GitCliAvailable;
+    }
+
+    private string BuildBackUri()
+    {
+        var groupSlug = ResolveGroupContextSlug();
+        return string.IsNullOrWhiteSpace(groupSlug)
+            ? "/meetup-groups"
+            : $"/meetup-groups/{Uri.EscapeDataString(groupSlug)}";
+    }
+
+    private string BuildEventEditUri(string eventSlug)
+    {
+        var groupSlug = ResolveGroupContextSlug();
+        return string.IsNullOrWhiteSpace(groupSlug)
+            ? $"/meetup-events/{eventSlug}"
+            : $"/meetup-events/{eventSlug}?groupSlug={Uri.EscapeDataString(groupSlug)}";
+    }
+
+    private string? ResolveGroupContextSlug()
+        => !string.IsNullOrWhiteSpace(GroupSlugQuery)
+            ? GroupSlugQuery
+            : string.IsNullOrWhiteSpace(_model.MeetupGroup) ? null : _model.MeetupGroup;
+
+    private void AddResource() => _model.Resources.Add(new ResourceEditModel());
+
+    private void RemoveResource(ResourceEditModel model) => _model.Resources.Remove(model);
+
+    private void MapFromDetail(MeetupEventDetailDto detail)
+    {
+        _model.Title = detail.Title;
+        _model.Slug = detail.Slug;
+        _model.Description = detail.Description;
+        _model.ShortDescription = detail.ShortDescription ?? string.Empty;
+        _model.MeetupGroup = detail.MeetupGroup;
+        _model.Date = detail.Date;
+        _model.Time = detail.Time ?? string.Empty;
+        _model.EventUrl = detail.EventUrl ?? string.Empty;
+        _model.Thumbnail = detail.Thumbnail ?? string.Empty;
+        _model.HeroImage = detail.HeroImage ?? string.Empty;
+        _model.Status = detail.Status;
+        _model.MarkdownBody = detail.MarkdownBody;
+        _expectedLastModifiedUtc = detail.LastModifiedUtc;
+
+        _model.SpeakerName = detail.Speaker?.Name ?? string.Empty;
+        _model.SpeakerBio = detail.Speaker?.Bio ?? string.Empty;
+        _model.SpeakerTitle = detail.Speaker?.Title ?? string.Empty;
+        _model.SpeakerCompany = detail.Speaker?.Company ?? string.Empty;
+        _model.SpeakerPhoto = detail.Speaker?.Photo ?? string.Empty;
+        _model.SpeakerWebsite = detail.Speaker?.Social?.Website ?? string.Empty;
+        _model.SpeakerLinkedin = detail.Speaker?.Social?.Linkedin ?? string.Empty;
+        _model.SpeakerTwitter = detail.Speaker?.Social?.Twitter ?? string.Empty;
+        _model.SpeakerGithub = detail.Speaker?.Social?.Github ?? string.Empty;
+        _model.SpeakerYoutube = detail.Speaker?.Social?.Youtube ?? string.Empty;
+        _model.SpeakerSessionize = detail.Speaker?.Social?.Sessionize ?? string.Empty;
+
+        _model.LocationVenue = detail.Location?.Venue ?? string.Empty;
+        _model.LocationAddress = detail.Location?.Address ?? string.Empty;
+        _model.LocationCity = detail.Location?.City ?? string.Empty;
+        _model.LocationState = detail.Location?.State ?? string.Empty;
+
+        _model.Resources.Clear();
+        _model.Resources.AddRange(detail.Resources.Select(resource => new ResourceEditModel
+        {
+            Type = resource.Type,
+            Title = resource.Title,
+            Url = resource.Url,
+            Description = resource.Description
+        }));
+
+        _commit.Description = $"update meetup event {detail.Slug}";
+    }
+
+    private void ResetDefaults()
+    {
+        _model.Title = string.Empty;
+        _model.Slug = string.Empty;
+        _model.Description = string.Empty;
+        _model.ShortDescription = string.Empty;
+        _model.MeetupGroup = string.Empty;
+        _model.Date = DateOnly.FromDateTime(DateTime.Today);
+        _model.Time = string.Empty;
+        _model.EventUrl = string.Empty;
+        _model.Thumbnail = string.Empty;
+        _model.HeroImage = string.Empty;
+        _model.Status = "upcoming";
+        _model.MarkdownBody = string.Empty;
+        _expectedLastModifiedUtc = null;
+
+        _model.SpeakerName = string.Empty;
+        _model.SpeakerBio = string.Empty;
+        _model.SpeakerTitle = string.Empty;
+        _model.SpeakerCompany = string.Empty;
+        _model.SpeakerPhoto = string.Empty;
+        _model.SpeakerWebsite = string.Empty;
+        _model.SpeakerLinkedin = string.Empty;
+        _model.SpeakerTwitter = string.Empty;
+        _model.SpeakerGithub = string.Empty;
+        _model.SpeakerYoutube = string.Empty;
+        _model.SpeakerSessionize = string.Empty;
+
+        _model.LocationVenue = string.Empty;
+        _model.LocationAddress = string.Empty;
+        _model.LocationCity = string.Empty;
+        _model.LocationState = string.Empty;
+        _model.Resources.Clear();
+        _commit.Description = "add meetup event";
+    }
+
+    private async Task ConfirmInternalNavigationAsync(LocationChangingContext context)
+    {
+        if (!_hasUnsavedChanges)
+        {
+            return;
+        }
+
+        var shouldLeave = await JS.InvokeAsync<bool>("confirm", "You have unsaved changes. Leave without saving?");
+        if (!shouldLeave)
+        {
+            context.PreventNavigation();
+        }
+    }
+
+    private void HandleFieldChanged(object? sender, FieldChangedEventArgs e) => _hasUnsavedChanges = true;
+
+    public void Dispose()
+    {
+        _editContext.OnFieldChanged -= HandleFieldChanged;
+    }
+
+    private sealed class MeetupEventEditModel
+    {
+        public string Title { get; set; } = string.Empty;
+        public string Slug { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
+        public string ShortDescription { get; set; } = string.Empty;
+        public string MeetupGroup { get; set; } = string.Empty;
+        public DateOnly Date { get; set; } = DateOnly.FromDateTime(DateTime.Today);
+        public string Time { get; set; } = string.Empty;
+        public string EventUrl { get; set; } = string.Empty;
+        public string Thumbnail { get; set; } = string.Empty;
+        public string HeroImage { get; set; } = string.Empty;
+        public string Status { get; set; } = "upcoming";
+        public string MarkdownBody { get; set; } = string.Empty;
+
+        public string SpeakerName { get; set; } = string.Empty;
+        public string SpeakerBio { get; set; } = string.Empty;
+        public string SpeakerTitle { get; set; } = string.Empty;
+        public string SpeakerCompany { get; set; } = string.Empty;
+        public string SpeakerPhoto { get; set; } = string.Empty;
+        public string SpeakerWebsite { get; set; } = string.Empty;
+        public string SpeakerLinkedin { get; set; } = string.Empty;
+        public string SpeakerTwitter { get; set; } = string.Empty;
+        public string SpeakerGithub { get; set; } = string.Empty;
+        public string SpeakerYoutube { get; set; } = string.Empty;
+        public string SpeakerSessionize { get; set; } = string.Empty;
+
+        public string LocationVenue { get; set; } = string.Empty;
+        public string LocationAddress { get; set; } = string.Empty;
+        public string LocationCity { get; set; } = string.Empty;
+        public string LocationState { get; set; } = string.Empty;
+        public List<ResourceEditModel> Resources { get; set; } = [];
+    }
+
+    private sealed class ResourceEditModel
+    {
+        public string Type { get; set; } = "other";
+        public string? Title { get; set; }
+        public string? Url { get; set; }
+        public string? Description { get; set; }
+    }
+
+    private sealed class CommitDraft
+    {
+        public ConventionalCommitType Type { get; set; } = ConventionalCommitType.Chore;
+        public string? Scope { get; set; }
+        public string Description { get; set; } = string.Empty;
+        public string? Body { get; set; }
+    }
+}

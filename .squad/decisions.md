@@ -69,3 +69,47 @@
 3. Keaton: Produce priority ranking (top 10) for backfill
 4. Keaton: Create GitHub issues for Dallas using revised templates
 5. Dallas: Begin extraction per prioritized backlog
+
+---
+
+## Product Decisions — v1 Scope (2026-07-03)
+
+### Archive Retention and Purge Window
+**By:** User  
+**What:** Archive retention/purge policy is **90 days**.
+
+### Markdown Editing UX for v1
+**By:** User  
+**What:** v1 markdown editor is a **plain textarea** (no rich editor in v1).
+
+### Git Commit Integration in v1
+**By:** User  
+**What:** **Optional** git commit integration is in scope for v1.
+
+### Save+Commit Target
+**By:** User  
+**What:** Save+Commit targets a **local commit only** (no push).
+
+### Commit Message Style
+**By:** User  
+**What:** Commit messages follow **Conventional Commits**.
+
+### Archive Purge Enforcement
+**By:** User  
+**What:** Archive items are **automatically and permanently purged at 90 days**.
+
+### Commit Trigger
+**By:** User  
+**What:** Commits run **only on manual explicit "Save + Commit"**.
+
+---
+
+## Execution Record — Phase 0 Batch (2026-07-03)
+
+### Phase 0 Delivery Snapshot
+**By:** Rusty, Linus, Fenster, Hockney  
+**What:** Rusty scaffolded `management/` with Blazor WASM + API + shared contracts/foundational endpoints; Linus added integrity contracts/rules/DTOs under `src/lib/integrity` and `docs/content-integrity-checklist.md`; Fenster added local workflow scripts/instructions and validated build/run commands; Hockney captured QA phase-0 checklist outcomes and risks.
+
+### Policy Confirmation
+**By:** User (previously recorded), reconfirmed by Scribe  
+**What:** No new policy decisions in this batch. Existing v1 policy remains: 90-day auto purge, plain textarea markdown editor, and local-only manual Save+Commit using Conventional Commits.
