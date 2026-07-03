@@ -1,0 +1,31 @@
+<div class="oc-dashboard-header-strip">
+    <div class="oc-page-title-group">
+        @if (HeadingLevel == 1)
+        {
+            <h1>@Title</h1>
+        }
+        else
+        {
+            <h2>@Title</h2>
+        }
+
+        @if (!string.IsNullOrWhiteSpace(Subtitle))
+        {
+            <p class="oc-page-subtitle">@Subtitle</p>
+        }
+    </div>
+
+    @if (Actions is not null)
+    {
+        <div class="oc-page-actions">
+            @Actions
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter, EditorRequired] public string Title { get; set; } = string.Empty;
+    [Parameter] public string? Subtitle { get; set; }
+    [Parameter] public RenderFragment? Actions { get; set; }
+    [Parameter] public int HeadingLevel { get; set; } = 1;
+}

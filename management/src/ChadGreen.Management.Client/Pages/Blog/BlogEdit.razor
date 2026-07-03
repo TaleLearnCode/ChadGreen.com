@@ -7,26 +7,31 @@
 
 <PageTitle>@(_isNew ? "New Blog Post" : $"Edit {_model.Title}")</PageTitle>
 
-<h1>@(_isNew ? "New Blog Post" : "Edit Blog Post")</h1>
-
 <NavigationLock ConfirmExternalNavigation="_hasUnsavedChanges" OnBeforeInternalNavigation="ConfirmInternalNavigationAsync" />
 
-<div class="mb-3 d-flex gap-2">
-    <button class="btn btn-outline-secondary" @onclick="@(() => Navigation.NavigateTo("/blog"))">Back to List</button>
-</div>
+<div class="oc-page-shell">
+    <div class="oc-page-header">
+        <div class="oc-page-title-group">
+            <h1>@(_isNew ? "New Blog Post" : "Edit Blog Post")</h1>
+            <p class="oc-page-subtitle">Blog metadata and markdown source editor.</p>
+        </div>
+        <div class="oc-page-actions">
+            <button class="btn btn-outline-secondary" @onclick="@(() => Navigation.NavigateTo("/blog"))">Back to List</button>
+        </div>
+    </div>
 
-@if (!string.IsNullOrWhiteSpace(_message))
-{
-    <div class="alert @(_isError ? "alert-danger" : "alert-success")">@_message</div>
-}
+    @if (!string.IsNullOrWhiteSpace(_message))
+    {
+        <div class="alert oc-feedback @(_isError ? "alert-danger" : "alert-success")">@_message</div>
+    }
 
-@if (_isLoading)
-{
-    <p>Loading blog post...</p>
-}
-else
-{
-    <EditForm EditContext="_editContext" OnValidSubmit="SaveAsync">
+    @if (_isLoading)
+    {
+        <p class="oc-state-panel" data-state="loading">Loading blog post...</p>
+    }
+    else
+    {
+        <EditForm EditContext="_editContext" OnValidSubmit="SaveAsync" class="oc-editorial-route">
         <div class="row g-3">
             <div class="col-md-8">
                 <label class="form-label">Title</label>
@@ -93,12 +98,14 @@ else
                 </div>
             </div>
             <div class="col-12">
-                <label class="form-label">Markdown Body</label>
-                <InputTextArea class="form-control" rows="18" @bind-Value="_model.MarkdownBody" />
+                <MarkdownEditorField Label="Markdown Body"
+                                     Rows="18"
+                                     HelpText="Markdown source remains canonical and is saved without destructive transforms."
+                                     @bind-Value="_model.MarkdownBody" />
             </div>
         </div>
 
-        <div class="mt-4 d-flex gap-2">
+        <div class="oc-form-actions">
             <button type="submit" class="btn btn-primary" disabled="@_isSaving">Save</button>
             <button type="button" class="btn btn-outline-primary" @onclick="SaveAndCommitAsync" disabled="@_isSaving || !_gitCommitAvailable">Save + Commit</button>
         </div>
@@ -137,7 +144,8 @@ else
             }
         </div>
     </div>
-}
+    }
+</div>
 
 @code {
     [Parameter] public string? Slug { get; set; }

@@ -5,107 +5,115 @@
 
 <PageTitle>Presentations</PageTitle>
 
-<h1>Presentations</h1>
+<div class="oc-page-shell">
+    <div class="oc-page-header">
+        <div class="oc-page-title-group">
+            <h1>Presentations</h1>
+            <p class="oc-page-subtitle">Manage presentation inventory, status, and featured visibility.</p>
+        </div>
+        <div class="oc-page-actions">
+            <button class="btn btn-primary" @onclick="@(() => Navigation.NavigateTo("/presentations/new"))">New Presentation</button>
+            <button class="btn btn-outline-secondary" @onclick="LoadAsync" disabled="@_isLoading">Refresh</button>
+        </div>
+    </div>
 
-<div class="mb-3 d-flex gap-2">
-    <button class="btn btn-primary" @onclick="@(() => Navigation.NavigateTo("/presentations/new"))">New Presentation</button>
-    <button class="btn btn-outline-secondary" @onclick="LoadAsync" disabled="@_isLoading">Refresh</button>
-</div>
-
-<div class="card mb-3">
-    <div class="card-body">
-        <div class="row g-3 align-items-end">
-            <div class="col-md-4">
-                <label class="form-label">Quick Search</label>
-                <input class="form-control" @bind="_searchTerm" @bind:event="oninput" placeholder="Filter by presentation title" />
-            </div>
-            <div class="col-md-4">
-                <label class="form-label">Status Filters</label>
-                <div class="d-flex flex-wrap gap-3">
-                    @foreach (var status in StatusOptions)
-                    {
-                        var statusId = $"status-filter-{status}";
-                        <div class="form-check">
-                            <input id="@statusId"
-                                   class="form-check-input"
-                                   type="checkbox"
-                                   checked="@_selectedStatuses.Contains(status)"
-                                   @onchange="eventArgs => OnStatusFilterChanged(status, eventArgs.Value is true)" />
-                            <label class="form-check-label" for="@statusId">@status</label>
-                        </div>
-                    }
+    <div class="card">
+        <div class="card-body">
+            <div class="row g-3 align-items-end">
+                <div class="col-md-4">
+                    <label class="form-label">Quick Search</label>
+                    <input class="form-control" @bind="_searchTerm" @bind:event="oninput" placeholder="Filter by presentation title" />
                 </div>
-            </div>
-            <div class="col-md-4">
-                <label class="form-label">Featured Filter</label>
-                <InputSelect class="form-select" @bind-Value="_featuredFilter">
-                    <option value="all">All</option>
-                    <option value="featured-only">Featured only</option>
-                    <option value="not-featured">Not featured</option>
-                </InputSelect>
+                <div class="col-md-4">
+                    <label class="form-label">Status Filters</label>
+                    <div class="d-flex flex-wrap gap-3">
+                        @foreach (var status in StatusOptions)
+                        {
+                            var statusId = $"status-filter-{status}";
+                            <div class="form-check">
+                                <input id="@statusId"
+                                       class="form-check-input"
+                                       type="checkbox"
+                                       checked="@_selectedStatuses.Contains(status)"
+                                       @onchange="eventArgs => OnStatusFilterChanged(status, eventArgs.Value is true)" />
+                                <label class="form-check-label" for="@statusId">@status</label>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Featured Filter</label>
+                    <InputSelect class="form-select" @bind-Value="_featuredFilter">
+                        <option value="all">All</option>
+                        <option value="featured-only">Featured only</option>
+                        <option value="not-featured">Not featured</option>
+                    </InputSelect>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-@if (!string.IsNullOrWhiteSpace(_message))
-{
-    <div class="alert @(_isError ? "alert-danger" : "alert-success")">@_message</div>
-}
-
-@if (_isLoading)
-{
-    <p>Loading presentations...</p>
-}
-else if (_items.Count == 0)
-{
-    <p>No presentations found.</p>
-}
-else
-{
-    var filteredItems = GetFilteredItems();
-    if (filteredItems.Count == 0)
+    @if (!string.IsNullOrWhiteSpace(_message))
     {
-        <p>No presentations match the selected filters.</p>
+        <div class="alert oc-feedback @(_isError ? "alert-danger" : "alert-success")">@_message</div>
+    }
+
+    @if (_isLoading)
+    {
+        <p class="oc-state-panel" data-state="loading">Loading presentations...</p>
+    }
+    else if (_items.Count == 0)
+    {
+        <p class="oc-state-panel" data-state="empty">No presentations found.</p>
     }
     else
     {
-        <table class="table table-striped table-sm align-middle">
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Status</th>
-                    <th>Featured</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in filteredItems)
-                {
-                    <tr>
-                        <td>
-                            <a href="@($"/presentations/{item.Slug}")">@item.Title</a>
-                            <div class="text-muted small">@item.Description</div>
-                        </td>
-                        <td style="max-width: 170px;">
-                            <select class="form-select form-select-sm" value="@item.Status" @onchange="eventArgs => OnStatusChangedAsync(item, eventArgs.Value?.ToString())">
-                                <option value="in-development">in-development</option>
-                                <option value="active">active</option>
-                                <option value="retired">retired</option>
-                            </select>
-                        </td>
-                        <td>
-                            <input type="checkbox" checked="@item.Featured" @onchange="eventArgs => OnFeaturedChangedAsync(item, eventArgs.Value is true)" />
-                        </td>
-                        <td>
-                            <button class="btn btn-sm btn-outline-danger" @onclick="() => ArchiveAsync(item)">Archive</button>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+        var filteredItems = GetFilteredItems();
+        if (filteredItems.Count == 0)
+        {
+            <p class="oc-state-panel" data-state="empty">No presentations match the selected filters.</p>
+        }
+        else
+        {
+            <div class="oc-list-surface">
+                <table class="table table-striped table-sm align-middle">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Status</th>
+                            <th>Featured</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in filteredItems)
+                        {
+                            <tr>
+                                <td>
+                                    <a href="@($"/presentations/{item.Slug}")">@item.Title</a>
+                                    <div class="text-muted small">@item.Description</div>
+                                </td>
+                                <td class="oc-status-cell">
+                                    <select class="form-select form-select-sm" value="@item.Status" @onchange="eventArgs => OnStatusChangedAsync(item, eventArgs.Value?.ToString())">
+                                        <option value="in-development">in-development</option>
+                                        <option value="active">active</option>
+                                        <option value="retired">retired</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="checkbox" checked="@item.Featured" @onchange="eventArgs => OnFeaturedChangedAsync(item, eventArgs.Value is true)" />
+                                </td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-danger" @onclick="() => ArchiveAsync(item)">Archive</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
     }
-}
+</div>
 
 @code {
     private static readonly string[] StatusOptions = ["in-development", "active", "retired"];

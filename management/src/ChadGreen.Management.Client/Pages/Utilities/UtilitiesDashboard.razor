@@ -3,59 +3,60 @@
 
 <PageTitle>System Utilities</PageTitle>
 
-<h1>System Utilities</h1>
+<div class="oc-page-shell">
+    <DashboardHeaderStrip Title="System Utilities"
+                          Subtitle="Run dead-link and missing-image scans, then review actionable issues by source file and field path." />
 
-<p class="text-muted">Run dead-link and missing-image scans, then review actionable issues by source file and field path.</p>
+    @if (!string.IsNullOrWhiteSpace(_message))
+    {
+        <div class="alert oc-feedback @(_isError ? "alert-danger" : "alert-success")">@_message</div>
+    }
 
-@if (!string.IsNullOrWhiteSpace(_message))
-{
-    <div class="alert @(_isError ? "alert-danger" : "alert-success")">@_message</div>
-}
-
-@if (_isLoading)
-{
-    <p>Loading utility dashboard...</p>
-}
-else
-{
-    <div class="row g-3">
-        @foreach (var scan in _dashboardItems)
-        {
-            var scanKey = ToScanKey(scan.ScanType);
-            <div class="col-md-6">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-start mb-2">
-                            <h2 class="h5 mb-0">@GetScanTitle(scan.ScanType)</h2>
+    @if (_isLoading)
+    {
+        <p class="oc-state-panel" data-state="loading">Loading utility dashboard...</p>
+    }
+    else
+    {
+        <DashboardSection Title="Scan Controls" Subtitle="Run scans and open latest results.">
+            <DashboardGrid>
+                @foreach (var scan in _dashboardItems)
+                {
+                    var scanKey = ToScanKey(scan.ScanType);
+                    <ActivityStatusCard Title="@GetScanTitle(scan.ScanType)">
+                        <Status>
                             <button class="btn btn-sm btn-outline-primary" disabled="@(_isRunningScan == scan.ScanType)" @onclick="@(() => RunScanAsync(scan.ScanType))">
                                 @(_isRunningScan == scan.ScanType ? "Running..." : "Run Scan")
                             </button>
-                        </div>
-                        <div class="small text-muted mb-2">
-                            Last run:
-                            @if (scan.LastRunAtUtc is null)
+                        </Status>
+                        <ChildContent>
+                            <p class="mb-2 small text-muted">
+                                Last run:
+                                @if (scan.LastRunAtUtc is null)
+                                {
+                                    <span>never</span>
+                                }
+                                else
+                                {
+                                    <span>@scan.LastRunAtUtc.Value.ToLocalTime().ToString("g")</span>
+                                }
+                            </p>
+                            @if (scan.Summary is null)
                             {
-                                <span>never</span>
+                                <p class="mb-0">No results yet.</p>
                             }
                             else
                             {
-                                <span>@scan.LastRunAtUtc.Value.ToLocalTime().ToString("g")</span>
+                                <div class="d-flex gap-2 flex-wrap small">
+                                    <span>Checked: <strong>@scan.Summary.TotalChecked</strong></span>
+                                    <span class="badge oc-status-chip" data-status="error">Errors: @scan.Summary.Errors</span>
+                                    <span class="badge oc-status-chip" data-status="warning">Warnings: @scan.Summary.Warnings</span>
+                                    <span class="badge oc-status-chip" data-status="info">Issues: @scan.Summary.Issues</span>
+                                </div>
                             }
-                        </div>
-                        @if (scan.Summary is null)
-                        {
-                            <p class="mb-0 text-muted">No results yet.</p>
-                        }
-                        else
-                        {
-                            <div class="d-flex gap-3 flex-wrap small">
-                                <span>Checked: <strong>@scan.Summary.TotalChecked</strong></span>
-                                <span class="text-danger">Errors: <strong>@scan.Summary.Errors</strong></span>
-                                <span class="text-warning">Warnings: <strong>@scan.Summary.Warnings</strong></span>
-                                <span class="text-secondary">Issues: <strong>@scan.Summary.Issues</strong></span>
-                            </div>
-                        }
-                        <div class="mt-3">
+                            <p class="mb-0 small text-muted">Key: @scanKey</p>
+                        </ChildContent>
+                        <Actions>
                             <button class="btn btn-sm @(IsSelected(scan.ScanType) ? "btn-primary" : "btn-outline-secondary")" @onclick="@(() => SelectScan(scan.ScanType))">
                                 View Results
                             </button>
@@ -63,54 +64,54 @@ else
                             {
                                 <button class="btn btn-sm btn-link" @onclick="@(() => LoadLatestResultAsync(scan.ScanType))">Load latest</button>
                             }
-                        </div>
-                        <div class="small text-muted mt-2">Key: @scanKey</div>
-                    </div>
-                </div>
-            </div>
-        }
-    </div>
+                        </Actions>
+                    </ActivityStatusCard>
+                }
+            </DashboardGrid>
+        </DashboardSection>
 
-    <div class="mt-4">
-        <h2 class="h4">@GetScanTitle(_selectedScanType) Results</h2>
-        @if (!_latestResults.TryGetValue(_selectedScanType, out var selectedResult))
-        {
-            <p class="text-muted">Run or load this scan to view actionable rows.</p>
-        }
-        else if (selectedResult.Issues.Count == 0)
-        {
-            <div class="alert alert-success mb-0">No issues found in the latest scan.</div>
-        }
-        else
-        {
-            <div class="table-responsive">
-                <table class="table table-sm table-striped align-middle">
-                    <thead>
-                        <tr>
-                            <th>Severity</th>
-                            <th>Source file</th>
-                            <th>Field/path</th>
-                            <th>Issue</th>
-                            <th>Target</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var issue in selectedResult.Issues)
-                        {
+        <DashboardSection Title="@($"{GetScanTitle(_selectedScanType)} Results")">
+            @if (!_latestResults.TryGetValue(_selectedScanType, out var selectedResult))
+            {
+                <p class="oc-state-panel" data-state="empty">Run or load this scan to view actionable rows.</p>
+            }
+            else if (selectedResult.Issues.Count == 0)
+            {
+                <div class="alert alert-success mb-0">No issues found in the latest scan.</div>
+            }
+            else
+            {
+                <div class="oc-list-surface">
+                    <table class="table table-sm table-striped align-middle">
+                        <thead>
                             <tr>
-                                <td>@issue.Severity</td>
-                                <td><code>@issue.SourceFile</code></td>
-                                <td>@(string.IsNullOrWhiteSpace(issue.FieldPath) ? "-" : issue.FieldPath)</td>
-                                <td>@issue.Issue</td>
-                                <td>@(string.IsNullOrWhiteSpace(issue.Target) ? "-" : issue.Target)</td>
+                                <th>Severity</th>
+                                <th>Source file</th>
+                                <th>Field/path</th>
+                                <th>Issue</th>
+                                <th>Target</th>
                             </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
-        }
-    </div>
-}
+                        </thead>
+                        <tbody>
+                            @foreach (var issue in selectedResult.Issues)
+                            {
+                                <tr>
+                                    <td>
+                                        <span class="badge oc-status-chip" data-status="@issue.Severity.ToString().ToLowerInvariant()">@issue.Severity</span>
+                                    </td>
+                                    <td><code>@issue.SourceFile</code></td>
+                                    <td>@(string.IsNullOrWhiteSpace(issue.FieldPath) ? "-" : issue.FieldPath)</td>
+                                    <td>@issue.Issue</td>
+                                    <td>@(string.IsNullOrWhiteSpace(issue.Target) ? "-" : issue.Target)</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </DashboardSection>
+    }
+</div>
 
 @code {
     private bool _isLoading = true;

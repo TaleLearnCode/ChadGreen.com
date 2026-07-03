@@ -2,16 +2,47 @@
 
 <PageTitle>Home</PageTitle>
 
-<h1>Speaking Management</h1>
+<div class="oc-page-shell">
+    <DashboardHeaderStrip Title="Speaking Management"
+                          Subtitle="Operator Classic workspace for speaking, meetups, publishing, and media operations." />
 
-<p>Use the navigation to manage presentations and speaking engagements.</p>
+    <DashboardSection Title="Workspace Areas" Subtitle="Quick jump links for frequent management routes.">
+        <DashboardGrid>
+            <ActivityStatusCard Title="Presentations">
+                <p class="mb-0">List, create, edit, archive, and quick status/featured updates.</p>
+                <div class="mt-2"><a href="/presentations">Open presentations</a></div>
+            </ActivityStatusCard>
 
-<ul>
-    <li><a href="/presentations">Presentations</a> — list, create, edit, archive, and quick status/featured updates.</li>
-    <li><a href="/engagements">Speaking Engagements</a> — list, create, edit, archive, and manage presentation assignments with explicit order.</li>
-    <li><a href="/meetup-groups">Meetup Groups</a> — list, create, edit, archive, and manage meetup events within each group.</li>
-    <li><a href="/blog">Blog</a> — list, create, and edit blog posts.</li>
-    <li><a href="/about-profile">About Profile</a> — edit author/about page profile content.</li>
-    <li><a href="/media">Media Library</a> — browse, upload, replace, archive, and copy image URLs.</li>
-    <li><a href="/utilities">System Utilities</a> — dead-link/missing-image scans, validation summaries, and rerun actions.</li>
-</ul>
+            <ActivityStatusCard Title="Speaking Engagements">
+                <p class="mb-0">Manage event records and ordered presentation assignments.</p>
+                <div class="mt-2"><a href="/engagements">Open engagements</a></div>
+            </ActivityStatusCard>
+
+            <ActivityStatusCard Title="Meetups">
+                <p class="mb-0">Maintain meetup groups and linked meetup events.</p>
+                <div class="mt-2 d-flex gap-2 flex-wrap">
+                    <a href="/meetup-groups">Groups</a>
+                    <a href="/meetup-events">Events</a>
+                </div>
+            </ActivityStatusCard>
+
+            <ActivityStatusCard Title="Publishing + Assets">
+                <p class="mb-0">Update blog posts, profile details, and media files.</p>
+                <div class="mt-2 d-flex gap-2 flex-wrap">
+                    <a href="/blog">Blog</a>
+                    <a href="/about-profile">About</a>
+                    <a href="/media">Media</a>
+                    <a href="/utilities">Utilities</a>
+                </div>
+            </ActivityStatusCard>
+        </DashboardGrid>
+    </DashboardSection>
+
+    <DashboardSection Title="Dashboard Primitive Preview" Subtitle="Reusable card and grid baseline for upcoming Mission Ops dashboard.">
+        <DashboardGrid>
+            <KpiStatCard Label="Collections" Value="7" Meta="Primary management areas currently active" />
+            <KpiStatCard Label="Theme Modes" Value="2" Meta="Light and dark compatibility maintained" />
+            <KpiStatCard Label="Status Systems" Value="Shared chips" Meta="Consistent status styling across lists and scans" />
+        </DashboardGrid>
+    </DashboardSection>
+</div>

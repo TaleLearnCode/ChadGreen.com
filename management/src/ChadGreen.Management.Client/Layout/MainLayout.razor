@@ -1,4 +1,7 @@
-﻿@inherits LayoutComponentBase
+﻿@using Microsoft.JSInterop
+@inherits LayoutComponentBase
+@inject IJSRuntime JS
+
 <div class="page">
     <div class="sidebar">
         <NavMenu />
@@ -6,6 +9,9 @@
 
     <main>
         <div class="top-row px-4">
+            <button class="btn btn-link theme-toggle" type="button" @onclick="ToggleTheme" aria-label="@ThemeToggleAriaLabel">
+                @ThemeToggleText
+            </button>
             <a href="http://localhost:4321/" target="_blank">View Site</a>
         </div>
 
@@ -14,3 +20,29 @@
         </article>
     </main>
 </div>
+
+@code {
+    private const string LightTheme = "light";
+    private const string DarkTheme = "dark";
+    private string currentTheme = LightTheme;
+
+    private string ThemeToggleText => currentTheme == DarkTheme ? "Light mode" : "Dark mode";
+    private string ThemeToggleAriaLabel => currentTheme == DarkTheme ? "Switch to light mode" : "Switch to dark mode";
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender)
+        {
+            return;
+        }
+
+        currentTheme = await JS.InvokeAsync<string>("managementTheme.getPreferredTheme");
+        StateHasChanged();
+    }
+
+    private async Task ToggleTheme()
+    {
+        currentTheme = currentTheme == DarkTheme ? LightTheme : DarkTheme;
+        await JS.InvokeVoidAsync("managementTheme.setTheme", currentTheme);
+    }
+}

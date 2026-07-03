@@ -1,0 +1,8 @@
+<div class="oc-dashboard-grid @ClassName">
+    @ChildContent
+</div>
+
+@code {
+    [Parameter] public string? ClassName { get; set; }
+    [Parameter, EditorRequired] public RenderFragment ChildContent { get; set; } = default!;
+}

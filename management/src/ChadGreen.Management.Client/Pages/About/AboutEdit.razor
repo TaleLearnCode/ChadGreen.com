@@ -5,22 +5,28 @@
 
 <PageTitle>Edit About Profile</PageTitle>
 
-<h1>Edit About Profile</h1>
-
 <NavigationLock ConfirmExternalNavigation="_hasUnsavedChanges" OnBeforeInternalNavigation="ConfirmInternalNavigationAsync" />
 
-@if (!string.IsNullOrWhiteSpace(_message))
-{
-    <div class="alert @(_isError ? "alert-danger" : "alert-success")">@_message</div>
-}
+<div class="oc-page-shell">
+    <div class="oc-page-header">
+        <div class="oc-page-title-group">
+            <h1>Edit About Profile</h1>
+            <p class="oc-page-subtitle">Update author metadata, social links, and markdown source body.</p>
+        </div>
+    </div>
 
-@if (_isLoading)
-{
-    <p>Loading profile...</p>
-}
-else
-{
-    <EditForm EditContext="_editContext" OnValidSubmit="SaveAsync">
+    @if (!string.IsNullOrWhiteSpace(_message))
+    {
+        <div class="alert oc-feedback @(_isError ? "alert-danger" : "alert-success")">@_message</div>
+    }
+
+    @if (_isLoading)
+    {
+        <p class="oc-state-panel" data-state="loading">Loading profile...</p>
+    }
+    else
+    {
+        <EditForm EditContext="_editContext" OnValidSubmit="SaveAsync" class="oc-editorial-route">
         <div class="row g-3">
             <div class="col-md-6">
                 <label class="form-label">Name</label>
@@ -70,12 +76,14 @@ else
                 <InputText class="form-control" @bind-Value="_model.SocialSessionize" />
             </div>
             <div class="col-12">
-                <label class="form-label">Markdown Body</label>
-                <InputTextArea class="form-control" rows="16" @bind-Value="_model.MarkdownBody" />
+                <MarkdownEditorField Label="Markdown Body"
+                                     Rows="16"
+                                     HelpText="Markdown source remains canonical and is saved without destructive transforms."
+                                     @bind-Value="_model.MarkdownBody" />
             </div>
         </div>
 
-        <div class="mt-4 d-flex gap-2">
+        <div class="oc-form-actions">
             <button type="submit" class="btn btn-primary" disabled="@_isSaving">Save</button>
             <button type="button" class="btn btn-outline-primary" @onclick="SaveAndCommitAsync" disabled="@_isSaving || !_gitCommitAvailable">Save + Commit</button>
         </div>
@@ -114,7 +122,8 @@ else
             }
         </div>
     </div>
-}
+    }
+</div>
 
 @code {
     private readonly AboutEditModel _model = new();

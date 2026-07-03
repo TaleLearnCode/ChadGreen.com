@@ -113,3 +113,46 @@
 ### Policy Confirmation
 **By:** User (previously recorded), reconfirmed by Scribe  
 **What:** No new policy decisions in this batch. Existing v1 policy remains: 90-day auto purge, plain textarea markdown editor, and local-only manual Save+Commit using Conventional Commits.
+
+---
+
+## Redesign Strategy Decisions — Planning Batch (2026-07-03)
+
+### Phased Visual Redesign Execution
+**By:** Keaton  
+**What:** Deliver the visual redesign as a phased execution plan with clear sequencing and handoff checkpoints.
+**Why:** Keeps scope controlled, reduces rework risk, and enables incremental validation before broad rollout.
+
+### Markdown Editor Replacement Direction
+**By:** Rusty  
+**What:** Use an EasyMDE pilot as the preferred path for markdown editor replacement before full adoption.
+**Why:** Validates integration and authoring fit quickly without committing the full redesign to an unproven editor path.
+
+### Accessibility and Theme QA Gates
+**By:** Hockney  
+**What:** Require explicit accessibility gates plus light/dark mode QA gates as redesign Definition of Done criteria.
+**Why:** Ensures redesign quality is inclusive and visually consistent across theme variants.
+
+### Content-Authoring UX Standards
+**By:** Dallas  
+**What:** Anchor redesign decisions to content-authoring/editor UX standards focused on clear, low-friction markdown workflows.
+**Why:** Keeps the redesign aligned with content-first operations and day-to-day publishing efficiency.
+
+---
+
+## Redesign Strategy Decisions — Phase 1 Foundation Guardrails (2026-07-03)
+
+### Token Architecture Baseline (Operator Classic)
+**By:** Keaton  
+**What:** Phase 1 must establish a token-driven foundation in `management/src/ChadGreen.Management.Client/wwwroot/css/app.css` with semantic aliases (surface/text/border/interactive/feedback/focus) and bootstrap variable bindings before component-level redesign proceeds.
+**Why:** Prevents hardcoded color regressions and reduces rework in later phases by centralizing visual primitives.
+
+### Theme Coverage Baseline
+**By:** Keaton  
+**What:** Phase 1 Definition of Done requires complete light + dark theme parity for shared chrome (shell, nav, cards, tables, forms, alerts, buttons, links, focus indicators), including explicit overrides for existing light-only rules.
+**Why:** Ensures redesign quality gates are enforceable and avoids retrofitting dark mode after page-level implementation.
+
+### Accessibility Baseline for Foundation
+**By:** Keaton, Hockney  
+**What:** Foundation phase must meet WCAG 2.2 AA baseline across keyboard navigation, visible focus, contrast, form labeling, and status messaging semantics for touched surfaces.
+**Why:** Embedding accessibility into foundation avoids costly retroactive fixes and aligns QA gates with redesign DoD.

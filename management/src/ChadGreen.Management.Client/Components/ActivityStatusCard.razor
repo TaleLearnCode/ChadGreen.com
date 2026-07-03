@@ -1,0 +1,30 @@
+<article class="card oc-dashboard-activity-card @ClassName">
+    <div class="card-body">
+        <header class="oc-dashboard-activity-card-header">
+            <h3 class="h6 mb-0">@Title</h3>
+            @if (Status is not null)
+            {
+                @Status
+            }
+        </header>
+
+        <div class="oc-dashboard-activity-content">
+            @ChildContent
+        </div>
+
+        @if (Actions is not null)
+        {
+            <footer class="oc-page-actions">
+                @Actions
+            </footer>
+        }
+    </div>
+</article>
+
+@code {
+    [Parameter, EditorRequired] public string Title { get; set; } = string.Empty;
+    [Parameter] public string? ClassName { get; set; }
+    [Parameter] public RenderFragment? Status { get; set; }
+    [Parameter] public RenderFragment? Actions { get; set; }
+    [Parameter, EditorRequired] public RenderFragment ChildContent { get; set; } = default!;
+}
