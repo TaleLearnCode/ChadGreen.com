@@ -6,13 +6,14 @@ description: "Cincy Deliver is a community-driven software development conferenc
 startDate: 2024-07-26
 endDate: 2024-07-26
 location:
-  venue: "Kings Island Conference Center"
+  venue: "Manor House"
   city: "Mason"
   state: "Ohio"
   country: "USA"
 website: "https://www.cincydeliver.org/"
 featured: false
-heroImage: "/images/events/default-event.webp"
+validated: true
+heroImage: "/images/events/cincy-deliver.webp"
 presentations:
   - id: "terraform-swiss-army-knife"
     date: "July 26, 2024"

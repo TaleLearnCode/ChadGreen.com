@@ -6,13 +6,14 @@ description: "CincyDeliver is a developer conference in Cincinnati, Ohio featuri
 startDate: 2021-07-30
 endDate: 2021-07-30
 location:
-  venue: "Xavier University"
+  venue: "Manor House"
   city: "Cincinnati"
   state: "Ohio"
   country: "USA"
 website: "https://www.cincydeliver.org/"
 featured: false
-heroImage: "/images/events/default-event.webp"
+validated: true
+heroImage: "/images/events/cincy-deliver.webp"
 presentations:
   - id: "event-driven-architecture-cloud"
     date: "July 30, 2021"

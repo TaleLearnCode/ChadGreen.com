@@ -6,13 +6,14 @@ description: "Cincy Deliver is a community-driven software development conferenc
 startDate: 2025-08-01
 endDate: 2025-08-01
 location:
-  venue: "Duke Energy Convention Center"
+  venue: "Manor House"
   city: "Cincinnati"
   state: "Ohio"
   country: "USA"
 website: "https://www.cincydeliver.org/"
 featured: false
-heroImage: "/images/events/default-event.webp"
+validated: true
+heroImage: "/images/events/cincy-deliver.webp"
 presentations:
   - id: "transform-chaos-azure-durable-functions"
     date: "August 1, 2025"

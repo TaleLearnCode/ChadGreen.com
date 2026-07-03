@@ -12,7 +12,8 @@ location:
   country: "USA"
 website: "https://stirtrek.com/speakers/2025/Chad-Green.html"
 featured: false
-heroImage: "/images/events/default-event.webp"
+validated: true
+heroImage: "/images/events/stirtrek.webp"
 presentations:
   - id: "navigating-maze-architecture-decisions"
     date: "May 2, 2025"

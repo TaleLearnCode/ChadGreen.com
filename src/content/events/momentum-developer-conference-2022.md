@@ -6,13 +6,14 @@ description: "Momentum Developer Conference is a community-driven technology con
 startDate: 2022-10-20
 endDate: 2022-10-20
 location:
-  venue: "Duke Energy Convention Center"
+  venue: "Hard Rock Casino Cincinnati"
   city: "Cincinnati"
   state: "Ohio"
   country: "USA"
 website: "https://momentumdevcon.com/"
 featured: false
-heroImage: "/images/events/default-event.webp"
+validated: true
+heroImage: "/images/events/momentum.webp"
 presentations:
   - id: "building-event-driven-microservices"
     date: "October 20, 2022"
@@ -28,4 +29,4 @@ Momentum Developer Conference is a community-run technology conference in Cincin
 ## Event Details
 
 **Date:** October 20, 2022  
-**Location:** Duke Energy Convention Center, Cincinnati, OH
+**Location:** Hard Rock Casino Cincinnati, Cincinnati, OH
