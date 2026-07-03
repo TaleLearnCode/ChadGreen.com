@@ -10,6 +10,7 @@ time: "12:40 PM"
 timeZone: "EDT"
 room: "River B"
 canonicalPath: "speaking-session"
+heroImage: "/images/presentations/navigating-maze-architecture-decisions-original.webp"
 ---
 
 Thanks for attending **Navigating the Maze of Architecture Decisions** at **Momentum Developer Conference 2024**!

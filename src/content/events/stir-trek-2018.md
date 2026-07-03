@@ -12,7 +12,7 @@ location:
   country: "USA"
 website: "https://stirtrek.com/"
 featured: false
-heroImage: "/images/events/default-event.webp"
+heroImage: "/images/events/stirtrek.webp"
 presentations:
   - id: "serverless-in-action"
     date: "May 4, 2018"

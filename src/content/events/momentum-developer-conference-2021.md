@@ -5,13 +5,14 @@ description: "Momentum Developer Conference is a community-focused developer con
 startDate: 2021-10-14
 endDate: 2021-10-15
 location:
-  venue: "Duke Energy Convention Center"
+  venue: "Hard Rock Casino Cincinnati"
   city: "Cincinnati"
   state: "Ohio"
   country: "USA"
 website: "https://momentumdevcon.com/"
 featured: false
-heroImage: "/images/events/momentum-developer-conference.webp"
+validated: true
+heroImage: "/images/events/momentum.webp"
 presentations:
   - id: "going-schemaless-azure-cosmosdb"
     date: "October 15, 2021"
@@ -28,4 +29,4 @@ Momentum Developer Conference is a community-driven developer event held in Cinc
 ## Event Details
 
 **Dates:** October 14–15, 2021  
-**Location:** Duke Energy Convention Center, Cincinnati, OH
+**Location:** Hard Rock Casino Cincinnati, Cincinnati, OH

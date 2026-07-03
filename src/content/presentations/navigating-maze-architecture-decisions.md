@@ -6,8 +6,10 @@ level: "intermediate"
 durations: [45, 60, 75, 90]
 tags: ["Architecture", "Documentation", "ADR", "Decision Making", "Communication", "Best Practices"]
 featured: false
+validated: true
 heroImage: "/images/presentations/navigating-maze-architecture-decisions.webp"
 status: "active"
+
 
 learningObjectives:
   - "**Demystify Architecture Decision Records (ADRs):** Understand what ADRs are, why they matter, and how they serve as a vital framework for capturing the reasoning behind your architectural choices."

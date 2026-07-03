@@ -6,13 +6,14 @@ description: "Momentum Developer Conference is a community-focused developer con
 startDate: 2024-10-17
 endDate: 2024-10-17
 location:
-  venue: "Duke Energy Convention Center"
+  venue: "Hard Rock Casino Cincinnati"
   city: "Cincinnati"
   state: "Ohio"
   country: "USA"
 website: "https://momentumdevcon.com/"
 featured: false
-heroImage: "/images/events/momentum-developer-conference.webp"
+validated: true
+heroImage: "/images/events/momentum.webp"
 presentations:
   - id: "navigating-maze-architecture-decisions"
     date: "October 17, 2024"
@@ -28,4 +29,4 @@ Momentum Developer Conference is a community-driven developer event held in Cinc
 ## Event Details
 
 **Date:** October 17, 2024  
-**Location:** Duke Energy Convention Center, Cincinnati, OH
+**Location:** Hard Rock Casino Cincinnati, Cincinnati, OH

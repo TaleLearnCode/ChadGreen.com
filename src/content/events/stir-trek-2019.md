@@ -12,7 +12,7 @@ location:
   country: "USA"
 website: "https://stirtrek.com/"
 featured: false
-heroImage: "/images/events/default-event.webp"
+heroImage: "/images/events/stirtrek.webp"
 presentations:
   - id: "transform-chaos-azure-durable-functions"
     date: "May 26, 2019"

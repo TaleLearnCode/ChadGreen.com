@@ -9,6 +9,7 @@ date: 2025-05-02
 time: "1:00 PM"
 timeZone: "EDT"
 room: "Black Widow"
+heroImage: "/images/presentations/navigating-maze-architecture-decisions-marvel.webp"
 canonicalPath: "speaking-session"
 ---
 

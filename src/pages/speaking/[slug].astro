@@ -27,10 +27,10 @@ if (event.data.presentations?.length) {
         getCollection('engagementPresentations'),
     ]);
 
-    const sessionSlugByPresentationId = new Map(
+    const engagementByPresentationId = new Map(
         allEngagementPresentations
             .filter((entry) => entry.data.eventSlug === event.id)
-            .map((entry) => [entry.data.presentationSlug, entry.data.sessionSlug])
+            .map((entry) => [entry.data.presentationSlug, entry.data])
     );
     
     linkedPresentations = event.data.presentations.map((p: any) => {
@@ -41,13 +41,16 @@ if (event.data.presentations?.length) {
         if (!presentationData) return null;
         
         // Add event-specific scheduling details
-        const sessionSlug = sessionSlugByPresentationId.get(presentationId);
+        const engagement = engagementByPresentationId.get(presentationId);
+        const sessionSlug = engagement?.sessionSlug;
+        const thumbnail = engagement?.heroImage || presentationData.data.heroImage;
 
         return {
             ...presentationData,
             detailsHref: sessionSlug
                 ? `/speaking/${event.id}/presentations/${sessionSlug}`
                 : `/presentations/${presentationId}`,
+            thumbnail,
             sessionName: typeof p === 'object' ? p.sessionName : undefined,
             scheduleDate: typeof p === 'object' ? p.date : undefined,
             scheduleTime: typeof p === 'object' ? p.time : undefined,
@@ -220,7 +223,7 @@ const typeLabels: Record<string, string> = {
                                     description={presentation.data.description}
                                     slug={presentation.id}
                                     detailsHref={presentation.detailsHref}
-                                    thumbnail={presentation.data.heroImage}
+                                    thumbnail={presentation.thumbnail}
                                     presentationType={presentation.data.type}
                                     tags={presentation.data.tags}
                                     showSchedule={true}
