@@ -1,0 +1,17 @@
+<article class="card oc-dashboard-stat-card @ClassName">
+    <div class="card-body">
+        <div class="oc-dashboard-label">@Label</div>
+        <div class="oc-dashboard-value">@Value</div>
+        @if (!string.IsNullOrWhiteSpace(Meta))
+        {
+            <div class="oc-dashboard-meta">@Meta</div>
+        }
+    </div>
+</article>
+
+@code {
+    [Parameter, EditorRequired] public string Label { get; set; } = string.Empty;
+    [Parameter, EditorRequired] public string Value { get; set; } = string.Empty;
+    [Parameter] public string? Meta { get; set; }
+    [Parameter] public string? ClassName { get; set; }
+}

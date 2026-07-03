@@ -1,0 +1,127 @@
+@using System.Linq.Expressions
+@inherits InputBase<string>
+@implements IAsyncDisposable
+@inject IJSRuntime JS
+
+<div class="oc-editorial-field">
+    <label class="form-label" for="@EditorId">@Label</label>
+    <div class="oc-markdown-editor @FieldCssClass">
+        <textarea id="@EditorId"
+                  class="@EditorCssClass"
+                  rows="@Rows"
+                  placeholder="@Placeholder"
+                  @attributes="AdditionalAttributes"
+                  @oninput="HandleInput"
+                  @onblur="HandleBlur"
+                  @ref="_textareaElement">@CurrentValueAsString</textarea>
+    </div>
+    @if (!string.IsNullOrWhiteSpace(HelpText))
+    {
+        <div class="form-text">@HelpText</div>
+    }
+    @if (ValueExpression is not null)
+    {
+        <ValidationMessage For="ValueExpression" />
+    }
+</div>
+
+@code {
+    [Parameter] public string Label { get; set; } = "Markdown";
+    [Parameter] public string Placeholder { get; set; } = string.Empty;
+    [Parameter] public string? HelpText { get; set; }
+    [Parameter] public int Rows { get; set; } = 16;
+    [Parameter] public string? InputId { get; set; }
+
+    private readonly string _fallbackEditorId = $"md-{Guid.NewGuid():N}";
+    private ElementReference _textareaElement;
+    private DotNetObjectReference<MarkdownEditorField>? _dotNetReference;
+    private bool _editorInitialized;
+    private bool _editorInteropAttached;
+    private string _lastEditorValue = string.Empty;
+
+    private string EditorId => string.IsNullOrWhiteSpace(InputId) ? _fallbackEditorId : InputId!;
+    private string EditorCssClass => $"form-control {CssClass}".Trim();
+    private string FieldCssClass => EditContext?.FieldCssClass(FieldIdentifier) ?? string.Empty;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _dotNetReference = DotNetObjectReference.Create(this);
+            _editorInitialized = await JS.InvokeAsync<bool>(
+                "managementMarkdownEditor.initialize",
+                EditorId,
+                _dotNetReference,
+                Placeholder);
+            _editorInteropAttached = true;
+            _lastEditorValue = CurrentValueAsString ?? string.Empty;
+            return;
+        }
+
+        if (_editorInitialized && _editorInteropAttached && _lastEditorValue != CurrentValueAsString)
+        {
+            _lastEditorValue = CurrentValueAsString ?? string.Empty;
+            await JS.InvokeVoidAsync("managementMarkdownEditor.setValue", EditorId, CurrentValueAsString);
+        }
+    }
+
+    [JSInvokable]
+    public Task NotifyMarkdownChanged(string? nextValue)
+    {
+        var normalized = nextValue ?? string.Empty;
+        if (!string.Equals(CurrentValueAsString, normalized, StringComparison.Ordinal))
+        {
+            CurrentValueAsString = normalized;
+        }
+
+        _lastEditorValue = normalized;
+        return Task.CompletedTask;
+    }
+
+    [JSInvokable]
+    public Task NotifyEditorBlur()
+    {
+        EditContext?.NotifyFieldChanged(FieldIdentifier);
+        return Task.CompletedTask;
+    }
+
+    private Task HandleInput(ChangeEventArgs args)
+    {
+        var nextValue = args.Value?.ToString() ?? string.Empty;
+        CurrentValueAsString = nextValue;
+        _lastEditorValue = nextValue;
+        return Task.CompletedTask;
+    }
+
+    private Task HandleBlur(FocusEventArgs _)
+    {
+        EditContext?.NotifyFieldChanged(FieldIdentifier);
+        return Task.CompletedTask;
+    }
+
+    protected override bool TryParseValueFromString(string? value, out string result, out string validationErrorMessage)
+    {
+        result = value ?? string.Empty;
+        validationErrorMessage = string.Empty;
+        return true;
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (_editorInteropAttached)
+        {
+            try
+            {
+                await JS.InvokeVoidAsync("managementMarkdownEditor.dispose", EditorId);
+            }
+            catch (JSDisconnectedException)
+            {
+            }
+            catch (TaskCanceledException)
+            {
+            }
+        }
+
+        _dotNetReference?.Dispose();
+    }
+}

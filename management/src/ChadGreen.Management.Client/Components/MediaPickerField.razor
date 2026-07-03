@@ -12,7 +12,7 @@
 @if (!string.IsNullOrWhiteSpace(PreviewUrl))
 {
     <div class="mt-2">
-        <img src="@PreviewUrl" alt="@PreviewAlt" class="img-fluid img-thumbnail" style="max-height: 220px;" />
+        <img src="@PreviewUrl" alt="@PreviewAlt" class="img-fluid img-thumbnail oc-inline-preview" />
     </div>
 }
 
@@ -48,7 +48,7 @@
             }
             else
             {
-                <div class="table-responsive mt-2" style="max-height: 320px;">
+                <div class="table-responsive mt-2 oc-picker-table">
                     <table class="table table-sm align-middle">
                         <thead>
                             <tr>

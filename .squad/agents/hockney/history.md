@@ -61,3 +61,5 @@ Personal portfolio and speaking engagement site for Chad Green. Showcases presen
 ### Immediate Quality Risks
 - ⚠️ **Build warning debt:** CSS minify `css-syntax-error` warnings are present in `npm run build`. Build passes, but warning volume can mask real regressions.  
 - ⚠️ **Endpoint coverage gap:** No native automated test suite exists for `api/src/functions/contact.js`; current validation uses a mock harness only.
+
+📌 Team update (2026-07-03T13:34:41.336-04:00): Redesign strategy aligned on phased rollout sequencing (Keaton), EasyMDE pilot recommendation (Rusty), accessibility + light/dark QA gates as DoD (Hockney), and content-authoring/editor UX standards (Dallas). — decided by Keaton, Rusty, Hockney, Dallas

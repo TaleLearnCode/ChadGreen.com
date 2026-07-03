@@ -7,30 +7,35 @@
 
 <PageTitle>@(_isNew ? "New Meetup Event" : $"Edit {_model.Title}")</PageTitle>
 
-<h1>@(_isNew ? "New Meetup Event" : "Edit Meetup Event")</h1>
-
 <NavigationLock ConfirmExternalNavigation="_hasUnsavedChanges" OnBeforeInternalNavigation="ConfirmInternalNavigationAsync" />
 
-<div class="mb-3 d-flex gap-2">
-    <button class="btn btn-outline-secondary" @onclick="@(() => Navigation.NavigateTo(BuildBackUri()))">Back</button>
-    @if (!_isNew)
+<div class="oc-page-shell">
+    <div class="oc-page-header">
+        <div class="oc-page-title-group">
+            <h1>@(_isNew ? "New Meetup Event" : "Edit Meetup Event")</h1>
+            <p class="oc-page-subtitle">Event details, speaker metadata, and markdown source editor.</p>
+        </div>
+        <div class="oc-page-actions">
+            <button class="btn btn-outline-secondary" @onclick="@(() => Navigation.NavigateTo(BuildBackUri()))">Back</button>
+            @if (!_isNew)
+            {
+                <button class="btn btn-outline-danger" @onclick="ArchiveAsync">Archive</button>
+            }
+        </div>
+    </div>
+
+    @if (!string.IsNullOrWhiteSpace(_message))
     {
-        <button class="btn btn-outline-danger" @onclick="ArchiveAsync">Archive</button>
+        <div class="alert oc-feedback @(_isError ? "alert-danger" : "alert-success")">@_message</div>
     }
-</div>
 
-@if (!string.IsNullOrWhiteSpace(_message))
-{
-    <div class="alert @(_isError ? "alert-danger" : "alert-success")">@_message</div>
-}
-
-@if (_isLoading)
-{
-    <p>Loading meetup event...</p>
-}
-else
-{
-    <EditForm EditContext="_editContext" OnValidSubmit="SaveAsync">
+    @if (_isLoading)
+    {
+        <p class="oc-state-panel" data-state="loading">Loading meetup event...</p>
+    }
+    else
+    {
+        <EditForm EditContext="_editContext" OnValidSubmit="SaveAsync" class="oc-editorial-route">
         <div class="row g-3">
             <div class="col-md-8">
                 <label class="form-label">Title</label>
@@ -178,12 +183,14 @@ else
             </div>
 
             <div class="col-12">
-                <label class="form-label">Markdown Body</label>
-                <InputTextArea class="form-control" rows="16" @bind-Value="_model.MarkdownBody" />
+                <MarkdownEditorField Label="Markdown Body"
+                                     Rows="16"
+                                     HelpText="Markdown source remains canonical and is saved without destructive transforms."
+                                     @bind-Value="_model.MarkdownBody" />
             </div>
         </div>
 
-        <div class="mt-4 d-flex gap-2">
+        <div class="oc-form-actions">
             <button type="submit" class="btn btn-primary" disabled="@_isSaving">Save</button>
             <button type="button" class="btn btn-outline-primary" @onclick="SaveAndCommitAsync" disabled="@_isSaving || !_gitCommitAvailable">Save + Commit</button>
         </div>
@@ -222,7 +229,8 @@ else
             }
         </div>
     </div>
-}
+    }
+</div>
 
 @code {
     [Parameter] public string? Slug { get; set; }
