@@ -1,0 +1,194 @@
+@inject ManagementApiHttpClient ApiClient
+
+<label class="form-label">@Label</label>
+<div class="input-group">
+    <input class="form-control"
+           placeholder="@Placeholder"
+           value="@CurrentValue"
+           @oninput="HandleValueInputAsync" />
+    <button type="button" class="btn btn-outline-secondary" @onclick="TogglePickerAsync">Pick</button>
+</div>
+
+@if (!string.IsNullOrWhiteSpace(PreviewUrl))
+{
+    <div class="mt-2">
+        <img src="@PreviewUrl" alt="@PreviewAlt" class="img-fluid img-thumbnail" style="max-height: 220px;" />
+    </div>
+}
+
+@if (_pickerOpen)
+{
+    <div class="card mt-2">
+        <div class="card-body">
+            @if (!string.IsNullOrWhiteSpace(_message))
+            {
+                <div class="alert @(_isError ? "alert-danger" : "alert-success") py-2">@_message</div>
+            }
+
+            <div class="row g-2 align-items-end">
+                <div class="col-md-6">
+                    <label class="form-label">Folder under /images</label>
+                    <input class="form-control" placeholder="blog" @bind="_folder" />
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Upload image</label>
+                    <InputFile OnChange="UploadAsync" accept=".png,.jpg,.jpeg,.webp,.svg" />
+                    <div class="small text-muted">Accepted: png/jpg/webp/svg, max 5 MB</div>
+                </div>
+            </div>
+
+            <div class="mt-3 d-flex gap-2">
+                <button type="button" class="btn btn-sm btn-outline-primary" @onclick="ReloadAsync">Refresh</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary" @onclick="ClosePicker">Close</button>
+            </div>
+
+            @if (_isLoading)
+            {
+                <p class="mt-2 mb-0">Loading media...</p>
+            }
+            else
+            {
+                <div class="table-responsive mt-2" style="max-height: 320px;">
+                    <table class="table table-sm align-middle">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Folder</th>
+                                <th>Size</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (_items.Count == 0)
+                            {
+                                <tr>
+                                    <td colspan="4" class="text-muted">No media found.</td>
+                                </tr>
+                            }
+                            else
+                            {
+                                @foreach (var item in _items)
+                                {
+                                    <tr>
+                                        <td>
+                                            <div>@item.FileName</div>
+                                            <div class="small text-muted">@item.PublicUrl</div>
+                                        </td>
+                                        <td>@(string.IsNullOrWhiteSpace(item.Directory) ? "/" : item.Directory)</td>
+                                        <td>@FormatSize(item.SizeBytes)</td>
+                                        <td>
+                                            <button type="button" class="btn btn-sm btn-outline-primary" @onclick="@(() => SelectAsync(item.PublicUrl))">Use</button>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter] public string Label { get; set; } = "Image";
+    [Parameter] public string Placeholder { get; set; } = "/images/...";
+    [Parameter] public string PreviewAlt { get; set; } = "Image preview";
+    [Parameter] public string? Value { get; set; }
+    [Parameter] public EventCallback<string?> ValueChanged { get; set; }
+
+    private readonly List<MediaItemDto> _items = [];
+    private bool _pickerOpen;
+    private bool _isLoading;
+    private string? _folder;
+    private string? _message;
+    private bool _isError;
+
+    private string CurrentValue => Value ?? string.Empty;
+    private string? PreviewUrl => HeroImagePreviewResolver.Resolve(Value);
+
+    private async Task HandleValueInputAsync(ChangeEventArgs args)
+    {
+        var nextValue = args.Value?.ToString() ?? string.Empty;
+        await ValueChanged.InvokeAsync(nextValue);
+    }
+
+    private async Task TogglePickerAsync()
+    {
+        _pickerOpen = !_pickerOpen;
+        if (_pickerOpen)
+        {
+            await ReloadAsync();
+        }
+    }
+
+    private void ClosePicker() => _pickerOpen = false;
+
+    private async Task ReloadAsync()
+    {
+        _isLoading = true;
+        _message = null;
+        _isError = false;
+
+        try
+        {
+            _items.Clear();
+            _items.AddRange(await ApiClient.GetMediaAsync(_folder));
+        }
+        catch (Exception exception)
+        {
+            _isError = true;
+            _message = exception.Message;
+        }
+        finally
+        {
+            _isLoading = false;
+        }
+    }
+
+    private async Task UploadAsync(InputFileChangeEventArgs args)
+    {
+        var file = args.File;
+        if (file is null)
+        {
+            return;
+        }
+
+        _isError = false;
+        _message = null;
+
+        try
+        {
+            await ApiClient.UploadMediaAsync(file, _folder);
+            _message = $"Uploaded '{file.Name}'.";
+            await ReloadAsync();
+        }
+        catch (Exception exception)
+        {
+            _isError = true;
+            _message = exception.Message;
+        }
+    }
+
+    private async Task SelectAsync(string path)
+    {
+        await ValueChanged.InvokeAsync(path);
+        _pickerOpen = false;
+    }
+
+    private static string FormatSize(long bytes)
+    {
+        if (bytes < 1024)
+        {
+            return $"{bytes} B";
+        }
+
+        var kb = bytes / 1024d;
+        if (kb < 1024)
+        {
+            return $"{kb:F1} KB";
+        }
+
+        return $"{kb / 1024d:F1} MB";
+    }
+}

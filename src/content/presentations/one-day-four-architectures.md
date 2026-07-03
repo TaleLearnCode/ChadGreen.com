@@ -1,20 +1,33 @@
 ---
-title: "One Day, Four Architectures: Hands-On with Monolith, N-Tier, Modular Monolith, and Microservices"
-slug: "one-day-four-architectures"
-description: "An immersive hands-on workshop where you'll build the same application four different ways—monolith, n-tier, modular monolith, and microservices—to understand the trade-offs, patterns, and practical implications of each architectural style."
-type: "workshop"
-level: "intermediate"
-durations: [360, 420, 480]
-tags: ["Architecture", "Microservices", "Monolith", "Modular Monolith", "N-Tier", "Hands-On", "Design Patterns", "Software Design", "Trade-offs"]
+title: 'One Day, Four Architectures: Hands-On with Monolith, N-Tier, Modular Monolith, and Microservices'
+slug: one-day-four-architectures
+description: An immersive hands-on workshop where you'll build the same application four different ways—monolith, n-tier, modular monolith, and microservices—to understand the trade-offs, patterns, and practical implications of each architectural style.
+type: workshop
+level: intermediate
+durations:
+- 360
+- 420
+- 480
+tags:
+- Architecture
+- Microservices
+- Monolith
+- Modular Monolith
+- N-Tier
+- Hands-On
+- Design Patterns
+- Software Design
+- Trade-offs
 featured: true
-heroImage: "/images/presentations/one-day-four-architectures.webp"
-status: "in-development"
+heroImage: /images/presentations/one-day-four-architectures.webp
+status: active
 validated: true
-
 learningObjectives:
-  - "**Experience Four Architectural Styles:** Gain hands-on experience building the same application using monolithic, n-tier, modular monolith, and microservices architectures to see firsthand how each approach handles the same requirements."
-  - "**Understand Architecture Trade-offs:** Learn the practical advantages and disadvantages of each architectural style, including complexity, scalability, deployment, testing, and team dynamics implications."
-  - "**Make Informed Architecture Decisions:** Develop the skills to evaluate which architectural approach best fits your specific context, team capabilities, and business requirements rather than following trends blindly."
+- '**Experience Four Architectural Styles:** Gain hands-on experience building the same application using monolithic, n-tier, modular monolith, and microservices architectures to see firsthand how each approach handles the same requirements.'
+- '**Understand Architecture Trade-offs:** Learn the practical advantages and disadvantages of each architectural style, including complexity, scalability, deployment, testing, and team dynamics implications.'
+- '**Make Informed Architecture Decisions:** Develop the skills to evaluate which architectural approach best fits your specific context, team capabilities, and business requirements rather than following trends blindly.'
+relatedPresentations: []
+resources: []
 ---
 
 Supercharge your software architecture skills in this full-day workshop. Get hands-on experience as we build applications using four foundational architectural styles: Monolith, N-Tier, Modular Monolith, and Microservices. Using C# and Azure, you'll explore the unique strengths and challenges of each architecture style.

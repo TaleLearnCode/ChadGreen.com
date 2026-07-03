@@ -1,9 +1,14 @@
 ---
 import SidebarLayout from '../layouts/SidebarLayout.astro';
 import Button from '../components/ui/Button.astro';
+import { getEntry, render } from 'astro:content';
 
-// About page data - could later come from a content collection
-const about = {
+const aboutEntry = await getEntry('authors', 'chad-green');
+const aboutRender = aboutEntry ? await render(aboutEntry) : null;
+const AboutContent = aboutRender?.Content;
+const hasAboutMarkdownBody = Boolean(aboutEntry?.body?.trim());
+
+const defaultAbout = {
     name: 'Chad Green',
     tagline: 'Sr. Systems Architect at Jasper Engines • Cloud Tech Leader • Microsoft MVP • Speaker & Innovator • USMC Vet • Lego Builder',
     avatar: '/images/profile/chad-green.svg',
@@ -26,6 +31,22 @@ const about = {
         github: 'https://github.com/talelearncode',
         youtube: 'https://www.youtube.com/@TaleLearnCode',
         sessionize: 'https://sessionize.com/chad-green/',
+    }
+};
+
+const about = {
+    name: aboutEntry?.data.name ?? defaultAbout.name,
+    tagline: aboutEntry?.data.tagline ?? defaultAbout.tagline,
+    avatar: aboutEntry?.data.avatar ?? defaultAbout.avatar,
+    bio: aboutEntry?.data.bio ?? defaultAbout.bio,
+    email: aboutEntry?.data.email ?? defaultAbout.email,
+    social: {
+        twitter: aboutEntry?.data.social?.twitter ?? defaultAbout.social.twitter,
+        bluesky: defaultAbout.social.bluesky,
+        linkedin: aboutEntry?.data.social?.linkedin ?? defaultAbout.social.linkedin,
+        github: aboutEntry?.data.social?.github ?? defaultAbout.social.github,
+        youtube: aboutEntry?.data.social?.youtube ?? defaultAbout.social.youtube,
+        sessionize: aboutEntry?.data.social?.sessionize ?? defaultAbout.social.sessionize,
     }
 };
 
@@ -111,7 +132,14 @@ const galleryImages = [
 
         <!-- Bio Section -->
         <div class="bio-section">
-            <Fragment set:html={about.bio} />
+            @if (hasAboutMarkdownBody && AboutContent)
+            {
+                <AboutContent />
+            }
+            else
+            {
+                <Fragment set:html={about.bio} />
+            }
         </div>
 
         <!-- CTA Section -->
@@ -164,6 +192,10 @@ const galleryImages = [
         const prevBtn = slider.querySelector('.gallery-nav.prev');
         const nextBtn = slider.querySelector('.gallery-nav.next');
         let index = 0;
+        let autoPlayId;
+        let startX = 0;
+        let isTouching = false;
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
         const update = () => {
             if (!track) return;
@@ -178,11 +210,51 @@ const galleryImages = [
             update();
         };
 
-        prevBtn?.addEventListener('click', () => goTo(index - 1));
-        nextBtn?.addEventListener('click', () => goTo(index + 1));
+        const resetAutoPlay = () => {
+            if (prefersReducedMotion || slides.length < 2) return;
+            if (autoPlayId) clearInterval(autoPlayId);
+            autoPlayId = setInterval(() => goTo(index + 1), 5000);
+        };
 
-        dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
+        prevBtn?.addEventListener('click', () => {
+            goTo(index - 1);
+            resetAutoPlay();
+        });
+        nextBtn?.addEventListener('click', () => {
+            goTo(index + 1);
+            resetAutoPlay();
+        });
+
+        dots.forEach((dot, i) =>
+            dot.addEventListener('click', () => {
+                goTo(i);
+                resetAutoPlay();
+            })
+        );
+
+        slider.addEventListener(
+            'touchstart',
+            (event) => {
+                if (!event.touches?.length) return;
+                isTouching = true;
+                startX = event.touches[0].clientX;
+            },
+            { passive: true }
+        );
+
+        slider.addEventListener('touchend', (event) => {
+            if (!isTouching) return;
+            isTouching = false;
+            const endX = event.changedTouches[0]?.clientX ?? startX;
+            const delta = endX - startX;
+            if (Math.abs(delta) > 40) {
+                goTo(delta > 0 ? index - 1 : index + 1);
+                resetAutoPlay();
+            }
+        });
+
         update();
+        resetAutoPlay();
     }
 </script>
 
@@ -395,11 +467,6 @@ const galleryImages = [
         padding: var(--spacing-2) var(--spacing-3);
         border-radius: var(--radius-full);
     }
-
-                let autoPlayId;
-                let startX = 0;
-                let isTouching = false;
-                const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     .gallery-dot {
         width: 10px;
         height: 10px;
@@ -412,47 +479,13 @@ const galleryImages = [
     .gallery-dot.active {
         background-color: white;
     }
-
-
-                const resetAutoPlay = () => {
-                    if (prefersReducedMotion || slides.length < 2) return;
-                    if (autoPlayId) clearInterval(autoPlayId);
-                    autoPlayId = setInterval(() => goTo(index + 1), 5000);
-                };
     @media (prefers-reduced-motion: reduce) {
-                prevBtn?.addEventListener('click', () => {
-                    goTo(index - 1);
-                    resetAutoPlay();
-                });
-                nextBtn?.addEventListener('click', () => {
-                    goTo(index + 1);
-                    resetAutoPlay();
-                });
+        .gallery-track {
+            transition: none;
         }
-                dots.forEach((dot, i) => dot.addEventListener('click', () => {
-                    goTo(i);
-                    resetAutoPlay();
-                }));
-
-                slider.addEventListener('touchstart', (event) => {
-                    if (!event.touches?.length) return;
-                    isTouching = true;
-                    startX = event.touches[0].clientX;
-                }, { passive: true });
-
-                slider.addEventListener('touchend', (event) => {
-                    if (!isTouching) return;
-                    isTouching = false;
-                    const endX = event.changedTouches[0]?.clientX ?? startX;
-                    const delta = endX - startX;
-                    if (Math.abs(delta) > 40) {
-                        goTo(delta > 0 ? index - 1 : index + 1);
-                        resetAutoPlay();
-                    }
-                });
+    }
 
     @media (max-width: 768px) {
-                resetAutoPlay();
         .profile-section {
             flex-direction: column;
             align-items: center;

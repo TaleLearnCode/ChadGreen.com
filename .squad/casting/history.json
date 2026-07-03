@@ -20,6 +20,16 @@
         "McManus"
       ],
       "context": "Added social media manager for speaking, blog, and announcement promotion planning"
+    },
+    {
+      "assignment_id": "add-dotnet-and-integrity-specialists-20260703",
+      "timestamp": "2026-07-03T09:12:14.973-04:00",
+      "universe_selected": "heist-film",
+      "agents": [
+        "Rusty",
+        "Linus"
+      ],
+      "context": "Requested by Chad Green: added Blazor/.NET full-stack and content/data integrity specialists to expand delivery and validation capacity"
     }
   ]
 }

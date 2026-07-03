@@ -1,0 +1,7 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/ChadGreen.Management.Api/ChadGreen.Management.Api.csproj" />
+    <Project Path="src/ChadGreen.Management.Client/ChadGreen.Management.Client.csproj" />
+    <Project Path="src/ChadGreen.Management.Shared/ChadGreen.Management.Shared.csproj" />
+  </Folder>
+</Solution>

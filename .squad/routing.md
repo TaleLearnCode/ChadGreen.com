@@ -8,6 +8,8 @@
 | Content creation & markdown | Dallas | Add presentations, events, blog posts, meetup info |
 | Deployment & builds | Fenster | Deploy to Azure, fix build failures, CI/CD |
 | Content QA & validation | Hockney | Review before merge, check links, validate schema |
+| Blazor/.NET full-stack delivery | Rusty | Blazor components, .NET APIs, and end-to-end feature implementation |
+| Content/data integrity | Linus | Cross-collection consistency checks, slug/reference validation, schema-safe corrections |
 | Social promotion & campaigns | McManus | Build weekly plans for X, LinkedIn, Bluesky, YouTube, Twitch |
 | Session logging & decisions | Scribe | Automatic after work batches; never needs routing |
 | Backlog monitoring | Ralph | Track work queue, alert to blocked items |
@@ -15,7 +17,9 @@
 ## Anticipatory Routing
 
 - **Dallas content work** → automatically route to **Hockney** for QA review before merge
+- **Dallas content work with cross-collection references** → automatically route to **Linus** for integrity validation before merge
 - **Dallas content work** → automatically route to **McManus** for a promotion plan when publishable
+- **Rusty full-stack changes touching content contracts** → automatically route to **Linus** for data integrity checks
 - **Any agent** → **Keaton** when major decisions or scope changes needed
 - **Fenster deployments** → **Hockney** for post-deployment verification
 
@@ -28,7 +32,9 @@
 | `squad:fenster` | Deployment, build, infrastructure | Fenster |
 | `squad:hockney` | Quality, testing, accuracy | Hockney |
 | `squad:keaton` | Scope, decisions, reviews | Keaton |
+| `squad:linus` | Content/data integrity checks, schema-safe correction, cross-reference validation | Linus |
 | `squad:mcmanus` | Social plans, campaign sequencing, cross-platform messaging | McManus |
+| `squad:rusty` | Blazor/.NET full-stack delivery, UI/API integration, feature implementation | Rusty |
 
 ### How Issue Assignment Works
 

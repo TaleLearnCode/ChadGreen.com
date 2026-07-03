@@ -1,0 +1,41 @@
+@ChadGreen.Management.Api_HostAddress = http://localhost:5198
+
+GET {{ChadGreen.Management.Api_HostAddress}}/api/health
+Accept: application/json
+
+###
+
+GET {{ChadGreen.Management.Api_HostAddress}}/api/git/capability
+Accept: application/json
+
+###
+
+POST {{ChadGreen.Management.Api_HostAddress}}/api/archive
+Content-Type: application/json
+
+{
+  "relativePath": "src\\content\\blog\\example.md"
+}
+
+###
+
+POST {{ChadGreen.Management.Api_HostAddress}}/api/archive/restore
+Content-Type: application/json
+
+{
+  "relativePath": "src\\content\\blog\\example.md"
+}
+
+###
+
+GET {{ChadGreen.Management.Api_HostAddress}}/api/media
+Accept: application/json
+
+###
+
+POST {{ChadGreen.Management.Api_HostAddress}}/api/media/archive
+Content-Type: application/json
+
+{
+  "relativePath": "public\\images\\blog\\example.webp"
+}
