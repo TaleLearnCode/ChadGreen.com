@@ -150,7 +150,13 @@
                                 <td><InputText class="form-control form-control-sm" @bind-Value="assignment.TimeZone" /></td>
                                 <td><InputText class="form-control form-control-sm" @bind-Value="assignment.Room" /></td>
                                 <td><InputText class="form-control form-control-sm" @bind-Value="assignment.SessionUrl" /></td>
-                                <td><button type="button" class="btn btn-sm btn-outline-danger" @onclick="() => RemoveAssignment(assignment)">Remove</button></td>
+                               <td class="text-nowrap">
+                                   <button type="button" class="btn btn-sm btn-outline-danger me-1" @onclick="() => RemoveAssignment(assignment)">Remove</button>
+                                   @if (!_isNew)
+                                   {
+                                       <a class="btn btn-sm btn-outline-primary" href="@GetEpEditUrl(Slug!, assignment.Id)">Edit EP</a>
+                                   }
+                               </td>
                             </tr>
                         }
                     </tbody>
@@ -341,6 +347,8 @@
             _message = $"Saved '{detail.Title}'.";
             _hasUnsavedChanges = false;
 
+            await EnsureEngagementPresentationDocsAsync(detail.Slug, detail.Presentations);
+
             if (commitAfterSave)
             {
                 var commitRequest = new CommitRequest(
@@ -395,6 +403,24 @@
         var capability = await ApiClient.GetGitCapabilityAsync();
         _gitCommitAvailable = capability?.Enabled == true && capability.IsRepository && capability.GitCliAvailable;
     }
+
+    private async Task EnsureEngagementPresentationDocsAsync(string engagementSlug, IEnumerable<EngagementPresentationAssignmentDto> assignments)
+    {
+        foreach (var assignment in assignments)
+        {
+            try
+            {
+                await ApiClient.EnsureEngagementPresentationAsync(engagementSlug, assignment.Id);
+            }
+            catch
+            {
+                // EP creation is best-effort; do not block the engagement save result
+            }
+        }
+    }
+
+    private static string GetEpEditUrl(string engagementSlug, string presentationSlug)
+        => $"/engagement-presentations/{Uri.EscapeDataString(engagementSlug)}/{Uri.EscapeDataString(presentationSlug)}";
 
     private void AddPresentation()
     {

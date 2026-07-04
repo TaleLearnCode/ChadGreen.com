@@ -1,32 +1,33 @@
 ---
-title: "ConFoo"
-slug: "confoo-2026"
-eventType: "conference"
-description: "ConFoo Montreal is a full-stack developer conference featuring 170 presentations by popular international speakers, focused on pragmatic solutions for developers, CTOs, and tech professionals. This is the 24th edition of the conference."
+title: ConFoo
+slug: confoo-2026
+eventType: conference
+description: ConFoo Montreal is a full-stack developer conference featuring 170 presentations by popular international speakers, focused on pragmatic solutions for developers, CTOs, and tech professionals. This is the 24th edition of the conference.
 startDate: 2026-02-25
 endDate: 2026-02-27
 location:
-  venue: "Bonaventure Hotel"
-  city: "Montreal"
-  state: "Quebec"
-  country: "Canada"
-website: "https://confoo.ca/en/2026"
-heroImage: "/images/events/confoo-2026.webp"
+  city: Montreal
+  country: Canada
+  venue: Bonaventure Hotel
+  state: Quebec
+website: https://confoo.ca/en/2026
+heroImage: /images/events/confoo-2026.webp
 presentations:
-  - id: "embracing-azure-container-apps"
-    sessionName: "Effortless & Sustainable Apps with Azure Containers"
-    date: "February 27, 2026"
-    time: "10:00 AM"
-    timeZone: "EST"
-    room: "ST-Laurent 6"
-    sessionUrl: "https://confoo.ca/en/2026/session/effortless-sustainable-apps-with-azure-containers"
-  - id: "messaging-patterns-cloud-architecture"
-    date: "February 26, 2026"
-    time: "4:00 PM"
-    timeZone: "EST"
-    room: "ST-Laurent 1"
-    sessionUrl: "https://confoo.ca/en/2026/session/messaging-patterns-to-transform-your-cloud-architecture"
+- id: embracing-azure-container-apps
+  sessionName: Effortless & Sustainable Apps with Azure Containers
+  date: February 27, 2026
+  time: 10:00 AM
+  timeZone: EST
+  room: ST-Laurent 6
+  sessionUrl: https://confoo.ca/en/2026/session/effortless-sustainable-apps-with-azure-containers
+- id: messaging-patterns-cloud-architecture
+  date: February 26, 2026
+  time: 4:00 PM
+  timeZone: EST
+  room: ST-Laurent 1
+  sessionUrl: https://confoo.ca/en/2026/session/messaging-patterns-to-transform-your-cloud-architecture
 featured: false
+validated: true
 ---
 
 ConFoo Montreal 2026 is a premier full-stack developer conference featuring 170+ presentations by leading international speakers. As the 24th edition of this renowned conference, ConFoo continues its tradition of delivering exceptional content and experiences for developers, CTOs, and technology professionals.

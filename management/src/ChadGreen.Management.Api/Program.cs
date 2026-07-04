@@ -29,6 +29,7 @@ public class Program
         builder.Services.AddScoped<IAboutManagementService, AboutManagementService>();
         builder.Services.AddScoped<IMediaManagementService, MediaManagementService>();
         builder.Services.AddScoped<ISystemUtilityScanService, SystemUtilityScanService>();
+        builder.Services.AddScoped<IEngagementPresentationManagementService, EngagementPresentationManagementService>();
 
         builder.Services.ConfigureHttpJsonOptions(options =>
         {
@@ -288,6 +289,54 @@ public class Program
         });
 
         app.MapPost("/api/engagements/{slug}/archive", async (string slug, IEngagementManagementService service, CancellationToken cancellationToken) =>
+        {
+            var response = await service.ArchiveAsync(slug, cancellationToken);
+            return response.Success ? Results.Ok(response) : Results.BadRequest(response);
+        });
+
+        app.MapGet("/api/engagement-presentations", async ([FromQuery] string engagementSlug, IEngagementPresentationManagementService service, CancellationToken cancellationToken) =>
+        {
+            var response = await service.ListByEngagementAsync(engagementSlug, cancellationToken);
+            return Results.Ok(response);
+        });
+
+        app.MapGet("/api/engagement-presentations/{slug}", async (string slug, IEngagementPresentationManagementService service, CancellationToken cancellationToken) =>
+        {
+            var response = await service.GetBySlugAsync(slug, cancellationToken);
+            return response is null ? Results.NotFound() : Results.Ok(response);
+        });
+
+        app.MapPost("/api/engagement-presentations/ensure", async (EngagementPresentationEnsureRequest request, IEngagementPresentationManagementService service, CancellationToken cancellationToken) =>
+        {
+            try
+            {
+                var response = await service.EnsureCreatedAsync(request.EventSlug, request.PresentationSlug, cancellationToken);
+                return Results.Ok(response);
+            }
+            catch (InvalidOperationException exception)
+            {
+                return ToValidationErrorResult(exception);
+            }
+        });
+
+        app.MapPut("/api/engagement-presentations/{slug}", async (string slug, EngagementPresentationUpsertRequest request, IEngagementPresentationManagementService service, CancellationToken cancellationToken) =>
+        {
+            try
+            {
+                var response = await service.UpdateAsync(slug, request, cancellationToken);
+                return response is null ? Results.NotFound() : Results.Ok(response);
+            }
+            catch (SaveConflictException exception)
+            {
+                return ToConflictResult(exception);
+            }
+            catch (InvalidOperationException exception)
+            {
+                return ToValidationErrorResult(exception);
+            }
+        });
+
+        app.MapPost("/api/engagement-presentations/{slug}/archive", async (string slug, IEngagementPresentationManagementService service, CancellationToken cancellationToken) =>
         {
             var response = await service.ArchiveAsync(slug, cancellationToken);
             return response.Success ? Results.Ok(response) : Results.BadRequest(response);

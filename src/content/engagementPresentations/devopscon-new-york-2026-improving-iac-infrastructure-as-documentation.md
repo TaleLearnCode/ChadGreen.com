@@ -1,23 +1,24 @@
 ---
-title: "Improving IaC: Infrastructure as Documentation"
-description: "Session details and resources for DevOpsCon New York 2026: Improving IaC: Infrastructure as Documentation."
-eventSlug: "devopscon-new-york-2026"
-presentationSlug: "improving-iac-infrastructure-as-documentation"
-sessionSlug: "improving-iac-infrastructure-as-documentation"
-sessionTitle: "Improving IaC: Infrastructure as Documentation"
+title: 'Improving IaC: Infrastructure as Documentation'
+description: 'Session details and resources for DevOpsCon New York 2026: Improving IaC: Infrastructure as Documentation.'
+eventSlug: devopscon-new-york-2026
+presentationSlug: improving-iac-infrastructure-as-documentation
+sessionSlug: improving-iac-infrastructure-as-documentation
+sessionTitle: 'Improving IaC: Infrastructure as Documentation'
 date: 2026-09-28
-timeZone: "EDT"
-sessionUrl: "https://devopscon.io/cloud-platforms-serverless/improving-iac-infrastructure-as-documentation/"
+timeZone: EDT
+sessionUrl: https://devopscon.io/cloud-platforms-serverless/improving-iac-infrastructure-as-documentation/
 links:
-  - type: "other"
-    title: "DevOpsCon New York"
-    url: "https://devopscon.io/new-york/"
-    description: "Conference home page"
-  - type: "other"
-    title: "DevOpsCon New York program"
-    url: "https://devopscon.io/new-york/program-ny/"
-    description: "Full event program"
-canonicalPath: "speaking-session"
+- type: other
+  title: DevOpsCon New York
+  url: https://devopscon.io/new-york/
+  description: Conference home page
+- type: other
+  title: DevOpsCon New York program
+  url: https://devopscon.io/new-york/program-ny/
+  description: Full event program
+canonicalPath: speaking-session
+time: 10:15 AM
 ---
 
 ## Improving IaC: Infrastructure as Documentation
