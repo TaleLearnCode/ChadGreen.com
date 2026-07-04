@@ -1,39 +1,40 @@
 ---
-title: "Visual Studio Live! Las Vegas 2026"
-slug: "vslive-las-vegas-2026"
-eventType: "conference"
-description: "Visual Studio Live! (VSLive!) is the premier developer conference designed for .NET and Microsoft ecosystem professionals. Five immersive days of cutting-edge training on Visual Studio, .NET 9, ASP.NET Core, Generative AI, GitHub Copilot, .NET MAUI, Azure, Blazor, C#, modern data solutions, and beyond."
+title: Visual Studio Live! Las Vegas 2026
+slug: vslive-las-vegas-2026
+eventType: conference
+description: Visual Studio Live! (VSLive!) is the premier developer conference designed for .NET and Microsoft ecosystem professionals. Five immersive days of cutting-edge training on Visual Studio, .NET 9, ASP.NET Core, Generative AI, GitHub Copilot, .NET MAUI, Azure, Blazor, C#, modern data solutions, and beyond.
 startDate: 2026-03-16
 endDate: 2026-03-20
 location:
-  venue: "Planet Hollywood Las Vegas Resort & Casino"
-  city: "Las Vegas"
-  state: "Nevada"
-  country: "USA"
-website: "https://vslive.com/events/las-vegas-2026/home.aspx"
-heroImage: "/images/events/visual-studio-live.webp"
+  city: Las Vegas
+  country: USA
+  venue: Planet Hollywood Las Vegas Resort & Casino
+  state: Nevada
+website: https://vslive.com/events/las-vegas-2026/home.aspx
+heroImage: /images/events/visual-studio-live.webp
 presentations:
-  - id: "time-travelling-data"
-    sessionName: "Fast Focus: Time Travelling Data"
-    date: "March 18, 2026"
-    time: "1:30 PM"
-    timeZone: "PST"
-    room: "TBA"
-    sessionUrl: "https://vslive.com/events/las-vegas-2026/sessions/wednesday/w09-ff-data.aspx"
-  - id: "architect-like-a-boss"
-    sessionName: "Crack the Code of Serverless Design"
-    date: "March 19, 2026"
-    time: "11:00 AM"
-    timeZone: "PST"
-    room: "TBA"
-    sessionUrl: "https://vslive.com/events/las-vegas-2026/sessions/thursday/h09-serverless-design.aspx"
-  - id: "in-defense-of-microservices"
-    date: "March 19, 2026"
-    time: "2:45 PM"
-    timeZone: "PST"
-    room: "TBA"
-    sessionUrl: "https://vslive.com/events/las-vegas-2026/sessions/thursday/h18-microservices.aspx"
+- id: time-travelling-data
+  sessionName: 'Fast Focus: Time Travelling Data'
+  date: March 18, 2026
+  time: 1:30 PM
+  timeZone: PST
+  room: TBA
+  sessionUrl: https://vslive.com/events/las-vegas-2026/sessions/wednesday/w09-ff-data.aspx
+- id: architect-like-a-boss
+  sessionName: Crack the Code of Serverless Design
+  date: March 19, 2026
+  time: 11:00 AM
+  timeZone: PST
+  room: TBA
+  sessionUrl: https://vslive.com/events/las-vegas-2026/sessions/thursday/h09-serverless-design.aspx
+- id: in-defense-of-microservices
+  date: March 19, 2026
+  time: 2:45 PM
+  timeZone: PST
+  room: TBA
+  sessionUrl: https://vslive.com/events/las-vegas-2026/sessions/thursday/h18-microservices.aspx
 featured: false
+validated: true
 ---
 
 Visual Studio Live! (VSLive!) Las Vegas 2026 brings together .NET and Microsoft ecosystem professionals for five immersive days of cutting-edge training. The conference features over 60 sessions delivered by industry-renowned experts and Microsoft insiders, covering the latest advancements in Visual Studio 2026, .NET 9, ASP.NET Core, Generative AI, GitHub Copilot, .NET MAUI, Azure, Blazor, C#, and modern data solutions.

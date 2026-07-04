@@ -1,24 +1,25 @@
 ---
-title: "Scenic City Summit 2026"
-slug: "scenic-city-summit-2026"
-eventType: "conference"
-description: "Scenic City Summit is a community-driven developer conference in Chattanooga, Tennessee focused on modern software development, cloud, and engineering practices."
+title: Scenic City Summit 2026
+slug: scenic-city-summit-2026
+eventType: conference
+description: Scenic City Summit is a community-driven developer conference in Chattanooga, Tennessee focused on modern software development, cloud, and engineering practices.
 startDate: 2026-06-04
 endDate: 2026-06-05
 location:
-  venue: "Chattanooga Convention Center"
-  city: "Chattanooga"
-  state: "Tennessee"
-  country: "USA"
-website: "https://sceniccitysummit.com/"
+  city: Chattanooga
+  country: USA
+  venue: Chattanooga Convention Center
+  state: Tennessee
+website: https://sceniccitysummit.com/
 featured: false
-heroImage: "/images/events/scenic-city-summit.webp"
+heroImage: /images/events/scenic-city-summit.webp
 presentations:
-  - id: "architecting-with-ai"
-    date: "June 5, 2026"
-    time: "11:00 AM"
-    timeZone: "EDT"
-    room: "Room 13"
+- id: architecting-with-ai
+  date: June 5, 2026
+  time: 11:00 AM
+  timeZone: EDT
+  room: Room 13
+validated: true
 ---
 
 ## About Scenic City Summit 2026

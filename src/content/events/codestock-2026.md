@@ -1,29 +1,31 @@
 ---
-title: "CodeStock"
-slug: "codestock-2026"
-description: "A two-day community-driven technology conference in Knoxville bringing together working professionals to educate, inspire, and connect through 100+ sessions covering modern development practices, cloud architecture, and software engineering."
+title: CodeStock
+slug: codestock-2026
+description: A two-day community-driven technology conference in Knoxville bringing together working professionals to educate, inspire, and connect through 100+ sessions covering modern development practices, cloud architecture, and software engineering.
 startDate: 2026-04-09
 endDate: 2026-04-10
 location:
-  venue: "Knoxville Convention Center"
-  city: "Knoxville"
-  state: "Tennessee"
-  country: "USA"
-website: "https://www.codestock.org/"
-registrationUrl: "https://ti.to/codestock/codestock-2026"
+  city: Knoxville
+  country: USA
+  venue: Knoxville Convention Center
+  state: Tennessee
+website: https://www.codestock.org/
+registrationUrl: https://ti.to/codestock/codestock-2026
 featured: false
-heroImage: "/images/events/codestock-2026.webp"
+heroImage: /images/events/codestock-2026.webp
 presentations:
-  - id: "messaging-patterns-cloud-architecture"
-    date: "April 10, 2026"
-    time: "10:15 AM"
-    timeZone: "EDT"
-    room: "301E"
-  - id: "navigating-maze-architecture-decisions"
-    date: "April 9, 2026"
-    time: "3:00 PM"
-    timeZone: "EDT"
-    room: "301C"
+- id: messaging-patterns-cloud-architecture
+  date: April 10, 2026
+  time: 10:15 AM
+  timeZone: EDT
+  room: 301E
+- id: navigating-maze-architecture-decisions
+  date: April 9, 2026
+  time: 3:00 PM
+  timeZone: EDT
+  room: 301C
+eventType: conference
+validated: true
 ---
 
 ## About CodeStock

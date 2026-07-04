@@ -19,20 +19,13 @@ presentations:
   time: 10:15 AM
   timeZone: EDT
   sessionUrl: https://devopscon.io/cloud-platforms-serverless/improving-iac-infrastructure-as-documentation/
-validated: false
+validated: true
+heroImage: /images/events/devopsconference.webp
 ---
+DevOpsCon New York is one of the industry’s leading conferences dedicated to CI/CD, Kubernetes, Platform Engineering, DevSecOps, Cloud Platforms, Observability, and modern software delivery practices. Hosted at the New York Marriott at the Brooklyn Bridge from September 28 – October 2, 2026, the event brings together international DevOps strategists, software architects, platform engineers, and technology leaders for a week of deep technical learning and forward‑looking insights.
 
-## About DevOpsCon New York 2026
+The conference features two main conference days (Sept 29–30), hands‑on workshop days (Sept 28 & Oct 1), and a dedicated Platform Engineering Summit included with multi‑day passes. Attendees gain access to expert‑led sessions exploring how cloud platforms, microservices, Kubernetes, and automation intersect to simplify complexity, accelerate delivery, and strengthen organizational resilience.
 
-DevOpsCon New York is a focused event for cloud, platform, and delivery practitioners who want practical ideas for improving how software is built, deployed, and operated.
+With 10 years of DevOpsCon history, 6 global editions, and 7,000+ past participants, DevOpsCon New York offers a blend of strategic guidance, real‑world case studies, and practical tooling insights. The event emphasizes developer experience, scalable architectures, secure delivery pipelines, and the evolving role of platform engineering in modern organizations.
 
-## Event Details
-
-**Dates:** September 28 - October 2, 2026  
-**Location:** New York, NY
-
-## Session
-
-- Improving IaC: Infrastructure as Documentation
-
-Program: https://devopscon.io/new-york/program-ny/
+Whether attending onsite in Brooklyn or joining remotely, participants benefit from a highly interactive environment designed for learning, networking, and professional growth—connecting with peers, industry leaders, and innovators shaping the future of DevOps.

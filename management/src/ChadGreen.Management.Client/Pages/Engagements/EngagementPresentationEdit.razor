@@ -1,0 +1,457 @@
+@page "/engagement-presentations/{Slug}"
+@page "/engagement-presentations/{EventSlug}/{PresentationSlug}"
+@implements IDisposable
+@using System.Globalization
+@inject ManagementApiHttpClient ApiClient
+@inject NavigationManager Navigation
+@inject IJSRuntime JS
+
+<PageTitle>Edit Engagement Presentation — @_model.Title</PageTitle>
+
+<NavigationLock ConfirmExternalNavigation="_hasUnsavedChanges" OnBeforeInternalNavigation="ConfirmInternalNavigationAsync" />
+
+<div class="oc-page-shell">
+    <div class="oc-page-header">
+        <div class="oc-page-title-group">
+            <h1>Edit Engagement Presentation</h1>
+            <p class="oc-page-subtitle">Override session-specific title, abstract, scheduling details, and post-session materials.</p>
+        </div>
+        <div class="oc-page-actions">
+            @if (!string.IsNullOrWhiteSpace(_model.EventSlug))
+            {
+                <a class="btn btn-outline-secondary" href="/engagements/@Uri.EscapeDataString(_model.EventSlug)">Back to Engagement</a>
+            }
+            else
+            {
+                <button class="btn btn-outline-secondary" @onclick="@(() => Navigation.NavigateTo("/engagements"))">Back to List</button>
+            }
+            <button class="btn btn-outline-danger" @onclick="ArchiveAsync">Archive</button>
+        </div>
+    </div>
+
+    @if (!string.IsNullOrWhiteSpace(_message))
+    {
+        <div class="alert oc-feedback @(_isError ? "alert-danger" : "alert-success")">@_message</div>
+    }
+
+    @if (_isLoading)
+    {
+        <p class="oc-state-panel" data-state="loading">Loading engagement presentation...</p>
+    }
+    else
+    {
+        <EditForm EditContext="_editContext" OnValidSubmit="SaveAsync" class="oc-editorial-route">
+        <div class="row g-3">
+
+            <div class="col-12">
+                <div class="alert alert-secondary py-2 small">
+                    <strong>Base presentation:</strong> <code>@_model.PresentationSlug</code> &nbsp;|&nbsp;
+                    <strong>Event:</strong> <code>@_model.EventSlug</code> &nbsp;|&nbsp;
+                    <strong>Session slug:</strong> <code>@_model.SessionSlug</code>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <label class="form-label">Title <small class="text-muted">(override for this event; leave as base title if unchanged)</small></label>
+                <InputText class="form-control" @bind-Value="_model.Title" />
+            </div>
+            <div class="col-12">
+                <label class="form-label">Description</label>
+                <InputTextArea class="form-control" rows="3" @bind-Value="_model.Description" />
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Session Title <small class="text-muted">(optional display override)</small></label>
+                <InputText class="form-control" @bind-Value="_model.SessionTitle" />
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Date</label>
+                <InputDate class="form-control" @bind-Value="_model.Date" />
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Time</label>
+                <InputText class="form-control" placeholder="e.g. 10:00 AM" @bind-Value="_model.Time" />
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Time Zone</label>
+                <InputText class="form-control" placeholder="e.g. EST" @bind-Value="_model.TimeZone" />
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Room</label>
+                <InputText class="form-control" @bind-Value="_model.Room" />
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Session URL</label>
+                <InputText class="form-control" placeholder="https://..." @bind-Value="_model.SessionUrl" />
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Canonical Path</label>
+                <InputSelect class="form-select" @bind-Value="_model.CanonicalPath">
+                    <option value="speaking-session">speaking-session</option>
+                    <option value="presentation-event">presentation-event</option>
+                </InputSelect>
+            </div>
+            <div class="col-md-6">
+                <MediaPickerField Label="Hero Image" PreviewAlt="Hero image preview" @bind-Value="_model.HeroImage" />
+            </div>
+            <div class="col-md-6">
+                <MediaPickerField Label="Thumbnail" PreviewAlt="Thumbnail preview" @bind-Value="_model.Thumbnail" />
+            </div>
+
+            <div class="col-12">
+                <label class="form-label">Event-Specific Links (slides, video, code, etc.)</label>
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Title</th>
+                            <th>URL</th>
+                            <th>Description</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var link in _model.Links)
+                        {
+                            <tr>
+                                <td>
+                                    <InputSelect class="form-select form-select-sm" @bind-Value="link.Type">
+                                        <option value="slides">slides</option>
+                                        <option value="video">video</option>
+                                        <option value="github">github</option>
+                                        <option value="code">code</option>
+                                        <option value="demo">demo</option>
+                                        <option value="blog">blog</option>
+                                        <option value="download">download</option>
+                                        <option value="documentation">documentation</option>
+                                        <option value="lab">lab</option>
+                                        <option value="other">other</option>
+                                    </InputSelect>
+                                </td>
+                                <td><InputText class="form-control form-control-sm" @bind-Value="link.Title" /></td>
+                                <td><InputText class="form-control form-control-sm" @bind-Value="link.Url" /></td>
+                                <td><InputText class="form-control form-control-sm" @bind-Value="link.Description" /></td>
+                                <td><button type="button" class="btn btn-sm btn-outline-danger" @onclick="() => RemoveLink(link)">Remove</button></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <button type="button" class="btn btn-outline-secondary btn-sm" @onclick="AddLink">Add Link</button>
+            </div>
+
+            <div class="col-12">
+                <MarkdownEditorField Label="Markdown Body"
+                                     Rows="16"
+                                     HelpText="Override the session body content. Inherits from the base presentation by default."
+                                     @bind-Value="_model.MarkdownBody" />
+            </div>
+        </div>
+
+        <div class="oc-form-actions">
+            <button type="submit" class="btn btn-primary" disabled="@_isSaving">Save</button>
+            <button type="button" class="btn btn-outline-primary" @onclick="SaveAndCommitAsync" disabled="@_isSaving || !_gitCommitAvailable">Save + Commit</button>
+            @if (!string.IsNullOrWhiteSpace(_message) && !_isError)
+            {
+                <span class="text-success align-self-center">@_message</span>
+            }
+        </div>
+        </EditForm>
+
+        <div class="card mt-3">
+            <div class="card-body">
+                <h2 class="h5">Commit Details</h2>
+                <div class="row g-2">
+                    <div class="col-md-3">
+                        <label class="form-label">Type</label>
+                        <InputSelect class="form-select" @bind-Value="_commit.Type">
+                            <option value="@ConventionalCommitType.Feat">feat</option>
+                            <option value="@ConventionalCommitType.Fix">fix</option>
+                            <option value="@ConventionalCommitType.Docs">docs</option>
+                            <option value="@ConventionalCommitType.Refactor">refactor</option>
+                            <option value="@ConventionalCommitType.Chore">chore</option>
+                        </InputSelect>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">Scope</label>
+                        <InputText class="form-control" @bind-Value="_commit.Scope" />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Description</label>
+                        <InputText class="form-control" @bind-Value="_commit.Description" />
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label">Body (optional)</label>
+                        <InputTextArea class="form-control" rows="3" @bind-Value="_commit.Body" />
+                    </div>
+                </div>
+                @if (!_gitCommitAvailable)
+                {
+                    <p class="text-muted mb-0 mt-2">Save + Commit is unavailable (git integration disabled or unavailable).</p>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter] public string? Slug { get; set; }
+    [Parameter] public string? EventSlug { get; set; }
+    [Parameter] public string? PresentationSlug { get; set; }
+
+    private string? _resolvedSlug;
+
+    private readonly EpEditModel _model = new();
+    private readonly EditContext _editContext;
+    private readonly CommitDraft _commit = new() { Type = ConventionalCommitType.Chore, Scope = "speaking" };
+    private bool _isLoading = true;
+    private bool _isSaving;
+    private bool _gitCommitAvailable;
+    private bool _hasUnsavedChanges;
+    private string? _message;
+    private bool _isError;
+    private DateTimeOffset? _expectedLastModifiedUtc;
+
+    public EngagementPresentationEdit()
+    {
+        _editContext = new EditContext(_model);
+        _editContext.OnFieldChanged += HandleFieldChanged;
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        _isLoading = true;
+        _message = null;
+        _isError = false;
+
+        try
+        {
+            await LoadGitCapabilityAsync();
+
+            EngagementPresentationDetailDto? detail;
+
+            if (!string.IsNullOrWhiteSpace(EventSlug) && !string.IsNullOrWhiteSpace(PresentationSlug))
+            {
+                detail = await ApiClient.EnsureEngagementPresentationAsync(EventSlug, PresentationSlug);
+            }
+            else
+            {
+                detail = await ApiClient.GetEngagementPresentationAsync(Slug!);
+            }
+
+            if (detail is null)
+            {
+                _isError = true;
+                _message = "Engagement presentation not found.";
+                return;
+            }
+
+            MapFromDetail(detail);
+            _hasUnsavedChanges = false;
+        }
+        catch (Exception exception)
+        {
+            _isError = true;
+            _message = exception.Message;
+        }
+        finally
+        {
+            _isLoading = false;
+        }
+    }
+
+    private async Task SaveAsync() => await SaveInternalAsync(false);
+    private async Task SaveAndCommitAsync() => await SaveInternalAsync(true);
+
+    private async Task SaveInternalAsync(bool commitAfterSave)
+    {
+        _isSaving = true;
+        _message = null;
+        _isError = false;
+
+        try
+        {
+            var request = new EngagementPresentationUpsertRequest(
+                _model.Title.Trim(),
+                _model.Description.Trim(),
+                _model.EventSlug.Trim(),
+                _model.PresentationSlug.Trim(),
+                _model.SessionSlug.Trim(),
+                string.IsNullOrWhiteSpace(_model.SessionTitle) ? null : _model.SessionTitle.Trim(),
+                _model.Date,
+                string.IsNullOrWhiteSpace(_model.Time) ? null : _model.Time.Trim(),
+                string.IsNullOrWhiteSpace(_model.TimeZone) ? null : _model.TimeZone.Trim(),
+                string.IsNullOrWhiteSpace(_model.Room) ? null : _model.Room.Trim(),
+                string.IsNullOrWhiteSpace(_model.SessionUrl) ? null : _model.SessionUrl.Trim(),
+                string.IsNullOrWhiteSpace(_model.Thumbnail) ? null : _model.Thumbnail.Trim(),
+                string.IsNullOrWhiteSpace(_model.HeroImage) ? null : _model.HeroImage.Trim(),
+                _model.Links
+                    .Select(l => new EngagementPresentationLinkDto(
+                        l.Type,
+                        l.Title.Trim(),
+                        l.Url.Trim(),
+                        string.IsNullOrWhiteSpace(l.Description) ? null : l.Description.Trim()))
+                    .ToList(),
+                _model.CanonicalPath,
+                _model.MarkdownBody ?? string.Empty,
+                _expectedLastModifiedUtc);
+
+            var detail = await ApiClient.UpdateEngagementPresentationAsync(_resolvedSlug!, request);
+            MapFromDetail(detail);
+            _message = $"Saved '{detail.Title}'.";
+            _hasUnsavedChanges = false;
+
+            if (commitAfterSave)
+            {
+                var commitRequest = new CommitRequest(
+                    _commit.Type,
+                    string.IsNullOrWhiteSpace(_commit.Description) ? $"update engagement presentation {_resolvedSlug}" : _commit.Description.Trim(),
+                    string.IsNullOrWhiteSpace(_commit.Scope) ? null : _commit.Scope.Trim(),
+                    string.IsNullOrWhiteSpace(_commit.Body) ? null : _commit.Body.Trim(),
+                    IncludeAllChanges: true);
+
+                var commitResponse = await ApiClient.CommitAsync(commitRequest);
+                _message = $"{_message} Commit: {commitResponse.CommitSha ?? "(no sha)"}";
+            }
+        }
+        catch (Exception exception)
+        {
+            _isError = true;
+            _message = exception.Message;
+        }
+        finally
+        {
+            _isSaving = false;
+        }
+    }
+
+    private async Task ArchiveAsync()
+    {
+        if (!await JS.InvokeAsync<bool>("confirm", $"Archive '{_model.Title}'?"))
+        {
+            return;
+        }
+
+        try
+        {
+            await ApiClient.ArchiveEngagementPresentationAsync(_resolvedSlug!);
+            _hasUnsavedChanges = false;
+            if (!string.IsNullOrWhiteSpace(_model.EventSlug))
+            {
+                Navigation.NavigateTo($"/engagements/{Uri.EscapeDataString(_model.EventSlug)}");
+            }
+            else
+            {
+                Navigation.NavigateTo("/engagements");
+            }
+        }
+        catch (Exception exception)
+        {
+            _isError = true;
+            _message = exception.Message;
+        }
+    }
+
+    private async Task LoadGitCapabilityAsync()
+    {
+        var capability = await ApiClient.GetGitCapabilityAsync();
+        _gitCommitAvailable = capability?.Enabled == true && capability.IsRepository && capability.GitCliAvailable;
+    }
+
+    private void AddLink()
+    {
+        _model.Links.Add(new LinkEditModel());
+        _hasUnsavedChanges = true;
+    }
+
+    private void RemoveLink(LinkEditModel link)
+    {
+        _model.Links.Remove(link);
+        _hasUnsavedChanges = true;
+    }
+
+    private void MapFromDetail(EngagementPresentationDetailDto detail)
+    {
+        _resolvedSlug = detail.Slug;
+        _model.Title = detail.Title;
+        _model.Description = detail.Description;
+        _model.EventSlug = detail.EventSlug;
+        _model.PresentationSlug = detail.PresentationSlug;
+        _model.SessionSlug = detail.SessionSlug;
+        _model.SessionTitle = detail.SessionTitle ?? string.Empty;
+        _model.Date = detail.Date;
+        _model.Time = detail.Time ?? string.Empty;
+        _model.TimeZone = detail.TimeZone ?? string.Empty;
+        _model.Room = detail.Room ?? string.Empty;
+        _model.SessionUrl = detail.SessionUrl ?? string.Empty;
+        _model.Thumbnail = detail.Thumbnail ?? string.Empty;
+        _model.HeroImage = detail.HeroImage ?? string.Empty;
+        _model.CanonicalPath = detail.CanonicalPath;
+        _model.MarkdownBody = detail.MarkdownBody;
+        _model.Links.Clear();
+        _model.Links.AddRange(detail.Links.Select(l => new LinkEditModel
+        {
+            Type = l.Type,
+            Title = l.Title,
+            Url = l.Url,
+            Description = l.Description ?? string.Empty
+        }));
+        _expectedLastModifiedUtc = detail.LastModifiedUtc;
+        _commit.Description = $"update engagement presentation {detail.EventSlug}-{detail.PresentationSlug}";
+    }
+
+    private async Task ConfirmInternalNavigationAsync(LocationChangingContext context)
+    {
+        if (!_hasUnsavedChanges)
+        {
+            return;
+        }
+
+        var shouldLeave = await JS.InvokeAsync<bool>("confirm", "You have unsaved changes. Leave without saving?");
+        if (!shouldLeave)
+        {
+            context.PreventNavigation();
+        }
+    }
+
+    private void HandleFieldChanged(object? sender, FieldChangedEventArgs e) => _hasUnsavedChanges = true;
+
+    public void Dispose()
+    {
+        _editContext.OnFieldChanged -= HandleFieldChanged;
+    }
+
+    private sealed class EpEditModel
+    {
+        public string Title { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
+        public string EventSlug { get; set; } = string.Empty;
+        public string PresentationSlug { get; set; } = string.Empty;
+        public string SessionSlug { get; set; } = string.Empty;
+        public string SessionTitle { get; set; } = string.Empty;
+        public DateOnly? Date { get; set; }
+        public string Time { get; set; } = string.Empty;
+        public string TimeZone { get; set; } = string.Empty;
+        public string Room { get; set; } = string.Empty;
+        public string SessionUrl { get; set; } = string.Empty;
+        public string Thumbnail { get; set; } = string.Empty;
+        public string HeroImage { get; set; } = string.Empty;
+        public string CanonicalPath { get; set; } = "speaking-session";
+        public string MarkdownBody { get; set; } = string.Empty;
+        public List<LinkEditModel> Links { get; set; } = [];
+    }
+
+    private sealed class LinkEditModel
+    {
+        public string Type { get; set; } = "other";
+        public string Title { get; set; } = string.Empty;
+        public string Url { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
+    }
+
+    private sealed class CommitDraft
+    {
+        public ConventionalCommitType Type { get; set; } = ConventionalCommitType.Chore;
+        public string? Scope { get; set; }
+        public string Description { get; set; } = string.Empty;
+        public string? Body { get; set; }
+    }
+}

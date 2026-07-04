@@ -61,3 +61,65 @@ public record EngagementUpsertRequest(
     DateTimeOffset? ExpectedLastModifiedUtc = null);
 
 public record EngagementFeaturedUpdateRequest(bool Featured);
+
+// ========================
+// ENGAGEMENT PRESENTATION CONTRACTS
+// ========================
+
+public record EngagementPresentationLinkDto(
+    string Type,
+    string Title,
+    string Url,
+    string? Description = null);
+
+public record EngagementPresentationListItemDto(
+    string Slug,
+    string Title,
+    string EventSlug,
+    string PresentationSlug,
+    string RelativePath,
+    DateTimeOffset? LastModifiedUtc = null);
+
+public record EngagementPresentationDetailDto(
+    string Slug,
+    string Title,
+    string Description,
+    string EventSlug,
+    string PresentationSlug,
+    string SessionSlug,
+    string? SessionTitle,
+    DateOnly? Date,
+    string? Time,
+    string? TimeZone,
+    string? Room,
+    string? SessionUrl,
+    string? Thumbnail,
+    string? HeroImage,
+    List<EngagementPresentationLinkDto> Links,
+    string CanonicalPath,
+    string MarkdownBody,
+    string RelativePath,
+    DateTimeOffset? LastModifiedUtc = null);
+
+public record EngagementPresentationUpsertRequest(
+    string Title,
+    string Description,
+    string EventSlug,
+    string PresentationSlug,
+    string SessionSlug,
+    string? SessionTitle,
+    DateOnly? Date,
+    string? Time,
+    string? TimeZone,
+    string? Room,
+    string? SessionUrl,
+    string? Thumbnail,
+    string? HeroImage,
+    List<EngagementPresentationLinkDto> Links,
+    string CanonicalPath,
+    string MarkdownBody,
+    DateTimeOffset? ExpectedLastModifiedUtc = null);
+
+public record EngagementPresentationEnsureRequest(
+    string EventSlug,
+    string PresentationSlug);

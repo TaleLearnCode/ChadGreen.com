@@ -54,6 +54,21 @@ public sealed class ManagementApiHttpClient(HttpClient httpClient)
     public Task<ArchiveOperationResponse> ArchiveEngagementAsync(string slug, CancellationToken cancellationToken = default)
         => SendAsync<object, ArchiveOperationResponse>(HttpMethod.Post, $"/api/engagements/{Uri.EscapeDataString(slug)}/archive", new { }, cancellationToken);
 
+    public async Task<IReadOnlyList<EngagementPresentationListItemDto>> GetEngagementPresentationsAsync(string engagementSlug, CancellationToken cancellationToken = default)
+        => await HttpClient.GetFromJsonAsync<List<EngagementPresentationListItemDto>>($"/api/engagement-presentations?engagementSlug={Uri.EscapeDataString(engagementSlug)}", cancellationToken) ?? [];
+
+    public Task<EngagementPresentationDetailDto?> GetEngagementPresentationAsync(string slug, CancellationToken cancellationToken = default)
+        => HttpClient.GetFromJsonAsync<EngagementPresentationDetailDto>($"/api/engagement-presentations/{Uri.EscapeDataString(slug)}", cancellationToken);
+
+    public Task<EngagementPresentationDetailDto> EnsureEngagementPresentationAsync(string eventSlug, string presentationSlug, CancellationToken cancellationToken = default)
+        => SendAsync<EngagementPresentationEnsureRequest, EngagementPresentationDetailDto>(HttpMethod.Post, "/api/engagement-presentations/ensure", new EngagementPresentationEnsureRequest(eventSlug, presentationSlug), cancellationToken);
+
+    public Task<EngagementPresentationDetailDto> UpdateEngagementPresentationAsync(string slug, EngagementPresentationUpsertRequest request, CancellationToken cancellationToken = default)
+        => SendAsync<EngagementPresentationUpsertRequest, EngagementPresentationDetailDto>(HttpMethod.Put, $"/api/engagement-presentations/{Uri.EscapeDataString(slug)}", request, cancellationToken);
+
+    public Task<ArchiveOperationResponse> ArchiveEngagementPresentationAsync(string slug, CancellationToken cancellationToken = default)
+        => SendAsync<object, ArchiveOperationResponse>(HttpMethod.Post, $"/api/engagement-presentations/{Uri.EscapeDataString(slug)}/archive", new { }, cancellationToken);
+
     public async Task<IReadOnlyList<MeetupGroupListItemDto>> GetMeetupGroupsAsync(CancellationToken cancellationToken = default)
         => await HttpClient.GetFromJsonAsync<List<MeetupGroupListItemDto>>("/api/meetup-groups", cancellationToken) ?? [];
 
