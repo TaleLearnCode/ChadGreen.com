@@ -1,38 +1,39 @@
 ---
-title: "Microsoft Build //localhost:louisville"
-description: "A special Louisville .NET Meetup hosted as Microsoft Build //localhost:louisville, featuring Chad Green's developer-focused walkthrough of Microsoft Build 2026 announcements."
-shortDescription: "A special Louisville .NET Meetup where Chad Green covers the most important Microsoft Build 2026 announcements."
-meetupGroup: "louisville-dotnet"
+title: Microsoft Build //localhost:louisville
+slug: louisville-dotnet-2026-06
+description: A special Louisville .NET Meetup hosted as Microsoft Build //localhost:louisville, featuring Chad Green's developer-focused walkthrough of Microsoft Build 2026 announcements.
+meetupGroup: louisville-dotnet
 date: 2026-06-18
-time: "6:30 PM - 8:30 PM EDT"
-eventUrl: "https://www.meetup.com/louisville-dotnet/events/315041399"
-thumbnail: "/images/meetupEvents/louisville-dotnet-2026-06.webp"
-heroImage: "/images/meetupEvents/louisville-dotnet-2026-06.webp"
-location:
-  venue: "700N Conference Room"
-  address: "700 N Hurstbourne Pkwy"
-  city: "Louisville"
-  state: "Kentucky"
+status: past
+shortDescription: A special Louisville .NET Meetup where Chad Green covers the most important Microsoft Build 2026 announcements.
+time: 6:30 PM - 8:30 PM EDT
+eventUrl: https://www.meetup.com/louisville-dotnet/events/315041399
+thumbnail: /images/meetupEvents/louisville-dotnet-2026-06.webp
+heroImage: /images/meetupEvents/louisville-dotnet-2026-06.webp
 speaker:
-  name: "Chad Green"
-  title: "Speaker"
-  company: "ChadGreen.com"
-  bio: "Chad Green is a speaker, community leader, and software developer passionate about cloud technologies and sharing knowledge."
-  photo: "/images/profile/chad-green.jpg"
+  name: Chad Green
+  bio: Chad Green is a speaker, community leader, and software developer passionate about cloud technologies and sharing knowledge.
+  title: Speaker
+  company: ChadGreen.com
+  photo: /images/profile/chad-green.jpg
   social:
-    twitter: "https://twitter.com/chadgreen"
-    linkedin: "https://www.linkedin.com/in/chadwickgreen/"
-    github: "https://github.com/chadgreen"
+    linkedin: https://www.linkedin.com/in/chadwickgreen/
+    twitter: https://twitter.com/chadgreen
+    github: https://github.com/chadgreen
+location:
+  venue: 700N Conference Room
+  address: 700 N Hurstbourne Pkwy
+  city: Louisville
+  state: Kentucky
 resources:
-  - type: "other"
-    title: "Microsoft Build //localhost:louisville registration"
-    url: "https://developer.microsoft.com/en-us/reactor/events/27112/"
-    description: "RSVP here as well for the Microsoft Build //localhost:louisville session"
-  - type: "other"
-    title: "Watch live on Twitch"
-    url: "https://twitch.tv/TaleLearnCode"
-    description: "Live stream for virtual attendees"
-status: upcoming
+- type: other
+  title: Microsoft Build //localhost:louisville registration
+  url: https://developer.microsoft.com/en-us/reactor/events/27112/
+  description: RSVP here as well for the Microsoft Build //localhost:louisville session
+- type: other
+  title: Watch live on Twitch
+  url: https://twitch.tv/TaleLearnCode
+  description: Live stream for virtual attendees
 ---
 
 Join us for a special Louisville .NET Meetup as we host **Microsoft Build //localhost:louisville**.
