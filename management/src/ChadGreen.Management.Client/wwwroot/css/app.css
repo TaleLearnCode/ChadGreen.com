@@ -432,7 +432,9 @@ a:hover,
     --bs-table-bg: transparent;
     --bs-table-color: var(--oc-text-primary);
     --bs-table-striped-bg: rgba(var(--bs-primary-rgb), 0.05);
+    --bs-table-striped-color: var(--oc-text-primary);
     --bs-table-hover-bg: rgba(var(--bs-primary-rgb), 0.1);
+    --bs-table-hover-color: var(--oc-text-primary);
     margin-bottom: 0;
 }
 
@@ -457,6 +459,28 @@ a:hover,
 
 .table td:focus-within {
     box-shadow: inset 0 0 0 1px var(--oc-focus-ring);
+}
+
+:root[data-theme="dark"] .table {
+    --bs-table-color: var(--oc-text-primary);
+    --bs-table-striped-color: var(--oc-text-primary);
+    --bs-table-hover-color: var(--oc-text-primary);
+}
+
+:root[data-theme="dark"] .table > :not(caption) > * > * {
+    color: var(--oc-text-primary);
+}
+
+:root[data-theme="dark"] .table > thead > tr > th {
+    color: var(--oc-text-secondary);
+}
+
+:root[data-theme="dark"] .table a {
+    color: var(--oc-accent-strong);
+}
+
+:root[data-theme="dark"] .table a:hover {
+    color: var(--oc-text-inverse);
 }
 
 .oc-list-surface {

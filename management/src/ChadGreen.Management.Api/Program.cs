@@ -294,9 +294,29 @@ public class Program
             return response.Success ? Results.Ok(response) : Results.BadRequest(response);
         });
 
-        app.MapGet("/api/engagement-presentations", async ([FromQuery] string engagementSlug, IEngagementPresentationManagementService service, CancellationToken cancellationToken) =>
+        app.MapGet("/api/engagement-presentations", async ([FromQuery] string? engagementSlug, [FromQuery] string? presentationSlug, IEngagementPresentationManagementService service, CancellationToken cancellationToken) =>
         {
-            var response = await service.ListByEngagementAsync(engagementSlug, cancellationToken);
+            if (string.IsNullOrWhiteSpace(engagementSlug) && string.IsNullOrWhiteSpace(presentationSlug))
+            {
+                return ToValidationErrorResult(new InvalidOperationException("Either engagementSlug or presentationSlug is required."));
+            }
+
+            IReadOnlyList<EngagementPresentationListItemDto> response;
+            if (!string.IsNullOrWhiteSpace(engagementSlug) && !string.IsNullOrWhiteSpace(presentationSlug))
+            {
+                response = (await service.ListByEngagementAsync(engagementSlug, cancellationToken))
+                    .Where(item => string.Equals(item.PresentationSlug, presentationSlug, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+            }
+            else if (!string.IsNullOrWhiteSpace(engagementSlug))
+            {
+                response = await service.ListByEngagementAsync(engagementSlug, cancellationToken);
+            }
+            else
+            {
+                response = await service.ListByPresentationAsync(presentationSlug!, cancellationToken);
+            }
+
             return Results.Ok(response);
         });
 

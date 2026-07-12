@@ -132,6 +132,45 @@
                 </table>
                 <button type="button" class="btn btn-sm btn-outline-secondary" @onclick="AddResource">Add Resource</button>
             </div>
+            @if (!_isNew)
+            {
+                <div class="col-12">
+                    <label class="form-label">Speaking Engagements</label>
+                    @if (_linkedEngagements.Count == 0)
+                    {
+                        <p class="oc-state-panel" data-state="empty">No speaking engagements reference this presentation yet.</p>
+                    }
+                    else
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-sm align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Event</th>
+                                        <th>Session</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var engagement in _linkedEngagements)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <div>@GetEventTitle(engagement)</div>
+                                                <div class="small text-muted">@engagement.EventSlug</div>
+                                            </td>
+                                            <td>@engagement.Title</td>
+                                            <td>
+                                                <a class="btn btn-sm btn-outline-primary" href="@GetEngagementEditUrl(engagement.EventSlug)">Edit Event</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                </div>
+            }
             <div class="col-12">
                 <MarkdownEditorField Label="Markdown Body"
                                      Rows="16"
@@ -198,6 +237,7 @@
     private string? _message;
     private bool _isError;
     private DateTimeOffset? _expectedLastModifiedUtc;
+    private List<EngagementPresentationListItemDto> _linkedEngagements = [];
     private string? HeroImagePreviewUrl => HeroImagePreviewResolver.Resolve(_model.HeroImage);
 
     protected override async Task OnParametersSetAsync()
@@ -211,6 +251,7 @@
             if (_isNew)
             {
                 ResetDefaults();
+                _linkedEngagements = [];
             }
             else
             {
@@ -223,6 +264,7 @@
                 }
 
                 MapFromDetail(detail);
+                await LoadLinkedEngagementsAsync(detail.Slug);
             }
         }
         catch (Exception exception)
@@ -260,6 +302,7 @@
                 : await ApiClient.UpdatePresentationAsync(Slug!, request);
 
             MapFromDetail(detail);
+            await LoadLinkedEngagementsAsync(detail.Slug);
             if (_isNew)
             {
                 Slug = detail.Slug;
@@ -325,6 +368,20 @@
     private void AddResource() => _model.Resources.Add(new ResourceEditModel());
 
     private void RemoveResource(ResourceEditModel model) => _model.Resources.Remove(model);
+
+    private async Task LoadLinkedEngagementsAsync(string presentationSlug)
+    {
+        _linkedEngagements = (await ApiClient.GetEngagementPresentationsByPresentationAsync(presentationSlug))
+            .OrderBy(item => item.EventTitle ?? item.EventSlug, StringComparer.OrdinalIgnoreCase)
+            .ThenBy(item => item.Title, StringComparer.OrdinalIgnoreCase)
+            .ToList();
+    }
+
+    private static string GetEventTitle(EngagementPresentationListItemDto item)
+        => string.IsNullOrWhiteSpace(item.EventTitle) ? item.EventSlug : item.EventTitle;
+
+    private static string GetEngagementEditUrl(string eventSlug)
+        => $"/engagements/{Uri.EscapeDataString(eventSlug)}";
 
     private PresentationUpsertRequest BuildRequest()
     {

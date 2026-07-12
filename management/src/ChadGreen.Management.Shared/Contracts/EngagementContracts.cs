@@ -76,6 +76,7 @@ public record EngagementPresentationListItemDto(
     string Slug,
     string Title,
     string EventSlug,
+    string? EventTitle,
     string PresentationSlug,
     string RelativePath,
     DateTimeOffset? LastModifiedUtc = null);
