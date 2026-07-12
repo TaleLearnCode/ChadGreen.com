@@ -57,6 +57,9 @@ public sealed class ManagementApiHttpClient(HttpClient httpClient)
     public async Task<IReadOnlyList<EngagementPresentationListItemDto>> GetEngagementPresentationsAsync(string engagementSlug, CancellationToken cancellationToken = default)
         => await HttpClient.GetFromJsonAsync<List<EngagementPresentationListItemDto>>($"/api/engagement-presentations?engagementSlug={Uri.EscapeDataString(engagementSlug)}", cancellationToken) ?? [];
 
+    public async Task<IReadOnlyList<EngagementPresentationListItemDto>> GetEngagementPresentationsByPresentationAsync(string presentationSlug, CancellationToken cancellationToken = default)
+        => await HttpClient.GetFromJsonAsync<List<EngagementPresentationListItemDto>>($"/api/engagement-presentations?presentationSlug={Uri.EscapeDataString(presentationSlug)}", cancellationToken) ?? [];
+
     public Task<EngagementPresentationDetailDto?> GetEngagementPresentationAsync(string slug, CancellationToken cancellationToken = default)
         => HttpClient.GetFromJsonAsync<EngagementPresentationDetailDto>($"/api/engagement-presentations/{Uri.EscapeDataString(slug)}", cancellationToken);
 

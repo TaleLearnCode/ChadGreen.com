@@ -8,6 +8,8 @@ public interface IEngagementPresentationManagementService
 {
     Task<IReadOnlyList<EngagementPresentationListItemDto>> ListByEngagementAsync(string eventSlug, CancellationToken cancellationToken = default);
 
+    Task<IReadOnlyList<EngagementPresentationListItemDto>> ListByPresentationAsync(string presentationSlug, CancellationToken cancellationToken = default);
+
     Task<EngagementPresentationDetailDto?> GetBySlugAsync(string slug, CancellationToken cancellationToken = default);
 
     Task<EngagementPresentationDetailDto> EnsureCreatedAsync(string eventSlug, string presentationSlug, CancellationToken cancellationToken = default);
@@ -28,6 +30,12 @@ public sealed class EngagementPresentationManagementService(
     private readonly ManagementOptions _options = options.Value;
 
     public async Task<IReadOnlyList<EngagementPresentationListItemDto>> ListByEngagementAsync(string eventSlug, CancellationToken cancellationToken = default)
+        => await ListAsync(eventSlug, presentationSlug: null, cancellationToken);
+
+    public async Task<IReadOnlyList<EngagementPresentationListItemDto>> ListByPresentationAsync(string presentationSlug, CancellationToken cancellationToken = default)
+        => await ListAsync(eventSlug: null, presentationSlug, cancellationToken);
+
+    private async Task<IReadOnlyList<EngagementPresentationListItemDto>> ListAsync(string? eventSlug, string? presentationSlug, CancellationToken cancellationToken)
     {
         var siteRoot = ResolveSiteRoot();
         var root = GetEngagementPresentationsRoot(siteRoot);
@@ -37,30 +45,48 @@ public sealed class EngagementPresentationManagementService(
         }
 
         var items = new List<EngagementPresentationListItemDto>();
-        var normalizedSlug = eventSlug.Trim().ToLowerInvariant();
+        var eventSlugFilter = string.IsNullOrWhiteSpace(eventSlug)
+            ? null
+            : eventSlug.Trim().ToLowerInvariant();
+        var presentationSlugFilter = string.IsNullOrWhiteSpace(presentationSlug)
+            ? null
+            : presentationSlug.Trim().ToLowerInvariant();
+        var eventTitlesBySlug = new Dictionary<string, string?>(StringComparer.OrdinalIgnoreCase);
 
         foreach (var filePath in Directory.EnumerateFiles(root, "*.md", SearchOption.AllDirectories))
         {
             var document = await markdownService.ReadAsync(filePath, cancellationToken);
             var frontmatter = document.Frontmatter;
             var fileEventSlug = ContentModelHelpers.GetString(frontmatter, "eventSlug") ?? string.Empty;
+            var filePresentationSlug = ContentModelHelpers.GetString(frontmatter, "presentationSlug") ?? string.Empty;
 
-            if (!string.Equals(fileEventSlug, normalizedSlug, StringComparison.OrdinalIgnoreCase))
+            if (eventSlugFilter is not null && !string.Equals(fileEventSlug, eventSlugFilter, StringComparison.OrdinalIgnoreCase))
+            {
+                continue;
+            }
+
+            if (presentationSlugFilter is not null && !string.Equals(filePresentationSlug, presentationSlugFilter, StringComparison.OrdinalIgnoreCase))
             {
                 continue;
             }
 
             var slug = Path.GetFileNameWithoutExtension(filePath);
+            var eventTitle = await ResolveEventTitleAsync(siteRoot, fileEventSlug, eventTitlesBySlug, cancellationToken);
             items.Add(new EngagementPresentationListItemDto(
                 slug,
                 ContentModelHelpers.GetString(frontmatter, "title") ?? slug,
                 fileEventSlug,
-                ContentModelHelpers.GetString(frontmatter, "presentationSlug") ?? string.Empty,
+                eventTitle,
+                filePresentationSlug,
                 ContentModelHelpers.ToRelativePath(siteRoot, filePath),
                 File.GetLastWriteTimeUtc(filePath)));
         }
 
-        return items.OrderBy(item => item.PresentationSlug, StringComparer.OrdinalIgnoreCase).ToList();
+        return items
+            .OrderBy(item => item.EventSlug, StringComparer.OrdinalIgnoreCase)
+            .ThenBy(item => item.PresentationSlug, StringComparer.OrdinalIgnoreCase)
+            .ThenBy(item => item.Title, StringComparer.OrdinalIgnoreCase)
+            .ToList();
     }
 
     public async Task<EngagementPresentationDetailDto?> GetBySlugAsync(string slug, CancellationToken cancellationToken = default)
@@ -446,4 +472,40 @@ public sealed class EngagementPresentationManagementService(
 
     private static string GetEngagementPresentationsRoot(string siteRoot)
         => Path.Combine(siteRoot, "src", "content", "engagementPresentations");
+
+    private static string GetEventsRoot(string siteRoot)
+        => Path.Combine(siteRoot, "src", "content", "events");
+
+    private async Task<string?> ResolveEventTitleAsync(
+        string siteRoot,
+        string eventSlug,
+        IDictionary<string, string?> cache,
+        CancellationToken cancellationToken)
+    {
+        if (string.IsNullOrWhiteSpace(eventSlug))
+        {
+            return null;
+        }
+
+        var normalizedEventSlug = eventSlug.Trim().ToLowerInvariant();
+        if (cache.TryGetValue(normalizedEventSlug, out var cachedTitle))
+        {
+            return cachedTitle;
+        }
+
+        var eventFilePath = Path.Combine(
+            GetEventsRoot(siteRoot),
+            $"{ContentModelHelpers.NormalizeSlug(normalizedEventSlug, normalizedEventSlug)}.md");
+
+        if (!File.Exists(eventFilePath))
+        {
+            cache[normalizedEventSlug] = null;
+            return null;
+        }
+
+        var eventDocument = await markdownService.ReadAsync(eventFilePath, cancellationToken);
+        var eventTitle = ContentModelHelpers.GetString(eventDocument.Frontmatter, "title");
+        cache[normalizedEventSlug] = eventTitle;
+        return eventTitle;
+    }
 }

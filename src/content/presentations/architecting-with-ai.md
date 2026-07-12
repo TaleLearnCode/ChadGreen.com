@@ -1,23 +1,31 @@
 ---
-title: "Architecting With AI: From Requirements to Reality"
-description: "Harness AI as your architectural thinking partner to clarify requirements, explore design options, and stress-test assumptions, while ensuring humans drive intent and decisions. Start applying these strategies to your own projects today."
-type: "session"
-level: "intermediate"
-durations: [45, 60, 75, 90]
-tags: ["AI", "Architecture", "Software Development"]
+title: 'Architecting With AI: From Requirements to Reality'
+description: Harness AI as your architectural thinking partner to clarify requirements, explore design options, and stress-test assumptions, while ensuring humans drive intent and decisions. Start applying these strategies to your own projects today.
+type: session
+level: intermediate
+durations:
+- 45
+- 60
+- 75
+- 90
+tags:
+- AI
+- Architecture
+- Software Development
 featured: true
-heroImage: "/images/presentations/architecting-with-ai.webp"
-status: "in-development"
+heroImage: /images/presentations/architecting-with-ai.webp
+status: active
 learningObjectives:
-  - "**Use AI to interrogate requirements and surface hidden constraints.** Learn how to turn vague inputs into architecturally meaningful clarity."
-  - "**Co-design architectures with AI using a structured trade-off workflow.** Generate and compare options quickly while forcing AI to reason rather than regurgitate."
-  - "**Convert AI output into durable, human-owned decisions.** Detect hallucinations, enforce constraints, and refactor AI ideas into governance-aligned artifacts."
-
+- '**Use AI to interrogate requirements and surface hidden constraints.** Learn how to turn vague inputs into architecturally meaningful clarity.'
+- '**Co-design architectures with AI using a structured trade-off workflow.** Generate and compare options quickly while forcing AI to reason rather than regurgitate.'
+- '**Convert AI output into durable, human-owned decisions.** Detect hallucinations, enforce constraints, and refactor AI ideas into governance-aligned artifacts.'
 resources:
-  - title: "Slides"
-    url: "https://github.com/TaleLearnCode/ArchitectingWithAI/tree/main/EventMaterials"
-    type: "slides"
+- type: slides
+  title: Slides
+  url: https://github.com/TaleLearnCode/ArchitectingWithAI/tree/main/EventMaterials
 validated: true
+slug: architecting-with-ai
+relatedPresentations: []
 ---
 
 This session focuses on employing AI as a partner to architects throughout the architectural process. Rather than replacing architects, AI expands their exploration of possibilities, specifically in clarifying ambiguous requirements, generating and evaluating design options, and assessing assumptions to avoid costly errors.
