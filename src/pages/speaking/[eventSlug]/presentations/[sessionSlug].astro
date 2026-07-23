@@ -6,7 +6,18 @@ import { getCanonicalPath } from '@/lib/engagementPresentations';
 export async function getStaticPaths() {
     const engagementPresentations = await getCollection('engagementPresentations');
 
-    return engagementPresentations.map((engagement) => ({
+    const dedupedByRoute = new Map<string, (typeof engagementPresentations)[number]>();
+
+    for (const engagement of engagementPresentations) {
+        const key = `${engagement.data.eventSlug}/${engagement.data.sessionSlug}`;
+        const existing = dedupedByRoute.get(key);
+
+        if (!existing || (existing.data.links.length === 0 && engagement.data.links.length > 0)) {
+            dedupedByRoute.set(key, engagement);
+        }
+    }
+
+    return Array.from(dedupedByRoute.values()).map((engagement) => ({
         params: {
             eventSlug: engagement.data.eventSlug,
             sessionSlug: engagement.data.sessionSlug,

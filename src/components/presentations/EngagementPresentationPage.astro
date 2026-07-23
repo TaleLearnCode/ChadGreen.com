@@ -23,9 +23,7 @@ const displayTitle = engagement.data.sessionTitle || engagement.data.title;
 const eventTitle = event?.data.title || engagement.data.eventSlug;
 const presentationTitle = presentation?.data.title || engagement.data.presentationSlug;
 const sessionImage = engagement.data.thumbnail || engagement.data.heroImage || presentation?.data.heroImage || '/images/presentations/default-thumbnail.svg';
-const resourceLinks = engagement.data.links.length > 0
-    ? engagement.data.links
-    : (presentation?.data.resources || []);
+const resourceLinks = engagement.data.links;
 ---
 
 <BaseLayout

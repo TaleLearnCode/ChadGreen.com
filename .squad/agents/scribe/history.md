@@ -24,3 +24,7 @@ Initial setup complete.
 📌 Team update (2026-07-03T09:18:28.411-04:00): Logged the Blazor WASM + local API content management planning batch with Keaton, Rusty, Linus, and Hockney; phased plan draft and open questions were captured.
 
 📌 Team update (2026-07-03T09:23:27.017-04:00): Confirmed v1 decisions logged — archive retention/purge set to 90 days, markdown editing remains plain textarea, and optional git commit integration is in scope.
+
+📌 Team update (2026-07-22T20:44:07.8720255-04:00): Clarified that engagement presentations can override base presentation resources: `EngagementPresentationPage.astro` uses `engagement.data.links` when present, otherwise falls back to `presentation.data.resources`. Updated `src/content/engagementPresentations/cincy-deliver-2026-navigating-maze-communicating-architecture.md` links with Slides, ADR Examples, and Cincy Deliver.
+
+📌 Team update (2026-07-22T20:44:07.8720255-04:00): Logged route-resolution fix for engagement presentations. Root cause was duplicate files sharing the same eventSlug/sessionSlug, where an outdated file without links won route resolution. Action taken: deleted `src/content/engagementPresentations/cincy-deliver-2026-navigating-maze-architecture-decisions.md`. Outcome: build succeeded and the canonical engagement file now drives route resources.
