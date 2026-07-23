@@ -18,7 +18,7 @@ learningObjectives:
 
 resources:
   - title: "Presentation Slides"
-    url: "https://github.com/TaleLearnCode/NavigatingTheMaze/tree/main/EventMaterialss"
+    url: "https://github.com/TaleLearnCode/NavigatingTheMaze/tree/main/EventMaterials"
     type: "slides"
 ---
 
