@@ -6,6 +6,7 @@ presentationSlug: "navigating-maze-architecture-decisions"
 sessionSlug: "navigating-maze-architecture-decisions"
 sessionTitle: "Navigating the Maze of Communicating Architecture"
 date: 2026-07-24
+time: "4:00 PM"
 timeZone: "EDT"
 sessionUrl: "https://www.cincydeliver.org/Sessions/Details/7682/"
 links:
